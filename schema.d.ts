@@ -17,6 +17,8 @@ declare type Config = {
   exclude?: Filter[];
 };
 
+declare type MaterialConfig = { id: string; config?: Config } | string;
+
 declare type Filter =
   | "ingot"
   | "gem"

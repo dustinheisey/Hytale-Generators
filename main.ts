@@ -1,4 +1,5 @@
 import * as fs from "node:fs";
+import * as path from "node:path";
 import { uppercase } from "./util.ts";
 
 type Config = {
@@ -40,6 +41,10 @@ type BlockType =
   | "volcanic";
 
 function generate(file: string, config: object) {
+  const dir = path.dirname(`dist/${file}.json`);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
   fs.writeFile(`dist/${file}.json`, JSON.stringify(config), (err) => {
     if (err) {
       console.error("Error writing file:", err);
@@ -47,6 +52,8 @@ function generate(file: string, config: object) {
     }
     console.log(`${file}.json written successfully`);
   });
+
+  generateTexture(file, "#000432", "")
 }
 
 function shouldInclude(
@@ -357,21 +364,7 @@ function oreBlock(
   }
 }
 
-function kits(kits: { id: string; config?: Config }[]) {
-  kits.forEach((kit) => {
-    ingot(kit.id, kit.config);
-    gem(kit.id, kit.config);
-    ore(kit.id, kit.config);
-    oreBlock(kit.id, "stone", kit.config);
-    oreBlock(kit.id, "basalt", kit.config);
-    oreBlock(kit.id, "sandstone", kit.config);
-    oreBlock(kit.id, "shale", kit.config);
-    oreBlock(kit.id, "slate", kit.config);
-    oreBlock(kit.id, "volcanic", kit.config);
-  });
-}
-
-kits([
+const materials: MaterialConfig[] = [
   {
     id: "acanthite",
     config: {
@@ -381,5 +374,23 @@ kits([
       processingTime: 30,
     },
   },
-  { id: "malachite" },
-]);
+  "malachite",
+  "galena",
+  "plumbago",
+  "tungsten",
+];
+
+materials.forEach((material) => {
+  const config = typeof material === "string" ? {} : material;
+  const id = typeof material === "string" ? material : material.id;
+
+  ingot(id, config);
+  gem(id, config);
+  ore(id, config);
+  oreBlock(id, "stone", config);
+  oreBlock(id, "basalt", config);
+  oreBlock(id, "sandstone", config);
+  oreBlock(id, "shale", config);
+  oreBlock(id, "slate", config);
+  oreBlock(id, "volcanic", config);
+});
