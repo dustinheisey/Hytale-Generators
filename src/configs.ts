@@ -1,0 +1,90 @@
+export const alkaliMetals: MaterialConfig[] = [
+  "lithium",
+  "sodium",
+  "potassium",
+  "rubidium",
+  "caesium",
+  "francium",
+];
+
+export const alkalineEarthMetals: MaterialConfig[] = [
+  "beryllium",
+  "magnesium",
+  "calcium",
+  "strontium",
+  "barium",
+  "radium",
+];
+
+export const transitionMetals: MaterialConfig[] = [
+  "scandium",
+  "yttrium",
+  "titanium",
+  "zirconium",
+  "hafnium",
+  "rutherfordium",
+  "vanadium",
+  "niobium",
+  "tantalum",
+  "dubnium",
+  "chromium",
+  "molybdenum",
+  "tungsten",
+  "seaborgium",
+  "manganese",
+  "technetium",
+  "rhenium",
+  "bohrium",
+  "iron",
+  "ruthenium",
+  "osmium",
+  "hassium",
+  "cobalt",
+  "rhodium",
+  "iridium",
+  "meitnerium",
+  "nickel",
+  "palladium",
+  "platinum",
+  "darmstadtium",
+  "copper",
+  "silver",
+  "gold",
+  "roentgenium",
+  "zinc",
+  "cadmium",
+  "mercury",
+  "copernicium",
+];
+
+export const postTransitionMetals: MaterialConfig[] = [
+  "aluminum",
+  "gallium",
+  "indium",
+  "thallium",
+  "nihomium",
+  "tin",
+  "lead",
+  "flerovium",
+  "bismuth",
+  "moscovium",
+  "livermorium",
+];
+
+export const metalloids: MaterialConfig[] = [
+  "boron",
+  "silicon",
+  "germanium",
+  "arsenic",
+  "antimony",
+  "tellurium",
+  "polonium",
+];
+
+export const elements: MaterialConfig[] = [
+  ...alkaliMetals,
+  ...alkalineEarthMetals,
+  ...transitionMetals,
+  ...postTransitionMetals,
+  ...metalloids,
+];
