@@ -4,8 +4,9 @@
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.0",
+    "sharp": "npm:sharp@~0.34.5",
     "@util": "./src/util.ts",
-    "@generators": "./src/generators/index.ts",
+    "@generators": "./src/generators",
     "@configs": "./src/configs.ts"
   }
 }

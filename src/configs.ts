@@ -5,6 +5,8 @@ export const alkaliMetals: MaterialConfig[] = [
   "rubidium",
   "caesium",
   "francium",
+  { id: "acanthite", color: "#324134" },
+  { id: "malachite", color: "#008000" },
 ];
 
 export const alkalineEarthMetals: MaterialConfig[] = [

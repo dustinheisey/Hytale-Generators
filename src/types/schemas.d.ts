@@ -3,7 +3,7 @@ interface Schema {
     Name: string;
     Description?: string;
   };
-  Categories: string[];
+  Categories: Tab[];
   PlayerAnimationsId: string;
   IconProperties?: {
     Scale: number;
@@ -92,8 +92,3 @@ interface BlockSchema extends Schema {
     }[];
   };
 }
-
-declare interface OreSchema extends ItemSchema {}
-declare interface OreBlockSchema extends BlockSchema {}
-declare interface GemSchema extends BlockSchema {}
-declare interface IngotSchema extends ItemSchema {}

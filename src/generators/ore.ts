@@ -1,6 +1,8 @@
 import { generate, shouldInclude, uppercase } from "@util";
 
-export function ore(
+interface OreSchema extends ItemSchema {}
+
+export default function ore(
   name: string,
   config?: Config,
 ) {
@@ -9,7 +11,8 @@ export function ore(
       Name: `server.items.Ore_${uppercase(name)}.name`,
     },
     Categories: config?.categories || [
-      "Items",
+      "Blocks.Ores",
+      "Unified_Materials.Ores",
     ],
     Recipe: {
       Input: [
@@ -64,6 +67,17 @@ export function ore(
   }
 
   if (shouldInclude("ore", config)) {
-    generate(`${uppercase(name)}/${uppercase(name)}_Ore`, json);
+    generate(
+      {
+        file: `${uppercase(name)}/${uppercase(name)}_Ore`,
+        lang: {
+          name: `items.Ore_${uppercase(name)}.name`,
+          description: `items.Ore_${uppercase(name)}.description`,
+        },
+        name: `${uppercase(name)} Ore`,
+        description: config?.description || null,
+        options: json,
+      },
+    );
   }
 }

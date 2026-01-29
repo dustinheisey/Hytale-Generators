@@ -1,6 +1,8 @@
 import { generate, shouldInclude, uppercase } from "@util";
 
-export function oreBlock(
+interface OreBlockSchema extends BlockSchema {}
+
+export default function oreBlock(
   name: string,
   type: BlockType,
   config?: Config,
@@ -11,6 +13,7 @@ export function oreBlock(
     },
     Categories: [
       "Blocks.Ores",
+      "Unified_Materials.Ores",
     ],
     BlockType: {
       Material: "Solid",
@@ -53,7 +56,13 @@ export function oreBlock(
       Textures: [
         {
           Weight: 1,
-          All: `BlockTextures/Rock_${uppercase(type)}.png`,
+          All: type !== "sandstone"
+            ? `BlockTextures/Rock_${uppercase(type)}.png`
+            : undefined as unknown as string,
+          ...(type === "sandstone" && {
+            Sides: "BlockTextures/Rock_Sandstone_Side.png",
+            UpDown: "BlockTextures/Rock_Sandstone_Top.png",
+          }),
         },
       ],
       ParticleColor: config?.particleColor || "#000000",
@@ -80,8 +89,18 @@ export function oreBlock(
 
   if (shouldInclude(`ore_${type}`, config)) {
     generate(
-      `${uppercase(name)}/Ore_${uppercase(name)}_${uppercase(type)}`,
-      json,
+      {
+        file: `${uppercase(name)}/Ore_${uppercase(name)}_${uppercase(type)}`,
+        lang: {
+          name: `items.Ore_${uppercase(name)}_${uppercase(type)}.name`,
+          description: `items.Ore_${uppercase(name)}_${
+            uppercase(type)
+          }.description`,
+        },
+        name: `${uppercase(name)} Ore - ${uppercase(type)}`,
+        description: config?.description || null,
+        options: json,
+      },
     );
   }
 }

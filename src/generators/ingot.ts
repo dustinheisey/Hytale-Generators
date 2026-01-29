@@ -1,6 +1,8 @@
 import { generate, shouldInclude, uppercase } from "@util";
 
-export function ingot(
+interface IngotSchema extends ItemSchema {}
+
+export default function ingot(
   name: string,
   config?: Config,
 ) {
@@ -14,6 +16,7 @@ export function ingot(
     }.png`,
     Categories: config?.categories || [
       "Items",
+      "Unified_Materials.Ingots",
     ],
     Recipe: {
       Input: [
@@ -68,6 +71,15 @@ export function ingot(
   }
 
   if (shouldInclude("ingot", config)) {
-    generate(`${uppercase(name)}/Ingredient_Bar_${uppercase(name)}`, json);
+    generate({
+      file: `${uppercase(name)}/Ingredient_Bar_${uppercase(name)}`,
+      lang: {
+        name: `items.Ingredient_Bar_${uppercase(name)}.name`,
+        description: `items.Ingredient_Bar_${uppercase(name)}.description`,
+      },
+      name: `${uppercase(name)} Ingot`,
+      description: config?.description || null,
+      options: json,
+    });
   }
 }

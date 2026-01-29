@@ -1,6 +1,8 @@
 import { generate, shouldInclude, uppercase } from "@util";
 
-export function gem(
+interface GemSchema extends BlockSchema {}
+
+export default function gem(
   name: string,
   config?: Config,
 ) {
@@ -10,6 +12,7 @@ export function gem(
     },
     Categories: config?.categories || [
       "Blocks.Ores",
+      "Unified_Materials.Gems",
     ],
     PlayerAnimationsId: "Block",
     BlockType: {
@@ -68,6 +71,15 @@ export function gem(
   }
 
   if (shouldInclude("gem", config)) {
-    generate(`${uppercase(name)}/${uppercase(name)}_Gem`, json);
+    generate({
+      file: `${uppercase(name)}/${uppercase(name)}_Gem`,
+      lang: {
+        name: `items.Rock_Gem_${uppercase(name)}.name`,
+        description: `items.Rock_Gem_${uppercase(name)}.description`,
+      },
+      name: `${uppercase(name)}`,
+      description: config?.description || null,
+      options: json,
+    });
   }
 }
