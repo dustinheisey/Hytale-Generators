@@ -3,8 +3,7 @@ import gem from "./generators/gem.ts";
 import ingot from "./generators/ingot.ts";
 import oreBlock from "./generators/ore-block.ts";
 import ore from "./generators/ore.ts";
-import { generateTintedTextureFromMask } from "./textures.ts";
-import { uppercase } from "@util";
+import { generateTintedTextureFromMask, uppercase } from "@util";
 
 elements.forEach((material) => {
   const config = typeof material === "string" ? {} : material;
@@ -23,15 +22,25 @@ elements.forEach((material) => {
   oreBlock(id, "slate", config);
   oreBlock(id, "volcanic", config);
 
-  ["ore", "gem", "ingot"].forEach((item) =>
-    generateTintedTextureFromMask({
-      texturePath: `src/textures/${item}-mask.png`,
-      color,
-      outPath: `dist/textures/${item}s/${uppercase(id)}.png`,
-    }).then(() => {
-      console.log("Tinted texture generated successfully.");
-    }).catch((err) => {
-      console.error(err);
-    })
-  );
+  generateTintedTextureFromMask({
+    texturePath: `src/textures/ore-mask.png`,
+    color,
+    outPath: `dist/Common/Resources/Ores/Ore_Textures/${uppercase(id)}.png`,
+  }).then(() => {
+    console.log("Tinted texture generated successfully.");
+  }).catch((err) => {
+    console.error(err);
+  });
+
+  generateTintedTextureFromMask({
+    texturePath: `src/textures/ingot-mask.png`,
+    color,
+    outPath: `dist/Common/Resources/Materials/Ingot_Textures/${
+      uppercase(id)
+    }.png`,
+  }).then(() => {
+    console.log("Tinted texture generated successfully.");
+  }).catch((err) => {
+    console.error(err);
+  });
 });

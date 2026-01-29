@@ -46,3 +46,5 @@ declare type Tab =
   | "Unified_Materials.Ores"
   | "Unified_Materials.Ingots"
   | "Unified_Materials.Alloys";
+
+declare type RGB = { r: number; g: number; b: number };
