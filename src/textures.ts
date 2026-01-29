@@ -1,4 +1,6 @@
 import sharp from "sharp";
+import fs from "node:fs";
+import path from "node:path";
 
 type RGB = { r: number; g: number; b: number };
 
@@ -25,63 +27,29 @@ function parseColor(color: string): RGB {
   throw new Error(`Unsupported hex format: ${color}`);
 }
 
-/**
- * maskPath: grayscale PNG (optionally with alpha)
- * color: tint color
- * outPath: where to write the generated PNG
- *
- * Rule: outputRGB = tintRGB * maskLuma
- * Alpha: if the mask has alpha, it’s preserved; otherwise fully opaque.
- */
 export async function generateTintedTextureFromMask(opts: {
-  maskPath: string;
+  texturePath: string;
   color: string;
   outPath: string;
 }) {
-  const { maskPath, outPath, color } = opts;
-  const { r, g, b } = parseColor(color);
+  const { texturePath, color, outPath } = opts;
 
-  // Load mask, ensure it has alpha so output can be RGBA.
-  // ensureAlpha docs: https://sharp.pixelplumbing.com/api-channel/
-  const mask = sharp(maskPath).ensureAlpha();
-
-  const meta = await mask.metadata();
-  if (!meta.width || !meta.height) {
-    throw new Error("Could not read mask dimensions");
+  // Create the directory if it does not exist
+  const outDir = path.dirname(outPath);
+  if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir, { recursive: true });
   }
 
-  // Make a solid color base image the same size as the mask.
-  const base = sharp({
-    create: {
-      width: meta.width,
-      height: meta.height,
-      channels: 4,
-      background: { r, g, b, alpha: 1 },
-    },
-  });
-
-  // Prepare an RGB “luminance image” from the mask to multiply into the base.
-  // composite/blend docs: https://sharp.pixelplumbing.com/api-composite/
-  const maskRgb = await sharp(maskPath)
-    .ensureAlpha()
-    .removeAlpha()
-    .grayscale() // convert to grayscale luminance
-    .toColorspace("srgb")
-    .toBuffer();
-
-  // Multiply base color by mask luminance.
-  // This makes dark parts darker, bright parts keep the tint.
-  const colored = base.composite([{ input: maskRgb, blend: "multiply" }]);
-
-  // Preserve mask alpha (if any) by extracting mask alpha and joining it as the output alpha channel.
-  // (extractChannel('alpha') exists; see related API discussions/issues)
-  // https://github.com/lovell/sharp/issues/2138
-  const alpha = await mask.extractChannel("alpha").toColourspace("b-w")
-    .toBuffer();
-
-  await colored
-    .removeAlpha()
-    .joinChannel(alpha) // attach alpha as the 4th channel
-    .png()
-    .toFile(outPath); // https://sharp.pixelplumbing.com/api-output/
+  try {
+    await sharp(texturePath)
+      .tint(parseColor(color)) // Applies the color variant
+      .toFile(outPath);
+    console.log(
+      `Variant saved to ${outPath} with color: ${color} & rgb ${
+        parseColor(color)
+      }`,
+    );
+  } catch (err) {
+    console.error("Error generating texture:", err);
+  }
 }

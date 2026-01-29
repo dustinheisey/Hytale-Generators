@@ -11,7 +11,7 @@ elements.forEach((material) => {
   const id = typeof material === "string" ? material : material.id;
   const color = typeof material === "string"
     ? "#FFFFFF"
-    : material?.config?.color || "#FFFFFF"; // Default to white if no color is provided
+    : material?.config?.color || "#000012"; // Default to white if no color is provided
 
   ingot(id, config);
   // gem(id, config);
@@ -25,9 +25,13 @@ elements.forEach((material) => {
 
   ["ore", "gem", "ingot"].forEach((item) =>
     generateTintedTextureFromMask({
-      maskPath: `src/textures/${item}-mask.png`,
+      texturePath: `src/textures/${item}-mask.png`,
       color,
       outPath: `dist/textures/${item}s/${uppercase(id)}.png`,
+    }).then(() => {
+      console.log("Tinted texture generated successfully.");
+    }).catch((err) => {
+      console.error(err);
     })
   );
 });
