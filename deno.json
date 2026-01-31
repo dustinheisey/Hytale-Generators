@@ -1,12 +1,17 @@
 {
   "tasks": {
-    "dev": "deno run src/index.ts && deno fmt ."
+    "dev": "deno run src/index.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.0",
-    "@util": "./src/util.ts",
-    "@generators": "./src/generators",
-    "@configs": "./src/configs.ts",
-    "sharp": "npm:sharp@^0.34.5"
+    "culori": "npm:culori@^4.0.2",
+    "sharp": "npm:sharp@^0.34.5",
+    "@text": "./src/util/text.ts",
+    "@color": "./src/util/color.ts",
+    "@sync": "./src/util/sync/sync.ts",
+    "@data": "./src/data/data.ts"
+  },
+  "fmt": {
+    "quoteProps": "asNeeded"
   }
 }

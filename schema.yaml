@@ -1,0 +1,15 @@
+Schema:
+  - public: Copy file structure to dist/Common
+  - dist:
+  - src:
+      - configs: Actual data that is passed to the generators (type: *Config)
+      - data: Functions that generate objects with the configs (type: *Data)
+      - generators: Function that sync dist directory with data (type: *Generator)
+      - textures: Mask greyscale textures
+      - types: Types (*Config, *Data, *Generator & Utility)
+      - util: Utility functions
+      - index.ts: Main file
+  - deno.json:
+  - releases.md:
+  - TODO.md:
+  - schema.yaml: This File
