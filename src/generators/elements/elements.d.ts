@@ -3,6 +3,7 @@ declare interface ElementConfig extends ThingConfig {
   color: string;
   include?: Kind[];
   exclude?: Kind[];
+  processingTime?: number;
   ores?: Omit<ThingConfig, "id">;
   oreBlock?: Omit<OreBlockConfig, "id">;
   ore?: Omit<OreConfig, "id">;

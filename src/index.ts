@@ -1,3 +1,4 @@
+import { generateRecipe } from "./recipe/recipe.ts";
 import { syncJson, syncPublic } from "./util/sync/sync.ts";
 import {
   generateCategories,
@@ -13,8 +14,9 @@ import {
   - [x] Step 1: Copy public folder
   - [x] Step 2: Append lang correctly
   - [x] Step 3: Generate textures correctly
-  - [x] Step 5: add creative tab json
-  - [ ] Step 6: add resource type json
+  - [x] Step 4: add creative tab json
+  - [x] Step 5: add resource type json
+  - [x] Step 6: add recipe json
   - [ ] Step 4: Generate json correctly
 */
 

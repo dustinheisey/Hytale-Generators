@@ -7,4 +7,4 @@ export { ore } from "./thing/ore.ts";
 export { oreBlock } from "./thing/ore-block.ts";
 
 export { resourceType } from "../resource-type/resource-type.ts";
-export { recipe } from "./recipe.ts";
+export { recipe } from "../recipe/recipe.ts";

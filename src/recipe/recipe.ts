@@ -1,3 +1,6 @@
+import { syncJson } from "@sync";
+import { u } from "@text";
+
 function benchRequirement(bench: Bench) {
   let type: CraftingType;
 
@@ -63,7 +66,7 @@ function benchRequirement(bench: Bench) {
   };
 }
 
-export const recipe = (config: RecipeConfig): ExternalRecipeData => {
+export const data = (config: RecipeConfig): ExternalRecipeData => {
   const { processingTime, inputs, outputs, bench } = config;
   return {
     Input: inputs,
@@ -75,3 +78,7 @@ export const recipe = (config: RecipeConfig): ExternalRecipeData => {
     TimeSeconds: processingTime || 10,
   };
 };
+
+export function generateRecipe(config: RecipeConfig) {
+  syncJson(`Server/Item/CraftingRecipe/${u(config.id)}`, data(config));
+}

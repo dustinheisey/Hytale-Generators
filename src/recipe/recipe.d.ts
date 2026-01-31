@@ -56,6 +56,7 @@ declare interface ExternalRecipeData extends BaseRecipeData {
 }
 
 declare interface RecipeConfig {
+  id: string;
   inputs: Input[];
   bench: Bench;
   processingTime: number;
