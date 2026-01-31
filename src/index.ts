@@ -17,7 +17,11 @@ import {
   - [x] Step 4: add creative tab json
   - [x] Step 5: add resource type json
   - [x] Step 6: add recipe json
-  - [ ] Step 4: Generate json correctly
+  - [ ] Step 7: Generate oreBlock json correctly
+  - [ ] Step 8: Generate ore json correctly
+  - [ ] Step 9: Generate gem json correctly
+  - [ ] Step 10: Generate dust json correctly
+  - [ ] Step 11: Generate ingot json correctly
 */
 
 // * Works
@@ -69,14 +73,16 @@ const test: ElementConfig[] = [
 ];
 
 test.forEach((element) => {
-  generateDust(element);
-  generateGem(element);
-  generateIngot(element);
-  generateOre(element);
-  generateOreBlock("stone", element);
-  generateOreBlock("basalt", element);
-  generateOreBlock("sandstone", element);
-  generateOreBlock("shale", element);
-  generateOreBlock("slate", element);
-  generateOreBlock("volcanic", element);
+  const { dust, gem, ingot, ores, ore, oreBlock } = element;
+
+  generateDust({ ...element, ...dust });
+  generateGem({ ...element, ...gem });
+  generateIngot({ ...element, ...ingot });
+  generateOre({ ...element, ...ores, ...ore });
+  generateOreBlock("stone", { ...element, ...ores, ...oreBlock });
+  generateOreBlock("basalt", { ...element, ...ores, ...oreBlock });
+  generateOreBlock("sandstone", { ...element, ...ores, ...oreBlock });
+  generateOreBlock("shale", { ...element, ...ores, ...oreBlock });
+  generateOreBlock("slate", { ...element, ...ores, ...oreBlock });
+  generateOreBlock("volcanic", { ...element, ...ores, ...oreBlock });
 });

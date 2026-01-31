@@ -1,6 +1,7 @@
+import { syncJson, syncLang, syncTexture } from "@sync";
 import { u } from "@text";
 
-export const dust = (config: DustConfig): DustData => {
+export const data = (config: DustConfig): DustData => {
   const {
     id,
     categories,
@@ -75,3 +76,28 @@ export const dust = (config: DustConfig): DustData => {
     MaxStack: maxStack || 25,
   };
 };
+
+export function generateDust(config: ElementConfig) {
+  const description = config?.dust?.description || config.description || null;
+
+  syncLang({
+    name: {
+      key: `items.Dust_${u(config.id)}.name`,
+      value: `${config?.dust?.name || config.name || u(config.id)} Dust`,
+    },
+    ...(description && {
+      description: {
+        key: `items.Dust_${u(config.id)}.description`,
+        value: description,
+      },
+    }),
+  });
+
+  syncTexture({
+    color: config?.dust?.color || config.color,
+    inputFile: "src/textures/dust-mask.png",
+    outputFile: `dist/Common/Resources/Dusts/${u(config.id)}.png`,
+  });
+
+  syncJson(`Server/Item/Dust/${u(config.id)}`, data(config));
+}
