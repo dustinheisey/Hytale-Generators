@@ -1,29 +1,12 @@
 import { syncJson, syncPublic } from "./util/sync/sync.ts";
 import { generateCategories } from "./content/categories/categories.ts";
 import { generateResourceType } from "./content/resource-type/resource-type.ts";
-import { generateOreBlock } from "./content/ore-block/ore-block.ts";
-import { generateOre } from "./content/ore/ore.ts";
-import { generateGem } from "./content/gem/gem.ts";
-import { generateDust } from "./content/dust/dust.ts";
-import { generateIngot } from "./content/ingot/ingot.ts";
+import { generateElement } from "./content/element/element.ts";
 
-/*
-  - [x] Step 1: Copy public folder
-  - [x] Step 2: Append lang correctly
-  - [x] Step 3: Generate textures correctly
-  - [x] Step 4: add creative tab json
-  - [x] Step 5: add resource type json
-  - [x] Step 6: add recipe json
-  - [ ] Step 7: Generate oreBlock json correctly
-  - [ ] Step 8: Generate ore json correctly
-  - [ ] Step 9: Generate gem json correctly
-  - [ ] Step 10: Generate dust json correctly
-  - [ ] Step 11: Generate ingot json correctly
-*/
-
-// * Works
+// ? Copy public folder contents to dist
 syncPublic();
 
+// ? Generate manifest file
 syncJson("manifest", {
   Group: "gg.inconvenient",
   Name: "Unified Materials",
@@ -44,6 +27,7 @@ syncJson("manifest", {
   SubPlugins: [],
 });
 
+// ? Generate creative categories file
 generateCategories({
   id: "unified_materials",
   name: "Unified Materials",
@@ -56,30 +40,149 @@ generateCategories({
   ],
 });
 
+// ? Generate resource type files
 ["dusts", "alloys"].forEach((type) => generateResourceType(type));
 
-// ! Testing
-const test: ElementConfig[] = [
-  { id: "gold", color: "#222111" },
-  { id: "tin", color: "#752718", ores: { name: "Cassiterite" } },
-  {
-    id: "copper",
-    color: "#33aa32",
-    ores: { name: "Malachite", description: "Can be processed into copper" },
-  },
-];
+// ? Generate all element kit files
+const elements: ElementsConfig = {
+  reactiveNonmetals: [
+    { id: "hydrogen", color: "#B2EBF2" },
+    { id: "helium", color: "#FFF9C4" },
+    {
+      id: "carbon",
+      color: "#37474F",
+      ores: { name: "Graphite", description: "Can be processed into Carbon" },
+    },
+    { id: "nitrogen", color: "#C5CAE9" },
+    { id: "oxygen", color: "#EF9A9A" },
+    { id: "fluorine", color: "#E6EE9C" },
+    { id: "neon", color: "#FFAB91" },
+    { id: "phosphorus", color: "#FFCC80" },
+    { id: "sulfur", color: "#FFF176" },
+    { id: "chlorine", color: "#CCFF90" },
+    { id: "argon", color: "#D1C4E9" },
+    { id: "selenium", color: "#80CBC4" },
+    { id: "bromine", color: "#A5D6A7" },
+    { id: "krypton", color: "#81D4FA" },
+    { id: "iodine", color: "#CE93D8" },
+    { id: "xenon", color: "#90CAF9" },
+    { id: "astatine", color: "#8D6E63" },
+    { id: "radon", color: "#BCAAA4" },
+    { id: "tennessine", color: "#4DB6AC" },
+    { id: "oganesson", color: "#CFD8DC" },
+  ],
+  alkaliMetals: [
+    { id: "lithium", color: "#FF5252", ores: { name: "Spodumene" } },
+    { id: "sodium", color: "#FFD740", ores: { name: "Halite" } },
+    { id: "potassium", color: "#E040FB", ores: { name: "Sylvite" } },
+    { id: "rubidium", color: "#FF4081", ores: { name: "Lepidolite" } },
+    { id: "caesium", color: "#7C4DFF", ores: { name: "Pollucite" } },
+    { id: "francium", color: "#B71C1C" },
+  ],
+  alkalineEarthMetals: [
+    { id: "beryllium", color: "#4CAF50", ores: { name: "Bertrandite" } },
+    { id: "magnesium", color: "#8BC34A", ores: { name: "Magnesite" } },
+    { id: "calcium", color: "#CDDC39" },
+    { id: "strontium", color: "#FFEB3B", ores: { name: "Celestite" } },
+    { id: "barium", color: "#FFC107", ores: { name: "Barite" } },
+    { id: "radium", color: "#FF9800" },
+  ],
+  transitionMetals: [
+    { id: "scandium", color: "#00BCD4" },
+    { id: "titanium", color: "#03A9F4" },
+    { id: "vanadium", color: "#2196F3" },
+    { id: "chromium", color: "#3F51B5" },
+    { id: "manganese", color: "#673AB7" },
+    { id: "iron", color: "#9C27B0" },
+    { id: "cobalt", color: "#E91E63" },
+    { id: "nickel", color: "#F44336" },
+    { id: "copper", color: "#FF5722" },
+    { id: "zinc", color: "#FF9800" },
+    { id: "yttrium", color: "#FFC107" },
+    { id: "zirconium", color: "#FFEB3B" },
+    { id: "niobium", color: "#CDDC39" },
+    { id: "molybdenum", color: "#8BC34A" },
+    { id: "technetium", color: "#4CAF50" },
+    { id: "ruthenium", color: "#009688" },
+    { id: "rhodium", color: "#00BCD4" },
+    { id: "palladium", color: "#03A9F4" },
+    { id: "silver", color: "#B0BEC5" },
+    { id: "cadmium", color: "#FF8A80" },
+    { id: "hafnium", color: "#FF5252" },
+    { id: "tantalum", color: "#E040FB" },
+    { id: "tungsten", color: "#7C4DFF" },
+    { id: "rhenium", color: "#536DFE" },
+    { id: "osmium", color: "#448AFF" },
+    { id: "iridium", color: "#40C4FF" },
+    { id: "platinum", color: "#E0E0E0" },
+    { id: "gold", color: "#FFD700" },
+    { id: "mercury", color: "#CFD8DC" },
+    { id: "rutherfordium", color: "#F06292" },
+    { id: "dubnium", color: "#BA68C8" },
+    { id: "seaborgium", color: "#9575CD" },
+    { id: "bohrium", color: "#7986CB" },
+    { id: "hassium", color: "#64B5F6" },
+    { id: "meitnerium", color: "#4FC3F7" },
+    { id: "darmstadtium", color: "#4DB6AC" },
+    { id: "roentgenium", color: "#81C784" },
+    { id: "copernicium", color: "#AED581" },
+  ],
+  postTransitionMetals: [
+    { id: "aluminum", color: "#90A4AE" },
+    { id: "gallium", color: "#DCE775" },
+    { id: "indium", color: "#4DD0E1" },
+    { id: "tin", color: "#9575CD" },
+    { id: "thallium", color: "#A1887F" },
+    { id: "lead", color: "#455A64" },
+    { id: "bismuth", color: "#FF80AB" },
+    { id: "nihonium", color: "#FFB74D" },
+    { id: "flerovium", color: "#FFD54F" },
+    { id: "moscovium", color: "#BA68C8" },
+    { id: "livermorium", color: "#81C784" },
+  ],
+  metalloids: [
+    { id: "boron", color: "#8D6E63" },
+    { id: "silicon", color: "#78909C" },
+    { id: "germanium", color: "#9E9E9E" },
+    { id: "arsenic", color: "#D4E157" },
+    { id: "antimony", color: "#CE93D8" },
+    { id: "tellurium", color: "#F48FB1" },
+    { id: "polonium", color: "#FFF176" },
+  ],
+  lanthanides: [
+    { id: "lanthanum", color: "#E1F5FE" },
+    { id: "cerium", color: "#B3E5FC" },
+    { id: "praseodymium", color: "#81D4FA" },
+    { id: "neodymium", color: "#4FC3F7" },
+    { id: "promethium", color: "#29B6F6" },
+    { id: "samarium", color: "#039BE5" },
+    { id: "europium", color: "#0288D1" },
+    { id: "gadolinium", color: "#0277BD" },
+    { id: "terbium", color: "#01579B" },
+    { id: "dysprosium", color: "#E8EAF6" },
+    { id: "holmium", color: "#C5CAE9" },
+    { id: "erbium", color: "#9FA8DA" },
+    { id: "thulium", color: "#7986CB" },
+    { id: "ytterbium", color: "#5C6BC0" },
+    { id: "lutetium", color: "#3F51B5" },
+  ],
+  actinides: [
+    { id: "actinium", color: "#FCE4EC" },
+    { id: "thorium", color: "#F8BBD0" },
+    { id: "protactinium", color: "#F48FB1" },
+    { id: "uranium", color: "#F06292" },
+    { id: "neptunium", color: "#EC407A" },
+    { id: "plutonium", color: "#D81B60" },
+    { id: "americium", color: "#AD1457" },
+    { id: "curium", color: "#880E4F" },
+    { id: "berkelium", color: "#E1BEE7" },
+    { id: "californium", color: "#D1C4E9" },
+    { id: "einsteinium", color: "#B39DDB" },
+    { id: "fermium", color: "#9575CD" },
+    { id: "mendelevium", color: "#7E57C2" },
+    { id: "nobelium", color: "#673AB7" },
+    { id: "lawrencium", color: "#512DA8" },
+  ],
+};
 
-test.forEach((element) => {
-  const { dust, gem, ingot, ores, ore, oreBlock } = element;
-
-  generateDust({ ...element, ...dust });
-  generateGem({ ...element, ...gem });
-  generateIngot({ ...element, ...ingot });
-  generateOre({ ...element, ...ores, ...ore });
-  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "stone" });
-  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "basalt" });
-  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "sandstone" });
-  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "shale" });
-  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "slate" });
-  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "volcanic" });
-});
+Object.values(elements).flat().forEach((element) => generateElement(element));

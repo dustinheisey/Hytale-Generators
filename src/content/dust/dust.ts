@@ -99,5 +99,8 @@ export function generateDust(config: ElementConfig) {
     outputFile: `dist/Common/Resources/Dusts/${u(config.id)}.png`,
   });
 
-  syncJson(`Server/Item/Kits/${u(config.id)}/Dust_${u(config.id)}`, data(config));
+  syncJson(
+    `Server/Item/Elements/${u(config.id)}/Dust_${u(config.id)}`,
+    data(config),
+  );
 }

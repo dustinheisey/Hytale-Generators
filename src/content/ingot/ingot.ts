@@ -120,7 +120,7 @@ export function generateIngot(config: ElementConfig) {
   });
 
   syncJson(
-    `Server/Item/Kits/${u(config.id)}/Ingot_${u(config.id)}`,
+    `Server/Item/Elements/${u(config.id)}/Ingot_${u(config.id)}`,
     data(config),
   );
 }

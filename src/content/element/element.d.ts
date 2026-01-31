@@ -12,6 +12,17 @@ declare interface ElementConfig extends ThingConfig {
   ingot?: Omit<IngotConfig, "id">;
 }
 
+declare interface ElementsConfig {
+  reactiveNonmetals: ElementConfig[];
+  alkaliMetals: ElementConfig[];
+  alkalineEarthMetals: ElementConfig[];
+  transitionMetals: ElementConfig[];
+  postTransitionMetals: ElementConfig[];
+  metalloids: ElementConfig[];
+  lanthanides: ElementConfig[];
+  actinides: ElementConfig[];
+}
+
 /*
 - categories
 - model

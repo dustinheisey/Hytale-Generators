@@ -105,7 +105,9 @@ export function generateOreBlock(
   });
 
   syncJson(
-    `Server/Item/Kits/${u(config.id)}/Ore_${u(config.id)}_${u(config.type)}`,
+    `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}_${
+      u(config.type)
+    }`,
     data(config),
   );
 }

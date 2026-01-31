@@ -94,7 +94,7 @@ export function generateOre(config: ElementConfig) {
   });
 
   syncJson(
-    `Server/Item/Kits/${u(config.id)}/Ore_${u(config.id)}`,
+    `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}`,
     data(config),
   );
 }

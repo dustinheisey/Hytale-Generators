@@ -97,7 +97,7 @@ export function generateGem(config: ElementConfig) {
   });
 
   syncJson(
-    `Server/Item/Kits/${u(config.id)}/Gem_${u(config.id)}`,
+    `Server/Item/Elements/${u(config.id)}/Gem_${u(config.id)}`,
     data(config),
   );
 }
