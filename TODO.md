@@ -10,3 +10,15 @@
 - [ ] add dusts creative tab
 - [ ] configure max stack size of everything
 - [ ] make dusts recipe in salvager
+
+## Backlog
+
+- [ ] capture crate
+- [ ] feedbag
+- [ ] hammer
+- [ ] shears
+- [ ] fishing trap
+- [ ] growth potion
+- [ ] map
+- [ ] sap shunt
+- [ ] trap bait
