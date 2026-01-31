@@ -9,7 +9,8 @@
     "@text": "./src/util/text.ts",
     "@color": "./src/util/color.ts",
     "@sync": "./src/util/sync/sync.ts",
-    "@data": "./src/data/data.ts"
+    "@data": "./src/data/data.ts",
+    "@generators": "./src/generators/generators.ts"
   },
   "fmt": {
     "quoteProps": "asNeeded"

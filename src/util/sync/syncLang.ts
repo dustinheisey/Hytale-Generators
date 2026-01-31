@@ -1,5 +1,6 @@
 import * as fs from "node:fs";
 import { syncFile } from "@sync";
+import process from "node:process";
 
 type LangEntry = { key: string; value: string };
 
@@ -41,10 +42,11 @@ export function appendLang(file: string, key: string, value: string) {
  * );
  */
 export function syncLang(
-  file: string,
-  name: LangEntry,
-  description?: LangEntry,
+  config: { name: LangEntry; description?: LangEntry },
 ) {
+  const { name, description } = config;
+  const file = `${process.cwd()}/dist/Server/Languages/en-US/server.lang`;
+
   syncFile(file);
   appendLang(file, name.key, name.value);
   if (description) appendLang(file, description.key, description.value);

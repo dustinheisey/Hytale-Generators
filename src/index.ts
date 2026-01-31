@@ -1,5 +1,23 @@
-import { syncJson, syncPublic } from "./util/sync/sync.ts";
+import { syncJson, syncLang, syncPublic } from "./util/sync/sync.ts";
+import { u } from "@text";
+import {
+  generateDust,
+  generateGem,
+  generateIngot,
+  generateOre,
+  generateOreBlock,
+} from "@generators";
 
+/*
+  - [x] Step 1: Copy public folder
+  - [x] Step 2: Append lang correctly
+  - [ ] Step 3: Generate textures correctly
+  - [ ] Step 4: Generate json correctly
+  - [ ] Step 5: add creative tab json
+  - [ ] Step 6: add resource type json
+*/
+
+// * Works
 syncPublic();
 
 syncJson("manifest", {
@@ -20,4 +38,28 @@ syncJson("manifest", {
   DisabledByDefault: false,
   IncludesAssetPack: false,
   SubPlugins: [],
+});
+
+// ! Testing
+const test: ElementConfig[] = [
+  { id: "gold", color: "#222111" },
+  { id: "tin", color: "#752718", ores: { name: "Cassiterite" } },
+  {
+    id: "copper",
+    color: "#33aa32",
+    ores: { name: "Malachite", description: "Can be processed into copper" },
+  },
+];
+
+test.forEach((element) => {
+  generateDust(element);
+  generateGem(element);
+  generateIngot(element);
+  generateOre(element);
+  generateOreBlock("stone", element);
+  generateOreBlock("basalt", element);
+  generateOreBlock("sandstone", element);
+  generateOreBlock("shale", element);
+  generateOreBlock("slate", element);
+  generateOreBlock("volcanic", element);
 });

@@ -6,6 +6,7 @@ declare interface ElementConfig extends ThingConfig {
   ores?: Omit<ThingConfig, "id">;
   oreBlock?: Omit<OreBlockConfig, "id">;
   ore?: Omit<OreConfig, "id">;
+  gem?: Omit<GemConfig, "id">;
   dust?: Omit<DustConfig, "id">;
   ingot?: Omit<IngotConfig, "id">;
 }
