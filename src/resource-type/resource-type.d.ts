@@ -2,6 +2,7 @@ declare interface ResourceTypeData {
   Icon: string;
 }
 
-declare interface ResourceTypeConfig {
+declare type ResourceTypeConfig = {
+  id: string;
   icon: string;
-}
+} | string;

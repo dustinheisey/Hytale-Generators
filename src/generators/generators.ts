@@ -1,4 +1,5 @@
-export { generateCategories } from "./categories.ts";
+export { generateCategories } from "../categories/categories.ts";
+export { generateResourceType } from "../resource-type/resource-type.ts";
 
 export { generateOreBlock } from "./ore-block.ts";
 export { generateOre } from "./ore.ts";

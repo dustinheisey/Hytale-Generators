@@ -6,15 +6,14 @@ import {
   generateIngot,
   generateOre,
   generateOreBlock,
+  generateResourceType,
 } from "@generators";
-
-import { categories } from "@configs";
 
 /*
   - [x] Step 1: Copy public folder
   - [x] Step 2: Append lang correctly
   - [x] Step 3: Generate textures correctly
-  - [ ] Step 5: add creative tab json
+  - [x] Step 5: add creative tab json
   - [ ] Step 6: add resource type json
   - [ ] Step 4: Generate json correctly
 */
@@ -42,6 +41,20 @@ syncJson("manifest", {
   SubPlugins: [],
 });
 
+generateCategories({
+  id: "unified_materials",
+  name: "Unified Materials",
+  children: [
+    "ores",
+    "gems",
+    "dusts",
+    "ingots",
+    "alloys",
+  ],
+});
+
+["dusts", "alloys"].forEach((type) => generateResourceType(type));
+
 // ! Testing
 const test: ElementConfig[] = [
   { id: "gold", color: "#222111" },
@@ -52,8 +65,6 @@ const test: ElementConfig[] = [
     ores: { name: "Malachite", description: "Can be processed into copper" },
   },
 ];
-
-generateCategories(categories);
 
 test.forEach((element) => {
   generateDust(element);
