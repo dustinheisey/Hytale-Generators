@@ -1,5 +1,6 @@
 import { u } from "@text";
 import { syncJson, syncLang, syncTexture } from "@sync";
+import { include } from "@include";
 
 export const data = (config: OreConfig): OreData => {
   const {
@@ -68,33 +69,35 @@ export const data = (config: OreConfig): OreData => {
 };
 
 export function generateOre(config: ElementConfig) {
-  const description = config?.ore?.description || config?.ores?.description ||
-    config.description || null;
+  if (include("ore", config)) {
+    const description = config?.ore?.description || config?.ores?.description ||
+      config.description || null;
 
-  syncLang({
-    name: {
-      key: `items.Ore_${u(config.id)}.name`,
-      value: `${
-        config?.ore?.name || config?.ores?.name || config.name ||
-        u(config.id)
-      } Ore`,
-    },
-    ...(description && {
-      description: {
-        key: `items.Ore_${u(config.id)}.description`,
-        value: description,
+    syncLang({
+      name: {
+        key: `items.Ore_${u(config.id)}.name`,
+        value: `${
+          config?.ore?.name || config?.ores?.name || config.name ||
+          u(config.id)
+        } Ore`,
       },
-    }),
-  });
+      ...(description && {
+        description: {
+          key: `items.Ore_${u(config.id)}.description`,
+          value: description,
+        },
+      }),
+    });
 
-  syncTexture({
-    color: config?.ore?.color || config?.ores?.color || config.color,
-    inputFile: "assets/ore-mask.png",
-    outputFile: `dist/Common/Resources/Ores/${u(config.id)}.png`,
-  });
+    syncTexture({
+      color: config?.ore?.color || config?.ores?.color || config.color,
+      inputFile: "assets/ore-mask.png",
+      outputFile: `dist/Common/Resources/Ores/${u(config.id)}.png`,
+    });
 
-  syncJson(
-    `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}`,
-    data(config),
-  );
+    syncJson(
+      `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}`,
+      data(config),
+    );
+  }
 }

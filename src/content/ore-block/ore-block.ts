@@ -1,5 +1,6 @@
 import { u } from "@text";
 import { syncJson, syncLang } from "@sync";
+import { include } from "@include";
 
 export const data = (config: OreBlockConfig): OreBlockData => {
   const {
@@ -84,32 +85,34 @@ export const data = (config: OreBlockConfig): OreBlockData => {
 export function generateOreBlock(
   config: ElementConfig & { type: Block },
 ) {
-  const description = config?.oreBlock?.description ||
-    config?.ores?.description ||
-    config.description || null;
+  if (include(`ore_${config.type}`, config)) {
+    const description = config?.oreBlock?.description ||
+      config?.ores?.description ||
+      config.description || null;
 
-  syncLang({
-    name: {
-      key: `items.Ore_${u(config.id)}_${u(config.type)}.name`,
-      value: `${
-        config?.oreBlock?.name || config?.ores?.name || config.name ||
-        u(config.id)
-      } Ore - ${u(config.type)}`,
-    },
-    ...(description && {
-      description: {
-        key: `items.Ore_${u(config.id)}_${u(config.type)}.description`,
-        value: description,
+    syncLang({
+      name: {
+        key: `items.Ore_${u(config.id)}_${u(config.type)}.name`,
+        value: `${
+          config?.oreBlock?.name || config?.ores?.name || config.name ||
+          u(config.id)
+        } Ore - ${u(config.type)}`,
       },
-    }),
-  });
+      ...(description && {
+        description: {
+          key: `items.Ore_${u(config.id)}_${u(config.type)}.description`,
+          value: description,
+        },
+      }),
+    });
 
-  syncJson(
-    `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}_${
-      u(config.type)
-    }`,
-    data(config),
-  );
+    syncJson(
+      `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}_${
+        u(config.type)
+      }`,
+      data(config),
+    );
+  }
 }
 
 // oreBlock({ id: "Acanthite", type: "basalt", color: "#432344" });

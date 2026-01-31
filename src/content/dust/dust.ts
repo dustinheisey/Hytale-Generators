@@ -1,5 +1,6 @@
 import { syncJson, syncLang, syncTexture } from "@sync";
 import { u } from "@text";
+import { include } from "@include";
 
 export const data = (config: DustConfig): DustData => {
   const {
@@ -14,10 +15,10 @@ export const data = (config: DustConfig): DustData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Ingredient_Dust_${u(id)}.name`,
+      Name: `server.items.Dust_${u(id)}.name`,
       ...(config.description
         ? {
-          Description: `server.items.Ingredient_Dust_${u(id)}.description`,
+          Description: `server.items.Dust_${u(id)}.description`,
         }
         : ""),
     },
@@ -78,29 +79,31 @@ export const data = (config: DustConfig): DustData => {
 };
 
 export function generateDust(config: ElementConfig) {
-  const description = config?.dust?.description || config.description || null;
+  if (include("dust", config)) {
+    const description = config?.dust?.description || config.description || null;
 
-  syncLang({
-    name: {
-      key: `items.Dust_${u(config.id)}.name`,
-      value: `${config?.dust?.name || config.name || u(config.id)} Dust`,
-    },
-    ...(description && {
-      description: {
-        key: `items.Dust_${u(config.id)}.description`,
-        value: description,
+    syncLang({
+      name: {
+        key: `items.Dust_${u(config.id)}.name`,
+        value: `${config?.dust?.name || config.name || u(config.id)} Dust`,
       },
-    }),
-  });
+      ...(description && {
+        description: {
+          key: `items.Dust_${u(config.id)}.description`,
+          value: description,
+        },
+      }),
+    });
 
-  syncTexture({
-    color: config?.dust?.color || config.color,
-    inputFile: "assets/dust-mask.png",
-    outputFile: `dist/Common/Resources/Dusts/${u(config.id)}.png`,
-  });
+    syncTexture({
+      color: config?.dust?.color || config.color,
+      inputFile: "assets/dust-mask.png",
+      outputFile: `dist/Common/Resources/Dusts/${u(config.id)}.png`,
+    });
 
-  syncJson(
-    `Server/Item/Elements/${u(config.id)}/Dust_${u(config.id)}`,
-    data(config),
-  );
+    syncJson(
+      `Server/Item/Elements/${u(config.id)}/Dust_${u(config.id)}`,
+      data(config),
+    );
+  }
 }

@@ -8,7 +8,8 @@
     "sharp": "npm:sharp@^0.34.5",
     "@text": "./src/util/text.ts",
     "@color": "./src/util/color.ts",
-    "@sync": "./src/util/sync/sync.ts"
+    "@sync": "./src/util/sync/sync.ts",
+    "@include": "./src/util/include.ts"
   },
   "fmt": {
     "quoteProps": "asNeeded"

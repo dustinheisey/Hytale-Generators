@@ -68,8 +68,12 @@ const elements: ElementsConfig = {
     { id: "xenon", color: "#90CAF9" },
     { id: "astatine", color: "#8D6E63" },
     { id: "radon", color: "#BCAAA4" },
-    { id: "tennessine", color: "#4DB6AC" },
-    { id: "oganesson", color: "#CFD8DC" },
+    { id: "tennessine", color: "#4DB6AC", exclude: ["ore_shale", "ore_slate"] },
+    {
+      id: "oganesson",
+      color: "#CFD8DC",
+      include: ["dust", "gem", "ore_basalt"],
+    },
   ],
   alkaliMetals: [
     { id: "lithium", color: "#FF5252", ores: { name: "Spodumene" } },

@@ -1,5 +1,6 @@
 import { u } from "@text";
 import { syncJson, syncLang, syncTexture } from "@sync";
+import { include } from "@include";
 import { generateRecipe } from "../recipe/recipe.ts";
 
 export const data = (config: IngotConfig): IngotData => {
@@ -15,9 +16,9 @@ export const data = (config: IngotConfig): IngotData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Ingredient_Bar_${u(id)}.name`,
+      Name: `server.items.Bar_${u(id)}.name`,
       ...(config.description
-        ? { Description: `server.items.Ingredient_Bar_${u(id)}.description` }
+        ? { Description: `server.items.Bar_${u(id)}.description` }
         : ""),
     },
     Categories: categories || [
@@ -78,49 +79,51 @@ export const data = (config: IngotConfig): IngotData => {
 };
 
 export function generateIngot(config: ElementConfig) {
-  const description = config?.ingot?.description || config.description ||
-    null;
+  if (include("ingot", config)) {
+    const description = config?.ingot?.description || config.description ||
+      null;
 
-  syncLang({
-    name: {
-      key: `items.Ingot_${u(config.id)}.name`,
-      value: `${config?.ingot?.name || config.name || u(config.id)} Ingot`,
-    },
-    ...(description && {
-      description: {
-        key: `items.Ingot_${u(config.id)}.description`,
-        value: description,
+    syncLang({
+      name: {
+        key: `items.Ingot_${u(config.id)}.name`,
+        value: `${config?.ingot?.name || config.name || u(config.id)} Ingot`,
       },
-    }),
-  });
+      ...(description && {
+        description: {
+          key: `items.Ingot_${u(config.id)}.description`,
+          value: description,
+        },
+      }),
+    });
 
-  syncTexture({
-    color: config?.ingot?.color || config.color,
-    inputFile: "assets/ingot-mask.png",
-    outputFile: `dist/Common/Resources/Ingots/${u(config.id)}.png`,
-  });
+    syncTexture({
+      color: config?.ingot?.color || config.color,
+      inputFile: "assets/ingot-mask.png",
+      outputFile: `dist/Common/Resources/Ingots/${u(config.id)}.png`,
+    });
 
-  generateRecipe({
-    id: `Furnace/Furnace_${u(config.id)}_Dust`,
-    bench: "Furnace",
-    inputs: [
-      {
-        ItemId: `Dust_${u(config.id)}`,
-        Quantity: 1,
-      },
-    ],
-    outputs: [
-      {
-        ItemId: `Ingot_${u(config.id)}`,
-        Quantity: 1,
-      },
-    ],
-    processingTime: config?.ingot?.processingTime || config.processingTime ||
-      15,
-  });
+    generateRecipe({
+      id: `Furnace/Furnace_${u(config.id)}_Dust`,
+      bench: "Furnace",
+      inputs: [
+        {
+          ItemId: `Dust_${u(config.id)}`,
+          Quantity: 1,
+        },
+      ],
+      outputs: [
+        {
+          ItemId: `Ingot_${u(config.id)}`,
+          Quantity: 1,
+        },
+      ],
+      processingTime: config?.ingot?.processingTime || config.processingTime ||
+        15,
+    });
 
-  syncJson(
-    `Server/Item/Elements/${u(config.id)}/Ingot_${u(config.id)}`,
-    data(config),
-  );
+    syncJson(
+      `Server/Item/Elements/${u(config.id)}/Ingot_${u(config.id)}`,
+      data(config),
+    );
+  }
 }
