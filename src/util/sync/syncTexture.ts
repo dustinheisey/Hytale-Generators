@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { syncDir } from "./syncFile.ts";
+import { syncDir } from "@sync";
 
 type RGB = { r: number; g: number; b: number };
 

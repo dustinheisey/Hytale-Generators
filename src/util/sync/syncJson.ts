@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { syncFile } from "./syncFile.ts";
+import { syncFile } from "@sync";
 
 /**
  * Writes an object to a JSON file asynchronously (pretty-printed with 2 spaces).
@@ -16,7 +16,7 @@ import { syncFile } from "./syncFile.ts";
  */
 export function writeJson(file: string, data: object) {
   fs.writeFile(
-    `dist/${file}.json`,
+    file,
     JSON.stringify(data, null, 2),
     (err) => {
       if (err) {
@@ -41,6 +41,6 @@ export function writeJson(file: string, data: object) {
  * syncJson("dist/config.json", { env: "prod" });
  */
 export function syncJson(file: string, data: object) {
-  syncFile(file);
-  writeJson(file, data);
+  syncFile(`dist/${file}.json`);
+  writeJson(`dist/${file}.json`, data);
 }

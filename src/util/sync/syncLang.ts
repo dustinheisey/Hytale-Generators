@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { syncFile } from "./syncFile.ts";
+import { syncFile } from "@sync";
 
 type LangEntry = { key: string; value: string };
 

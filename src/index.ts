@@ -1,4 +1,6 @@
-import { syncJson } from "./util/sync/sync.ts";
+import { syncJson, syncPublic } from "./util/sync/sync.ts";
+
+syncPublic();
 
 syncJson("manifest", {
   Group: "gg.inconvenient",

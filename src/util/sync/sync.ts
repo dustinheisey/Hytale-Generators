@@ -1,5 +1,6 @@
 import { syncDir } from "./syncDir.ts";
 import { syncFile } from "./syncFile.ts";
+import { syncPublic } from "../sync/syncPublic.ts";
 import { syncLang } from "../sync/syncLang.ts";
 import { syncJson } from "../sync/syncJson.ts";
 import { syncTexture } from "../sync/syncTexture.ts";
@@ -43,4 +44,4 @@ export function sync(
   }
 }
 
-export { syncDir, syncFile, syncJson, syncLang, syncTexture };
+export { syncDir, syncFile, syncJson, syncLang, syncPublic, syncTexture };
