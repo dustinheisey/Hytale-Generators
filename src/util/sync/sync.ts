@@ -21,11 +21,11 @@ export function sync(
     config;
 
   syncLang(
-    "dist/Server/Languages/en-US/server.lang",
-    { key: lang.name, value: name },
-    ...(description && lang.description
-      ? { key: lang.description, value: description }
-      : undefined
+    {
+      name: { key: lang.name, value: name },
+      ...((description && lang.description) &&
+        { key: lang.description, value: description }),
+    },
   );
 
   syncJson(

@@ -1,14 +1,11 @@
-import { generateRecipe } from "./recipe/recipe.ts";
 import { syncJson, syncPublic } from "./util/sync/sync.ts";
-import {
-  generateCategories,
-  generateDust,
-  generateGem,
-  generateIngot,
-  generateOre,
-  generateOreBlock,
-  generateResourceType,
-} from "./generators.ts";
+import { generateCategories } from "./content/categories/categories.ts";
+import { generateResourceType } from "./content/resource-type/resource-type.ts";
+import { generateOreBlock } from "./content/ore-block/ore-block.ts";
+import { generateOre } from "./content/ore/ore.ts";
+import { generateGem } from "./content/gem/gem.ts";
+import { generateDust } from "./content/dust/dust.ts";
+import { generateIngot } from "./content/ingot/ingot.ts";
 
 /*
   - [x] Step 1: Copy public folder
@@ -79,10 +76,10 @@ test.forEach((element) => {
   generateGem({ ...element, ...gem });
   generateIngot({ ...element, ...ingot });
   generateOre({ ...element, ...ores, ...ore });
-  generateOreBlock("stone", { ...element, ...ores, ...oreBlock });
-  generateOreBlock("basalt", { ...element, ...ores, ...oreBlock });
-  generateOreBlock("sandstone", { ...element, ...ores, ...oreBlock });
-  generateOreBlock("shale", { ...element, ...ores, ...oreBlock });
-  generateOreBlock("slate", { ...element, ...ores, ...oreBlock });
-  generateOreBlock("volcanic", { ...element, ...ores, ...oreBlock });
+  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "stone" });
+  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "basalt" });
+  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "sandstone" });
+  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "shale" });
+  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "slate" });
+  generateOreBlock({ ...element, ...ores, ...oreBlock, type: "volcanic" });
 });

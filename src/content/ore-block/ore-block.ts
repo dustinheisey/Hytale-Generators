@@ -82,7 +82,6 @@ export const data = (config: OreBlockConfig): OreBlockData => {
 };
 
 export function generateOreBlock(
-  type: Block,
   config: ElementConfig & { type: Block },
 ) {
   const description = config?.oreBlock?.description ||
@@ -91,22 +90,22 @@ export function generateOreBlock(
 
   syncLang({
     name: {
-      key: `items.Ore_${u(config.id)}_${u(type)}.name`,
+      key: `items.Ore_${u(config.id)}_${u(config.type)}.name`,
       value: `${
         config?.oreBlock?.name || config?.ores?.name || config.name ||
         u(config.id)
-      } Ore - ${u(type)}`,
+      } Ore - ${u(config.type)}`,
     },
     ...(description && {
       description: {
-        key: `items.Ore_${u(config.id)}_${u(type)}.description`,
+        key: `items.Ore_${u(config.id)}_${u(config.type)}.description`,
         value: description,
       },
     }),
   });
 
   syncJson(
-    `Server/Item/Kits/${u(config.id)}/Ore_${u(config.id)}_${u(type)}`,
+    `Server/Item/Kits/${u(config.id)}/Ore_${u(config.id)}_${u(config.type)}`,
     data(config),
   );
 }
