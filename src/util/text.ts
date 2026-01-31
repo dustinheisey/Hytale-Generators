@@ -1,3 +1,3 @@
 export function u(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return str.replace(/\b[a-z]/g, (c) => c.toUpperCase());
 }

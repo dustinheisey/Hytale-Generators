@@ -1,3 +1,5 @@
+export { generateCategories } from "./categories.ts";
+
 export { generateOreBlock } from "./ore-block.ts";
 export { generateOre } from "./ore.ts";
 export { generateGem } from "./gem.ts";

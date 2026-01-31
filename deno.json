@@ -10,7 +10,8 @@
     "@color": "./src/util/color.ts",
     "@sync": "./src/util/sync/sync.ts",
     "@data": "./src/data/data.ts",
-    "@generators": "./src/generators/generators.ts"
+    "@generators": "./src/generators/generators.ts",
+    "@configs": "./src/configs/configs.ts"
   },
   "fmt": {
     "quoteProps": "asNeeded"

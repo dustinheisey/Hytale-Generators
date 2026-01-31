@@ -1,6 +1,6 @@
-import { syncJson, syncLang, syncPublic } from "./util/sync/sync.ts";
-import { u } from "@text";
+import { syncJson, syncPublic } from "./util/sync/sync.ts";
 import {
+  generateCategories,
   generateDust,
   generateGem,
   generateIngot,
@@ -8,13 +8,15 @@ import {
   generateOreBlock,
 } from "@generators";
 
+import { categories } from "@configs";
+
 /*
   - [x] Step 1: Copy public folder
   - [x] Step 2: Append lang correctly
-  - [ ] Step 3: Generate textures correctly
-  - [ ] Step 4: Generate json correctly
+  - [x] Step 3: Generate textures correctly
   - [ ] Step 5: add creative tab json
   - [ ] Step 6: add resource type json
+  - [ ] Step 4: Generate json correctly
 */
 
 // * Works
@@ -50,6 +52,8 @@ const test: ElementConfig[] = [
     ores: { name: "Malachite", description: "Can be processed into copper" },
   },
 ];
+
+generateCategories(categories);
 
 test.forEach((element) => {
   generateDust(element);

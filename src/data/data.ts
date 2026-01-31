@@ -1,3 +1,5 @@
+export { categories } from "./categories.ts";
+
 export { dust } from "./thing/dust.ts";
 export { gem } from "./thing/gem.ts";
 export { ingot } from "./thing/ingot.ts";
