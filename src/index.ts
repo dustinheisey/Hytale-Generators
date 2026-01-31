@@ -8,7 +8,7 @@ import {
   generateOre,
   generateOreBlock,
   generateResourceType,
-} from "@generators";
+} from "./generators.ts";
 
 /*
   - [x] Step 1: Copy public folder

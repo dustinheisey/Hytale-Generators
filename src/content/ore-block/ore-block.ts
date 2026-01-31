@@ -1,6 +1,7 @@
 import { u } from "@text";
+import { syncJson, syncLang } from "@sync";
 
-export const oreBlock = (config: OreBlockConfig): OreBlockData => {
+export const data = (config: OreBlockConfig): OreBlockData => {
   const {
     id,
     type,
@@ -79,5 +80,35 @@ export const oreBlock = (config: OreBlockConfig): OreBlockData => {
     ItemSoundSetId: "ISS_Blocks_Stone",
   };
 };
+
+export function generateOreBlock(
+  type: Block,
+  config: ElementConfig & { type: Block },
+) {
+  const description = config?.oreBlock?.description ||
+    config?.ores?.description ||
+    config.description || null;
+
+  syncLang({
+    name: {
+      key: `items.Ore_${u(config.id)}_${u(type)}.name`,
+      value: `${
+        config?.oreBlock?.name || config?.ores?.name || config.name ||
+        u(config.id)
+      } Ore - ${u(type)}`,
+    },
+    ...(description && {
+      description: {
+        key: `items.Ore_${u(config.id)}_${u(type)}.description`,
+        value: description,
+      },
+    }),
+  });
+
+  syncJson(
+    `Server/Item/Kits/${u(config.id)}/Ore_${u(config.id)}_${u(type)}`,
+    data(config),
+  );
+}
 
 // oreBlock({ id: "Acanthite", type: "basalt", color: "#432344" });

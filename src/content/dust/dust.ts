@@ -95,9 +95,9 @@ export function generateDust(config: ElementConfig) {
 
   syncTexture({
     color: config?.dust?.color || config.color,
-    inputFile: "src/textures/dust-mask.png",
+    inputFile: "assets/dust-mask.png",
     outputFile: `dist/Common/Resources/Dusts/${u(config.id)}.png`,
   });
 
-  syncJson(`Server/Item/Dust/${u(config.id)}`, data(config));
+  syncJson(`Server/Item/Kits/${u(config.id)}/Dust_${u(config.id)}`, data(config));
 }

@@ -1,7 +1,8 @@
 import { u } from "@text";
 import { deriveEffectColors } from "@color";
+import { syncJson, syncLang, syncTexture } from "@sync";
 
-export const gem = (config: GemConfig): GemData => {
+export const data = (config: GemConfig): GemData => {
   const {
     id,
     categories,
@@ -72,3 +73,31 @@ export const gem = (config: GemConfig): GemData => {
     MaxStack: maxStack || 25,
   };
 };
+
+export function generateGem(config: ElementConfig) {
+  const description = config?.gem?.description || config.description || null;
+
+  syncLang({
+    name: {
+      key: `items.Gem_${u(config.id)}.name`,
+      value: `${config?.gem?.name || config.name || u(config.id)}`,
+    },
+    ...(description && {
+      description: {
+        key: `items.Gem_${u(config.id)}.description`,
+        value: description,
+      },
+    }),
+  });
+
+  syncTexture({
+    color: config?.gem?.color || config.color,
+    inputFile: "assets/gem-mask.png",
+    outputFile: `dist/Common/Resources/Gems/${u(config.id)}.png`,
+  });
+
+  syncJson(
+    `Server/Item/Kits/${u(config.id)}/Gem_${u(config.id)}`,
+    data(config),
+  );
+}

@@ -1,6 +1,8 @@
 import { u } from "@text";
+import { syncJson, syncLang, syncTexture } from "@sync";
+import { generateRecipe } from "../recipe/recipe.ts";
 
-export const ingot = (config: IngotConfig): IngotData => {
+export const data = (config: IngotConfig): IngotData => {
   const {
     id,
     categories,
@@ -74,3 +76,51 @@ export const ingot = (config: IngotConfig): IngotData => {
     MaxStack: maxStack || 25,
   };
 };
+
+export function generateIngot(config: ElementConfig) {
+  const description = config?.ingot?.description || config.description ||
+    null;
+
+  syncLang({
+    name: {
+      key: `items.Ingot_${u(config.id)}.name`,
+      value: `${config?.ingot?.name || config.name || u(config.id)} Ingot`,
+    },
+    ...(description && {
+      description: {
+        key: `items.Ingot_${u(config.id)}.description`,
+        value: description,
+      },
+    }),
+  });
+
+  syncTexture({
+    color: config?.ingot?.color || config.color,
+    inputFile: "assets/ingot-mask.png",
+    outputFile: `dist/Common/Resources/Ingots/${u(config.id)}.png`,
+  });
+
+  generateRecipe({
+    id: `Furnace/Furnace_${u(config.id)}_Dust`,
+    bench: "Furnace",
+    inputs: [
+      {
+        ItemId: `Dust_${u(config.id)}`,
+        Quantity: 1,
+      },
+    ],
+    outputs: [
+      {
+        ItemId: `Ingot_${u(config.id)}`,
+        Quantity: 1,
+      },
+    ],
+    processingTime: config?.ingot?.processingTime || config.processingTime ||
+      15,
+  });
+
+  syncJson(
+    `Server/Item/Kits/${u(config.id)}/Ingot_${u(config.id)}`,
+    data(config),
+  );
+}

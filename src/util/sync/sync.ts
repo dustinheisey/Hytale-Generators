@@ -23,9 +23,9 @@ export function sync(
   syncLang(
     "dist/Server/Languages/en-US/server.lang",
     { key: lang.name, value: name },
-    description && lang.description
+    ...(description && lang.description
       ? { key: lang.description, value: description }
-      : undefined,
+      : undefined
   );
 
   syncJson(
@@ -36,7 +36,7 @@ export function sync(
   if (texture) {
     syncTexture(
       {
-        inputFile: `src/textures/${texture}.png`,
+        inputFile: `assets/${texture}.png`,
         color,
         outputFile: `dist/Common/Resources/${outputFile}.png`,
       },
