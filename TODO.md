@@ -1,15 +1,14 @@
 # Todo
 
-- [ ] how to give alternative name to ores
-- [ ] how to conditionally generate some types but not all
-- [ ] have to manually run each icon generation
-- [ ] does not generate other files needed for asset pack
-- [ ] need better workflow to regenerate entire pack and load it in the world
-- [ ] ores don't drop
-- [ ] configure smelt time for each element
-- [ ] add dusts creative tab
-- [ ] configure max stack size of everything
-- [ ] make dusts recipe in salvager
+- [ ] description not loading
+- [ ] categories names not correct
+- [ ] have to generate icon textures
+- [x] can't generate ore block icon textures
+- [ ] no names are loading anymore
+- [x] can't place shale, slate, stone, volcanic ores
+- [x] can't mine any ores
+- [ ] dust smelting recipes don't work
+- [ ] alloy recipes don't work
 
 ## Backlog
 

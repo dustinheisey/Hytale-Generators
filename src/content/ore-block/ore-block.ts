@@ -2,6 +2,43 @@ import { u } from "@text";
 import { syncJson, syncLang } from "@sync";
 import { include } from "@include";
 
+function computeBlockTexture(block: Block): Texture {
+  switch (block) {
+    case "sandstone":
+      return {
+        Weight: 1,
+        Sides: "BlockTextures/Rock_Sandstone_Side.png",
+        UpDown: "BlockTextures/Rock_Sandstone_Top.png",
+      };
+    case "shale":
+      return {
+        Weight: 1,
+        All: "BlockTextures/Rock_Shale.png",
+      };
+    case "stone":
+      return {
+        Weight: 1,
+        All: "BlockTextures/Rock_Stone.png",
+      };
+    case "slate":
+      return {
+        Sides: "BlockTextures/Rock_Slate_Cracked.png",
+        UpDown: "BlockTextures/Rock_Slate_Cracked.png",
+        Weight: 1,
+      };
+    case "volcanic":
+      return {
+        Weight: 1,
+        All: "BlockTextures/Rock_Volcanic.png",
+      };
+    case "basalt":
+      return {
+        Weight: 1,
+        All: "BlockTextures/Rock_Basalt.png",
+      };
+  }
+}
+
 export const data = (config: OreBlockConfig): OreBlockData => {
   const {
     id,
@@ -27,7 +64,7 @@ export const data = (config: OreBlockConfig): OreBlockData => {
       CustomModel: `Resources/Ores/${model || "Ore_Large"}.blockymodel`,
       CustomModelTexture: [
         {
-          Texture: `Resources/Ores/Ore_Textures/${texture || u(id)}.png`,
+          Texture: `Resources/Ores/${texture || u(id)}.png`,
           Weight: 1,
         },
       ],
@@ -60,10 +97,7 @@ export const data = (config: OreBlockConfig): OreBlockData => {
       },
       BlockParticleSetId: "Ore",
       Textures: [
-        {
-          Weight: 1,
-          All: `BlockTextures/Rock_${u(type)}.png`,
-        },
+        computeBlockTexture(config.type),
       ],
       ParticleColor: color || "#000000",
       BlockSoundSetId: "Ore",
