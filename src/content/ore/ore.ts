@@ -1,6 +1,7 @@
 import { u } from "@text";
 import { syncJson, syncLang, syncTexture } from "@sync";
 import { include } from "@include";
+import { generateResourceType } from "../resource-type/resource-type.ts";
 
 export const data = (config: OreConfig): OreData => {
   const {
@@ -36,22 +37,22 @@ export const data = (config: OreConfig): OreData => {
           Id: "Salvagebench",
         },
       ],
-      TimeSeconds: processingTime || 15,
+      TimeSeconds: processingTime || 4,
     },
     Model: `Resources/Ores/${model || "Ore_Large"}.blockymodel`,
     Texture: `Resources/Ores/${texture || u(id)}.png`,
     ItemLevel: itemLevel || 10,
     PlayerAnimationsId: "Block",
     IconProperties: {
-      Scale: 0.57323,
-      Translation: [
-        -3.6,
-        -16.200001,
-      ],
+      Scale: 0.58823,
       Rotation: [
         22.5,
         45,
         22.5,
+      ],
+      Translation: [
+        0,
+        -13.5,
       ],
     },
     Tags: {
@@ -89,6 +90,8 @@ export function generateOre(config: ThingsConfig) {
       }),
     });
 
+    generateResourceType(`salvage_${config.id}`);
+
     syncTexture({
       color: config?.ore?.color || config?.ores?.color || config.color,
       inputFile: "assets/ore-mask.png",
@@ -96,7 +99,7 @@ export function generateOre(config: ThingsConfig) {
     });
 
     syncJson(
-      `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}`,
+      `Server/Item/Items/Elements/${u(config.id)}/Ore_${u(config.id)}`,
       data(config),
     );
   }

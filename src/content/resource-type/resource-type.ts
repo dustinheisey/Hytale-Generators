@@ -1,4 +1,4 @@
-import { u } from "@text";
+import { uSep } from "@text";
 import { syncJson } from "@sync";
 
 export const resourceType = (
@@ -6,14 +6,16 @@ export const resourceType = (
 ): ResourceTypeData => {
   return {
     Icon: `Icons/ResourceTypes/${
-      u(typeof config === "string" ? config : config.icon)
+      uSep(typeof config === "string" ? "rock" : config.icon)
     }.png`,
   };
 };
 
 export function generateResourceType(type: ResourceTypeConfig) {
   syncJson(
-    `Server/Item/ResourceType/${u(typeof type === "string" ? type : type.id)}`,
+    `Server/Item/ResourceTypes/${
+      uSep(typeof type === "string" ? type : type.id)
+    }`,
     resourceType(type),
   );
 }
