@@ -70,11 +70,11 @@ export function rename(config: Record<string, string>) {
       (block) => {
         syncLang({
           name: {
-            key: `server.items.Ore_${u(key)}_${u(block)}.name`,
+            key: `items.Ore_${u(key)}_${u(block)}.name`,
             value: `${u(value)} Ore - ${u(block)}`,
           },
           description: {
-            key: `server.items.Ore_${u(key)}_${u(block)}.description`,
+            key: `items.Ore_${u(key)}_${u(block)}.description`,
             value: `Can be processed into ${u(key)}`,
           },
         });
