@@ -1,6 +1,7 @@
 declare interface IngotConfig extends ThingConfig {
   outputQuantity?: number;
   processingTime?: number;
+  variant?: "lightest" | "light" | "medium" | "dark"
 }
 
 declare interface IngotData extends ThingData {

@@ -4,6 +4,7 @@ import { generateCategories } from "./content/categories/categories.ts";
 import { generateResourceType } from "./content/resource-type/resource-type.ts";
 import { generateElement } from "./content/element/element.ts";
 import { generateAlloy } from "./content/alloy/alloy.ts";
+import { generateGem } from "./content/gem/gem.ts";
 
 /*
 - [ ] Step 1: generate list of alloys
@@ -13,6 +14,7 @@ import { generateAlloy } from "./content/alloy/alloy.ts";
 - [ ] Step 3: pick correct colors for all alloys
 - [ ] Step 3: pick correct colors for all gems
 - [ ] Step 3: pick correct color overrides for some ores
+- [ ] step 7: fix things config requiring specific generators' types
 */
 
 // ? Copy public folder contents to dist
@@ -48,6 +50,34 @@ generateCategories({
 
 // ? Generate resource type files
 ["dusts", "alloys"].forEach((type) => generateResourceType(type));
+
+// ? Generate all gem files
+const gems: GemConfig[] = [
+  { id: "amber", color: "#A85A00" },
+  { id: "amethyst", color: "#32114b", variant: "dark" },
+  { id: "apatite", color: "#004AA8" },
+  { id: "aquamarine", color: "#00424a" },
+  { id: "bloodstone", color: "#780016", variant: "dark" },
+  { id: "carnelian", color: "#8B2E1A" },
+  { id: "citrine", color: "#B07F00" },
+  { id: "diopside", color: "#15723f" },
+  { id: "garnet", color: "#870012" },
+  { id: "jade", color: "#007246" },
+  { id: "lazurite", color: "#1A3F7A", variant: "dark" },
+  { id: "moonstone", color: "#a1a7b8", variant: "light" },
+  { id: "obsidian", color: "#170727", variant: "dark" },
+  { id: "olivine", color: "#889533" },
+  { id: "onyx", color: "#050505", variant: "dark" },
+  { id: "opal", color: "#F4F1E8", variant: "light" },
+  { id: "peridot", color: "#869e10" },
+  { id: "rose_quartz", color: "#B76B7A" },
+  { id: "sodalite", color: "#15224D", variant: "dark" },
+  { id: "sunstone", color: "#c7610d" },
+  { id: "tigers_eye", color: "#894d17", variant: "dark" },
+  { id: "turquoise", color: "#007989" },
+];
+
+gems.forEach((gem) => generateGem(gem));
 
 // ? Generate all element kit files
 const elements: ElementsConfig = {
@@ -197,10 +227,12 @@ const elements: ElementsConfig = {
 
 Object.values(elements).flat().forEach((element) => generateElement(element));
 
+// ? Generate all alloy files
 const alloys: AlloyConfig[] = [
   // Alnico — permanent magnets (motors, sensors, pickups); stays magnetic at higher temps than many magnets.
   {
     id: "alnico",
+    variant: "dark",
     color: "#6b4a3a",
     inputs: [
       { ItemId: "Ingot_Iron", Quantity: 3 },
@@ -214,6 +246,7 @@ const alloys: AlloyConfig[] = [
   // Duralumin — strong lightweight aluminum alloy for aircraft structures, rivets, machined parts.
   {
     id: "duralumin",
+    variant: "lightest",
     color: "#b8c6d8",
     inputs: [
       { ItemId: "Ingot_Aluminum", Quantity: 3 },
@@ -227,7 +260,8 @@ const alloys: AlloyConfig[] = [
   // Bismanol — historic bismuth–manganese magnetic alloy used for specialized permanent magnets.
   {
     id: "bismanol",
-    color: "#3b4654",
+    variant: "dark",
+    color: "#344657",
     inputs: [
       { ItemId: "Ingot_Bismuth", Quantity: 1 },
       { ItemId: "Ingot_Manganese", Quantity: 1 },
@@ -239,6 +273,7 @@ const alloys: AlloyConfig[] = [
   // Rose metal — fusible alloy for low-temp casting/fixturing, tube-bending filler, temporary tooling.
   {
     id: "rose_metal",
+    variant: "lightest",
     color: "#b9c2cb",
     inputs: [
       { ItemId: "Ingot_Bismuth", Quantity: 3 },
@@ -252,7 +287,8 @@ const alloys: AlloyConfig[] = [
   // Nichrome — resistance wire for heating elements and wirewound resistors.
   {
     id: "nichrome",
-    color: "#a8b0b8",
+    variant: "light",
+    color: "#9f9a87",
     inputs: [
       { ItemId: "Ingot_Nickel", Quantity: 4 },
       { ItemId: "Ingot_Chromium", Quantity: 1 },
@@ -264,7 +300,7 @@ const alloys: AlloyConfig[] = [
   // Ferrochrome — steelmaking additive that supplies chromium (especially for stainless steels).
   {
     id: "ferrochrome",
-    color: "#6d7278",
+    color: "#586457",
     inputs: [
       { ItemId: "Ingot_Iron", Quantity: 2 },
       { ItemId: "Ingot_Chromium", Quantity: 3 },
@@ -276,7 +312,7 @@ const alloys: AlloyConfig[] = [
   // Megallium — cobalt–chromium–molybdenum dental alloy; corrosion resistant and nickel-free.
   {
     id: "megallium",
-    color: "#5b6673",
+    color: "#466a7d",
     inputs: [
       { ItemId: "Ingot_Cobalt", Quantity: 3 },
       { ItemId: "Ingot_Chromium", Quantity: 1 },
@@ -289,7 +325,8 @@ const alloys: AlloyConfig[] = [
   // Talonite — wear/corrosion resistant cobalt alloy used for hard-wearing edges and abrasion service.
   {
     id: "talonite",
-    color: "#4f5964",
+    variant: "dark",
+    color: "#3c5b6e",
     inputs: [
       { ItemId: "Ingot_Cobalt", Quantity: 3 },
       { ItemId: "Ingot_Chromium", Quantity: 1 },
@@ -302,7 +339,7 @@ const alloys: AlloyConfig[] = [
   // Vitallium — cobalt–chromium–molybdenum alloy for implants/dentistry; strong and corrosion resistant.
   {
     id: "vitallium",
-    color: "#6c7784",
+    color: "#4F8A73",
     inputs: [
       { ItemId: "Ingot_Cobalt", Quantity: 13 },
       { ItemId: "Ingot_Chromium", Quantity: 6 },
@@ -315,6 +352,7 @@ const alloys: AlloyConfig[] = [
   // Brass — fittings, valves, machinable parts, fasteners; general-purpose Cu–Zn alloy.
   {
     id: "brass",
+    variant: "light",
     color: "#d6a33a",
     inputs: [
       { ItemId: "Ingot_Copper", Quantity: 2 },
@@ -365,6 +403,7 @@ const alloys: AlloyConfig[] = [
   // Constanta — copper–nickel resistance alloy (constantan family) for thermocouples and precision resistors.
   {
     id: "constantan",
+    variant: "light",
     color: "#b0a79b",
     inputs: [
       { ItemId: "Ingot_Copper", Quantity: 3 },
@@ -377,6 +416,7 @@ const alloys: AlloyConfig[] = [
   // Hepatizon — decorative dark “Corinthian bronze” style; prized for deep patina/ornamental metalwork.
   {
     id: "hepatizon",
+    variant: "dark",
     color: "#3b2a3e",
     inputs: [
       { ItemId: "Ingot_Copper", Quantity: 3 },
@@ -390,6 +430,7 @@ const alloys: AlloyConfig[] = [
   // Galinsstan — galinstan liquid metal alloy used as a mercury alternative (heat transfer / novelty / lab use).
   {
     id: "galinsstan",
+    variant: "lightest",
     color: "#d2dae5",
     inputs: [
       { ItemId: "Ingot_Gallium", Quantity: 3 },
@@ -403,6 +444,7 @@ const alloys: AlloyConfig[] = [
   // Electrum — gold–silver alloy (natural or made) used historically for coinage and decorative work.
   {
     id: "electrum",
+    variant: "lightest",
     color: "#d9cf6a",
     inputs: [
       { ItemId: "Ingot_Gold", Quantity: 3 },
@@ -439,7 +481,7 @@ const alloys: AlloyConfig[] = [
   // Gray gold — gold alloyed with “white” metals (often palladium) for a naturally gray/white tone under plating.
   {
     id: "gray_gold",
-    color: "#aeb5bf",
+    color: "#b7ad9e",
     inputs: [
       { ItemId: "Ingot_Gold", Quantity: 4 },
       { ItemId: "Ingot_Palladium", Quantity: 1 },
@@ -451,6 +493,7 @@ const alloys: AlloyConfig[] = [
   // Rose gold — gold + copper (often with a little silver/zinc in real recipes) for warm pink tone (jewelry).
   {
     id: "rose_gold",
+    variant: "light",
     color: "#d38b7f",
     inputs: [
       { ItemId: "Ingot_Gold", Quantity: 4 },
@@ -463,6 +506,7 @@ const alloys: AlloyConfig[] = [
   // White gold — gold alloyed with nickel/palladium-family metals for a pale white tone (often rhodium plated).
   {
     id: "white_gold",
+    variant: "light",
     color: "#d7dbe2",
     inputs: [
       { ItemId: "Ingot_Gold", Quantity: 3 },
@@ -477,6 +521,7 @@ const alloys: AlloyConfig[] = [
   {
     id: "invar",
     color: "#8e979f",
+    variant: "light",
     inputs: [
       { ItemId: "Ingot_Iron", Quantity: 3 },
       { ItemId: "Ingot_Nickel", Quantity: 2 },
@@ -488,7 +533,8 @@ const alloys: AlloyConfig[] = [
   // Cast iron — castable iron–carbon alloy for engine blocks, machine bases, cookware, housings.
   {
     id: "cast_iron",
-    color: "#3f464d",
+    variant: "dark",
+    color: "#243443",
     inputs: [
       { ItemId: "Ingot_Iron", Quantity: 3 },
       { ItemId: "Ingot_Carbon", Quantity: 1 },
@@ -501,6 +547,7 @@ const alloys: AlloyConfig[] = [
   // Stainless steel — corrosion-resistant steel family (classic iron–chromium–nickel “austenitic” vibe).
   {
     id: "stainless_steel",
+    variant: "light",
     color: "#9aa3ad",
     inputs: [
       { ItemId: "Ingot_Iron", Quantity: 3 },
@@ -514,7 +561,8 @@ const alloys: AlloyConfig[] = [
   // Wrought iron — very low-carbon forgeable iron used for decorative ironwork and restoration.
   {
     id: "wrought_iron",
-    color: "#4c545c",
+    variant: "dark",
+    color: "#1b2835",
     inputs: [
       { ItemId: "Ingot_Iron", Quantity: 4 },
       { ItemId: "Ingot_Silicon", Quantity: 1 },
@@ -526,7 +574,8 @@ const alloys: AlloyConfig[] = [
   // Tool steel — high hardness/wear steel for cutters, dies, punches, forming tooling.
   {
     id: "tool_steel",
-    color: "#2f3840",
+    variant: "dark",
+    color: "#172a37",
     inputs: [
       { ItemId: "Ingot_Iron", Quantity: 3 },
       { ItemId: "Ingot_Carbon", Quantity: 1 },
@@ -539,6 +588,7 @@ const alloys: AlloyConfig[] = [
   // Pewter — tin-based low-melt alloy for cast metalware, decorative parts, prototypes.
   {
     id: "pewter",
+    variant: "light",
     color: "#9ea7b3",
     inputs: [
       { ItemId: "Ingot_Tin", Quantity: 3 },
@@ -552,6 +602,7 @@ const alloys: AlloyConfig[] = [
   // Sterling silver — tougher silver alloy for jewelry, decorative hardware, some electrical contacts.
   {
     id: "sterling_silver",
+    variant: "lightest",
     color: "#d6dde6",
     inputs: [
       { ItemId: "Ingot_Silver", Quantity: 3 },
@@ -564,6 +615,7 @@ const alloys: AlloyConfig[] = [
   // Nitinol — nickel–titanium shape-memory/superelastic alloy for stents, actuators, couplings.
   {
     id: "nitinol",
+    variant: "lightest",
     color: "#b2bcc8",
     inputs: [
       { ItemId: "Ingot_Nickel", Quantity: 1 },
@@ -576,7 +628,8 @@ const alloys: AlloyConfig[] = [
   // Permalloy — soft magnetic Ni–Fe alloy for magnetic shielding, transformer cores, sensors.
   {
     id: "permalloy",
-    color: "#909aa5",
+    variant: "light",
+    color: "#5f8aa3",
     inputs: [
       { ItemId: "Ingot_Nickel", Quantity: 4 },
       { ItemId: "Ingot_Iron", Quantity: 1 },
@@ -588,6 +641,7 @@ const alloys: AlloyConfig[] = [
   // Queens metal — tin-based pewter-family alloy used for cast wares; historically: 9 tin + 1 each antimony/lead/bismuth.
   {
     id: "queens_metal",
+    variant: "light",
     color: "#bfc8d2",
     inputs: [
       { ItemId: "Ingot_Tin", Quantity: 2 },

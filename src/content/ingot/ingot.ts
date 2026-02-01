@@ -98,7 +98,9 @@ export function generateIngot(config: ThingsConfig) {
 
     syncTexture({
       color: config?.ingot?.color || config.color,
-      inputFile: "assets/ingot-mask.png",
+      inputFile: `assets/ingot/ingot-mask-${
+        config?.ingot?.variant || "medium"
+      }.png`,
       outputFile: `dist/Common/Resources/Ingots/${u(config.id)}.png`,
     });
 

@@ -1,5 +1,5 @@
 import { syncJson } from "@sync";
-import { u } from "@text";
+import { uSep } from "@text";
 
 function benchRequirement(bench: Bench) {
   let type: CraftingType;
@@ -80,5 +80,5 @@ export const data = (config: RecipeConfig): ExternalRecipeData => {
 };
 
 export function generateRecipe(config: RecipeConfig) {
-  syncJson(`Server/Item/CraftingRecipe/${u(config.id)}`, data(config));
+  syncJson(`Server/Item/CraftingRecipe/${uSep(config.id)}`, data(config));
 }

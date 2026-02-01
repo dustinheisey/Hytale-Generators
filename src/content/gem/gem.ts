@@ -13,7 +13,7 @@ export const data = (config: GemConfig): GemData => {
     maxStack,
   } = config;
 
-  const { light, interact, sparks } = deriveEffectColors(color || "#000000");
+  const { light, interact, sparks } = deriveEffectColors(color);
 
   return {
     TranslationProperties: {
@@ -75,32 +75,30 @@ export const data = (config: GemConfig): GemData => {
   };
 };
 
-export function generateGem(config: ThingsConfig) {
-  if (include("gem", config)) {
-    const description = config?.gem?.description || config.description || null;
+export function generateGem(config: GemConfig) {
+  const description = config.description || null;
 
-    syncLang({
-      name: {
-        key: `items.Gem_${u(config.id)}.name`,
-        value: `${config?.gem?.name || config.name || u(config.id)}`,
+  syncLang({
+    name: {
+      key: `items.Gem_${u(config.id)}.name`,
+      value: `${config.name || u(config.id)}`,
+    },
+    ...(description && {
+      description: {
+        key: `items.Gem_${u(config.id)}.description`,
+        value: description,
       },
-      ...(description && {
-        description: {
-          key: `items.Gem_${u(config.id)}.description`,
-          value: description,
-        },
-      }),
-    });
+    }),
+  });
 
-    syncTexture({
-      color: config?.gem?.color || config.color,
-      inputFile: "assets/gem-mask.png",
-      outputFile: `dist/Common/Resources/Gems/${u(config.id)}.png`,
-    });
+  syncTexture({
+    color: config.color,
+    inputFile: `assets/gem/gem-mask-${config.variant || "medium"}.png`,
+    outputFile: `dist/Common/Resources/Gems/${u(config.id)}.png`,
+  });
 
-    syncJson(
-      `Server/Item/Elements/${u(config.id)}/Gem_${u(config.id)}`,
-      data(config),
-    );
-  }
+  syncJson(
+    `Server/Item/Gems/Gem_${u(config.id)}`,
+    data(config),
+  );
 }

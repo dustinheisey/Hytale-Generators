@@ -1,4 +1,6 @@
 declare interface GemConfig extends ThingConfig {
+  color: string;
+  variant?: "light" | "medium" | "dark";
   effectColor?: {
     interact?: string;
     light?: string;

@@ -1,22 +1,22 @@
-import { u } from "@text";
+import { u, uSep } from "@text";
 import { syncJson, syncLang } from "@sync";
 
 const data = (config: CategoriesConfig): CategoriesData => {
   const { id, icon, order, children } = config;
 
   return {
-    Id: u(id),
+    Id: uSep(id),
     Name: `server.ui.${id}`,
-    Icon: `Icons/ItemCategories/${icon || u(id)}.png`,
+    Icon: `Icons/ItemCategories/${icon || uSep(id)}.png`,
     ...(order && { Order: order }),
     Children: children.map((child: Child) => {
       const isString = typeof child === "string";
       const childId = isString ? child : child.id;
       return {
-        Id: u(childId),
+        Id: uSep(childId),
         Name: `server.ui.${id}.${childId}`,
         Icon: `Icons/ItemCategories/${
-          isString ? u(childId) : u(child.icon)
+          isString ? uSep(childId) : uSep(child.icon)
         }.png`,
       };
     }),
@@ -42,7 +42,7 @@ export function generateCategories(config: CategoriesConfig) {
   });
 
   syncJson(
-    `Server/Item/Category/CreativeLibrary/${u(config.id)}`,
+    `Server/Item/Category/CreativeLibrary/${uSep(config.id)}`,
     data(config),
   );
 }

@@ -1,7 +1,5 @@
 import { u } from "@text";
 import { syncJson, syncLang, syncTexture } from "@sync";
-import { include } from "@include";
-import { generateRecipe } from "../recipe/recipe.ts";
 
 export const data = (config: AlloyConfig): AlloyData => {
   const {
@@ -74,33 +72,30 @@ export const data = (config: AlloyConfig): AlloyData => {
   };
 };
 
-export function generateAlloy(config: ThingsConfig & { inputs: Input[] }) {
-  if (include("alloy", config)) {
-    const description = config?.alloy?.description || config.description ||
-      null;
+export function generateAlloy(config: AlloyConfig) {
+  const description = config.description || null;
 
-    syncLang({
-      name: {
-        key: `items.Alloy_${u(config.id)}.name`,
-        value: `${config?.alloy?.name || config.name || u(config.id)} Ingot`,
+  syncLang({
+    name: {
+      key: `items.Alloy_${u(config.id)}.name`,
+      value: `${config.name || u(config.id)} Ingot`,
+    },
+    ...(description && {
+      description: {
+        key: `items.Alloy_${u(config.id)}.description`,
+        value: description,
       },
-      ...(description && {
-        description: {
-          key: `items.Alloy_${u(config.id)}.description`,
-          value: description,
-        },
-      }),
-    });
+    }),
+  });
 
-    syncTexture({
-      color: config?.ingot?.color || config.color,
-      inputFile: "assets/ingot-mask.png",
-      outputFile: `dist/Common/Resources/Alloys/${u(config.id)}.png`,
-    });
+  syncTexture({
+    color: config.color,
+    inputFile: `assets/ingot/ingot-mask-${config.variant || "medium"}.png`,
+    outputFile: `dist/Common/Resources/Alloys/${u(config.id)}.png`,
+  });
 
-    syncJson(
-      `Server/Item/Elements/${u(config.id)}/Ingot_${u(config.id)}`,
-      data(config),
-    );
-  }
+  syncJson(
+    `Server/Item/Alloys/Alloy_${u(config.id)}`,
+    data(config),
+  );
 }
