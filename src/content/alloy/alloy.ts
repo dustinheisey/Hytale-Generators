@@ -95,7 +95,7 @@ export function generateAlloy(config: AlloyConfig) {
   });
 
   syncJson(
-    `Server/Item/Alloys/Alloy_${u(config.id)}`,
+    `Server/Item/Items/Alloys/Alloy_${u(config.id)}`,
     data(config),
   );
 }

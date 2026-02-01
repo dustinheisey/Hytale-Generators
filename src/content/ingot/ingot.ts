@@ -39,7 +39,7 @@ export const data = (config: IngotConfig): IngotData => {
         },
       ],
       OutputQuantity: outputQuantity || 1,
-      TimeSeconds: processingTime || 10,
+      TimeSeconds: processingTime || 14,
     },
     Model: `Resources/Materials/${model || "Ingot"}.blockymodel`,
     Texture: `Resources/Ingots/${texture || u(id)}.png`,
@@ -51,14 +51,14 @@ export const data = (config: IngotConfig): IngotData => {
     PlayerAnimationsId: "Item",
     IconProperties: {
       Scale: 1,
-      Translation: [
-        0,
-        -3,
-      ],
       Rotation: [
         22.5,
         45,
         22.5,
+      ],
+      Translation: [
+        0,
+        -3,
       ],
     },
     Tags: {
@@ -124,7 +124,7 @@ export function generateIngot(config: ThingsConfig) {
     });
 
     syncJson(
-      `Server/Item/Elements/${u(config.id)}/Ingot_${u(config.id)}`,
+      `Server/Item/Items/Elements/${u(config.id)}/Ingot_${u(config.id)}`,
       data(config),
     );
   }
