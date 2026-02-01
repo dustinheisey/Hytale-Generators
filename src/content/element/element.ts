@@ -4,7 +4,7 @@ import { generateGem } from "../gem/gem.ts";
 import { generateDust } from "../dust/dust.ts";
 import { generateIngot } from "../ingot/ingot.ts";
 
-export function generateElement(config: ElementConfig) {
+export function generateElement(config: ThingsConfig) {
   const { dust, gem, ingot, ores, ore, oreBlock } = config;
 
   generateDust({ ...config, ...dust });

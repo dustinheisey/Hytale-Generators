@@ -1,4 +1,4 @@
-export function include(kind: Kind, config: ElementConfig): boolean {
+export function include(kind: Kind, config: ThingsConfig): boolean {
   const { include, exclude } = config;
 
   if (include && include?.includes(kind)) return true;

@@ -1,9 +1,8 @@
 {
   "tasks": {
-    "dev": "deno run src/index.ts"
+    "dev": "deno run --allow-env --allow-ffi --allow-read=public,dist --allow-write=dist src/index.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@^1.0.0",
     "culori": "npm:culori@^4.0.2",
     "sharp": "npm:sharp@^0.34.5",
     "@text": "./src/util/text.ts",

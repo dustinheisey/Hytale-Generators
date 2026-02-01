@@ -43,7 +43,7 @@ export const data = (config: DustConfig): DustData => {
       TimeSeconds: processingTime || 10,
     },
     Model: `Resources/Materials/${model || "Ingot"}.blockymodel`,
-    Texture: `Resources/Materials/Ingot_Textures/${texture || u(id)}.png`,
+    Texture: `Resources/Dusts/${texture || u(id)}.png`,
     IconProperties: {
       Scale: 1,
       Translation: [
@@ -78,7 +78,7 @@ export const data = (config: DustConfig): DustData => {
   };
 };
 
-export function generateDust(config: ElementConfig) {
+export function generateDust(config: ThingsConfig) {
   if (include("dust", config)) {
     const description = config?.dust?.description || config.description || null;
 

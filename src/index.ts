@@ -1,30 +1,36 @@
 import { syncJson, syncPublic } from "./util/sync/sync.ts";
+import { generateManifest } from "./content/manifest/manifest.ts";
 import { generateCategories } from "./content/categories/categories.ts";
 import { generateResourceType } from "./content/resource-type/resource-type.ts";
 import { generateElement } from "./content/element/element.ts";
+import { generateAlloy } from "./content/alloy/alloy.ts";
+
+/*
+- [ ] Step 1: generate list of alloys
+- [ ] Step 2: generate list of gems
+- [ ] Step 3: pick correct names for all things
+- [ ] Step 3: pick correct colors for all elements
+- [ ] Step 3: pick correct colors for all alloys
+- [ ] Step 3: pick correct colors for all gems
+- [ ] Step 3: pick correct color overrides for some ores
+*/
 
 // ? Copy public folder contents to dist
 syncPublic();
 
 // ? Generate manifest file
-syncJson("manifest", {
-  Group: "gg.inconvenient",
-  Name: "Unified Materials",
-  Version: "0.2.0",
-  Description: "A description of what this plugin does",
-  Authors: [
+generateManifest({
+  group: "gg.inconvenient",
+  name: "Unified Materials",
+  version: "0.2.0",
+  description: "Lots of materials for use in other mods",
+  authors: [
     {
-      Name: "Inconvenient Dev",
-      Url: "https://inconvenient.gg",
+      name: "Inconvenient Dev",
+      url: "https://inconvenient.gg",
     },
   ],
-  Website: "https://www.curseforge.com/hytale/mods/unified-materials",
-  Dependencies: {},
-  OptionalDependencies: {},
-  LoadBefore: {},
-  DisabledByDefault: false,
-  IncludesAssetPack: false,
-  SubPlugins: [],
+  website: "https://www.curseforge.com/hytale/mods/unified-materials",
 });
 
 // ? Generate creative categories file
@@ -190,3 +196,407 @@ const elements: ElementsConfig = {
 };
 
 Object.values(elements).flat().forEach((element) => generateElement(element));
+
+const alloys: AlloyConfig[] = [
+  // Alnico — permanent magnets (motors, sensors, pickups); stays magnetic at higher temps than many magnets.
+  {
+    id: "alnico",
+    color: "#6b4a3a",
+    inputs: [
+      { ItemId: "Ingot_Iron", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", Quantity: 1 },
+      { ItemId: "Ingot_Cobalt", Quantity: 1 },
+    ],
+    processingTime: 17,
+    outputQuantity: 5,
+  },
+
+  // Duralumin — strong lightweight aluminum alloy for aircraft structures, rivets, machined parts.
+  {
+    id: "duralumin",
+    color: "#b8c6d8",
+    inputs: [
+      { ItemId: "Ingot_Aluminum", Quantity: 3 },
+      { ItemId: "Ingot_Copper", Quantity: 1 },
+      { ItemId: "Ingot_Magnesium", Quantity: 1 },
+    ],
+    processingTime: 7,
+    outputQuantity: 5,
+  },
+
+  // Bismanol — historic bismuth–manganese magnetic alloy used for specialized permanent magnets.
+  {
+    id: "bismanol",
+    color: "#3b4654",
+    inputs: [
+      { ItemId: "Ingot_Bismuth", Quantity: 1 },
+      { ItemId: "Ingot_Manganese", Quantity: 1 },
+    ],
+    processingTime: 12,
+    outputQuantity: 2,
+  },
+
+  // Rose metal — fusible alloy for low-temp casting/fixturing, tube-bending filler, temporary tooling.
+  {
+    id: "rose_metal",
+    color: "#b9c2cb",
+    inputs: [
+      { ItemId: "Ingot_Bismuth", Quantity: 3 },
+      { ItemId: "Ingot_Lead", Quantity: 1 },
+      { ItemId: "Ingot_Tin", Quantity: 1 },
+    ],
+    processingTime: 6,
+    outputQuantity: 5,
+  },
+
+  // Nichrome — resistance wire for heating elements and wirewound resistors.
+  {
+    id: "nichrome",
+    color: "#a8b0b8",
+    inputs: [
+      { ItemId: "Ingot_Nickel", Quantity: 4 },
+      { ItemId: "Ingot_Chromium", Quantity: 1 },
+    ],
+    processingTime: 16,
+    outputQuantity: 5,
+  },
+
+  // Ferrochrome — steelmaking additive that supplies chromium (especially for stainless steels).
+  {
+    id: "ferrochrome",
+    color: "#6d7278",
+    inputs: [
+      { ItemId: "Ingot_Iron", Quantity: 2 },
+      { ItemId: "Ingot_Chromium", Quantity: 3 },
+    ],
+    processingTime: 18,
+    outputQuantity: 5,
+  },
+
+  // Megallium — cobalt–chromium–molybdenum dental alloy; corrosion resistant and nickel-free.
+  {
+    id: "megallium",
+    color: "#5b6673",
+    inputs: [
+      { ItemId: "Ingot_Cobalt", Quantity: 3 },
+      { ItemId: "Ingot_Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Molybdenum", Quantity: 1 },
+    ],
+    processingTime: 16,
+    outputQuantity: 5,
+  },
+
+  // Talonite — wear/corrosion resistant cobalt alloy used for hard-wearing edges and abrasion service.
+  {
+    id: "talonite",
+    color: "#4f5964",
+    inputs: [
+      { ItemId: "Ingot_Cobalt", Quantity: 3 },
+      { ItemId: "Ingot_Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Molybdenum", Quantity: 1 },
+    ],
+    processingTime: 16,
+    outputQuantity: 5,
+  },
+
+  // Vitallium — cobalt–chromium–molybdenum alloy for implants/dentistry; strong and corrosion resistant.
+  {
+    id: "vitallium",
+    color: "#6c7784",
+    inputs: [
+      { ItemId: "Ingot_Cobalt", Quantity: 13 },
+      { ItemId: "Ingot_Chromium", Quantity: 6 },
+      { ItemId: "Ingot_Molybdenum", Quantity: 1 },
+    ],
+    processingTime: 16,
+    outputQuantity: 2,
+  },
+
+  // Brass — fittings, valves, machinable parts, fasteners; general-purpose Cu–Zn alloy.
+  {
+    id: "brass",
+    color: "#d6a33a",
+    inputs: [
+      { ItemId: "Ingot_Copper", Quantity: 2 },
+      { ItemId: "Ingot_Zinc", Quantity: 1 },
+    ],
+    processingTime: 10,
+    outputQuantity: 3,
+  },
+
+  // Bronze — bearings, springs, durable cast parts; classic Cu–Sn alloy.
+  {
+    id: "bronze",
+    color: "#b06a2a",
+    inputs: [
+      { ItemId: "Ingot_Copper", Quantity: 3 },
+      { ItemId: "Ingot_Tin", Quantity: 2 },
+    ],
+    processingTime: 11,
+    outputQuantity: 5,
+  },
+
+  // Arsenical bronze — stronger casts / work-hardening copper alloy (historic + niche modern use).
+  {
+    id: "arsenical_bronze",
+    color: "#9a6a3a",
+    inputs: [
+      { ItemId: "Ingot_Copper", Quantity: 3 },
+      { ItemId: "Ingot_Arsenic", Quantity: 1 },
+      { ItemId: "Ingot_Tin", Quantity: 1 },
+    ],
+    processingTime: 11,
+    outputQuantity: 5,
+  },
+
+  // Bismuth bronze — lead-free-ish bearing/bushing alloy family; machinability + corrosion resistance.
+  {
+    id: "bismuth_bronze",
+    color: "#a77b5a",
+    inputs: [
+      { ItemId: "Ingot_Copper", Quantity: 3 },
+      { ItemId: "Ingot_Tin", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", Quantity: 1 },
+    ],
+    processingTime: 11,
+    outputQuantity: 5,
+  },
+
+  // Constanta — copper–nickel resistance alloy (constantan family) for thermocouples and precision resistors.
+  {
+    id: "constantan",
+    color: "#b0a79b",
+    inputs: [
+      { ItemId: "Ingot_Copper", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", Quantity: 2 },
+    ],
+    processingTime: 14,
+    outputQuantity: 5,
+  },
+
+  // Hepatizon — decorative dark “Corinthian bronze” style; prized for deep patina/ornamental metalwork.
+  {
+    id: "hepatizon",
+    color: "#3b2a3e",
+    inputs: [
+      { ItemId: "Ingot_Copper", Quantity: 3 },
+      { ItemId: "Ingot_Gold", Quantity: 1 },
+      { ItemId: "Ingot_Silver", Quantity: 1 },
+    ],
+    processingTime: 12,
+    outputQuantity: 5,
+  },
+
+  // Galinsstan — galinstan liquid metal alloy used as a mercury alternative (heat transfer / novelty / lab use).
+  {
+    id: "galinsstan",
+    color: "#d2dae5",
+    inputs: [
+      { ItemId: "Ingot_Gallium", Quantity: 3 },
+      { ItemId: "Ingot_Indium", Quantity: 1 },
+      { ItemId: "Ingot_Tin", Quantity: 1 },
+    ],
+    processingTime: 6,
+    outputQuantity: 5,
+  },
+
+  // Electrum — gold–silver alloy (natural or made) used historically for coinage and decorative work.
+  {
+    id: "electrum",
+    color: "#d9cf6a",
+    inputs: [
+      { ItemId: "Ingot_Gold", Quantity: 3 },
+      { ItemId: "Ingot_Silver", Quantity: 2 },
+    ],
+    processingTime: 12,
+    outputQuantity: 5,
+  },
+
+  // Purple gold — gold–aluminum intermetallic used in jewelry for vivid purple color (brittle, but real).
+  {
+    id: "purple_gold",
+    color: "#7c4aa8",
+    inputs: [
+      { ItemId: "Ingot_Gold", Quantity: 4 },
+      { ItemId: "Ingot_Aluminum", Quantity: 1 },
+    ],
+    processingTime: 12,
+    outputQuantity: 5,
+  },
+
+  // Blue gold — gold–gallium (AuGa2) or gold–indium (AuIn2) intermetallic; used in specialty jewelry/inlays.
+  {
+    id: "blue_gold",
+    color: "#2f63c7",
+    inputs: [
+      { ItemId: "Ingot_Gold", Quantity: 4 },
+      { ItemId: "Ingot_Indium", Quantity: 1 },
+    ],
+    processingTime: 6,
+    outputQuantity: 5,
+  },
+
+  // Gray gold — gold alloyed with “white” metals (often palladium) for a naturally gray/white tone under plating.
+  {
+    id: "gray_gold",
+    color: "#aeb5bf",
+    inputs: [
+      { ItemId: "Ingot_Gold", Quantity: 4 },
+      { ItemId: "Ingot_Palladium", Quantity: 1 },
+    ],
+    processingTime: 12,
+    outputQuantity: 5,
+  },
+
+  // Rose gold — gold + copper (often with a little silver/zinc in real recipes) for warm pink tone (jewelry).
+  {
+    id: "rose_gold",
+    color: "#d38b7f",
+    inputs: [
+      { ItemId: "Ingot_Gold", Quantity: 4 },
+      { ItemId: "Ingot_Copper", Quantity: 1 },
+    ],
+    processingTime: 12,
+    outputQuantity: 5,
+  },
+
+  // White gold — gold alloyed with nickel/palladium-family metals for a pale white tone (often rhodium plated).
+  {
+    id: "white_gold",
+    color: "#d7dbe2",
+    inputs: [
+      { ItemId: "Ingot_Gold", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", Quantity: 1 },
+      { ItemId: "Ingot_Palladium", Quantity: 1 },
+    ],
+    processingTime: 12,
+    outputQuantity: 5,
+  },
+
+  // Invar — low thermal expansion Ni–Fe alloy for precision instruments, metrology frames, stable structures.
+  {
+    id: "invar",
+    color: "#8e979f",
+    inputs: [
+      { ItemId: "Ingot_Iron", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", Quantity: 2 },
+    ],
+    processingTime: 16,
+    outputQuantity: 5,
+  },
+
+  // Cast iron — castable iron–carbon alloy for engine blocks, machine bases, cookware, housings.
+  {
+    id: "cast_iron",
+    color: "#3f464d",
+    inputs: [
+      { ItemId: "Ingot_Iron", Quantity: 3 },
+      { ItemId: "Ingot_Carbon", Quantity: 1 },
+      { ItemId: "Ingot_Silicon", Quantity: 1 },
+    ],
+    processingTime: 16,
+    outputQuantity: 5,
+  },
+
+  // Stainless steel — corrosion-resistant steel family (classic iron–chromium–nickel “austenitic” vibe).
+  {
+    id: "stainless_steel",
+    color: "#9aa3ad",
+    inputs: [
+      { ItemId: "Ingot_Iron", Quantity: 3 },
+      { ItemId: "Ingot_Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Nickel", Quantity: 1 },
+    ],
+    processingTime: 16,
+    outputQuantity: 5,
+  },
+
+  // Wrought iron — very low-carbon forgeable iron used for decorative ironwork and restoration.
+  {
+    id: "wrought_iron",
+    color: "#4c545c",
+    inputs: [
+      { ItemId: "Ingot_Iron", Quantity: 4 },
+      { ItemId: "Ingot_Silicon", Quantity: 1 },
+    ],
+    processingTime: 17,
+    outputQuantity: 5,
+  },
+
+  // Tool steel — high hardness/wear steel for cutters, dies, punches, forming tooling.
+  {
+    id: "tool_steel",
+    color: "#2f3840",
+    inputs: [
+      { ItemId: "Ingot_Iron", Quantity: 3 },
+      { ItemId: "Ingot_Carbon", Quantity: 1 },
+      { ItemId: "Ingot_Chromium", Quantity: 1 },
+    ],
+    processingTime: 17,
+    outputQuantity: 5,
+  },
+
+  // Pewter — tin-based low-melt alloy for cast metalware, decorative parts, prototypes.
+  {
+    id: "pewter",
+    color: "#9ea7b3",
+    inputs: [
+      { ItemId: "Ingot_Tin", Quantity: 3 },
+      { ItemId: "Ingot_Lead", Quantity: 1 },
+      { ItemId: "Ingot_Antimony", Quantity: 1 },
+    ],
+    processingTime: 6,
+    outputQuantity: 5,
+  },
+
+  // Sterling silver — tougher silver alloy for jewelry, decorative hardware, some electrical contacts.
+  {
+    id: "sterling_silver",
+    color: "#d6dde6",
+    inputs: [
+      { ItemId: "Ingot_Silver", Quantity: 3 },
+      { ItemId: "Ingot_Lead", Quantity: 2 },
+    ],
+    processingTime: 11,
+    outputQuantity: 5,
+  },
+
+  // Nitinol — nickel–titanium shape-memory/superelastic alloy for stents, actuators, couplings.
+  {
+    id: "nitinol",
+    color: "#b2bcc8",
+    inputs: [
+      { ItemId: "Ingot_Nickel", Quantity: 1 },
+      { ItemId: "Ingot_Titanium", Quantity: 1 },
+    ],
+    processingTime: 15,
+    outputQuantity: 2,
+  },
+
+  // Permalloy — soft magnetic Ni–Fe alloy for magnetic shielding, transformer cores, sensors.
+  {
+    id: "permalloy",
+    color: "#909aa5",
+    inputs: [
+      { ItemId: "Ingot_Nickel", Quantity: 4 },
+      { ItemId: "Ingot_Iron", Quantity: 1 },
+    ],
+    processingTime: 16,
+    outputQuantity: 5,
+  },
+
+  // Queens metal — tin-based pewter-family alloy used for cast wares; historically: 9 tin + 1 each antimony/lead/bismuth.
+  {
+    id: "queens_metal",
+    color: "#bfc8d2",
+    inputs: [
+      { ItemId: "Ingot_Tin", Quantity: 2 },
+      { ItemId: "Ingot_Antimony", Quantity: 1 },
+      { ItemId: "Ingot_Lead", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", Quantity: 1 },
+    ],
+    processingTime: 5,
+  },
+];
+
+alloys.forEach((alloy) => generateAlloy(alloy));

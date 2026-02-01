@@ -83,7 +83,7 @@ export const data = (config: OreBlockConfig): OreBlockData => {
 };
 
 export function generateOreBlock(
-  config: ElementConfig & { type: Block },
+  config: ThingsConfig & { type: Block },
 ) {
   if (include(`ore_${config.type}`, config)) {
     const description = config?.oreBlock?.description ||

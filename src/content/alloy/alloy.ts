@@ -3,7 +3,7 @@ import { syncJson, syncLang, syncTexture } from "@sync";
 import { include } from "@include";
 import { generateRecipe } from "../recipe/recipe.ts";
 
-export const data = (config: IngotConfig): IngotData => {
+export const data = (config: AlloyConfig): AlloyData => {
   const {
     id,
     categories,
@@ -12,37 +12,33 @@ export const data = (config: IngotConfig): IngotData => {
     model,
     texture,
     maxStack,
+    inputs,
   } = config;
 
   return {
     TranslationProperties: {
-      Name: `server.items.Ingot_${u(id)}.name`,
+      Name: `server.items.Alloy_${u(id)}.name`,
       ...(config.description
-        ? { Description: `server.items.Ingot_${u(id)}.description` }
+        ? { Description: `server.items.Alloy_${u(id)}.description` }
         : ""),
     },
     Categories: categories || [
       "Items",
-      "Unified_Materials.Ingots",
+      "Unified_Materials.Alloys",
     ],
     Recipe: {
-      Input: [
-        {
-          ItemId: `Ore_${u(id)}`,
-          Quantity: 1,
-        },
-      ],
+      Input: inputs,
       BenchRequirement: [
         {
-          Type: "Processing",
-          Id: "Furnace",
+          Type: "Crafting",
+          Id: "Workbench",
         },
       ],
-      OutputQuantity: outputQuantity || 1,
+      OutputQuantity: outputQuantity || 2,
       TimeSeconds: processingTime || 10,
     },
     Model: `Resources/Materials/${model || "Ingot"}.blockymodel`,
-    Texture: `Resources/Ingots/${texture || u(id)}.png`,
+    Texture: `Resources/Alloys/${texture || u(id)}.png`,
     ResourceTypes: [
       {
         Id: "Metal_Bars",
@@ -78,19 +74,19 @@ export const data = (config: IngotConfig): IngotData => {
   };
 };
 
-export function generateIngot(config: ThingsConfig) {
-  if (include("ingot", config)) {
-    const description = config?.ingot?.description || config.description ||
+export function generateAlloy(config: ThingsConfig & { inputs: Input[] }) {
+  if (include("alloy", config)) {
+    const description = config?.alloy?.description || config.description ||
       null;
 
     syncLang({
       name: {
-        key: `items.Ingot_${u(config.id)}.name`,
-        value: `${config?.ingot?.name || config.name || u(config.id)} Ingot`,
+        key: `items.Alloy_${u(config.id)}.name`,
+        value: `${config?.alloy?.name || config.name || u(config.id)} Ingot`,
       },
       ...(description && {
         description: {
-          key: `items.Ingot_${u(config.id)}.description`,
+          key: `items.Alloy_${u(config.id)}.description`,
           value: description,
         },
       }),
@@ -99,26 +95,7 @@ export function generateIngot(config: ThingsConfig) {
     syncTexture({
       color: config?.ingot?.color || config.color,
       inputFile: "assets/ingot-mask.png",
-      outputFile: `dist/Common/Resources/Ingots/${u(config.id)}.png`,
-    });
-
-    generateRecipe({
-      id: `Furnace/Furnace_${u(config.id)}_Dust`,
-      bench: "Furnace",
-      inputs: [
-        {
-          ItemId: `Dust_${u(config.id)}`,
-          Quantity: 1,
-        },
-      ],
-      outputs: [
-        {
-          ItemId: `Ingot_${u(config.id)}`,
-          Quantity: 1,
-        },
-      ],
-      processingTime: config?.ingot?.processingTime || config.processingTime ||
-        15,
+      outputFile: `dist/Common/Resources/Alloys/${u(config.id)}.png`,
     });
 
     syncJson(

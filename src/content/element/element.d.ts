@@ -1,4 +1,4 @@
-declare interface ElementConfig extends ThingConfig {
+declare interface ThingsConfig extends ThingConfig {
   id: string;
   color: string;
   include?: Kind[];
@@ -10,17 +10,18 @@ declare interface ElementConfig extends ThingConfig {
   gem?: Omit<GemConfig, "id">;
   dust?: Omit<DustConfig, "id">;
   ingot?: Omit<IngotConfig, "id">;
+  alloy?: Omit<AlloyConfig, "id">;
 }
 
 declare interface ElementsConfig {
-  reactiveNonmetals: ElementConfig[];
-  alkaliMetals: ElementConfig[];
-  alkalineEarthMetals: ElementConfig[];
-  transitionMetals: ElementConfig[];
-  postTransitionMetals: ElementConfig[];
-  metalloids: ElementConfig[];
-  lanthanides: ElementConfig[];
-  actinides: ElementConfig[];
+  reactiveNonmetals: ThingsConfig[];
+  alkaliMetals: ThingsConfig[];
+  alkalineEarthMetals: ThingsConfig[];
+  transitionMetals: ThingsConfig[];
+  postTransitionMetals: ThingsConfig[];
+  metalloids: ThingsConfig[];
+  lanthanides: ThingsConfig[];
+  actinides: ThingsConfig[];
 }
 
 /*

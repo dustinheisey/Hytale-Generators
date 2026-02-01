@@ -36,8 +36,8 @@ declare type Bench =
   | "Troughbench";
 
 declare interface BenchRequirement {
-  Type: string;
-  Id: string;
+  Type: CraftingType;
+  Id: Bench;
 }
 
 declare interface BaseRecipeData {

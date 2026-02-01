@@ -17,9 +17,9 @@ export const data = (config: GemConfig): GemData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Rock_Gem_${u(id)}.name`,
+      Name: `server.items.Gem_${u(id)}.name`,
       ...(config.description
-        ? { Description: `server.items.Rock_Gem_${u(id)}.description` }
+        ? { Description: `server.items.Gem_${u(id)}.description` }
         : ""),
     },
     Categories: categories || [
@@ -34,7 +34,7 @@ export const data = (config: GemConfig): GemData => {
       CustomModel: `Resources/Ores/${model || "Gem"}.blockymodel`,
       CustomModelTexture: [
         {
-          Texture: `Resources/Ores/Gem_Textures/${texture || u(id)}.png`,
+          Texture: `Resources/Gems/${texture || u(id)}.png`,
           Weight: 1,
         },
       ],
@@ -75,7 +75,7 @@ export const data = (config: GemConfig): GemData => {
   };
 };
 
-export function generateGem(config: ElementConfig) {
+export function generateGem(config: ThingsConfig) {
   if (include("gem", config)) {
     const description = config?.gem?.description || config.description || null;
 

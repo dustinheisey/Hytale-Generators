@@ -22,10 +22,12 @@ declare interface ThingConfig {
   model?: string;
   texture?: string;
   maxStack?: number;
+  inputs?: Input[];
 }
 
 declare type Kind =
   | "ingot"
+  | "alloy"
   | "dust"
   | "gem"
   | "ore"

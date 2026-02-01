@@ -39,7 +39,7 @@ export const data = (config: OreConfig): OreData => {
       TimeSeconds: processingTime || 15,
     },
     Model: `Resources/Ores/${model || "Ore_Large"}.blockymodel`,
-    Texture: `Resources/Ores/Ore_Textures/${texture || u(id)}.png`,
+    Texture: `Resources/Ores/${texture || u(id)}.png`,
     ItemLevel: itemLevel || 10,
     PlayerAnimationsId: "Block",
     IconProperties: {
@@ -68,7 +68,7 @@ export const data = (config: OreConfig): OreData => {
   };
 };
 
-export function generateOre(config: ElementConfig) {
+export function generateOre(config: ThingsConfig) {
   if (include("ore", config)) {
     const description = config?.ore?.description || config?.ores?.description ||
       config.description || null;
