@@ -17,27 +17,28 @@ declare type CraftingType =
   | "Processing";
 
 declare type Bench =
-  | "Salvagebench"
-  | "Alchemybench"
-  | "Arcanebench"
-  | "Armourbench"
-  | "Buildersbench"
-  | "Farmingbench"
-  | "Furniturebench"
+  | "Salvage_Bench"
+  | "Alchemy_Bench"
+  | "Arcane_Bench"
+  | "Armour_Bench"
+  | "Builders_Bench"
+  | "Farming_Bench"
+  | "Furniture_Bench"
   | "Workbench"
-  | "Campfirebench"
-  | "Cookingbench"
+  | "Campfire_Bench"
+  | "Cooking_Bench"
   | "Furnace"
-  | "Tannerybench"
-  | "Lumbermillbench"
-  | "Weaponbench"
-  | "Armorybench"
-  | "Loombench"
-  | "Troughbench";
+  | "Tannery_Bench"
+  | "Lumbermill_Bench"
+  | "Weapon_Bench"
+  | "Armory_Bench"
+  | "Loom_Bench"
+  | "Trough_Bench";
 
 declare interface BenchRequirement {
   Type: CraftingType;
   Id: Bench;
+  RequiredTierLevel: number;
 }
 
 declare interface BaseRecipeData {
@@ -59,6 +60,7 @@ declare interface RecipeConfig {
   id: string;
   inputs: Input[];
   bench: Bench;
+  tier: number;
   processingTime: number;
   outputs: Output[];
 }

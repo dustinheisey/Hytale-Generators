@@ -5,52 +5,52 @@ function benchRequirement(bench: Bench) {
   let type: CraftingType;
 
   switch (bench) {
-    case "Alchemybench":
+    case "Alchemy_Bench":
       type = "Crafting";
       break;
-    case "Arcanebench":
+    case "Arcane_Bench":
       type = "Crafting";
       break;
-    case "Armorybench":
+    case "Armory_Bench":
       type = "DiagramCrafting";
       break;
-    case "Armourbench":
+    case "Armour_Bench":
       type = "Crafting";
       break;
-    case "Buildersbench":
+    case "Builders_Bench":
       type = "StructuralCrafting";
       break;
-    case "Campfirebench":
+    case "Campfire_Bench":
       type = "Processing";
       break;
-    case "Cookingbench":
+    case "Cooking_Bench":
       type = "Crafting";
       break;
-    case "Farmingbench":
+    case "Farming_Bench":
       type = "Crafting";
       break;
     case "Furnace":
       type = "Processing";
       break;
-    case "Furniturebench":
+    case "Furniture_Bench":
       type = "Crafting";
       break;
-    case "Loombench":
+    case "Loom_Bench":
       type = "Crafting";
       break;
-    case "Lumbermillbench":
+    case "Lumbermill_Bench":
       type = "Crafting";
       break;
-    case "Salvagebench":
+    case "Salvage_Bench":
       type = "Processing";
       break;
-    case "Tannerybench":
+    case "Tannery_Bench":
       type = "Processing";
       break;
-    case "Troughbench":
+    case "Trough_Bench":
       type = "Crafting";
       break;
-    case "Weaponbench":
+    case "Weapon_Bench":
       type = "Crafting";
       break;
     case "Workbench":
@@ -67,18 +67,18 @@ function benchRequirement(bench: Bench) {
 }
 
 export const data = (config: RecipeConfig): ExternalRecipeData => {
-  const { processingTime, inputs, outputs, bench } = config;
+  const { processingTime, inputs, outputs, bench, tier } = config;
   return {
     Input: inputs,
     PrimaryOutput: outputs[0],
     ...(outputs.length > 1 ? { Output: outputs.slice(1) } : ""),
     BenchRequirement: [
-      benchRequirement(bench),
+      { ...benchRequirement(bench), RequiredTierLevel: tier },
     ],
     TimeSeconds: processingTime || 10,
   };
 };
 
 export function generateRecipe(config: RecipeConfig) {
-  syncJson(`Server/Item/CraftingRecipe/${uSep(config.id)}`, data(config));
+  syncJson(`Server/Item/Recipes/${uSep(config.id)}`, data(config));
 }

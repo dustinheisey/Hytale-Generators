@@ -36,6 +36,7 @@ export const data = (config: IngotConfig): IngotData => {
         {
           Type: "Processing",
           Id: "Furnace",
+          RequiredTierLevel: 1
         },
       ],
       OutputQuantity: outputQuantity || 1,
@@ -107,6 +108,7 @@ export function generateIngot(config: ThingsConfig) {
     generateRecipe({
       id: `Furnace/Furnace_${u(config.id)}_Dust`,
       bench: "Furnace",
+      tier: 1,
       inputs: [
         {
           ItemId: `Dust_${u(config.id)}`,

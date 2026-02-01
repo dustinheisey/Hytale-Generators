@@ -28,8 +28,9 @@ export const data = (config: AlloyConfig): AlloyData => {
       Input: inputs,
       BenchRequirement: [
         {
-          Type: "Crafting",
-          Id: "Workbench",
+          Type: "Processing",
+          Id: "Furnace",
+          RequiredTierLevel: 2,
         },
       ],
       OutputQuantity: outputQuantity || 2,

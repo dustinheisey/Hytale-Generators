@@ -7,8 +7,11 @@
 - [ ] no names are loading anymore
 - [x] can't place shale, slate, stone, volcanic ores
 - [x] can't mine any ores
-- [ ] dust smelting recipes don't work
-- [ ] alloy recipes don't work
+- [x] dust smelting recipes don't work
+- [x] alloy recipes don't work
+- [ ] max stack sizes are not correct
+- [ ] vanilla ingots don't fill into furnace
+- [ ] alloy smelting is too fast
 
 ## Backlog
 
