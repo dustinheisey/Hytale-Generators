@@ -40,20 +40,20 @@ export const data = (config: DustConfig): DustData => {
         },
       ],
       OutputQuantity: outputQuantity || 2,
-      TimeSeconds: processingTime || 10,
+      TimeSeconds: processingTime || 14,
     },
-    Model: `Resources/Materials/${model || "Ingot"}.blockymodel`,
+    Model: `Resources/Dusts/${model || "Dust"}.blockymodel`,
     Texture: `Resources/Dusts/${texture || u(id)}.png`,
     IconProperties: {
       Scale: 1,
-      Translation: [
-        0,
-        -3,
-      ],
       Rotation: [
         22.5,
         45,
         22.5,
+      ],
+      Translation: [
+        0,
+        -3,
       ],
     },
     ResourceTypes: [
@@ -102,7 +102,7 @@ export function generateDust(config: ThingsConfig) {
     });
 
     syncJson(
-      `Server/Item/Elements/${u(config.id)}/Dust_${u(config.id)}`,
+      `Server/Item/Items/Elements/${u(config.id)}/Dust_${u(config.id)}`,
       data(config),
     );
   }
