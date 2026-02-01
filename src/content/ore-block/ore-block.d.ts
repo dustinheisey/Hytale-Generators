@@ -2,6 +2,7 @@ declare interface OreBlockData extends ThingData {
   BlockType: BlockType & { Textures: Texture[] };
   PlayerAnimationsId: string;
   ItemSoundSetId: string;
+  IconProperties: IconProperties;
 }
 
 declare interface OreBlockConfig extends ThingConfig {

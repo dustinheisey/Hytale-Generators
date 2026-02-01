@@ -36,7 +36,7 @@ export const data = (config: OreBlockConfig): OreBlockData => {
       RandomRotation: "YawStep90",
       Gathering: {
         Breaking: {
-          GatherType: `Ore${u(id)}`,
+          GatherType: `OreIron`,
           DropList: {
             Container: {
               Type: "Multiple",
@@ -79,6 +79,18 @@ export const data = (config: OreBlockConfig): OreBlockData => {
     },
     MaxStack: maxStack || 25,
     ItemSoundSetId: "ISS_Blocks_Stone",
+    IconProperties: {
+      Scale: 0.58823,
+      Rotation: [
+        22.5,
+        45,
+        22.5,
+      ],
+      Translation: [
+        0,
+        -13.5,
+      ],
+    },
   };
 };
 
@@ -107,7 +119,7 @@ export function generateOreBlock(
     });
 
     syncJson(
-      `Server/Item/Elements/${u(config.id)}/Ore_${u(config.id)}_${
+      `Server/Item/Items/Elements/${u(config.id)}/Ore_${u(config.id)}_${
         u(config.type)
       }`,
       data(config),
