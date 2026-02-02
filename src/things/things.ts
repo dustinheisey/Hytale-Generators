@@ -3,50 +3,67 @@ export { generateDust, generateDusts } from "./dust/dust.ts";
 export { generateElement, generateElements } from "./element/element.ts";
 export { generateGem, generateGems } from "./gem/gem.ts";
 export { generateIngot, generateIngots } from "./ingot/ingot.ts";
-export { generateOre, generateOres } from "./ores/ore/ore.ts";
-export { renameVanillaOres } from "./ores/ores.ts";
-export {
-  generateOreBlock,
-  generateOreBlocks,
-} from "./ores/ore-block/ore-block.ts";
-
-export const vanillaOres: VanillaLangConfig = {
-  iron: "hematite",
-  copper: "malachite",
-  silver: "acanthite",
-  cobalt: "cobaltite",
-};
+export { generateOre, generateOres } from "./ore/ore.ts";
+export { generateOreBlock, generateOreBlocks } from "./ore-block/ore-block.ts";
 
 export const elements: ElementsConfig = {
+  vanilla: [
+    {
+      id: "hematite",
+      color: "#929291",
+      dust: { name: "Iron" },
+      exclude: ["ingot"],
+    },
+    {
+      id: "malachite",
+      color: "#2C7144",
+      dust: { color: "#D08046", name: "Copper" },
+      exclude: ["ingot"],
+    },
+    {
+      id: "acanthite",
+      color: "#EBE9EB",
+      dust: { name: "Silver" },
+      exclude: ["ingot"],
+    },
+    {
+      id: "cobaltite",
+      color: "#25476C",
+      dust: { name: "Cobalt" },
+      exclude: ["ingot"],
+    },
+    { id: "gold", color: "#F4CD25", exclude: ["ingot"] },
+    { id: "thorium", color: "#2C7144", exclude: ["ingot"] },
+  ],
   alkaliMetals: [
     {
       id: "lithium",
       color: "#B6B6E2",
-      ores: { name: "Spodumene", description: "Can be processed into Lithium" },
+      ores: { name: "Spodumene" },
     },
     {
       id: "sodium",
       color: "#e1eaff",
-      ores: { name: "Halite", description: "Can be processed into Sodium" },
+      ores: { name: "Halite" },
       ingot: { variant: "lightest" },
     },
     {
       id: "potassium",
       color: "#9DA6EB",
-      ores: { name: "Sylvite", description: "Can be processed into Potassium" },
+      ores: { name: "Sylvite" },
     },
     {
       id: "rubidium",
       color: "#9A93E5",
       ores: {
         name: "Lepidolite",
-        description: "Can be processed into Rubidium",
+        description: "rubidium",
       },
     },
     {
       id: "caesium",
       color: "#E8C95A",
-      ores: { name: "Pollucite", description: "Can be processed into Caesium" },
+      ores: { name: "Pollucite" },
     },
     { id: "francium", color: "#6732D2" },
   ],
@@ -56,7 +73,6 @@ export const elements: ElementsConfig = {
       color: "#8CB1DD",
       ores: {
         name: "Bertrandite",
-        description: "Can be processed into Beryllium",
       },
     },
     {
@@ -64,13 +80,12 @@ export const elements: ElementsConfig = {
       color: "#95B8F3",
       ores: {
         name: "Magnesite",
-        description: "Can be processed into Magnesium",
       },
     },
     {
       id: "calcium",
       color: "#C4D5EC",
-      ores: { name: "Calcite", description: "Can be processed into Calcium" },
+      ores: { name: "Calcite" },
       ingot: { variant: "light" },
     },
     {
@@ -78,22 +93,22 @@ export const elements: ElementsConfig = {
       color: "#A89AE3",
       ores: {
         name: "Celestite",
-        description: "Can be processed into Strontium",
       },
     },
     {
       id: "barium",
       color: "#E0CD77",
-      ores: { name: "Barite", description: "Can be processed into Barium" },
+      ores: { name: "Barite" },
     },
     { id: "radium", color: "#4D4DD6" },
   ],
   transitionMetals: [
     { id: "scandium", color: "#88B2DC" },
+
     {
       id: "titanium",
       color: "#AEB6BF",
-      ores: { name: "Rutile", description: "Can be processed into Titanium" },
+      ores: { name: "Rutile" },
       ingot: { variant: "light" },
     },
     {
@@ -101,21 +116,19 @@ export const elements: ElementsConfig = {
       color: "#2a0651",
       ores: {
         name: "Vanadinite",
-        description: "Can be processed into Vanadium",
       },
       ingot: { variant: "dark" },
     },
     {
       id: "chromium",
       color: "#2B9A32",
-      ores: { name: "Chromite", description: "Can be processed into Chromium" },
+      ores: { name: "Chromite" },
     },
     {
       id: "manganese",
       color: "#6B7076",
       ores: {
         name: "Pyrolusite",
-        description: "Can be processed into Manganese",
       },
       ingot: { variant: "light" },
     },
@@ -124,31 +137,29 @@ export const elements: ElementsConfig = {
       color: "#8A8570",
       ores: {
         name: "Pentlandite",
-        description: "Can be processed into Nickel",
       },
     },
     {
       id: "zinc",
       color: "#9FA7B0",
-      ores: { name: "Sphalerite", description: "Can be processed into Zinc" },
+      ores: { name: "Sphalerite" },
       ingot: { variant: "light" },
     },
     {
       id: "yttrium",
       color: "#7FB4EA",
-      ores: { name: "Xenotime", description: "Can be processed into Yttrium" },
+      ores: { name: "Xenotime" },
     },
     {
       id: "zirconium",
       color: "#8ABAE6",
-      ores: { name: "Zircon", description: "Can be processed into Zirconium" },
+      ores: { name: "Zircon" },
     },
     {
       id: "niobium",
       color: "#3D87C1",
       ores: {
         name: "Pyrochlore",
-        description: "Can be processed into Niobium",
       },
     },
     {
@@ -156,7 +167,6 @@ export const elements: ElementsConfig = {
       color: "#2D83C8",
       ores: {
         name: "Molybdenite",
-        description: "Can be processed into Molybdenum",
       },
     },
     { id: "technetium", color: "#2D2DA1" },
@@ -170,7 +180,6 @@ export const elements: ElementsConfig = {
       color: "#2C7EB4",
       ores: {
         name: "Tantalite",
-        description: "Can be processed into Tantalum",
       },
     },
     {
@@ -178,7 +187,6 @@ export const elements: ElementsConfig = {
       color: "#503b27",
       ores: {
         name: "Wolframite",
-        description: "Can be processed into Tungsten",
       },
     },
     { id: "rhenium", color: "#1E568C" },
@@ -187,7 +195,7 @@ export const elements: ElementsConfig = {
     {
       id: "platinum",
       color: "#D5DBE2",
-      ores: { name: "Ilmenite", description: "Can be processed into Platinum" },
+      ores: { name: "Ilmenite" },
     },
     {
       id: "mercury",
@@ -195,7 +203,6 @@ export const elements: ElementsConfig = {
       ores: {
         name: "Cinnabar",
         color: "#B0120C",
-        description: "Can be processed into Mercury",
       },
     },
     { id: "rutherfordium", color: "#1E5A93" },
@@ -212,7 +219,7 @@ export const elements: ElementsConfig = {
     {
       id: "aluminum",
       color: "#D0D6DE",
-      ores: { name: "Bauxite", description: "Can be processed into Aluminum" },
+      ores: { name: "Bauxite" },
       ingot: { variant: "light" },
     },
     { id: "gallium", color: "#7EBBF1" },
@@ -222,20 +229,19 @@ export const elements: ElementsConfig = {
       color: "#8BAA1D",
       ores: {
         name: "Lorandite",
-        description: "Can be processed into Thallium",
       },
     },
     { id: "nihonium", color: "#4A1BB0" },
     {
       id: "tin",
       color: "#A6AFB8",
-      ores: { name: "Cassiterite", description: "Can be processed into Tin" },
+      ores: { name: "Cassiterite" },
       ingot: { variant: "light" },
     },
     {
       id: "lead",
       color: "#44324e",
-      ores: { name: "Galena", description: "Can be processed into Lead" },
+      ores: { name: "Galena" },
     },
     { id: "flerovium", color: "#2D63A1" },
     {
@@ -243,7 +249,6 @@ export const elements: ElementsConfig = {
       color: "#7A667F",
       ores: {
         name: "Bismuthinite",
-        description: "Can be processed into Bismuth",
       },
     },
     { id: "moscovium", color: "#6A1F93" },
@@ -254,19 +259,18 @@ export const elements: ElementsConfig = {
     {
       id: "boron",
       color: "#1F1F22",
-      ores: { name: "Borax", description: "Can be processed into Boron" },
+      ores: { name: "Borax" },
     },
     {
       id: "silicon",
       color: "#5B616B",
-      ores: { name: "Quartz", description: "Can be processed into Silicon" },
+      ores: { name: "Quartz" },
     },
     {
       id: "germanium",
       color: "#3535B0",
       ores: {
         name: "Germanite",
-        description: "Can be processed into Germanium",
       },
     },
     {
@@ -274,20 +278,18 @@ export const elements: ElementsConfig = {
       color: "#4C5056",
       ores: {
         name: "Arsenopyrite",
-        description: "Can be processed into Arsenic",
       },
     },
     {
       id: "antimony",
       color: "#3838AD",
-      ores: { name: "Stibnite", description: "Can be processed into Antimony" },
+      ores: { name: "Stibnite" },
     },
     {
       id: "tellurium",
       color: "#6A29B4",
       ores: {
         name: "Tellurite",
-        description: "Can be processed into Tellurium",
       },
     },
   ],
@@ -297,7 +299,7 @@ export const elements: ElementsConfig = {
       id: "carbon",
       color: "#2A2A2A",
       ingot: { variant: "dark" },
-      ores: { name: "Graphite", description: "Can be processed into Carbon" },
+      ores: { name: "Graphite" },
     },
     { id: "nitrogen", color: "#6A9BFF" },
     {
@@ -305,7 +307,6 @@ export const elements: ElementsConfig = {
       color: "#004AA8",
       ores: {
         name: "Apatite",
-        description: "Can be processed into Phosphorus",
       },
     },
     { id: "oxygen", color: "#88FFFF" },
@@ -316,7 +317,7 @@ export const elements: ElementsConfig = {
     {
       id: "fluorine",
       color: "#D6DF7A",
-      ores: { name: "fluorite", description: "Can be processed into Fluorine" },
+      ores: { name: "fluorite" },
       ingot: { variant: "light" },
     },
     { id: "chlorine", color: "#7DDE00" },
@@ -357,7 +358,7 @@ export const elements: ElementsConfig = {
     {
       id: "uranium",
       color: "#657148",
-      ores: { name: "Uraninite", description: "Can be processed into Uranium" },
+      ores: { name: "Uraninite" },
     },
     { id: "neptunium", color: "#1E5A93" },
     { id: "plutonium", color: "#585E5A" },
@@ -404,11 +405,10 @@ export const alloys: AlloyConfig[] = [
     variant: "dark",
     color: "#6b4a3a",
     inputs: [
-      { ItemId: "Ingot_Iron", Quantity: 3 },
-      { ItemId: "Ingot_Nickel", Quantity: 1 },
-      { ItemId: "Ingot_Cobalt", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Cobalt", name: "Cobalt", Quantity: 1 },
     ],
-    processingTime: 17,
     outputQuantity: 5,
   },
 
@@ -418,11 +418,10 @@ export const alloys: AlloyConfig[] = [
     variant: "lightest",
     color: "#b8c6d8",
     inputs: [
-      { ItemId: "Ingot_Aluminum", Quantity: 3 },
-      { ItemId: "Ingot_Copper", Quantity: 1 },
-      { ItemId: "Ingot_Magnesium", Quantity: 1 },
+      { ItemId: "Ingot_Aluminum", name: "Aluminum", Quantity: 3 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 1 },
+      { ItemId: "Ingot_Magnesium", name: "Magnesium", Quantity: 1 },
     ],
-    processingTime: 7,
     outputQuantity: 5,
   },
 
@@ -432,10 +431,9 @@ export const alloys: AlloyConfig[] = [
     variant: "dark",
     color: "#344657",
     inputs: [
-      { ItemId: "Ingot_Bismuth", Quantity: 1 },
-      { ItemId: "Ingot_Manganese", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", name: "Bismuth", Quantity: 1 },
+      { ItemId: "Ingot_Manganese", name: "Manganese", Quantity: 1 },
     ],
-    processingTime: 12,
     outputQuantity: 2,
   },
 
@@ -445,11 +443,10 @@ export const alloys: AlloyConfig[] = [
     variant: "lightest",
     color: "#b9c2cb",
     inputs: [
-      { ItemId: "Ingot_Bismuth", Quantity: 3 },
-      { ItemId: "Ingot_Lead", Quantity: 1 },
-      { ItemId: "Ingot_Tin", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", name: "Bismuth", Quantity: 3 },
+      { ItemId: "Ingot_Lead", name: "Lead", Quantity: 1 },
+      { ItemId: "Ingot_Tin", name: "Tin", Quantity: 1 },
     ],
-    processingTime: 6,
     outputQuantity: 5,
   },
 
@@ -459,10 +456,9 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#9f9a87",
     inputs: [
-      { ItemId: "Ingot_Nickel", Quantity: 4 },
-      { ItemId: "Ingot_Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 4 },
+      { ItemId: "Ingot_Chromium", name: "Chromium", Quantity: 1 },
     ],
-    processingTime: 16,
     outputQuantity: 5,
   },
 
@@ -471,10 +467,9 @@ export const alloys: AlloyConfig[] = [
     id: "ferrochrome",
     color: "#586457",
     inputs: [
-      { ItemId: "Ingot_Iron", Quantity: 2 },
-      { ItemId: "Ingot_Chromium", Quantity: 3 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 2 },
+      { ItemId: "Ingot_Chromium", name: "Chromium", Quantity: 3 },
     ],
-    processingTime: 18,
     outputQuantity: 5,
   },
 
@@ -483,11 +478,10 @@ export const alloys: AlloyConfig[] = [
     id: "megallium",
     color: "#466a7d",
     inputs: [
-      { ItemId: "Ingot_Cobalt", Quantity: 3 },
-      { ItemId: "Ingot_Chromium", Quantity: 1 },
-      { ItemId: "Ingot_Molybdenum", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Cobalt", name: "Cobalt", Quantity: 3 },
+      { ItemId: "Ingot_Chromium", name: "Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Molybdenum", name: "Molybdenum", Quantity: 1 },
     ],
-    processingTime: 16,
     outputQuantity: 5,
   },
 
@@ -497,11 +491,10 @@ export const alloys: AlloyConfig[] = [
     variant: "dark",
     color: "#3c5b6e",
     inputs: [
-      { ItemId: "Ingot_Cobalt", Quantity: 3 },
-      { ItemId: "Ingot_Chromium", Quantity: 1 },
-      { ItemId: "Ingot_Molybdenum", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Cobalt", name: "Cobalt", Quantity: 3 },
+      { ItemId: "Ingot_Chromium", name: "Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Molybdenum", name: "Molybdenum", Quantity: 1 },
     ],
-    processingTime: 16,
     outputQuantity: 5,
   },
 
@@ -510,11 +503,10 @@ export const alloys: AlloyConfig[] = [
     id: "vitallium",
     color: "#4F8A73",
     inputs: [
-      { ItemId: "Ingot_Cobalt", Quantity: 13 },
-      { ItemId: "Ingot_Chromium", Quantity: 6 },
-      { ItemId: "Ingot_Molybdenum", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Cobalt", name: "Cobalt", Quantity: 13 },
+      { ItemId: "Ingot_Chromium", name: "Chromium", Quantity: 6 },
+      { ItemId: "Ingot_Molybdenum", name: "Molybdenum", Quantity: 1 },
     ],
-    processingTime: 16,
     outputQuantity: 2,
   },
 
@@ -524,10 +516,9 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#d6a33a",
     inputs: [
-      { ItemId: "Ingot_Copper", Quantity: 2 },
-      { ItemId: "Ingot_Zinc", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 2 },
+      { ItemId: "Ingot_Zinc", name: "Zinc", Quantity: 1 },
     ],
-    processingTime: 10,
     outputQuantity: 3,
   },
 
@@ -536,10 +527,9 @@ export const alloys: AlloyConfig[] = [
     id: "bronze",
     color: "#b06a2a",
     inputs: [
-      { ItemId: "Ingot_Copper", Quantity: 3 },
-      { ItemId: "Ingot_Tin", Quantity: 2 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 3 },
+      { ItemId: "Ingot_Tin", name: "Tin", Quantity: 2 },
     ],
-    processingTime: 11,
     outputQuantity: 5,
   },
 
@@ -548,11 +538,10 @@ export const alloys: AlloyConfig[] = [
     id: "arsenical_bronze",
     color: "#9a6a3a",
     inputs: [
-      { ItemId: "Ingot_Copper", Quantity: 3 },
-      { ItemId: "Ingot_Arsenic", Quantity: 1 },
-      { ItemId: "Ingot_Tin", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 3 },
+      { ItemId: "Ingot_Arsenic", name: "Arsenic", Quantity: 1 },
+      { ItemId: "Ingot_Tin", name: "Tin", Quantity: 1 },
     ],
-    processingTime: 11,
     outputQuantity: 5,
   },
 
@@ -561,24 +550,22 @@ export const alloys: AlloyConfig[] = [
     id: "bismuth_bronze",
     color: "#a77b5a",
     inputs: [
-      { ItemId: "Ingot_Copper", Quantity: 3 },
-      { ItemId: "Ingot_Tin", Quantity: 1 },
-      { ItemId: "Ingot_Bismuth", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 3 },
+      { ItemId: "Ingot_Tin", name: "Tin", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", name: "Bismuth", Quantity: 1 },
     ],
-    processingTime: 11,
     outputQuantity: 5,
   },
 
-  // Constanta — copper–nickel resistance alloy (constantan family) for thermocouples and precision resistors.
+  // Constantan — copper–nickel resistance alloy (constantan family) for thermocouples and precision resistors.
   {
     id: "constantan",
     variant: "light",
     color: "#b0a79b",
     inputs: [
-      { ItemId: "Ingot_Copper", Quantity: 3 },
-      { ItemId: "Ingot_Nickel", Quantity: 2 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 2 },
     ],
-    processingTime: 14,
     outputQuantity: 5,
   },
 
@@ -588,11 +575,10 @@ export const alloys: AlloyConfig[] = [
     variant: "dark",
     color: "#3b2a3e",
     inputs: [
-      { ItemId: "Ingot_Copper", Quantity: 3 },
-      { ItemId: "Ingot_Gold", Quantity: 1 },
-      { ItemId: "Ingot_Silver", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 3 },
+      { ItemId: "Ingredient_Bar_Gold", name: "Gold", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Silver", name: "Silver", Quantity: 1 },
     ],
-    processingTime: 12,
     outputQuantity: 5,
   },
 
@@ -602,11 +588,10 @@ export const alloys: AlloyConfig[] = [
     variant: "lightest",
     color: "#d2dae5",
     inputs: [
-      { ItemId: "Ingot_Gallium", Quantity: 3 },
-      { ItemId: "Ingot_Indium", Quantity: 1 },
-      { ItemId: "Ingot_Tin", Quantity: 1 },
+      { ItemId: "Ingot_Gallium", name: "Gallium", Quantity: 3 },
+      { ItemId: "Ingot_Indium", name: "Indium", Quantity: 1 },
+      { ItemId: "Ingot_Tin", name: "Tin", Quantity: 1 },
     ],
-    processingTime: 6,
     outputQuantity: 5,
   },
 
@@ -616,10 +601,9 @@ export const alloys: AlloyConfig[] = [
     variant: "lightest",
     color: "#d9cf6a",
     inputs: [
-      { ItemId: "Ingot_Gold", Quantity: 3 },
-      { ItemId: "Ingot_Silver", Quantity: 2 },
+      { ItemId: "Ingredient_Bar_Gold", name: "Gold", Quantity: 3 },
+      { ItemId: "Ingredient_Bar_Silver", name: "Silver", Quantity: 2 },
     ],
-    processingTime: 12,
     outputQuantity: 5,
   },
 
@@ -628,10 +612,9 @@ export const alloys: AlloyConfig[] = [
     id: "purple_gold",
     color: "#7c4aa8",
     inputs: [
-      { ItemId: "Ingot_Gold", Quantity: 4 },
-      { ItemId: "Ingot_Aluminum", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Gold", name: "Gold", Quantity: 4 },
+      { ItemId: "Ingot_Aluminum", name: "Aluminum", Quantity: 1 },
     ],
-    processingTime: 12,
     outputQuantity: 5,
   },
 
@@ -640,10 +623,9 @@ export const alloys: AlloyConfig[] = [
     id: "blue_gold",
     color: "#2f63c7",
     inputs: [
-      { ItemId: "Ingot_Gold", Quantity: 4 },
-      { ItemId: "Ingot_Indium", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Gold", name: "Gold", Quantity: 4 },
+      { ItemId: "Ingot_Indium", name: "Indium", Quantity: 1 },
     ],
-    processingTime: 6,
     outputQuantity: 5,
   },
 
@@ -652,10 +634,9 @@ export const alloys: AlloyConfig[] = [
     id: "gray_gold",
     color: "#b7ad9e",
     inputs: [
-      { ItemId: "Ingot_Gold", Quantity: 4 },
-      { ItemId: "Ingot_Palladium", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Gold", name: "Gold", Quantity: 4 },
+      { ItemId: "Ingot_Palladium", name: "Palladium", Quantity: 1 },
     ],
-    processingTime: 12,
     outputQuantity: 5,
   },
 
@@ -665,10 +646,9 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#d38b7f",
     inputs: [
-      { ItemId: "Ingot_Gold", Quantity: 4 },
-      { ItemId: "Ingot_Copper", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Gold", name: "Gold", Quantity: 4 },
+      { ItemId: "Ingredient_Bar_Copper", name: "Copper", Quantity: 1 },
     ],
-    processingTime: 12,
     outputQuantity: 5,
   },
 
@@ -678,11 +658,10 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#d7dbe2",
     inputs: [
-      { ItemId: "Ingot_Gold", Quantity: 3 },
-      { ItemId: "Ingot_Nickel", Quantity: 1 },
-      { ItemId: "Ingot_Palladium", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Gold", name: "Gold", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 1 },
+      { ItemId: "Ingot_Palladium", name: "Palladium", Quantity: 1 },
     ],
-    processingTime: 12,
     outputQuantity: 5,
   },
 
@@ -692,10 +671,9 @@ export const alloys: AlloyConfig[] = [
     color: "#8e979f",
     variant: "light",
     inputs: [
-      { ItemId: "Ingot_Iron", Quantity: 3 },
-      { ItemId: "Ingot_Nickel", Quantity: 2 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 3 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 2 },
     ],
-    processingTime: 16,
     outputQuantity: 5,
   },
 
@@ -705,11 +683,10 @@ export const alloys: AlloyConfig[] = [
     variant: "dark",
     color: "#243443",
     inputs: [
-      { ItemId: "Ingot_Iron", Quantity: 3 },
-      { ItemId: "Ingot_Carbon", Quantity: 1 },
-      { ItemId: "Ingot_Silicon", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 3 },
+      { ItemId: "Ingot_Carbon", name: "Carbon", Quantity: 1 },
+      { ItemId: "Ingot_Silicon", name: "Silicon", Quantity: 1 },
     ],
-    processingTime: 16,
     outputQuantity: 5,
   },
 
@@ -719,11 +696,10 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#9aa3ad",
     inputs: [
-      { ItemId: "Ingot_Iron", Quantity: 3 },
-      { ItemId: "Ingot_Chromium", Quantity: 1 },
-      { ItemId: "Ingot_Nickel", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 3 },
+      { ItemId: "Ingot_Chromium", name: "Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 1 },
     ],
-    processingTime: 16,
     outputQuantity: 5,
   },
 
@@ -733,10 +709,9 @@ export const alloys: AlloyConfig[] = [
     variant: "dark",
     color: "#1b2835",
     inputs: [
-      { ItemId: "Ingot_Iron", Quantity: 4 },
-      { ItemId: "Ingot_Silicon", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 4 },
+      { ItemId: "Ingot_Silicon", name: "Silicon", Quantity: 1 },
     ],
-    processingTime: 17,
     outputQuantity: 5,
   },
 
@@ -746,11 +721,10 @@ export const alloys: AlloyConfig[] = [
     variant: "dark",
     color: "#172a37",
     inputs: [
-      { ItemId: "Ingot_Iron", Quantity: 3 },
-      { ItemId: "Ingot_Carbon", Quantity: 1 },
-      { ItemId: "Ingot_Chromium", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 3 },
+      { ItemId: "Ingot_Carbon", name: "Carbon", Quantity: 1 },
+      { ItemId: "Ingot_Chromium", name: "Chromium", Quantity: 1 },
     ],
-    processingTime: 17,
     outputQuantity: 5,
   },
 
@@ -760,11 +734,10 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#9ea7b3",
     inputs: [
-      { ItemId: "Ingot_Tin", Quantity: 3 },
-      { ItemId: "Ingot_Lead", Quantity: 1 },
-      { ItemId: "Ingot_Antimony", Quantity: 1 },
+      { ItemId: "Ingot_Tin", name: "Tin", Quantity: 3 },
+      { ItemId: "Ingot_Lead", name: "Lead", Quantity: 1 },
+      { ItemId: "Ingot_Antimony", name: "Antimony", Quantity: 1 },
     ],
-    processingTime: 6,
     outputQuantity: 5,
   },
 
@@ -774,10 +747,9 @@ export const alloys: AlloyConfig[] = [
     variant: "lightest",
     color: "#d6dde6",
     inputs: [
-      { ItemId: "Ingot_Silver", Quantity: 3 },
-      { ItemId: "Ingot_Lead", Quantity: 2 },
+      { ItemId: "Ingredient_Bar_Silver", name: "Silver", Quantity: 3 },
+      { ItemId: "Ingot_Lead", name: "Lead", Quantity: 2 },
     ],
-    processingTime: 11,
     outputQuantity: 5,
   },
 
@@ -787,10 +759,9 @@ export const alloys: AlloyConfig[] = [
     variant: "lightest",
     color: "#b2bcc8",
     inputs: [
-      { ItemId: "Ingot_Nickel", Quantity: 1 },
-      { ItemId: "Ingot_Titanium", Quantity: 1 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 1 },
+      { ItemId: "Ingot_Titanium", name: "Titanium", Quantity: 1 },
     ],
-    processingTime: 15,
     outputQuantity: 2,
   },
 
@@ -800,10 +771,9 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#5f8aa3",
     inputs: [
-      { ItemId: "Ingot_Nickel", Quantity: 4 },
-      { ItemId: "Ingot_Iron", Quantity: 1 },
+      { ItemId: "Ingot_Nickel", name: "Nickel", Quantity: 4 },
+      { ItemId: "Ingredient_Bar_Iron", name: "Iron", Quantity: 1 },
     ],
-    processingTime: 16,
     outputQuantity: 5,
   },
 
@@ -813,11 +783,11 @@ export const alloys: AlloyConfig[] = [
     variant: "light",
     color: "#bfc8d2",
     inputs: [
-      { ItemId: "Ingot_Tin", Quantity: 2 },
-      { ItemId: "Ingot_Antimony", Quantity: 1 },
-      { ItemId: "Ingot_Lead", Quantity: 1 },
-      { ItemId: "Ingot_Bismuth", Quantity: 1 },
+      { ItemId: "Ingot_Tin", name: "Tin", Quantity: 2 },
+      { ItemId: "Ingot_Antimony", name: "Antimony", Quantity: 1 },
+      { ItemId: "Ingot_Lead", name: "Lead", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", name: "Bismuth", Quantity: 1 },
     ],
-    processingTime: 5,
+    outputQuantity: 5,
   },
 ];

@@ -13,8 +13,8 @@
 - [x] vanilla ingots don't fill into furnace
 - [x] alloy smelting is too fast
 - [x] vanilla lang has server. in it
-- [ ] vanilla names aren't showing up
-- [ ] vanilla descriptions aren't showing up
+- [x] vanilla names aren't showing up
+- [x] vanilla descriptions aren't showing up
 - [x] dusts don't have descriptions
 - [x] alloy descriptions use wrong material names
 

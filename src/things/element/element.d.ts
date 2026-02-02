@@ -13,18 +13,7 @@ declare interface ThingsConfig extends ThingConfig {
   alloy?: Omit<AlloyConfig, "id">;
 }
 
-declare interface ElementsConfig {
-  alkaliMetals: ThingsConfig[];
-  alkalineEarthMetals: ThingsConfig[];
-  transitionMetals: ThingsConfig[];
-  postTransitionMetals: ThingsConfig[];
-  metalloids: ThingsConfig[];
-  otherNonmetals: ThingsConfig[];
-  halides: ThingsConfig[];
-  nobleGases: ThingsConfig[];
-  lanthanides: ThingsConfig[];
-  actinides: ThingsConfig[];
-}
+declare type ElementsConfig = Record<string, ThingsConfig[]>;
 
 /*
 - categories

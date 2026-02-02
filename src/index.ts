@@ -14,8 +14,6 @@ import {
   generateAlloys,
   generateElements,
   generateGems,
-  renameVanillaOres,
-  vanillaOres,
 } from "@things";
 
 // ? Meta
@@ -27,7 +25,6 @@ generateCategories(categories);
 generateResourceTypes(resourceTypes);
 
 // ? Things
-renameVanillaOres(vanillaOres);
 generateElements(elements);
 generateGems(gems);
 generateAlloys(alloys);
