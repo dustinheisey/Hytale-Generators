@@ -34,7 +34,7 @@ export const data = (config: AlloyConfig): AlloyData => {
         },
       ],
       OutputQuantity: outputQuantity || 2,
-      TimeSeconds: processingTime || 10,
+      TimeSeconds: processingTime || meta.processingTime,
     },
     Model: `Resources/Materials/${model || "Ingot"}.blockymodel`,
     Texture: `Resources/Alloys/${texture || u(id)}.png`,

@@ -40,7 +40,7 @@ export const data = (config: DustConfig): DustData => {
         },
       ],
       OutputQuantity: outputQuantity || 2,
-      TimeSeconds: processingTime || 14,
+      TimeSeconds: processingTime || meta.processingTime,
     },
     Model: `Resources/Dusts/${model || "Dust"}.blockymodel`,
     Texture: `Resources/Dusts/${texture || u(id)}.png`,

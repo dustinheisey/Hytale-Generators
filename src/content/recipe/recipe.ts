@@ -1,5 +1,5 @@
 import { uSep } from "@util";
-import { syncJson } from "@meta";
+import { syncJson, meta } from "@meta";
 
 function benchRequirement(bench: Bench) {
   let type: CraftingType;
@@ -75,7 +75,7 @@ export const data = (config: RecipeConfig): ExternalRecipeData => {
     BenchRequirement: [
       { ...benchRequirement(bench), RequiredTierLevel: tier },
     ],
-    TimeSeconds: processingTime || 10,
+    TimeSeconds: processingTime || meta.processingTime,
   };
 };
 

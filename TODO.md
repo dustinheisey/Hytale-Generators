@@ -9,9 +9,9 @@
 - [x] can't mine any ores
 - [x] dust smelting recipes don't work
 - [x] alloy recipes don't work
-- [ ] max stack sizes are not correct
+- [-] max stack sizes are not correct
 - [ ] vanilla ingots don't fill into furnace
-- [ ] alloy smelting is too fast
+- [-] alloy smelting is too fast
 - [x] vanilla lang has server. in it
 - [ ] vanilla names aren't showing up
 

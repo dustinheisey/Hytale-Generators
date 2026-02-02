@@ -7,4 +7,5 @@ export { syncTexture } from "./sync/syncTexture.ts";
 
 export const meta: MetaConfig = {
   maxStack: 100,
+  processingTime: 14
 };

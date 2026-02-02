@@ -39,7 +39,7 @@ export const data = (config: IngotConfig): IngotData => {
         },
       ],
       OutputQuantity: outputQuantity || 1,
-      TimeSeconds: processingTime || 14,
+      TimeSeconds: processingTime || meta.processingTime,
     },
     Model: `Resources/Materials/${model || "Ingot"}.blockymodel`,
     Texture: `Resources/Ingots/${texture || u(id)}.png`,
@@ -122,7 +122,7 @@ export function generateIngot(ingot: ThingsConfig) {
         },
       ],
       processingTime: ingot?.ingot?.processingTime || ingot.processingTime ||
-        15,
+        meta.processingTime,
     });
 
     syncJson(
