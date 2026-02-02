@@ -1,4 +1,4 @@
-import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { meta, syncJson, syncLang, syncTexture } from "@meta";
 import { include, u } from "@util";
 
 export const data = (config: DustConfig): DustData => {
@@ -14,12 +14,8 @@ export const data = (config: DustConfig): DustData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Dust_${u(id)}.name`,
-      ...(config.description
-        ? {
-          Description: `server.items.Dust_${u(id)}.description`,
-        }
-        : ""),
+      Name: `server.items.unified_materials.Dust_${u(id)}.name`,
+      Description: `server.items.unified_materials.Dust_${u(id)}.description`,
     },
     Categories: categories || [
       "Items",
@@ -79,32 +75,30 @@ export const data = (config: DustConfig): DustData => {
 };
 
 /** Generate a single dust JSON */
-export function generateDust(config: ThingsConfig) {
-  if (include("dust", config)) {
-    const description = config?.dust?.description || config.description || null;
-
+export function generateDust(dust: ThingsConfig) {
+  if (include("dust", dust)) {
     syncLang({
       name: {
-        key: `items.Dust_${u(config.id)}.name`,
-        value: `${config?.dust?.name || config.name || u(config.id)} Dust`,
+        key: `items.unified_materials.Dust_${u(dust.id)}.name`,
+        value: `${dust?.dust?.name || dust.name || u(dust.id)} Dust`,
       },
-      ...(description && {
-        description: {
-          key: `items.Dust_${u(config.id)}.description`,
-          value: description,
-        },
-      }),
+      description: {
+        key: `items.unified_materials.Dust_${u(dust.id)}.description`,
+        value: `Can be processed into an <b>${
+          u(dust.id)
+        } Ingot</b> at a <b>Furnace</b>`,
+      },
     });
 
     syncTexture({
-      color: config?.dust?.color || config.color,
+      color: dust?.dust?.color || dust.color,
       inputFile: "assets/dust-mask.png",
-      outputFile: `dist/Common/Resources/Dusts/${u(config.id)}.png`,
+      outputFile: `dist/Common/Resources/Dusts/${u(dust.id)}.png`,
     });
 
     syncJson(
-      `Server/Item/Items/Elements/${u(config.id)}/Dust_${u(config.id)}`,
-      data(config),
+      `Server/Item/Items/Elements/${u(dust.id)}/Dust_${u(dust.id)}`,
+      data(dust),
     );
   }
 }

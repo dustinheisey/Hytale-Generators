@@ -1,5 +1,5 @@
 import { include, u } from "@util";
-import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { meta, syncJson, syncLang, syncTexture } from "@meta";
 import { generateRecipe } from "@content";
 
 export const data = (config: IngotConfig): IngotData => {
@@ -15,10 +15,8 @@ export const data = (config: IngotConfig): IngotData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Ingot_${u(id)}.name`,
-      ...(config.description
-        ? { Description: `server.items.Ingot_${u(id)}.description` }
-        : ""),
+      Name: `server.items.unified_materials.Ingot_${u(id)}.name`,
+      Description: `server.items.unified_materials.Ingot_${u(id)}.description`,
     },
     Categories: categories || [
       "Items",
@@ -86,12 +84,12 @@ export function generateIngot(ingot: ThingsConfig) {
 
     syncLang({
       name: {
-        key: `items.Ingot_${u(ingot.id)}.name`,
+        key: `items.unified_materials.Ingot_${u(ingot.id)}.name`,
         value: `${ingot?.ingot?.name || ingot.name || u(ingot.id)} Ingot`,
       },
       ...(description && {
         description: {
-          key: `items.Ingot_${u(ingot.id)}.description`,
+          key: `items.unified_materials.Ingot_${u(ingot.id)}.description`,
           value: description,
         },
       }),

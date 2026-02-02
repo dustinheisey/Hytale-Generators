@@ -1,5 +1,6 @@
 declare interface Input {
   ResourceTypeId?: string;
+  name?: string;
   Id?: string;
   ItemId?: string;
   Quantity: number;

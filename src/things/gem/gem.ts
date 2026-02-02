@@ -1,5 +1,5 @@
 import { deriveEffectColors, u } from "@util";
-import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { meta, syncJson, syncLang, syncTexture } from "@meta";
 
 export const data = (config: GemConfig): GemData => {
   const {
@@ -15,10 +15,8 @@ export const data = (config: GemConfig): GemData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Gem_${u(id)}.name`,
-      ...(config.description
-        ? { Description: `server.items.Gem_${u(id)}.description` }
-        : ""),
+      Name: `server.items.unified_materials.Gem_${u(id)}.name`,
+      Description: `server.items.unified_materials.Gem_${u(id)}.description`,
     },
     Categories: categories || [
       "Blocks.Ores",
@@ -79,12 +77,12 @@ export function generateGem(gem: GemConfig) {
 
   syncLang({
     name: {
-      key: `items.Gem_${u(gem.id)}.name`,
+      key: `items.unified_materials.Gem_${u(gem.id)}.name`,
       value: `${gem.name || u(gem.id)}`,
     },
     ...(description && {
       description: {
-        key: `items.Gem_${u(gem.id)}.description`,
+        key: `items.unified_materials.Gem_${u(gem.id)}.description`,
         value: description,
       },
     }),

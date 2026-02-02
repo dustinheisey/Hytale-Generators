@@ -51,7 +51,10 @@ export const data = (config: OreBlockConfig): OreBlockData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Ore_${u(id)}_${u(type)}.name`,
+      Name: `server.items.unified_materials.Ore_${u(id)}_${u(type)}.name`,
+      Description: `server.items.unified_materials.Ore_${u(id)}_${
+        u(type)
+      }.description`,
     },
     Categories: categories || [
       "Blocks.Ores",
@@ -134,24 +137,16 @@ export function generateOreBlock(
   oreBlock: OreBlockConfig,
 ) {
   if (include(`ore_${oreBlock.type}`, oreBlock)) {
-    const description = oreBlock?.oreBlock?.description ||
-      oreBlock?.ores?.description ||
-      oreBlock.description || null;
-
     syncLang({
       name: {
-        key: `items.Ore_${u(oreBlock.id)}_${u(oreBlock.type)}.name`,
+        key: `items.unified_materials.Ore_${u(oreBlock.id)}_${
+          u(oreBlock.type)
+        }.name`,
         value: `${
           oreBlock?.oreBlock?.name || oreBlock?.ores?.name || oreBlock.name ||
           u(oreBlock.id)
         } Ore - ${u(oreBlock.type)}`,
       },
-      ...(description && {
-        description: {
-          key: `items.Ore_${u(oreBlock.id)}_${u(oreBlock.type)}.description`,
-          value: description,
-        },
-      }),
     });
 
     syncJson(

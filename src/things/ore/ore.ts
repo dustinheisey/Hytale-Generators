@@ -1,5 +1,5 @@
 import { include, u } from "@util";
-import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { meta, syncJson, syncLang, syncTexture } from "@meta";
 import { generateResourceType } from "@content";
 
 export const data = (config: OreConfig): OreData => {
@@ -14,10 +14,8 @@ export const data = (config: OreConfig): OreData => {
   } = config;
   return {
     TranslationProperties: {
-      Name: `server.items.Ore_${u(id)}.name`,
-      ...(config.description
-        ? { Description: `server.items.Ore_${u(id)}.description` }
-        : ""),
+      Name: `server.items.unified_materials.Ore_${u(id)}.name`,
+      Description: `server.items.unified_materials.Ore_${u(id)}.description`,
     },
     Categories: categories || [
       "Blocks.Ores",
@@ -72,23 +70,22 @@ export const data = (config: OreConfig): OreData => {
 /** Generate a single ore JSON */
 export function generateOre(ore: ThingsConfig) {
   if (include("ore", ore)) {
-    const description = ore?.ore?.description || ore?.ores?.description ||
-      ore.description || null;
-
     syncLang({
       name: {
-        key: `items.Ore_${u(ore.id)}.name`,
+        key: `items.unified_materials.Ore_${u(ore.id)}.name`,
         value: `${
           ore?.ore?.name || ore?.ores?.name || ore.name ||
           u(ore.id)
         } Ore`,
       },
-      ...(description && {
-        description: {
-          key: `items.Ore_${u(ore.id)}.description`,
-          value: description,
-        },
-      }),
+      description: {
+        key: `items.unified_materials.Ore_${u(ore.id)}.description`,
+        value: `Can be processed into an <b>${
+          u(ore.id)
+        } Ingot</b> at a <b>Furnace</b>, or ground into <b>${
+          u(ore.id)
+        } Dust</b> at a <b>Salvager's Workbench</b>`,
+      },
     });
 
     generateResourceType({ id: `Salvage_${ore.id}`, icon: "rock" });

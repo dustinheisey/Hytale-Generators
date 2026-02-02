@@ -1,5 +1,5 @@
-import { u } from "@util";
-import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { join, u } from "@util";
+import { meta, syncJson, syncLang, syncTexture } from "@meta";
 
 export const data = (config: AlloyConfig): AlloyData => {
   const {
@@ -15,10 +15,8 @@ export const data = (config: AlloyConfig): AlloyData => {
 
   return {
     TranslationProperties: {
-      Name: `server.items.Alloy_${u(id)}.name`,
-      ...(config.description
-        ? { Description: `server.items.Alloy_${u(id)}.description` }
-        : ""),
+      Name: `server.items.unified_materials.Alloy_${u(id)}.name`,
+      Description: `server.items.unified_materials.Alloy_${u(id)}.description`,
     },
     Categories: categories || [
       "Items",
@@ -34,7 +32,7 @@ export const data = (config: AlloyConfig): AlloyData => {
         },
       ],
       OutputQuantity: outputQuantity || 2,
-      TimeSeconds: processingTime || meta.processingTime,
+      TimeSeconds: processingTime || 20,
     },
     Model: `Resources/Materials/${model || "Ingot"}.blockymodel`,
     Texture: `Resources/Alloys/${texture || u(id)}.png`,
@@ -75,19 +73,17 @@ export const data = (config: AlloyConfig): AlloyData => {
 
 /** Generate a single alloy JSON */
 export function generateAlloy(alloy: AlloyConfig) {
-  const description = alloy.description || null;
+  const materials = join(alloy.inputs.map((input) => input.name!));
 
   syncLang({
     name: {
-      key: `items.Alloy_${u(alloy.id)}.name`,
+      key: `items.unified_materials.Alloy_${u(alloy.id)}.name`,
       value: `${alloy.name || u(alloy.id)} Ingot`,
     },
-    ...(description && {
-      description: {
-        key: `items.Alloy_${u(alloy.id)}.description`,
-        value: description,
-      },
-    }),
+    description: {
+      key: `items.unified_materials.Alloy_${u(alloy.id)}.description`,
+      value: `Alloy of ${materials}`,
+    },
   });
 
   syncTexture({
