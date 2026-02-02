@@ -5,4 +5,4 @@ declare interface ResourceTypeData {
 declare type ResourceTypeConfig = {
   id: string;
   icon: string;
-} | string;
+};

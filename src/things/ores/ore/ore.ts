@@ -1,7 +1,6 @@
-import { u } from "@text";
-import { syncJson, syncLang, syncTexture } from "@sync";
-import { include } from "@include";
-import { generateResourceType } from "../resource-type/resource-type.ts";
+import { include, u } from "@util";
+import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { generateResourceType } from "@content";
 
 export const data = (config: OreConfig): OreData => {
   const {
@@ -34,7 +33,8 @@ export const data = (config: OreConfig): OreData => {
       BenchRequirement: [
         {
           Type: "Processing",
-          Id: "Salvagebench",
+          Id: "Salvage_Bench",
+          RequiredTierLevel: 1,
         },
       ],
       TimeSeconds: processingTime || 4,
@@ -63,44 +63,50 @@ export const data = (config: OreConfig): OreData => {
     ItemEntity: {
       ParticleSystemId: null,
     },
-    MaxStack: maxStack || 25,
+    MaxStack: maxStack || meta.maxStack,
     ItemSoundSetId: "ISS_Blocks_Stone",
     DropOnDeath: true,
   };
 };
 
-export function generateOre(config: ThingsConfig) {
-  if (include("ore", config)) {
-    const description = config?.ore?.description || config?.ores?.description ||
-      config.description || null;
+/** Generate a single ore JSON */
+export function generateOre(ore: ThingsConfig) {
+  if (include("ore", ore)) {
+    const description = ore?.ore?.description || ore?.ores?.description ||
+      ore.description || null;
 
     syncLang({
       name: {
-        key: `items.Ore_${u(config.id)}.name`,
+        key: `items.Ore_${u(ore.id)}.name`,
         value: `${
-          config?.ore?.name || config?.ores?.name || config.name ||
-          u(config.id)
+          ore?.ore?.name || ore?.ores?.name || ore.name ||
+          u(ore.id)
         } Ore`,
       },
       ...(description && {
         description: {
-          key: `items.Ore_${u(config.id)}.description`,
+          key: `items.Ore_${u(ore.id)}.description`,
           value: description,
         },
       }),
     });
 
-    generateResourceType(`salvage_${config.id}`);
+    generateResourceType({ id: `Salvage_${ore.id}`, icon: "rock" });
 
     syncTexture({
-      color: config?.ore?.color || config?.ores?.color || config.color,
+      color: ore?.ore?.color || ore?.ores?.color || ore.color,
       inputFile: "assets/ore-mask.png",
-      outputFile: `dist/Common/Resources/Ores/${u(config.id)}.png`,
+      outputFile: `dist/Common/Resources/Ores/${u(ore.id)}.png`,
     });
 
     syncJson(
-      `Server/Item/Items/Elements/${u(config.id)}/Ore_${u(config.id)}`,
-      data(config),
+      `Server/Item/Items/Elements/${u(ore.id)}/Ore_${u(ore.id)}`,
+      data(ore),
     );
   }
+}
+
+/** Generate all ore JSONs */
+export function generateOres(ores: ThingsConfig[]) {
+  ores.forEach((ore) => generateOre(ore));
 }

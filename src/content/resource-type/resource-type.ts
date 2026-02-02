@@ -1,21 +1,25 @@
-import { uSep } from "@text";
-import { syncJson } from "@sync";
+import { uSep } from "@util";
+import { syncJson } from "@meta";
 
 export const resourceType = (
   config: ResourceTypeConfig,
 ): ResourceTypeData => {
   return {
-    Icon: `Icons/ResourceTypes/${
-      uSep(typeof config === "string" ? "rock" : config.icon)
-    }.png`,
+    Icon: `Icons/ResourceTypes/${uSep(config.icon)}.png`,
   };
 };
 
+/** Generate a single resource type JSON */
 export function generateResourceType(type: ResourceTypeConfig) {
   syncJson(
-    `Server/Item/ResourceTypes/${
-      uSep(typeof type === "string" ? type : type.id)
-    }`,
+    `Server/Item/ResourceTypes/${uSep(type.id)}`,
     resourceType(type),
   );
+}
+
+/** Generate resource type JSONs */
+export function generateResourceTypes(types: ResourceTypeConfig[]) {
+  types.forEach((type) => {
+    generateResourceType(type);
+  });
 }

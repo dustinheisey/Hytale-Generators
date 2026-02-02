@@ -1,6 +1,5 @@
-import { syncJson, syncLang, syncTexture } from "@sync";
-import { u } from "@text";
-import { include } from "@include";
+import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { include, u } from "@util";
 
 export const data = (config: DustConfig): DustData => {
   const {
@@ -36,7 +35,8 @@ export const data = (config: DustConfig): DustData => {
       BenchRequirement: [
         {
           Type: "Processing",
-          Id: "Salvagebench",
+          Id: "Salvage_Bench",
+          RequiredTierLevel: 1,
         },
       ],
       OutputQuantity: outputQuantity || 2,
@@ -74,10 +74,11 @@ export const data = (config: DustConfig): DustData => {
       ParticleSystemId: null,
     },
     DropOnDeath: true,
-    MaxStack: maxStack || 25,
+    MaxStack: maxStack || meta.maxStack,
   };
 };
 
+/** Generate a single dust JSON */
 export function generateDust(config: ThingsConfig) {
   if (include("dust", config)) {
     const description = config?.dust?.description || config.description || null;
@@ -106,4 +107,9 @@ export function generateDust(config: ThingsConfig) {
       data(config),
     );
   }
+}
+
+/** Generate all dust JSONs */
+export function generateDusts(dusts: ThingsConfig[]) {
+  dusts.forEach((dust) => generateDust(dust));
 }

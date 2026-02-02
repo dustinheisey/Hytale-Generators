@@ -1,5 +1,5 @@
-import { syncJson } from "@sync";
-import { uSep } from "@text";
+import { uSep } from "@util";
+import { syncJson } from "@meta";
 
 function benchRequirement(bench: Bench) {
   let type: CraftingType;
@@ -79,6 +79,12 @@ export const data = (config: RecipeConfig): ExternalRecipeData => {
   };
 };
 
-export function generateRecipe(config: RecipeConfig) {
-  syncJson(`Server/Item/Recipes/${uSep(config.id)}`, data(config));
+/** Generate a single recipe JSON */
+export function generateRecipe(recipe: RecipeConfig) {
+  syncJson(`Server/Item/Recipes/${uSep(recipe.id)}`, data(recipe));
+}
+
+/** Generate recipe JSONs */
+export function generateRecipes(recipes: RecipeConfig[]) {
+  recipes.forEach((recipe) => generateRecipe(recipe));
 }

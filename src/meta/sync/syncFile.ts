@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { syncDir } from "@sync";
+import { syncDir } from "@meta";
 
 /**
  * Ensures a file exists on disk.

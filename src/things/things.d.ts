@@ -46,15 +46,6 @@ declare type Block =
   | "shale"
   | "volcanic";
 
-declare type Tab =
-  | "Items"
-  | "Blocks.Ores"
-  | "Unified_Materials.Gems"
-  | "Unified_Materials.Ores"
-  | "Unified_Materials.Dusts"
-  | "Unified_Materials.Ingots"
-  | "Unified_Materials.Alloys";
-
 declare interface TranslationProperties {
   Name: string;
   Description?: string;
@@ -127,7 +118,9 @@ declare interface Item {
 
 declare interface Texture {
   Weight: number;
-  All: string;
+  All?: string;
+  Sides?: string;
+  UpDown?: string;
 }
 
 declare interface Light {

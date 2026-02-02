@@ -1,6 +1,5 @@
-import { u } from "@text";
-import { syncJson, syncLang } from "@sync";
-import { include } from "@include";
+import { include, u } from "@util";
+import { meta, syncJson, syncLang } from "@meta";
 
 function computeBlockTexture(block: Block): Texture {
   switch (block) {
@@ -111,7 +110,7 @@ export const data = (config: OreBlockConfig): OreBlockData => {
         u(id),
       ],
     },
-    MaxStack: maxStack || 25,
+    MaxStack: maxStack || meta.maxStack,
     ItemSoundSetId: "ISS_Blocks_Stone",
     IconProperties: {
       Scale: 0.58823,
@@ -128,37 +127,43 @@ export const data = (config: OreBlockConfig): OreBlockData => {
   };
 };
 
+type OreBlockConfig = ThingsConfig & { type: Block };
+
+/** Generate JSONs for each block type of a single ore */
 export function generateOreBlock(
-  config: ThingsConfig & { type: Block },
+  oreBlock: OreBlockConfig,
 ) {
-  if (include(`ore_${config.type}`, config)) {
-    const description = config?.oreBlock?.description ||
-      config?.ores?.description ||
-      config.description || null;
+  if (include(`ore_${oreBlock.type}`, oreBlock)) {
+    const description = oreBlock?.oreBlock?.description ||
+      oreBlock?.ores?.description ||
+      oreBlock.description || null;
 
     syncLang({
       name: {
-        key: `items.Ore_${u(config.id)}_${u(config.type)}.name`,
+        key: `items.Ore_${u(oreBlock.id)}_${u(oreBlock.type)}.name`,
         value: `${
-          config?.oreBlock?.name || config?.ores?.name || config.name ||
-          u(config.id)
-        } Ore - ${u(config.type)}`,
+          oreBlock?.oreBlock?.name || oreBlock?.ores?.name || oreBlock.name ||
+          u(oreBlock.id)
+        } Ore - ${u(oreBlock.type)}`,
       },
       ...(description && {
         description: {
-          key: `items.Ore_${u(config.id)}_${u(config.type)}.description`,
+          key: `items.Ore_${u(oreBlock.id)}_${u(oreBlock.type)}.description`,
           value: description,
         },
       }),
     });
 
     syncJson(
-      `Server/Item/Items/Elements/${u(config.id)}/Ore_${u(config.id)}_${
-        u(config.type)
+      `Server/Item/Items/Elements/${u(oreBlock.id)}/Ore_${u(oreBlock.id)}_${
+        u(oreBlock.type)
       }`,
-      data(config),
+      data(oreBlock),
     );
   }
 }
 
-// oreBlock({ id: "Acanthite", type: "basalt", color: "#432344" });
+/** Generate all JSONs for each block type of all ores */
+export function generateOreBlocks(oreBlocks: OreBlockConfig[]) {
+  oreBlocks.forEach((oreBlock) => generateOreBlock(oreBlock));
+}

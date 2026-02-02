@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { syncDir } from "@sync";
+import { syncDir } from "@meta";
 
 type RGB = { r: number; g: number; b: number };
 

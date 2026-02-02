@@ -1,4 +1,4 @@
-interface OreConfig extends ThingConfig {
+declare interface OreConfig extends ThingConfig {
   processingTime?: number;
   outputQuantity?: number;
   itemLevel?: number;

@@ -1,4 +1,4 @@
-import { syncJson } from "@sync";
+import { syncJson } from "@meta";
 
 const data = (config: ManifestConfig): ManifestData => {
   const {
@@ -36,6 +36,7 @@ const data = (config: ManifestConfig): ManifestData => {
   };
 };
 
+/** Generate manifest JSON */
 export function generateManifest(config: ManifestConfig) {
   syncJson(`manifest`, data(config));
 }

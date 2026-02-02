@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { syncFile } from "@sync";
+import { syncFile } from "@meta";
 
 /**
  * Writes an object to a JSON file asynchronously (pretty-printed with 2 spaces).

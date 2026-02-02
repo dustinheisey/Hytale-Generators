@@ -1,7 +1,6 @@
-import { u } from "@text";
-import { syncJson, syncLang, syncTexture } from "@sync";
-import { include } from "@include";
-import { generateRecipe } from "../recipe/recipe.ts";
+import { include, u } from "@util";
+import { syncJson, syncLang, syncTexture, meta } from "@meta";
+import { generateRecipe } from "@content";
 
 export const data = (config: IngotConfig): IngotData => {
   const {
@@ -36,7 +35,7 @@ export const data = (config: IngotConfig): IngotData => {
         {
           Type: "Processing",
           Id: "Furnace",
-          RequiredTierLevel: 1
+          RequiredTierLevel: 1,
         },
       ],
       OutputQuantity: outputQuantity || 1,
@@ -75,59 +74,65 @@ export const data = (config: IngotConfig): IngotData => {
     },
     ItemSoundSetId: "ISS_Items_Ingots",
     DropOnDeath: true,
-    MaxStack: maxStack || 25,
+    MaxStack: maxStack || meta.maxStack,
   };
 };
 
-export function generateIngot(config: ThingsConfig) {
-  if (include("ingot", config)) {
-    const description = config?.ingot?.description || config.description ||
+/** Generate a single ingot JSON */
+export function generateIngot(ingot: ThingsConfig) {
+  if (include("ingot", ingot)) {
+    const description = ingot?.ingot?.description || ingot.description ||
       null;
 
     syncLang({
       name: {
-        key: `items.Ingot_${u(config.id)}.name`,
-        value: `${config?.ingot?.name || config.name || u(config.id)} Ingot`,
+        key: `items.Ingot_${u(ingot.id)}.name`,
+        value: `${ingot?.ingot?.name || ingot.name || u(ingot.id)} Ingot`,
       },
       ...(description && {
         description: {
-          key: `items.Ingot_${u(config.id)}.description`,
+          key: `items.Ingot_${u(ingot.id)}.description`,
           value: description,
         },
       }),
     });
 
     syncTexture({
-      color: config?.ingot?.color || config.color,
+      color: ingot?.ingot?.color || ingot.color,
       inputFile: `assets/ingot/ingot-mask-${
-        config?.ingot?.variant || "medium"
+        ingot?.ingot?.variant || "medium"
       }.png`,
-      outputFile: `dist/Common/Resources/Ingots/${u(config.id)}.png`,
+      outputFile: `dist/Common/Resources/Ingots/${u(ingot.id)}.png`,
     });
 
     generateRecipe({
-      id: `Furnace/Furnace_${u(config.id)}_Dust`,
+      id: `Furnace/Furnace_${u(ingot.id)}_Dust`,
       bench: "Furnace",
       tier: 1,
       inputs: [
         {
-          ItemId: `Dust_${u(config.id)}`,
+          ItemId: `Dust_${u(ingot.id)}`,
           Quantity: 1,
         },
       ],
       outputs: [
         {
-          ItemId: `Ingot_${u(config.id)}`,
+          ItemId: `Ingot_${u(ingot.id)}`,
           Quantity: 1,
         },
       ],
-      processingTime: config?.ingot?.processingTime || config.processingTime ||
+      processingTime: ingot?.ingot?.processingTime || ingot.processingTime ||
         15,
     });
 
     syncJson(
-      `Server/Item/Items/Elements/${u(config.id)}/Ingot_${u(config.id)}`,
-      data(config),
+      `Server/Item/Items/Elements/${u(ingot.id)}/Ingot_${u(ingot.id)}`,
+      data(ingot),
     );
   }
+}
+
+/** Generate all ingot JSONs */
+export function generateIngots(ingots: ThingsConfig[]) {
+  ingots.forEach((ingot) => generateIngot(ingot));
 }

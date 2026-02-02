@@ -1,5 +1,5 @@
-import { u } from "@text";
-import { syncJson, syncLang, syncTexture } from "@sync";
+import { u } from "@util";
+import { syncJson, syncLang, syncTexture, meta } from "@meta";
 
 export const data = (config: AlloyConfig): AlloyData => {
   const {
@@ -69,34 +69,40 @@ export const data = (config: AlloyConfig): AlloyData => {
     },
     ItemSoundSetId: "ISS_Items_Ingots",
     DropOnDeath: true,
-    MaxStack: maxStack || 25,
+    MaxStack: maxStack || meta.maxStack,
   };
 };
 
-export function generateAlloy(config: AlloyConfig) {
-  const description = config.description || null;
+/** Generate a single alloy JSON */
+export function generateAlloy(alloy: AlloyConfig) {
+  const description = alloy.description || null;
 
   syncLang({
     name: {
-      key: `items.Alloy_${u(config.id)}.name`,
-      value: `${config.name || u(config.id)} Ingot`,
+      key: `items.Alloy_${u(alloy.id)}.name`,
+      value: `${alloy.name || u(alloy.id)} Ingot`,
     },
     ...(description && {
       description: {
-        key: `items.Alloy_${u(config.id)}.description`,
+        key: `items.Alloy_${u(alloy.id)}.description`,
         value: description,
       },
     }),
   });
 
   syncTexture({
-    color: config.color,
-    inputFile: `assets/ingot/ingot-mask-${config.variant || "medium"}.png`,
-    outputFile: `dist/Common/Resources/Alloys/${u(config.id)}.png`,
+    color: alloy.color,
+    inputFile: `assets/ingot/ingot-mask-${alloy.variant || "medium"}.png`,
+    outputFile: `dist/Common/Resources/Alloys/${u(alloy.id)}.png`,
   });
 
   syncJson(
-    `Server/Item/Items/Alloys/Alloy_${u(config.id)}`,
-    data(config),
+    `Server/Item/Items/Alloys/Alloy_${u(alloy.id)}`,
+    data(alloy),
   );
+}
+
+/** Generate all alloy JSONs */
+export function generateAlloys(alloys: AlloyConfig[]) {
+  alloys.forEach((alloy) => generateAlloy(alloy));
 }

@@ -1,7 +1,6 @@
 import * as fs from "node:fs";
-import { syncFile } from "@sync";
+import { syncFile } from "@meta";
 import process from "node:process";
-import { u } from "@text";
 
 type LangEntry = { key: string; value: string };
 
@@ -51,34 +50,4 @@ export function syncLang(
   syncFile(file);
   appendLang(file, name.key, name.value);
   if (description) appendLang(file, description.key, description.value);
-}
-
-export function rename(config: Record<string, string>) {
-  for (const [key, value] of Object.entries(config)) {
-    syncLang({
-      name: {
-        key: `items.Ore_${u(key)}.name`,
-        value: `${u(value)} Ore`,
-      },
-      description: {
-        key: `items.Ore_${u(key)}.description`,
-        value: `Can be processed into ${u(key)}`,
-      },
-    });
-
-    ["stone", "basalt", "sandstone", "shale", "slate", "volcanic"].forEach(
-      (block) => {
-        syncLang({
-          name: {
-            key: `items.Ore_${u(key)}_${u(block)}.name`,
-            value: `${u(value)} Ore - ${u(block)}`,
-          },
-          description: {
-            key: `items.Ore_${u(key)}_${u(block)}.description`,
-            value: `Can be processed into ${u(key)}`,
-          },
-        });
-      },
-    );
-  }
 }

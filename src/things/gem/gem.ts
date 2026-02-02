@@ -1,7 +1,5 @@
-import { u } from "@text";
-import { deriveEffectColors } from "@color";
-import { syncJson, syncLang, syncTexture } from "@sync";
-import { include } from "@include";
+import { deriveEffectColors, u } from "@util";
+import { syncJson, syncLang, syncTexture, meta } from "@meta";
 
 export const data = (config: GemConfig): GemData => {
   const {
@@ -71,34 +69,40 @@ export const data = (config: GemConfig): GemData => {
       ],
     },
     ItemSoundSetId: "ISS_Blocks_Stone",
-    MaxStack: maxStack || 25,
+    MaxStack: maxStack || meta.maxStack,
   };
 };
 
-export function generateGem(config: GemConfig) {
-  const description = config.description || null;
+/** Generate a single gem JSON */
+export function generateGem(gem: GemConfig) {
+  const description = gem.description || null;
 
   syncLang({
     name: {
-      key: `items.Gem_${u(config.id)}.name`,
-      value: `${config.name || u(config.id)}`,
+      key: `items.Gem_${u(gem.id)}.name`,
+      value: `${gem.name || u(gem.id)}`,
     },
     ...(description && {
       description: {
-        key: `items.Gem_${u(config.id)}.description`,
+        key: `items.Gem_${u(gem.id)}.description`,
         value: description,
       },
     }),
   });
 
   syncTexture({
-    color: config.color,
-    inputFile: `assets/gem/gem-mask-${config.variant || "medium"}.png`,
-    outputFile: `dist/Common/Resources/Gems/${u(config.id)}.png`,
+    color: gem.color,
+    inputFile: `assets/gem/gem-mask-${gem.variant || "medium"}.png`,
+    outputFile: `dist/Common/Resources/Gems/${u(gem.id)}.png`,
   });
 
   syncJson(
-    `Server/Item/Items/Gems/Gem_${u(config.id)}`,
-    data(config),
+    `Server/Item/Items/Gems/Gem_${u(gem.id)}`,
+    data(gem),
   );
+}
+
+/** Generate all gem JSONs */
+export function generateGems(gems: GemConfig[]) {
+  gems.forEach((gem) => generateGem(gem));
 }

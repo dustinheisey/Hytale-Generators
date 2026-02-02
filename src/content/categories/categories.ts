@@ -1,5 +1,5 @@
-import { u, uSep } from "@text";
-import { syncJson, syncLang } from "@sync";
+import { u, uSep } from "@util";
+import { syncJson, syncLang } from "@meta";
 
 const data = (config: CategoriesConfig): CategoriesData => {
   const { id, icon, order, children } = config;
@@ -23,6 +23,7 @@ const data = (config: CategoriesConfig): CategoriesData => {
   };
 };
 
+/** Generate creative categories JSON */
 export function generateCategories(config: CategoriesConfig) {
   syncLang({
     name: {

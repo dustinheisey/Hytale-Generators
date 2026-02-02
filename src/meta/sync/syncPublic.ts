@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
+/** Copy public folder contents to dist */
 export function syncPublic(): void {
   const root = process.cwd();
   const src = path.join(root, "public");

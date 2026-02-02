@@ -7,10 +7,10 @@
   "imports": {
     "culori": "npm:culori@^4.0.2",
     "sharp": "npm:sharp@^0.34.5",
-    "@text": "./src/util/text.ts",
-    "@color": "./src/util/color.ts",
-    "@sync": "./src/util/sync/sync.ts",
-    "@include": "./src/util/include.ts"
+    "@util": "./src/util/util.ts",
+    "@meta": "./src/meta/meta.ts",
+    "@content": "./src/content/content.ts",
+    "@things": "./src/things/things.ts"
   },
   "fmt": {
     "quoteProps": "asNeeded"
