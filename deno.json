@@ -1,16 +1,11 @@
 {
   "tasks": {
-    "build": "deno run --allow-env --allow-ffi --allow-read=public,dist --allow-write=dist src/index.ts",
-    "publish": "cp -R ./dist/* ~/Library/'Application Support'/Hytale/UserData/Saves/'Dev World'/mods/Unified_Materials",
-    "test": "deno run build && deno run publish"
+    "build": "deno run --allow-env --allow-ffi --allow-read=public,dist --allow-write=dist src/index.ts"
   },
   "imports": {
     "culori": "npm:culori@^4.0.2",
     "sharp": "npm:sharp@^0.34.5",
-    "@util": "./src/util/util.ts",
-    "@meta": "./src/meta/meta.ts",
-    "@content": "./src/content/content.ts",
-    "@things": "./src/things/things.ts"
+    "hytale-generators": "./src/index.ts"
   },
   "fmt": {
     "quoteProps": "asNeeded"

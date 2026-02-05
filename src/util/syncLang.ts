@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { syncFile } from "@meta";
+import { syncFile } from "hytale-generators";
 import process from "node:process";
 
 type LangEntry = { key: string; value: string };

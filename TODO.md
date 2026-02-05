@@ -20,6 +20,50 @@
 
 ## Backlog
 
+## Gearing Up
+- [ ] pickaxe
+- [ ] glider
+- [ ] shovel
+- [ ] watering can
+- [ ] repair kit
+- [ ] shears
+- [ ] hatchet
+- [ ] hoe
+- [ ] sickle
+- [ ] arrow
+- [ ] axe
+- [ ] battleaxe
+- [ ] scythe
+- [ ] club
+- [ ] crossbow
+- [ ] daggers
+- [ ] gun
+- [ ] longsword
+- [ ] mace
+
+- [ ] fluid
+- [ ] stalagtite - small and large
+- [ ] fuel source like charcoal
+- [ ] block
+- [ ] stairs
+- [ ] slab
+- [ ] quarter slab
+- [ ] vertical slab
+- [ ] crystal, block, small, medium, large
+- [ ] rubble
+- [ ] rubble medium
+- [ ] crops
+- [ ] tree
+- [ ] dimensions 
+- [ ] portal fragments
+- [ ] crafting bench
+- [ ] bucket
+- [ ] chest
+- [ ] 
+
+
+
+
 - [ ] capture crate
 - [ ] feedbag
 - [ ] hammer

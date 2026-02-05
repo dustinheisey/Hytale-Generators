@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { syncDir } from "@meta";
+import { syncDir } from "hytale-generators";
 
 /**
  * Ensures a file exists on disk.

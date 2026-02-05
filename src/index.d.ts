@@ -1,3 +1,12 @@
+declare type Tab =
+  | "Items"
+  | "Blocks.Ores"
+  | "Unified_Materials.Gems"
+  | "Unified_Materials.Ores"
+  | "Unified_Materials.Dusts"
+  | "Unified_Materials.Ingots"
+  | "Unified_Materials.Alloys";
+
 // - include/exclude
 // - lang overrides
 // - color overrides
@@ -5,46 +14,6 @@
 // - gem color overrides
 // - item level overrides
 // - hardness & tier
-
-declare interface ThingData {
-  TranslationProperties: TranslationProperties;
-  Categories: Tab[];
-  Tags: Tags;
-  MaxStack: number;
-}
-
-declare interface ThingConfig {
-  id: string;
-  name?: string;
-  description?: string;
-  color?: string;
-  categories?: Tab[];
-  model?: string;
-  texture?: string;
-  maxStack?: number;
-  inputs?: Input[];
-}
-
-declare type Kind =
-  | "ingot"
-  | "alloy"
-  | "dust"
-  | "gem"
-  | "ore"
-  | "ore_stone"
-  | "ore_basalt"
-  | "ore_sandstone"
-  | "ore_slate"
-  | "ore_shale"
-  | "ore_volcanic";
-
-declare type Block =
-  | "stone"
-  | "basalt"
-  | "sandstone"
-  | "slate"
-  | "shale"
-  | "volcanic";
 
 declare interface TranslationProperties {
   Name: string;
@@ -131,4 +100,34 @@ declare interface Light {
 declare interface Particle {
   Color: string;
   SystemId: string;
+}
+
+declare interface GlobalConfig {
+  MaxStack: number;
+  TimeSeconds: number;
+}
+
+declare interface ThingData {
+  TranslationProperties: TranslationProperties;
+  Categories: Tab[];
+  Tags: Tags;
+  MaxStack: number;
+}
+
+declare interface ThingConfig {
+  Id: string;
+  Name?: string;
+  Description?: string;
+  Color?: string;
+  Categories?: Tab[];
+  Model?: string;
+  Texture?: string;
+  MaxStack?: number;
+}
+
+declare interface ThingData {
+  TranslationProperties: TranslationProperties;
+  Categories: Tab[];
+  Tags: Tags;
+  MaxStack: number;
 }

@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { syncDir } from "@meta";
+import { syncDir } from "hytale-generators";
 
 type RGB = { r: number; g: number; b: number };
 
