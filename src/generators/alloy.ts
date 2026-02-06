@@ -85,7 +85,7 @@ export const alloy = createGenerator<AlloyConfig, AlloyData>({
   },
   texture: c => ({
     color: c.Color,
-    inputFile: `assets/ingot/ingot-mask-${c.Variant || "medium"}.png`,
+    inputFile: `src/assets/ingot/ingot-mask-${c.Variant || "medium"}.png`,
     outputFile: `dist/Common/Resources/Alloys/${c.Id}.png`
   })
 });

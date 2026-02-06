@@ -78,7 +78,7 @@ export const ore = createGenerator<OreConfig, OreData>({
   },
   texture: c => ({
     color: c.Color,
-    inputFile: "assets/ore-mask.png",
+    inputFile: "src/assets/ore-mask.png",
     outputFile: `dist/Common/Resources/Ores/${c.Id}.png`
   }),
   post: c => {

@@ -1,8 +1,8 @@
 export { deriveEffectColors } from "./util/color.ts";
 export { syncDir } from "./util/syncDir.ts";
 export { syncFile } from "./util/syncFile.ts";
-export { syncLang } from "./util/syncLang.ts";
 export { syncJson } from "./util/syncJson.ts";
+export { syncLang } from "./util/syncLang.ts";
 export { syncTexture } from "./util/syncTexture.ts";
 export { join, u, uSep } from "./util/text.ts";
 import { alloys } from "./generators/alloy.ts";

@@ -63,7 +63,7 @@ export function syncLang(entries: LangConfig[]) {
   }
 
   // Join back into a single string.
-  const finalText = outLines.filter((_, i) => !(i === outLines.length - 1 && outLines[i] === "")).join("\n");
+  const finalText = outLines.filter((_, i) => !(i === outLines.length - 1 && outLines[i] === "")).join("\n") + "\n";
 
   // Write the updated file back to disk
   fs.writeFileSync(file, finalText, "utf8");

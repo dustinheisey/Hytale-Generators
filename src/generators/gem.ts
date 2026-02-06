@@ -99,7 +99,7 @@ export const gem = createGenerator<GemConfig, GemData>({
   },
   texture: c => ({
     color: c.Color,
-    inputFile: `assets/gem/gem-mask-${c.Variant || "medium"}.png`,
+    inputFile: `src/assets/gem/gem-mask-${c.Variant || "medium"}.png`,
     outputFile: `dist/Common/Resources/Gems/${c.Id}.png`
   })
 });

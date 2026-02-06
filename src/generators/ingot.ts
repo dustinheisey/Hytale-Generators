@@ -80,7 +80,7 @@ export const ingot = createGenerator<IngotConfig, IngotData>({
   },
   texture: c => ({
     color: c.Color,
-    inputFile: `assets/ingot/ingot-mask-${c.Variant || "medium"}.png`,
+    inputFile: `src/assets/ingot/ingot-mask-${c.Variant || "medium"}.png`,
     outputFile: `dist/Common/Resources/Ingots/${c.Id}.png`
   }),
   post: c => {

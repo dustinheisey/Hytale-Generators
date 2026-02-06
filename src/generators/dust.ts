@@ -81,7 +81,7 @@ export const dust = createGenerator<DustConfig, DustData>({
   },
   texture: c => ({
     color: c.Color,
-    inputFile: "assets/dust-mask.png",
+    inputFile: "src/assets/dust-mask.png",
     outputFile: `dist/Common/Resources/Dusts/${c.Id}.png`
   })
 });
