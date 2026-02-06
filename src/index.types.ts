@@ -1,8 +1,3 @@
-export interface GlobalConfig {
-  MaxStack: number;
-  TimeSeconds: number;
-}
-
 export interface TranslationProperties {
   Name: string;
   Description?: string;

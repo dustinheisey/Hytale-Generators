@@ -1,4 +1,4 @@
-import { createGenerator } from "../index.ts";
+import { createGenerator, global } from "../index.ts";
 
 type Child =
   | {
@@ -33,14 +33,14 @@ export const categories = createGenerator<CategoriesConfig, CategoriesData>({
     const lang = [];
 
     lang.push({
-      key: `ui.${c.Id}`,
+      key: `ui.${global().ModId}`,
       value: c.Name || c.Id
     });
 
     c.Children.forEach(child => {
       const isString = typeof child === "string";
       lang.push({
-        key: `ui.${c.Id}.${isString ? child : child.Id}`,
+        key: `ui.${global().ModId}.${isString ? child : child.Id}`,
         value: isString ? child : child.Name || child.Id
       });
     });
@@ -48,18 +48,18 @@ export const categories = createGenerator<CategoriesConfig, CategoriesData>({
     return lang;
   },
   json: {
-    path: c => `Server/Item/Category/CreativeLibrary/${c.Id}`,
+    path: () => `Server/Item/Category/CreativeLibrary/${global().ModId}`,
     data: c => ({
-      Id: c.Id,
-      Name: `server.ui.${c.Id}`,
-      Icon: `Icons/ItemCategories/${c.Icon || c.Id}.png`,
+      Id: global().ModId,
+      Name: `server.ui.${global().ModId}`,
+      Icon: `Icons/ItemCategories/${c.Icon || global().ModId}.png`,
       ...(c.Order !== undefined && { Order: c.Order }),
       Children: c.Children.map((child: Child) => {
         const isString = typeof child === "string";
         const childId = isString ? child : child.Id;
         return {
           Id: childId,
-          Name: `server.ui.${c.Id}.${childId}`,
+          Name: `server.ui.${global().ModId}.${childId}`,
           Icon: `Icons/ItemCategories/${isString ? childId : child.Icon}.png`
         };
       })

@@ -1,4 +1,4 @@
-import { createGenerator, globalConfig, recipe } from "../index.ts";
+import { createGenerator, global, recipe } from "../index.ts";
 import type { IconProperties, ItemEntity, ResourceType, ThingConfig, ThingData } from "../index.types.ts";
 import type { RecipeData } from "./recipe.ts";
 
@@ -22,20 +22,22 @@ interface IngotData extends ThingData {
 }
 
 export const ingot = createGenerator<IngotConfig, IngotData>({
-  lang: c => [
-    {
-      key: `items.Unified_Materials.Ingot_${c.Id}.name`,
-      value: `${c.Name || c.Id} Ingot`
-    }
-  ],
+  lang: c => {
+    return [
+      {
+        key: `items.${global().ModId}.Ingot_${c.Id}.name`,
+        value: `${c.Name || c.Id} Ingot`
+      }
+    ];
+  },
   json: {
     path: c => `Server/Item/Items/Elements/${c.Id}/Ingot_${c.Id}`,
     data: c => ({
       TranslationProperties: {
-        Name: `server.items.Unified_Materials.Ingot_${c.Id}.name`,
-        Description: `server.items.Unified_Materials.Ingot_${c.Id}.description`
+        Name: `server.items.${global().ModId}.Ingot_${c.Id}.name`,
+        Description: `server.items.${global().ModId}.Ingot_${c.Id}.description`
       },
-      Categories: c.Categories || ["Items", "Unified_Materials.Ingots"],
+      Categories: c.Categories || ["Items"],
       Recipe: {
         Input: [
           {
@@ -51,7 +53,7 @@ export const ingot = createGenerator<IngotConfig, IngotData>({
           }
         ],
         OutputQuantity: c.OutputQuantity || 1,
-        TimeSeconds: c.TimeSeconds || globalConfig.TimeSeconds
+        TimeSeconds: c.TimeSeconds || global().TimeSeconds
       },
       Model: `Resources/Materials/${c.Model || "Ingot"}.blockymodel`,
       Texture: `Resources/Ingots/${c.Texture || c.Id}.png`,
@@ -75,7 +77,7 @@ export const ingot = createGenerator<IngotConfig, IngotData>({
       },
       ItemSoundSetId: "ISS_Items_Ingots",
       DropOnDeath: true,
-      MaxStack: c.MaxStack || globalConfig.MaxStack
+      MaxStack: c.MaxStack || global().MaxStack
     })
   },
   texture: c => ({
@@ -99,7 +101,7 @@ export const ingot = createGenerator<IngotConfig, IngotData>({
           Quantity: 1
         }
       ],
-      TimeSeconds: c.TimeSeconds || globalConfig.TimeSeconds
+      TimeSeconds: c.TimeSeconds || global().TimeSeconds
     });
   }
 });

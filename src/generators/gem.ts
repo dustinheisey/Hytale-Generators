@@ -1,4 +1,4 @@
-import { createGenerator, deriveEffectColors, globalConfig } from "../index.ts";
+import { createGenerator, deriveEffectColors, global } from "../index.ts";
 import type { BlockType, ThingConfig, ThingData } from "../index.types.ts";
 
 interface Light {
@@ -35,23 +35,26 @@ interface GemData extends ThingData {
 }
 
 export const gem = createGenerator<GemConfig, GemData>({
-  lang: c => [
-    {
-      key: `items.Unified_Materials.Gem_${c.Id}.name`,
-      value: c.Name || c.Id
-    }
-  ],
+  lang: c => {
+    return [
+      {
+        key: `items.${global().ModId}.Gem_${c.Id}.name`,
+        value: c.Name || c.Id
+      }
+    ];
+  },
   json: {
     path: c => `Server/Item/Items/Gems/Gem_${c.Id}`,
     data: c => {
+      const g = global();
       const { light, interact, sparks } = deriveEffectColors(c.Color);
 
       return {
         TranslationProperties: {
-          Name: `server.items.Unified_Materials.Gem_${c.Id}.name`,
-          Description: `server.items.Unified_Materials.Gem_${c.Id}.description`
+          Name: `server.items.${global().ModId}.Gem_${c.Id}.name`,
+          Description: `server.items.${global().ModId}.Gem_${c.Id}.description`
         },
-        Categories: c.Categories || ["Blocks.Ores", "Unified_Materials.Gems"],
+        Categories: c.Categories || ["Blocks.Ores"],
         PlayerAnimationsId: "Block",
         BlockType: {
           Material: "Solid",
@@ -93,7 +96,7 @@ export const gem = createGenerator<GemConfig, GemData>({
           Family: ["Gem"]
         },
         ItemSoundSetId: "ISS_Blocks_Stone",
-        MaxStack: c.MaxStack || globalConfig.MaxStack
+        MaxStack: c.MaxStack || g.MaxStack
       };
     }
   },

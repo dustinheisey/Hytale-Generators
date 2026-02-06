@@ -1,4 +1,4 @@
-import { createGenerator, globalConfig, resourceType } from "../index.ts";
+import { createGenerator, global, resourceType } from "../index.ts";
 import type { IconProperties, ItemEntity, ThingConfig, ThingData } from "../index.types.ts";
 import type { RecipeData } from "./recipe.ts";
 
@@ -24,11 +24,11 @@ interface OreData extends ThingData {
 export const ore = createGenerator<OreConfig, OreData>({
   lang: c => [
     {
-      key: `items.Unified_Materials.Ore_${c.Id}.name`,
+      key: `items.${global().ModId}.Ore_${c.Id}.name`,
       value: `${c.Name || c.Id} Ore`
     },
     {
-      key: `items.Unified_Materials.Ore_${c.Id}.description`,
+      key: `items.${global().ModId}.Ore_${c.Id}.description`,
       value: `Can be processed into an <b>${c.Id} Ingot</b> at a <b>Furnace</b>, or ground into <b>${c.Id} Dust</b> at a <b>Salvager's Workbench</b>`
     }
   ],
@@ -36,10 +36,10 @@ export const ore = createGenerator<OreConfig, OreData>({
     path: c => `Server/Item/Items/Elements/${c.Id}/Ore_${c.Id}`,
     data: c => ({
       TranslationProperties: {
-        Name: `server.items.Unified_Materials.Ore_${c.Id}.name`,
-        Description: `server.items.Unified_Materials.Ore_${c.Id}.description`
+        Name: `server.items.${global().ModId}.Ore_${c.Id}.name`,
+        Description: `server.items.${global().ModId}.Ore_${c.Id}.description`
       },
-      Categories: c.Categories || ["Blocks.Ores", "Unified_Materials.Ores"],
+      Categories: c.Categories || ["Blocks.Ores"],
       Recipe: {
         Input: [
           {
@@ -54,7 +54,7 @@ export const ore = createGenerator<OreConfig, OreData>({
             RequiredTierLevel: 1
           }
         ],
-        TimeSeconds: c.TimeSeconds || globalConfig.TimeSeconds
+        TimeSeconds: c.TimeSeconds || global().TimeSeconds
       },
       Model: `Resources/Ores/${c.Model || "Ore_Large"}.blockymodel`,
       Texture: `Resources/Ores/${c.Texture || c.Id}.png`,
@@ -71,7 +71,7 @@ export const ore = createGenerator<OreConfig, OreData>({
       ItemEntity: {
         ParticleSystemId: null
       },
-      MaxStack: c.MaxStack || globalConfig.MaxStack,
+      MaxStack: c.MaxStack || global().MaxStack,
       ItemSoundSetId: "ISS_Blocks_Stone",
       DropOnDeath: true
     })

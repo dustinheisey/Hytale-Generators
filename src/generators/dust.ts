@@ -1,4 +1,4 @@
-import { createGenerator, globalConfig } from "../index.ts";
+import { createGenerator, global } from "../index.ts";
 import type { IconProperties, ItemEntity, ResourceType, ThingConfig, ThingData } from "../index.types.ts";
 import type { RecipeData } from "./recipe.ts";
 
@@ -20,64 +20,69 @@ interface DustData extends ThingData {
 }
 
 export const dust = createGenerator<DustConfig, DustData>({
-  lang: c => [
-    {
-      key: `items.Unified_Materials.Dust_${c.Id}.name`,
-      value: `${c.Name || c.Id} Dust`
-    },
-    {
-      key: `items.Unified_Materials.Dust_${c.Id}.description`,
-      value: `Can be processed into an <b>${c.Id} Ingot</b> at a <b>Furnace</b>`
-    }
-  ],
+  lang: c => {
+    return [
+      {
+        key: `items.${global().ModId}.Dust_${c.Id}.name`,
+        value: `${c.Name || c.Id} Dust`
+      },
+      {
+        key: `items.${global().ModId}.Dust_${c.Id}.description`,
+        value: `Can be processed into an <b>${c.Id} Ingot</b> at a <b>Furnace</b>`
+      }
+    ];
+  },
   json: {
     path: c => `Server/Item/Items/Elements/${c.Id}/Dust_${c.Id}`,
-    data: c => ({
-      TranslationProperties: {
-        Name: `server.items.Unified_Materials.Dust_${c.Id}.name`,
-        Description: `server.items.Unified_Materials.Dust_${c.Id}.description`
-      },
-      Categories: c.Categories || ["Items", "Unified_Materials.Dusts"],
-      Recipe: {
-        Input: [
+    data: c => {
+      const g = global();
+      return {
+        TranslationProperties: {
+          Name: `server.items.${global().ModId}.Dust_${c.Id}.name`,
+          Description: `server.items.${global().ModId}.Dust_${c.Id}.description`
+        },
+        Categories: c.Categories || ["Items"],
+        Recipe: {
+          Input: [
+            {
+              ItemId: `Ore_${c.Id}`,
+              Quantity: 1
+            }
+          ],
+          BenchRequirement: [
+            {
+              Type: "Processing",
+              Id: "Salvage_Bench",
+              RequiredTierLevel: 1
+            }
+          ],
+          OutputQuantity: c.OutputQuantity || 2,
+          TimeSeconds: c.TimeSeconds || g.TimeSeconds
+        },
+        Model: `Resources/Dusts/${c.Model || "Dust"}.blockymodel`,
+        Texture: `Resources/Dusts/${c.Texture || c.Id}.png`,
+        IconProperties: {
+          Scale: 1,
+          Rotation: [22.5, 45, 22.5],
+          Translation: [0, -3]
+        },
+        ResourceTypes: [
           {
-            ItemId: `Ore_${c.Id}`,
-            Quantity: 1
+            Id: "Dusts"
           }
         ],
-        BenchRequirement: [
-          {
-            Type: "Processing",
-            Id: "Salvage_Bench",
-            RequiredTierLevel: 1
-          }
-        ],
-        OutputQuantity: c.OutputQuantity || 2,
-        TimeSeconds: c.TimeSeconds || globalConfig.TimeSeconds
-      },
-      Model: `Resources/Dusts/${c.Model || "Dust"}.blockymodel`,
-      Texture: `Resources/Dusts/${c.Texture || c.Id}.png`,
-      IconProperties: {
-        Scale: 1,
-        Rotation: [22.5, 45, 22.5],
-        Translation: [0, -3]
-      },
-      ResourceTypes: [
-        {
-          Id: "Dusts"
-        }
-      ],
-      PlayerAnimationsId: "Item",
-      Tags: {
-        Type: ["Ingredient"],
-        Family: ["Dust"]
-      },
-      ItemEntity: {
-        ParticleSystemId: null
-      },
-      DropOnDeath: true,
-      MaxStack: c.MaxStack || globalConfig.MaxStack
-    })
+        PlayerAnimationsId: "Item",
+        Tags: {
+          Type: ["Ingredient"],
+          Family: ["Dust"]
+        },
+        ItemEntity: {
+          ParticleSystemId: null
+        },
+        DropOnDeath: true,
+        MaxStack: c.MaxStack || g.MaxStack
+      };
+    }
   },
   texture: c => ({
     color: c.Color,

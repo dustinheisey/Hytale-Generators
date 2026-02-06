@@ -3,7 +3,7 @@ import path from "path";
 import process from "process";
 
 /** Copy public folder contents to dist */
-export function syncPublic(): void {
+export const syncPublic = (): void => {
   const root = process.cwd();
   const src = path.join(root, "public");
   const dest = path.join(root, "dist", "Common");
@@ -12,4 +12,4 @@ export function syncPublic(): void {
 
   fs.mkdirSync(dest, { recursive: true });
   fs.cpSync(src, dest, { recursive: true });
-}
+};

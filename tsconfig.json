@@ -12,9 +12,10 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "erasableSyntaxOnly": true,
-    "noEmit": true,
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true
   },
   "exclude": ["node_modules", "dist"]
 }

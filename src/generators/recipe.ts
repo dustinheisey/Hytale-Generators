@@ -1,4 +1,4 @@
-import { createGenerator, globalConfig } from "../index.ts";
+import { createGenerator, global } from "../index.ts";
 
 export interface Put {
   ItemId?: string;
@@ -139,7 +139,7 @@ export const recipe = createGenerator<RecipeConfig, RecipeData>({
           ...benchRequirement(c.Bench)
         }
       ],
-      TimeSeconds: c.TimeSeconds || globalConfig.TimeSeconds
+      TimeSeconds: c.TimeSeconds || global().TimeSeconds
     })
   }
 });
