@@ -1,5 +1,5 @@
-import * as fs from "node:fs";
-import { syncDir } from "hytale-generators";
+import * as fs from "fs";
+import { syncDir } from "./syncDir.ts";
 
 /**
  * Ensures a file exists on disk.
@@ -9,9 +9,7 @@ import { syncDir } from "hytale-generators";
  *
  * Note: This function does not create parent directories. Pair it with `syncDir`
  * when the directory may not exist.
- *
  * @param file - Full or relative path to the file to create if missing.
- *
  * @example
  * syncDir("locales/en/messages.properties");
  * createFile("locales/en/messages.properties");
@@ -20,6 +18,10 @@ export function createFile(file: string) {
   if (!fs.existsSync(file)) fs.writeFileSync(file, "");
 }
 
+/**
+ *
+ * @param file - Full or relative path to the file to create if missing.
+ */
 export function syncFile(file: string) {
   syncDir(file);
   createFile(file);

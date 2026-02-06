@@ -1,4 +1,4 @@
-import { createGenerator, globalConfig } from "hytale-generators";
+import { createGenerator, globalConfig } from "../index.ts";
 
 export interface Put {
   ItemId?: string;
@@ -6,11 +6,7 @@ export interface Put {
   Quantity: number;
 }
 
-type CraftingType =
-  | "Crafting"
-  | "DiagramCrafting"
-  | "StructuralCrafting"
-  | "Processing";
+type CraftingType = "Crafting" | "DiagramCrafting" | "StructuralCrafting" | "Processing";
 
 type Bench =
   | "Salvage_Bench"
@@ -33,15 +29,13 @@ type Bench =
 
 type BenchCategory = "Weapon_Misc";
 
-type BenchRequirement =
-  | Bench
-  | { Id: Bench; Categories?: BenchCategory[]; Tier: number };
+type BenchConfig = Bench | { Id: Bench; Categories?: BenchCategory[]; Tier: number };
 
 export interface RecipeConfig {
   Id: string;
   Input: Put[];
   Output: Put[];
-  Bench: BenchRequirement;
+  Bench: BenchConfig;
   TimeSeconds: number;
 }
 
@@ -58,8 +52,13 @@ export type RecipeData = {
   TimeSeconds: number;
 };
 
-function benchRequirement(bench: BenchRequirement) {
-  const isObj = typeof bench === "object" && bench !== null;
+/**
+ *
+ * @param bench - bench id or config with id, tier and optional categories array
+ * @returns bench requirement config object
+ */
+function benchRequirement(bench: BenchConfig) {
+  const isObj = typeof bench === "object";
   const id = isObj ? bench.Id : bench;
 
   let type: CraftingType;
@@ -124,25 +123,23 @@ function benchRequirement(bench: BenchRequirement) {
     Type: type,
     Id: id,
     RequiredTierLevel: isObj ? bench.Tier : 1,
-    ...(isObj && bench.Categories?.length
-      ? { Categories: bench.Categories }
-      : {}),
+    ...(isObj && bench.Categories?.length ? { Categories: bench.Categories } : {})
   };
 }
 
 export const recipe = createGenerator<RecipeConfig, RecipeData>({
   json: {
-    path: (c) => `Server/Item/Recipes/${c.Id}`,
-    data: (c) => ({
+    path: c => `Server/Item/Recipes/${c.Id}`,
+    data: c => ({
       Input: c.Input,
       PrimaryOutput: c.Output[0],
       ...(c.Output.length > 1 && { Output: c.Output.slice(1) }),
       BenchRequirement: [
         {
-          ...benchRequirement(c.Bench),
-        },
+          ...benchRequirement(c.Bench)
+        }
       ],
-      TimeSeconds: c.TimeSeconds || globalConfig.TimeSeconds,
-    }),
-  },
+      TimeSeconds: c.TimeSeconds || globalConfig.TimeSeconds
+    })
+  }
 });

@@ -1,4 +1,4 @@
-import { createGenerator } from "hytale-generators";
+import { createGenerator } from "../index.ts";
 
 export type ResourceTypeConfig = {
   Id: string;
@@ -7,14 +7,11 @@ export type ResourceTypeConfig = {
 
 type ResourceTypeData = Omit<ResourceTypeConfig, "Id">;
 
-export const resourceType = createGenerator<
-  ResourceTypeConfig,
-  ResourceTypeData
->({
+export const resourceType = createGenerator<ResourceTypeConfig, ResourceTypeData>({
   json: {
-    path: (c) => `Server/Item/ResourceTypes/${c.Id}`,
-    data: (c) => ({
-      Icon: `Icons/ResourceTypes/${c.Icon}.png`,
-    }),
-  },
+    path: c => `Server/Item/ResourceTypes/${c.Id}`,
+    data: c => ({
+      Icon: `Icons/ResourceTypes/${c.Icon}.png`
+    })
+  }
 });

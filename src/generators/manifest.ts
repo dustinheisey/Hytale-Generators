@@ -1,4 +1,4 @@
-import { createGenerator } from "hytale-generators";
+import { createGenerator } from "../index.ts";
 
 export interface Manifest {
   Group: string;
@@ -22,6 +22,6 @@ export interface Manifest {
 export const manifest = createGenerator<Manifest, Manifest>({
   json: {
     path: "manifest",
-    data: (c) => c,
-  },
+    data: c => c
+  }
 });

@@ -1,40 +1,37 @@
 export { deriveEffectColors } from "./util/color.ts";
 export { syncDir } from "./util/syncDir.ts";
 export { syncFile } from "./util/syncFile.ts";
-import { alloys } from "./generators/alloy.ts";
-import { dust } from "./generators/dust.ts";
-import { gems } from "./generators/gem.ts";
-import { ingot } from "./generators/ingot.ts";
-import { oreBlock } from "./generators/ore-block.ts";
-import { ore } from "./generators/ore.ts";
-import { categories } from "./generators/categories.ts";
-import { manifest } from "./generators/manifest.ts";
-import { resourceType } from "./generators/resource-type.ts";
-import { syncPublic } from "./util/syncPublic.ts";
-import { elements } from "./generators/element.ts";
 export { syncLang } from "./util/syncLang.ts";
 export { syncJson } from "./util/syncJson.ts";
 export { syncTexture } from "./util/syncTexture.ts";
 export { join, u, uSep } from "./util/text.ts";
+import { alloys } from "./generators/alloy.ts";
+import { categories } from "./generators/categories.ts";
+import { elements } from "./generators/element.ts";
+import { gems } from "./generators/gem.ts";
+import { manifest } from "./generators/manifest.ts";
+import { resourceType } from "./generators/resource-type.ts";
+import type { GlobalConfig } from "./index.types.ts";
+import { syncPublic } from "./util/syncPublic.ts";
 
 export { createGenerator } from "./createGenerator.ts";
 
-export { manifest } from "./generators/manifest.ts";
+export { alloy } from "./generators/alloy.ts";
 export { categories } from "./generators/categories.ts";
-export { resourceType } from "./generators/resource-type.ts";
-export { recipe } from "./generators/recipe.ts";
+export { dust } from "./generators/dust.ts";
+export { gem } from "./generators/gem.ts";
+export { ingot } from "./generators/ingot.ts";
+export { manifest } from "./generators/manifest.ts";
 export { oreBlock } from "./generators/ore-block.ts";
 export { ore } from "./generators/ore.ts";
-export { gem } from "./generators/gem.ts";
-export { dust } from "./generators/dust.ts";
-export { ingot } from "./generators/ingot.ts";
-export { alloy } from "./generators/alloy.ts";
+export { recipe } from "./generators/recipe.ts";
+export { resourceType } from "./generators/resource-type.ts";
 
 export { element } from "./generators/element.ts";
 
 export const globalConfig: GlobalConfig = {
   MaxStack: 100,
-  TimeSeconds: 14,
+  TimeSeconds: 14
 };
 
 // ? Meta
@@ -49,22 +46,16 @@ manifest({
   Authors: [
     {
       Name: "Inconvenient Dev",
-      Url: "https://inconvenient.gg",
-    },
+      Url: "https://inconvenient.gg"
+    }
   ],
-  Website: "https://www.curseforge.com/hytale/mods/unified-materials",
+  Website: "https://www.curseforge.com/hytale/mods/unified-materials"
 });
 
 categories({
   Id: "Unified_Materials",
   Name: "Unified Materials",
-  Children: [
-    "Ores",
-    "Gems",
-    "Dusts",
-    "Ingots",
-    { Id: "Alloys", Icon: "Ingots" },
-  ],
+  Children: ["Ores", "Gems", "Dusts", "Ingots", { Id: "Alloys", Icon: "Ingots" }]
 });
 
 resourceType({ Id: "Dusts", Icon: "Rock" });
@@ -76,95 +67,95 @@ elements({
       Id: "Hematite",
       Color: "#929291",
       Dust: { Name: "Iron" },
-      Exclude: ["Ingot"],
+      Exclude: ["Ingot"]
     },
     {
       Id: "Malachite",
       Color: "#2C7144",
       Dust: { Color: "#D08046", Name: "Copper" },
-      Exclude: ["Ingot"],
+      Exclude: ["Ingot"]
     },
     {
       Id: "Acanthite",
       Color: "#EBE9EB",
       Dust: { Name: "Silver" },
-      Exclude: ["Ingot"],
+      Exclude: ["Ingot"]
     },
     {
       Id: "Cobaltite",
       Color: "#25476C",
       Dust: { Name: "Cobalt" },
-      Exclude: ["Ingot"],
+      Exclude: ["Ingot"]
     },
     { Id: "Gold", Color: "#F4CD25", Exclude: ["Ingot"] },
-    { Id: "Thorium", Color: "#2C7144", Exclude: ["Ingot"] },
+    { Id: "Thorium", Color: "#2C7144", Exclude: ["Ingot"] }
   ],
   alkaliMetals: [
     {
       Id: "Lithium",
       Color: "#B6B6E2",
-      Ores: { Name: "Spodumene" },
+      Ores: { Name: "Spodumene" }
     },
     {
       Id: "Sodium",
       Color: "#e1eaff",
       Ores: { Name: "Halite" },
-      Ingot: { Variant: "Lightest" },
+      Ingot: { Variant: "Lightest" }
     },
     {
       Id: "Potassium",
       Color: "#9DA6EB",
-      Ores: { Name: "Sylvite" },
+      Ores: { Name: "Sylvite" }
     },
     {
       Id: "Rubidium",
       Color: "#9A93E5",
       Ores: {
         Name: "Lepidolite",
-        Description: "rubidium",
-      },
+        Description: "rubidium"
+      }
     },
     {
       Id: "Caesium",
       Color: "#E8C95A",
-      Ores: { Name: "Pollucite" },
+      Ores: { Name: "Pollucite" }
     },
-    { Id: "Francium", Color: "#6732D2" },
+    { Id: "Francium", Color: "#6732D2" }
   ],
   alkalineEarthMetals: [
     {
       Id: "Beryllium",
       Color: "#8CB1DD",
       Ores: {
-        Name: "Bertrandite",
-      },
+        Name: "Bertrandite"
+      }
     },
     {
       Id: "Magnesium",
       Color: "#95B8F3",
       Ores: {
-        Name: "Magnesite",
-      },
+        Name: "Magnesite"
+      }
     },
     {
       Id: "Calcium",
       Color: "#C4D5EC",
       Ores: { Name: "Calcite" },
-      Ingot: { Variant: "Light" },
+      Ingot: { Variant: "Light" }
     },
     {
       Id: "Strontium",
       Color: "#A89AE3",
       Ores: {
-        Name: "Celestite",
-      },
+        Name: "Celestite"
+      }
     },
     {
       Id: "Barium",
       Color: "#E0CD77",
-      Ores: { Name: "Barite" },
+      Ores: { Name: "Barite" }
     },
-    { Id: "Radium", Color: "#4D4DD6" },
+    { Id: "Radium", Color: "#4D4DD6" }
   ],
   transitionMetals: [
     { Id: "Scandium", Color: "#88B2DC" },
@@ -173,65 +164,65 @@ elements({
       Id: "Titanium",
       Color: "#AEB6BF",
       Ores: { Name: "Rutile" },
-      Ingot: { Variant: "Light" },
+      Ingot: { Variant: "Light" }
     },
     {
       Id: "Vanadium",
       Color: "#2a0651",
       Ores: {
-        Name: "Vanadinite",
+        Name: "Vanadinite"
       },
-      Ingot: { Variant: "Dark" },
+      Ingot: { Variant: "Dark" }
     },
     {
       Id: "Chromium",
       Color: "#2B9A32",
-      Ores: { Name: "Chromite" },
+      Ores: { Name: "Chromite" }
     },
     {
       Id: "Manganese",
       Color: "#6B7076",
       Ores: {
-        Name: "Pyrolusite",
+        Name: "Pyrolusite"
       },
-      Ingot: { Variant: "Light" },
+      Ingot: { Variant: "Light" }
     },
     {
       Id: "Nickel",
       Color: "#8A8570",
       Ores: {
-        Name: "Pentlandite",
-      },
+        Name: "Pentlandite"
+      }
     },
     {
       Id: "Zinc",
       Color: "#9FA7B0",
       Ores: { Name: "Sphalerite" },
-      Ingot: { Variant: "Light" },
+      Ingot: { Variant: "Light" }
     },
     {
       Id: "Yttrium",
       Color: "#7FB4EA",
-      Ores: { Name: "Xenotime" },
+      Ores: { Name: "Xenotime" }
     },
     {
       Id: "Zirconium",
       Color: "#8ABAE6",
-      Ores: { Name: "Zircon" },
+      Ores: { Name: "Zircon" }
     },
     {
       Id: "Niobium",
       Color: "#3D87C1",
       Ores: {
-        Name: "Pyrochlore",
-      },
+        Name: "Pyrochlore"
+      }
     },
     {
       Id: "Molybdenum",
       Color: "#2D83C8",
       Ores: {
-        Name: "Molybdenite",
-      },
+        Name: "Molybdenite"
+      }
     },
     { Id: "Technetium", Color: "#2D2DA1" },
     { Id: "Ruthenium", Color: "#2C7DB5" },
@@ -243,15 +234,15 @@ elements({
       Id: "Tantalum",
       Color: "#2C7EB4",
       Ores: {
-        Name: "Tantalite",
-      },
+        Name: "Tantalite"
+      }
     },
     {
       Id: "Tungsten",
       Color: "#503b27",
       Ores: {
-        Name: "Wolframite",
-      },
+        Name: "Wolframite"
+      }
     },
     { Id: "Rhenium", Color: "#1E568C" },
     { Id: "Osmium", Color: "#1F3F5A" },
@@ -259,15 +250,15 @@ elements({
     {
       Id: "Platinum",
       Color: "#D5DBE2",
-      Ores: { Name: "Ilmenite" },
+      Ores: { Name: "Ilmenite" }
     },
     {
       Id: "Mercury",
       Color: "#C9CCD1",
       Ores: {
         Name: "Cinnabar",
-        Color: "#B0120C",
-      },
+        Color: "#B0120C"
+      }
     },
     { Id: "Rutherfordium", Color: "#1E5A93" },
     { Id: "Dubnium", Color: "#1A4F8F" },
@@ -277,14 +268,14 @@ elements({
     { Id: "Meitnerium", Color: "#16306A" },
     { Id: "Darmstadtium", Color: "#1E5A7A" },
     { Id: "Roentgenium", Color: "#7A2A2A" },
-    { Id: "Copernicium", Color: "#7B33D1" },
+    { Id: "Copernicium", Color: "#7B33D1" }
   ],
   postTransitionMetals: [
     {
       Id: "Aluminum",
       Color: "#D0D6DE",
       Ores: { Name: "Bauxite" },
-      Ingot: { Variant: "Light" },
+      Ingot: { Variant: "Light" }
     },
     { Id: "Gallium", Color: "#7EBBF1" },
     { Id: "Indium", Color: "#7BBBE4" },
@@ -292,70 +283,70 @@ elements({
       Id: "Thallium",
       Color: "#8BAA1D",
       Ores: {
-        Name: "Lorandite",
-      },
+        Name: "Lorandite"
+      }
     },
     { Id: "Nihonium", Color: "#4A1BB0" },
     {
       Id: "Tin",
       Color: "#A6AFB8",
       Ores: { Name: "Cassiterite" },
-      Ingot: { Variant: "Light" },
+      Ingot: { Variant: "Light" }
     },
     {
       Id: "Lead",
       Color: "#44324e",
-      Ores: { Name: "Galena" },
+      Ores: { Name: "Galena" }
     },
     { Id: "Flerovium", Color: "#2D63A1" },
     {
       Id: "Bismuth",
       Color: "#7A667F",
       Ores: {
-        Name: "Bismuthinite",
-      },
+        Name: "Bismuthinite"
+      }
     },
     { Id: "Moscovium", Color: "#6A1F93" },
     { Id: "Polonium", Color: "#2D3A47" },
-    { Id: "Livermorium", Color: "#7A1F6A" },
+    { Id: "Livermorium", Color: "#7A1F6A" }
   ],
   metalloids: [
     {
       Id: "Boron",
       Color: "#1F1F22",
-      Ores: { Name: "Borax" },
+      Ores: { Name: "Borax" }
     },
     {
       Id: "Silicon",
       Color: "#5B616B",
-      Ores: { Name: "Quartz" },
+      Ores: { Name: "Quartz" }
     },
     {
       Id: "Germanium",
       Color: "#3535B0",
       Ores: {
-        Name: "Germanite",
-      },
+        Name: "Germanite"
+      }
     },
     {
       Id: "Arsenic",
       Color: "#4C5056",
       Ores: {
-        Name: "Arsenopyrite",
-      },
+        Name: "Arsenopyrite"
+      }
     },
     {
       Id: "Antimony",
       Color: "#3838AD",
-      Ores: { Name: "Stibnite" },
+      Ores: { Name: "Stibnite" }
     },
     {
       Id: "Tellurium",
       Color: "#6A29B4",
       Ores: {
-        Name: "Tellurite",
-      },
-    },
+        Name: "Tellurite"
+      }
+    }
   ],
   otherNonmetals: [
     { Id: "Hydrogen", Color: "#BFEFFF", Ingot: { Variant: "Lightest" } },
@@ -363,32 +354,32 @@ elements({
       Id: "Carbon",
       Color: "#2A2A2A",
       Ingot: { Variant: "Dark" },
-      Ores: { Name: "Graphite" },
+      Ores: { Name: "Graphite" }
     },
     { Id: "Nitrogen", Color: "#6A9BFF" },
     {
       Id: "Phosphorus",
       Color: "#004AA8",
       Ores: {
-        Name: "Apatite",
-      },
+        Name: "Apatite"
+      }
     },
     { Id: "Oxygen", Color: "#88FFFF" },
     { Id: "Sulfur", Color: "#E0C000", Ingot: { Variant: "Light" } },
-    { Id: "Selenium", Color: "#B01A1A" },
+    { Id: "Selenium", Color: "#B01A1A" }
   ],
   halides: [
     {
       Id: "Fluorine",
       Color: "#D6DF7A",
       Ores: { Name: "fluorite" },
-      Ingot: { Variant: "Light" },
+      Ingot: { Variant: "Light" }
     },
     { Id: "Chlorine", Color: "#7DDE00" },
     { Id: "Bromine", Color: "#8B1400" },
     { Id: "Iodine", Color: "#3A004A" },
     { Id: "Astatine", Color: "#2C2C88" },
-    { Id: "Tennessine", Color: "#4DB6AC" },
+    { Id: "Tennessine", Color: "#4DB6AC" }
   ],
   nobleGases: [
     { Id: "Helium", Color: "#EAD7FF" },
@@ -397,7 +388,7 @@ elements({
     { Id: "Krypton", Color: "#8FB0FF" },
     { Id: "Xenon", Color: "#6D8CFF" },
     { Id: "Radon", Color: "#4D4DB0" },
-    { Id: "Oganesson", Color: "#2D2B47" },
+    { Id: "Oganesson", Color: "#2D2B47" }
   ],
   lanthanides: [
     { Id: "Lanthanum", Color: "#B3D2F4" },
@@ -414,7 +405,7 @@ elements({
     { Id: "Erbium", Color: "#6BCB8C" },
     { Id: "Thulium", Color: "#6B8FD4" },
     { Id: "Ytterbium", Color: "#C5C5F0" },
-    { Id: "Lutetium", Color: "#B5E0B5" },
+    { Id: "Lutetium", Color: "#B5E0B5" }
   ],
   actinides: [
     { Id: "Actinium", Color: "#4D4DD6" },
@@ -422,7 +413,7 @@ elements({
     {
       Id: "Uranium",
       Color: "#657148",
-      Ores: { Name: "Uraninite" },
+      Ores: { Name: "Uraninite" }
     },
     { Id: "Neptunium", Color: "#1E5A93" },
     { Id: "Plutonium", Color: "#585E5A" },
@@ -434,8 +425,8 @@ elements({
     { Id: "Fermium", Color: "#145E5E" },
     { Id: "Mendelevium", Color: "#6A1F93" },
     { Id: "Nobelium", Color: "#2D3A47" },
-    { Id: "Lawrencium", Color: "#2E2E71" },
-  ],
+    { Id: "Lawrencium", Color: "#2E2E71" }
+  ]
 });
 
 gems([
@@ -459,7 +450,7 @@ gems([
   { Id: "Sodalite", Color: "#15224D", Variant: "Dark" },
   { Id: "Sunstone", Color: "#c7610d" },
   { Id: "Tigers_Eye", Color: "#894d17", Variant: "Dark" },
-  { Id: "Turquoise", Color: "#007989" },
+  { Id: "Turquoise", Color: "#007989" }
 ]);
 
 alloys([
@@ -470,9 +461,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 3 },
       { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 1 },
-      { ItemId: "Ingredient_Bar_Cobalt", Name: "Cobalt", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Cobalt", Name: "Cobalt", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Duralumin",
@@ -481,9 +472,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingot_Aluminum", Name: "Aluminum", Quantity: 3 },
       { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 1 },
-      { ItemId: "Ingot_Magnesium", Name: "Magnesium", Quantity: 1 },
+      { ItemId: "Ingot_Magnesium", Name: "Magnesium", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Bismanol",
@@ -491,9 +482,9 @@ alloys([
     Color: "#344657",
     Inputs: [
       { ItemId: "Ingot_Bismuth", Name: "Bismuth", Quantity: 1 },
-      { ItemId: "Ingot_Manganese", Name: "Manganese", Quantity: 1 },
+      { ItemId: "Ingot_Manganese", Name: "Manganese", Quantity: 1 }
     ],
-    OutputQuantity: 2,
+    OutputQuantity: 2
   },
   {
     Id: "Rose_Metal",
@@ -502,9 +493,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingot_Bismuth", Name: "Bismuth", Quantity: 3 },
       { ItemId: "Ingot_Lead", Name: "Lead", Quantity: 1 },
-      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 1 },
+      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Nichrome",
@@ -512,18 +503,18 @@ alloys([
     Color: "#9f9a87",
     Inputs: [
       { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 4 },
-      { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Ferrochrome",
     Color: "#586457",
     Inputs: [
       { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 2 },
-      { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 3 },
+      { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 3 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Megallium",
@@ -531,9 +522,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Cobalt", Name: "Cobalt", Quantity: 3 },
       { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 1 },
-      { ItemId: "Ingot_Molybdenum", Name: "Molybdenum", Quantity: 1 },
+      { ItemId: "Ingot_Molybdenum", Name: "Molybdenum", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Talonite",
@@ -542,9 +533,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Cobalt", Name: "Cobalt", Quantity: 3 },
       { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 1 },
-      { ItemId: "Ingot_Molybdenum", Name: "Molybdenum", Quantity: 1 },
+      { ItemId: "Ingot_Molybdenum", Name: "Molybdenum", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Vitallium",
@@ -552,9 +543,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Cobalt", Name: "Cobalt", Quantity: 13 },
       { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 6 },
-      { ItemId: "Ingot_Molybdenum", Name: "Molybdenum", Quantity: 1 },
+      { ItemId: "Ingot_Molybdenum", Name: "Molybdenum", Quantity: 1 }
     ],
-    OutputQuantity: 2,
+    OutputQuantity: 2
   },
   {
     Id: "Brass",
@@ -562,18 +553,18 @@ alloys([
     Color: "#d6a33a",
     Inputs: [
       { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 2 },
-      { ItemId: "Ingot_Zinc", Name: "Zinc", Quantity: 1 },
+      { ItemId: "Ingot_Zinc", Name: "Zinc", Quantity: 1 }
     ],
-    OutputQuantity: 3,
+    OutputQuantity: 3
   },
   {
     Id: "Bronze",
     Color: "#b06a2a",
     Inputs: [
       { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 3 },
-      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 2 },
+      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 2 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Arsenical_Bronze",
@@ -581,9 +572,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 3 },
       { ItemId: "Ingot_Arsenic", Name: "Arsenic", Quantity: 1 },
-      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 1 },
+      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Bismuth_Bronze",
@@ -591,9 +582,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 3 },
       { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 1 },
-      { ItemId: "Ingot_Bismuth", Name: "Bismuth", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", Name: "Bismuth", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Constantan",
@@ -601,9 +592,9 @@ alloys([
     Color: "#b0a79b",
     Inputs: [
       { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 3 },
-      { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 2 },
+      { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 2 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Hepatizon",
@@ -612,9 +603,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 3 },
       { ItemId: "Ingredient_Bar_Gold", Name: "Gold", Quantity: 1 },
-      { ItemId: "Ingredient_Bar_Silver", Name: "Silver", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Silver", Name: "Silver", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Galinsstan",
@@ -623,9 +614,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingot_Gallium", Name: "Gallium", Quantity: 3 },
       { ItemId: "Ingot_Indium", Name: "Indium", Quantity: 1 },
-      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 1 },
+      { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Electrum",
@@ -633,36 +624,36 @@ alloys([
     Color: "#d9cf6a",
     Inputs: [
       { ItemId: "Ingredient_Bar_Gold", Name: "Gold", Quantity: 3 },
-      { ItemId: "Ingredient_Bar_Silver", Name: "Silver", Quantity: 2 },
+      { ItemId: "Ingredient_Bar_Silver", Name: "Silver", Quantity: 2 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Purple_gold",
     Color: "#7c4aa8",
     Inputs: [
       { ItemId: "Ingredient_Bar_Gold", Name: "Gold", Quantity: 4 },
-      { ItemId: "Ingot_Aluminum", Name: "Aluminum", Quantity: 1 },
+      { ItemId: "Ingot_Aluminum", Name: "Aluminum", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Blue_Gold",
     Color: "#2f63c7",
     Inputs: [
       { ItemId: "Ingredient_Bar_Gold", Name: "Gold", Quantity: 4 },
-      { ItemId: "Ingot_Indium", Name: "Indium", Quantity: 1 },
+      { ItemId: "Ingot_Indium", Name: "Indium", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Gray_Gold",
     Color: "#b7ad9e",
     Inputs: [
       { ItemId: "Ingredient_Bar_Gold", Name: "Gold", Quantity: 4 },
-      { ItemId: "Ingot_Palladium", Name: "Palladium", Quantity: 1 },
+      { ItemId: "Ingot_Palladium", Name: "Palladium", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Rose_Gold",
@@ -670,9 +661,9 @@ alloys([
     Color: "#d38b7f",
     Inputs: [
       { ItemId: "Ingredient_Bar_Gold", Name: "Gold", Quantity: 4 },
-      { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Copper", Name: "Copper", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "White_Gold",
@@ -681,9 +672,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Gold", Name: "Gold", Quantity: 3 },
       { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 1 },
-      { ItemId: "Ingot_Palladium", Name: "Palladium", Quantity: 1 },
+      { ItemId: "Ingot_Palladium", Name: "Palladium", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Invar",
@@ -691,9 +682,9 @@ alloys([
     Variant: "Light",
     Inputs: [
       { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 3 },
-      { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 2 },
+      { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 2 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Cast_Iron",
@@ -702,9 +693,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 3 },
       { ItemId: "Ingot_Carbon", Name: "Carbon", Quantity: 1 },
-      { ItemId: "Ingot_Silicon", Name: "Silicon", Quantity: 1 },
+      { ItemId: "Ingot_Silicon", Name: "Silicon", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Stainless_Steel",
@@ -713,9 +704,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 3 },
       { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 1 },
-      { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 1 },
+      { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Wrought_Iron",
@@ -723,9 +714,9 @@ alloys([
     Color: "#1b2835",
     Inputs: [
       { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 4 },
-      { ItemId: "Ingot_Silicon", Name: "Silicon", Quantity: 1 },
+      { ItemId: "Ingot_Silicon", Name: "Silicon", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Tool_Steel",
@@ -734,9 +725,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 3 },
       { ItemId: "Ingot_Carbon", Name: "Carbon", Quantity: 1 },
-      { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 1 },
+      { ItemId: "Ingot_Chromium", Name: "Chromium", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Pewter",
@@ -745,9 +736,9 @@ alloys([
     Inputs: [
       { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 3 },
       { ItemId: "Ingot_Lead", Name: "Lead", Quantity: 1 },
-      { ItemId: "Ingot_Antimony", Name: "Antimony", Quantity: 1 },
+      { ItemId: "Ingot_Antimony", Name: "Antimony", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Sterling_Silver",
@@ -755,9 +746,9 @@ alloys([
     Color: "#d6dde6",
     Inputs: [
       { ItemId: "Ingredient_Bar_Silver", Name: "Silver", Quantity: 3 },
-      { ItemId: "Ingot_Lead", Name: "Lead", Quantity: 2 },
+      { ItemId: "Ingot_Lead", Name: "Lead", Quantity: 2 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Nitinol",
@@ -765,9 +756,9 @@ alloys([
     Color: "#b2bcc8",
     Inputs: [
       { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 1 },
-      { ItemId: "Ingot_Titanium", Name: "Titanium", Quantity: 1 },
+      { ItemId: "Ingot_Titanium", Name: "Titanium", Quantity: 1 }
     ],
-    OutputQuantity: 2,
+    OutputQuantity: 2
   },
   {
     Id: "Permalloy",
@@ -775,9 +766,9 @@ alloys([
     Color: "#5f8aa3",
     Inputs: [
       { ItemId: "Ingot_Nickel", Name: "Nickel", Quantity: 4 },
-      { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 1 },
+      { ItemId: "Ingredient_Bar_Iron", Name: "Iron", Quantity: 1 }
     ],
-    OutputQuantity: 5,
+    OutputQuantity: 5
   },
   {
     Id: "Queens_Metal",
@@ -787,10 +778,10 @@ alloys([
       { ItemId: "Ingot_Tin", Name: "Tin", Quantity: 2 },
       { ItemId: "Ingot_Antimony", Name: "Antimony", Quantity: 1 },
       { ItemId: "Ingot_Lead", Name: "Lead", Quantity: 1 },
-      { ItemId: "Ingot_Bismuth", Name: "Bismuth", Quantity: 1 },
+      { ItemId: "Ingot_Bismuth", Name: "Bismuth", Quantity: 1 }
     ],
-    OutputQuantity: 5,
-  },
+    OutputQuantity: 5
+  }
 ]);
 
 // export {
@@ -800,7 +791,6 @@ alloys([
 //   syncDir,
 //   syncFile,
 //   syncJson,
-//   syncLang,
 //   syncPublic,
 //   syncTexture,
 //   u,

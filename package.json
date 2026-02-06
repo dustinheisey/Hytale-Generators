@@ -1,0 +1,55 @@
+{
+  "name": "hytale-generators",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dustinheisey/Hytale-Generators.git"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.ts"
+    }
+  },
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "private": "true",
+  "author": "Dustin Heisey",
+  "type": "module",
+  "scripts": {
+    "format": "prettier . --write",
+    "lint": "run-s --continue-on-error typecheck lint:js spellcheck",
+    "typecheck": "tsc --noEmit",
+    "lint:js": "eslint . -c eslint.config.ts --fix",
+    "spellcheck": "cspell lint .",
+    "build": "node src/index.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@eslint/json": "^1.0.0",
+    "@types/culori": "^4.0.1",
+    "@types/node": "^25.2.1",
+    "@typescript-eslint/parser": "^8.54.0",
+    "commitlint": "^20.4.1",
+    "concurrently": "^9.2.1",
+    "cspell": "^9.6.4",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsdoc": "62.5.2",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.2.7",
+    "npm-run-all": "^4.1.5",
+    "prettier": "3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.54.0"
+  },
+  "dependencies": {
+    "culori": "^4.0.2",
+    "sharp": "^0.34.5"
+  }
+}

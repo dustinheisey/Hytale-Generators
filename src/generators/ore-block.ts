@@ -1,12 +1,7 @@
-import { createGenerator, globalConfig, ore } from "hytale-generators";
+import { createGenerator, globalConfig } from "../index.ts";
+import type { BlockType, IconProperties, Texture, ThingConfig, ThingData } from "../index.types.ts";
 
-export type Block =
-  | "Stone"
-  | "Basalt"
-  | "Sandstone"
-  | "Slate"
-  | "Shale"
-  | "Volcanic";
+export type Block = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
 
 export interface OreBlockConfig extends ThingConfig {
   Hardness?: number;
@@ -24,62 +19,63 @@ interface OreBlockData extends ThingData {
   IconProperties: IconProperties;
 }
 
+/**
+ *
+ * @param block - block type
+ * @returns - texture config object
+ */
 function computeBlockTexture(block: Block): Texture {
   switch (block) {
     case "Sandstone":
       return {
         Weight: 1,
         Sides: "BlockTextures/Rock_Sandstone_Side.png",
-        UpDown: "BlockTextures/Rock_Sandstone_Top.png",
+        UpDown: "BlockTextures/Rock_Sandstone_Top.png"
       };
     case "Shale":
       return {
         Weight: 1,
-        All: "BlockTextures/Rock_Shale.png",
+        All: "BlockTextures/Rock_Shale.png"
       };
     case "Stone":
       return {
         Weight: 1,
-        All: "BlockTextures/Rock_Stone.png",
+        All: "BlockTextures/Rock_Stone.png"
       };
     case "Slate":
       return {
         Sides: "BlockTextures/Rock_Slate_Cracked.png",
         UpDown: "BlockTextures/Rock_Slate_Cracked.png",
-        Weight: 1,
+        Weight: 1
       };
     case "Volcanic":
       return {
         Weight: 1,
-        All: "BlockTextures/Rock_Volcanic.png",
+        All: "BlockTextures/Rock_Volcanic.png"
       };
     case "Basalt":
       return {
         Weight: 1,
-        All: "BlockTextures/Rock_Basalt.png",
+        All: "BlockTextures/Rock_Basalt.png"
       };
   }
 }
 
 export const oreBlock = createGenerator<OreBlockConfig, OreBlockData>({
-  lang: (c) => [
+  lang: c => [
     {
       key: `items.Unified_Materials.Ore_${c.Id}_${c.Type}.name`,
-      value: `${c.Name || c.Id} Ore - ${c.Type}`,
-    },
+      value: `${c.Name || c.Id} Ore - ${c.Type}`
+    }
   ],
   json: {
-    path: (c) => `Server/Item/Items/Elements/${c.Id}/Ore_${c.Id}_${c.Type}`,
-    data: (c) => ({
+    path: c => `Server/Item/Items/Elements/${c.Id}/Ore_${c.Id}_${c.Type}`,
+    data: c => ({
       TranslationProperties: {
         Name: `server.items.Unified_Materials.Ore_${c.Id}_${c.Type}.name`,
-        Description:
-          `server.items.Unified_Materials.Ore_${c.Id}_${c.Type}.description`,
+        Description: `server.items.Unified_Materials.Ore_${c.Id}_${c.Type}.description`
       },
-      Categories: c.Categories || [
-        "Blocks.Ores",
-        "Unified_Materials.Ores",
-      ],
+      Categories: c.Categories || ["Blocks.Ores", "Unified_Materials.Ores"],
       BlockType: {
         Material: "Solid",
         DrawType: "CubeWithModel",
@@ -87,8 +83,8 @@ export const oreBlock = createGenerator<OreBlockConfig, OreBlockData>({
         CustomModelTexture: [
           {
             Texture: `Resources/Ores/${c.Texture || c.Id}.png`,
-            Weight: 1,
-          },
+            Weight: 1
+          }
         ],
         Group: "Stone",
         Flags: {},
@@ -103,55 +99,47 @@ export const oreBlock = createGenerator<OreBlockConfig, OreBlockData>({
                   {
                     Type: "Single",
                     Item: {
-                      ItemId: `Ore_${c.Id}`,
-                    },
+                      ItemId: `Ore_${c.Id}`
+                    }
                   },
                   {
                     Type: "Single",
                     Item: {
-                      ItemId: `Rock_${c.Type}_Cobble`,
-                    },
-                  },
-                ],
-              },
-            },
-          },
+                      ItemId: `Rock_${c.Type}_Cobble`
+                    }
+                  }
+                ]
+              }
+            }
+          }
         },
         BlockParticleSetId: "Ore",
-        Textures: [
-          computeBlockTexture(c.Type),
-        ],
+        Textures: [computeBlockTexture(c.Type)],
         ParticleColor: c.Color,
-        BlockSoundSetId: "Ore",
+        BlockSoundSetId: "Ore"
       },
       PlayerAnimationsId: "Block",
       Tags: {
-        Type: [
-          "Ore",
-        ],
-        Family: [
-          c.Id,
-        ],
+        Type: ["Ore"],
+        Family: [c.Id]
       },
       MaxStack: c.MaxStack || globalConfig.MaxStack,
       ItemSoundSetId: "ISS_Blocks_Stone",
       IconProperties: {
         Scale: 0.58823,
-        Rotation: [
-          22.5,
-          45,
-          22.5,
-        ],
-        Translation: [
-          0,
-          -13.5,
-        ],
-      },
-    }),
-  },
+        Rotation: [22.5, 45, 22.5],
+        Translation: [0, -13.5]
+      }
+    })
+  }
 });
 
-/** Generate all JSONs for each block type of all ores */
+/**
+ * Generate all JSONs for each block type of all ores
+ * @param configs - list of ore block config objects
+ */
 export const oreBlocks = (configs: OreBlockConfig[]) => {
-  configs.forEach((config) => oreBlock(config));
-}
+  configs.forEach(config => {
+    oreBlock(config);
+  });
+};

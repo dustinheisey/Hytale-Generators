@@ -1,10 +1,12 @@
-import { alloy, dust, gem, ingot, ore, oreBlock } from "hytale-generators";
+import { dust, ingot, ore, oreBlock } from "../index.ts";
+import type { AlloyConfig } from "./alloy.ts";
+import type { DustConfig } from "./dust.ts";
+import type { GemConfig } from "./gem.ts";
+import type { IngotConfig } from "./ingot.ts";
 import type { Block, OreBlockConfig } from "./ore-block.ts";
 import type { OreConfig } from "./ore.ts";
-import type { GemConfig } from "./gem.ts";
-import type { DustConfig } from "./dust.ts";
-import type { IngotConfig } from "./ingot.ts";
-import type { AlloyConfig } from "./alloy.ts";
+
+import type { ThingConfig } from "../index.types.ts";
 
 declare type Kind =
   | "Ingot"
@@ -39,34 +41,35 @@ declare type ElementsConfig = Record<string, ThingsConfig[]>;
 const include = (kind: Kind, config: ThingsConfig): boolean => {
   const { Include, Exclude } = config;
 
-  if (Include && Include?.includes(kind)) return true;
-  if (Exclude && !Exclude?.includes(kind)) return true;
+  if (Include && Include.includes(kind)) return true;
+  if (Exclude && !Exclude.includes(kind)) return true;
   if (!Include && !Exclude) return true;
   return false;
 };
 
 export const element = (config: ThingsConfig) => {
-  const blocks: Block[] = [
-    "Basalt",
-    "Sandstone",
-    "Shale",
-    "Slate",
-    "Stone",
-    "Volcanic",
-  ];
-  blocks.forEach((block) =>
-    include(`Ore_${block}`, config) &&
-    oreBlock({ ...config, ...config.Ores, ...config.OreBlock, Type: block })
-  );
-  include("Ore", config) && ore({ ...config, ...config.Ores, ...config.Ore });
-  include("Dust", config) && dust({ ...config, ...config.Dust });
+  const blocks: Block[] = ["Basalt", "Sandstone", "Shale", "Slate", "Stone", "Volcanic"];
+  blocks.forEach(block => {
+    if (include(`Ore_${block}`, config)) {
+      oreBlock({ ...config, ...config.Ores, ...config.OreBlock, Type: block });
+    }
+  });
 
-  include("Ingot", config) && ingot({ ...config, ...config.Ingot });
+  if (include("Ore", config)) ore({ ...config, ...config.Ores, ...config.Ore });
+  if (include("Dust", config)) dust({ ...config, ...config.Dust });
+  if (include("Ingot", config)) ingot({ ...config, ...config.Ingot });
 };
 
-/** Generate all JSONs associated with each element */
+/**
+ * Generate all JSONs associated with each element
+ * @param configs - list of element config objects
+ */
 export const elements = (configs: ElementsConfig) => {
-  Object.values(configs).flat().forEach((config) => element(config));
+  Object.values(configs)
+    .flat()
+    .forEach(config => {
+      element(config);
+    });
 };
 
 /*

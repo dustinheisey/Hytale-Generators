@@ -1,10 +1,12 @@
-import { createGenerator } from "hytale-generators";
+import { createGenerator } from "../index.ts";
 
-type Child = {
-  Id: string;
-  Name?: string;
-  Icon: string;
-} | string;
+type Child =
+  | {
+      Id: string;
+      Name?: string;
+      Icon: string;
+    }
+  | string;
 
 export interface CategoriesConfig {
   Id: string;
@@ -27,27 +29,27 @@ interface CategoriesData {
 }
 
 export const categories = createGenerator<CategoriesConfig, CategoriesData>({
-  lang: (c) => {
+  lang: c => {
     const lang = [];
 
     lang.push({
       key: `ui.${c.Id}`,
-      value: c.Name || c.Id,
+      value: c.Name || c.Id
     });
 
-    c.Children.forEach((child) => {
+    c.Children.forEach(child => {
       const isString = typeof child === "string";
       lang.push({
         key: `ui.${c.Id}.${isString ? child : child.Id}`,
-        value: isString ? child : (child.Name || child.Id),
+        value: isString ? child : child.Name || child.Id
       });
     });
 
     return lang;
   },
   json: {
-    path: (c) => `Server/Item/Category/CreativeLibrary/${c.Id}`,
-    data: (c) => ({
+    path: c => `Server/Item/Category/CreativeLibrary/${c.Id}`,
+    data: c => ({
       Id: c.Id,
       Name: `server.ui.${c.Id}`,
       Icon: `Icons/ItemCategories/${c.Icon || c.Id}.png`,
@@ -58,9 +60,9 @@ export const categories = createGenerator<CategoriesConfig, CategoriesData>({
         return {
           Id: childId,
           Name: `server.ui.${c.Id}.${childId}`,
-          Icon: `Icons/ItemCategories/${isString ? childId : child.Icon}.png`,
+          Icon: `Icons/ItemCategories/${isString ? childId : child.Icon}.png`
         };
-      }),
-    }),
-  },
+      })
+    })
+  }
 });

@@ -1,4 +1,5 @@
-import { createGenerator, globalConfig, join } from "hytale-generators";
+import { createGenerator, globalConfig, join } from "../index.ts";
+import type { IconProperties, ItemEntity, ResourceType, ThingConfig, ThingData } from "../index.types.ts";
 import type { Put, RecipeData } from "./recipe.ts";
 
 type AlloyPut = Put & { Name: string };
@@ -24,86 +25,77 @@ interface AlloyData extends ThingData {
 }
 
 export const alloy = createGenerator<AlloyConfig, AlloyData>({
-  lang: (c) => {
-    const materials = join(c.Inputs.map((Input) => Input.Name));
+  lang: c => {
+    const materials = join(c.Inputs.map(Input => Input.Name));
     return [
       {
         key: `items.Unified_Materials.Alloy_${c.Id}.name`,
-        value: `${c.Name || c.Id} Ingot`,
+        value: `${c.Name || c.Id} Ingot`
       },
       {
         key: `items.Unified_Materials.Alloy_${c.Id}.description`,
-        value: `Alloy of ${materials}`,
-      },
+        value: `Alloy of ${materials}`
+      }
     ];
   },
   json: {
-    path: (c) => `Server/Item/Items/Alloys/Alloy_${c.Id}`,
-    data: (c) => ({
+    path: c => `Server/Item/Items/Alloys/Alloy_${c.Id}`,
+    data: c => ({
       TranslationProperties: {
         Name: `server.items.Unified_Materials.Alloy_${c.Id}.name`,
-        Description: `server.items.Unified_Materials.Alloy_${c.Id}.description`,
+        Description: `server.items.Unified_Materials.Alloy_${c.Id}.description`
       },
-      Categories: c.Categories || [
-        "Items",
-        "Unified_Materials.Alloys",
-      ],
+      Categories: c.Categories || ["Items", "Unified_Materials.Alloys"],
       Recipe: {
         Input: c.Inputs,
         BenchRequirement: [
           {
             Type: "Processing",
             Id: "Furnace",
-            RequiredTierLevel: 2,
-          },
+            RequiredTierLevel: 2
+          }
         ],
         OutputQuantity: c.OutputQuantity || 2,
-        TimeSeconds: c.TimeSeconds || 20,
+        TimeSeconds: c.TimeSeconds || 20
       },
       Model: `Resources/Materials/${c.Model || "Ingot"}.blockymodel`,
       Texture: `Resources/Alloys/${c.Texture || c.Id}.png`,
       ResourceTypes: [
         {
-          Id: "Metal_Bars",
-        },
+          Id: "Metal_Bars"
+        }
       ],
       PlayerAnimationsId: "Item",
       IconProperties: {
         Scale: 1,
-        Translation: [
-          0,
-          -3,
-        ],
-        Rotation: [
-          22.5,
-          45,
-          22.5,
-        ],
+        Translation: [0, -3],
+        Rotation: [22.5, 45, 22.5]
       },
       Tags: {
-        Type: [
-          "Ingredient",
-        ],
-        Family: [
-          "Metal_Bar",
-        ],
+        Type: ["Ingredient"],
+        Family: ["Metal_Bar"]
       },
       ItemEntity: {
-        ParticleSystemId: null,
+        ParticleSystemId: null
       },
       ItemSoundSetId: "ISS_Items_Ingots",
       DropOnDeath: true,
-      MaxStack: c.MaxStack || globalConfig.MaxStack,
-    }),
+      MaxStack: c.MaxStack || globalConfig.MaxStack
+    })
   },
-  texture: (c) => ({
+  texture: c => ({
     color: c.Color,
     inputFile: `assets/ingot/ingot-mask-${c.Variant || "medium"}.png`,
-    outputFile: `dist/Common/Resources/Alloys/${c.Id}.png`,
-  }),
+    outputFile: `dist/Common/Resources/Alloys/${c.Id}.png`
+  })
 });
 
-/** Generate all alloy JSONs */
+/**
+ * Generate all alloy JSONs
+ * @param configs - list of alloy config objects
+ */
 export const alloys = (configs: AlloyConfig[]) => {
-  configs.forEach((config) => alloy(config));
+  configs.forEach(config => {
+    alloy(config);
+  });
 };
