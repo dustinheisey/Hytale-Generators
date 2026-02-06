@@ -3,3 +3,4 @@
 .vscode
 itemsGenerated
 node_modules
+*.code-workspace
