@@ -1,5 +1,5 @@
-import { createGenerator, global } from "../index.ts";
-import type { BlockType, IconProperties, Texture, ThingConfig, ThingData } from "../index.types.ts";
+import type { BlockType, IconProperties, Texture, ThingConfig, ThingData } from "../index.js";
+import { createGenerator, global } from "../index.js";
 
 export type Block = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
 

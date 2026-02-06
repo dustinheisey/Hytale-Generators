@@ -1,5 +1,5 @@
-import { syncJson, syncLang, syncTexture } from "./index.ts";
-import type { JsonConfig, LangConfig, TextureConfig } from "./index.types.ts";
+import type { JsonConfig, LangConfig, TextureConfig } from "./index.js";
+import { syncJson, syncLang, syncTexture } from "./index.js";
 
 type GeneratorSteps<C extends object, D> = Partial<{
   lang: (config: C) => LangConfig[];

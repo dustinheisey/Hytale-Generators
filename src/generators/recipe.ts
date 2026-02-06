@@ -1,4 +1,4 @@
-import { createGenerator, global } from "../index.ts";
+import { createGenerator, global } from "../index.js";
 
 export interface Put {
   ItemId?: string;

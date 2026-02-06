@@ -1,5 +1,5 @@
-import { createGenerator, deriveEffectColors, global } from "../index.ts";
-import type { BlockType, ThingConfig, ThingData } from "../index.types.ts";
+import type { BlockType, ThingConfig, ThingData } from "../index.js";
+import { createGenerator, deriveEffectColors, global } from "../index.js";
 
 interface Light {
   Color: string;

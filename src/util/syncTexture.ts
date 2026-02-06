@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { syncDir } from "./syncDir.ts";
+import { syncDir } from "../index.js";
 
 type RGB = { r: number; g: number; b: number };
 

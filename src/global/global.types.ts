@@ -101,7 +101,3 @@ export interface Texture {
   Sides?: string;
   UpDown?: string;
 }
-
-export type { JsonConfig } from "./util/syncJson.ts";
-export type { LangConfig } from "./util/syncLang.ts";
-export type { TextureConfig } from "./util/syncTexture.ts";

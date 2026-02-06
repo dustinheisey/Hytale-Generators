@@ -1,6 +1,5 @@
-import { createGenerator, global } from "../index.ts";
-import type { IconProperties, ItemEntity, ResourceType, ThingConfig, ThingData } from "../index.types.ts";
-import type { RecipeData } from "./recipe.ts";
+import type { IconProperties, ItemEntity, RecipeData, ResourceType, ThingConfig, ThingData } from "../index.js";
+import { createGenerator, global } from "../index.js";
 
 export interface DustConfig extends ThingConfig {
   Color: string;

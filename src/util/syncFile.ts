@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { syncDir } from "./syncDir.ts";
+import { syncDir } from "../index.js";
 
 /**
  * Ensures a file exists on disk.

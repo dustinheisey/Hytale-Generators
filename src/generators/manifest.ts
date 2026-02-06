@@ -1,4 +1,4 @@
-import { createGenerator } from "../index.ts";
+import { createGenerator } from "../index.js";
 
 export interface Manifest {
   Group: string;

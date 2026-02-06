@@ -1,4 +1,4 @@
-import { createGenerator } from "../index.ts";
+import { createGenerator } from "../index.js";
 
 export type ResourceTypeConfig = {
   Id: string;

@@ -1,6 +1,5 @@
-import { createGenerator, global, join } from "../index.ts";
-import type { IconProperties, ItemEntity, ResourceType, ThingConfig, ThingData } from "../index.types.ts";
-import type { Put, RecipeData } from "./recipe.ts";
+import type { IconProperties, ItemEntity, Put, RecipeData, ResourceType, ThingConfig, ThingData } from "../index.js";
+import { createGenerator, global, join } from "../index.js";
 
 type AlloyPut = Put & { Name: string };
 

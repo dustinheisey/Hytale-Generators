@@ -1,14 +1,17 @@
 {
   "name": "hytale-generators",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dustinheisey/Hytale-Generators.git"
   },
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "description": "",
@@ -22,8 +25,8 @@
     "typecheck": "tsc --noEmit",
     "lint:js": "eslint . -c eslint.config.ts --fix",
     "spellcheck": "cspell lint .",
-    "build": "node src/index.ts",
-    "tsc": "tsc"
+    "test": "node src/index.ts",
+    "build": "tsc"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

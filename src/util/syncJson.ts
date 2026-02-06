@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { syncFile } from "./syncFile.ts";
+import { syncFile } from "../index.js";
 
 export interface JsonConfig<C, D> {
   path: string | ((config: C) => string);

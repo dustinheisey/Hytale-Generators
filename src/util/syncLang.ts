@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import process from "process";
-import { syncFile } from "../index.ts";
+import { syncFile } from "../index.js";
 
 export interface LangConfig {
   key: string;
