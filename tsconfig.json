@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-
     "target": "ES2022",
+    "rootDir": ".",
+
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
 
@@ -16,11 +17,10 @@
 
     "declaration": true,
     "declarationMap": true,
-
     "sourceMap": true,
 
     "verbatimModuleSyntax": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["*.config.ts", "src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

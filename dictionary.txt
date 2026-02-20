@@ -1,12 +1,17 @@
+Alchemybench
+Arcanebench
 blockymodel
 buildertool
+Cookingbench
 culori
 despawns
+Farmingbench
 hotbar
 hypixel
 hytale
 Hytale
 Knockback
+Loombench
 Lumbermill
 oklch
 Oklch

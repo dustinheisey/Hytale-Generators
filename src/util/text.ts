@@ -23,6 +23,10 @@ export function u(str: string): string {
     .replace(/(^|\s)([a-z])/g, (_: string, separator: string, char: string) => separator + char.toUpperCase());
 }
 
+export function asArray<T>(v: T | T[]) {
+  return Array.isArray(v) ? v : [v];
+}
+
 /**
  *
  * @param strs - individual string array
@@ -38,4 +42,29 @@ export function join(strs: string[]) {
   const head = strs.slice(0, -1).join(", ");
   const last = strs[strs.length - 1];
   return `${head} and ${last}`;
+}
+
+type Primitive = string | number | boolean | bigint | symbol | null | undefined;
+
+export type Pascal<T> = T extends Primitive
+  ? T
+  : T extends readonly (infer U)[]
+    ? Pascal<U>[]
+    : T extends object
+      ? { [K in keyof T as K extends string ? Capitalize<K> : K]: Pascal<T[K]> }
+      : T;
+
+export function toPascal<T>(input: T): Pascal<T>;
+export function toPascal(input: unknown): unknown {
+  if (Array.isArray(input)) return input.map(toPascal);
+
+  if (typeof input === "object" && input !== null) {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(input as Record<string, unknown>)) {
+      out[k ? k[0].toUpperCase() + k.slice(1) : k] = toPascal(v);
+    }
+    return out;
+  }
+
+  return input;
 }

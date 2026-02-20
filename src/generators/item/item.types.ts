@@ -1,4 +1,77 @@
+import type { AutoComplete } from "../../global/global.types.js";
+
+/** Derived from `hytale-item-schema.json` (https://gist.github.com/Huijiro/fe069677c25d58edb5beaab917f760a4)
+ * Complete JSON Schema for Hytale Item asset configuration with comprehensive documentation including full Java package references, field mappings, and enumeration details. All properties are documented with line numbers and source code references.
+ */
+export interface ItemData {
+  Id: ItemIdentifier;
+  TranslationProperties?: TranslationProperties;
+  Icon?: ItemIconAsset;
+  Categories?: Tab[];
+  IconProperties?: IconDisplayProperties;
+  ItemLevel?: ItemLevel;
+  MaxStack?: MaximumStackSize;
+  Quality?: ItemQualityTier;
+  Set?: AssetSetName;
+  Model?: Item3DModel;
+  Texture?: string;
+  PlayerAnimationsId?: PlayerAnimationSet;
+  Rendering?: ItemRenderingConfiguration;
+  ItemEntity?: DroppedItemConfiguration;
+  SoundEventId?: PickupSoundEvent;
+  ItemSoundSetId?: ItemSoundSet;
+  Tool?: ToolConfiguration;
+  Weapon?: WeaponConfiguration;
+  Armor?: ArmorConfiguration;
+  Glider?: GliderConfiguration;
+  Utility?: UtilityConfiguration;
+  BlockType?: BlockConfiguration;
+  ResourceTypes?: ResourceTypes;
+  MaxDurability?: MaximumDurability;
+  DurabilityLossOnHit?: DurabilityLossPerUse;
+  FuelQuality?: FuelQuality;
+  Variant?: IsVariantItem;
+  Consumable?: IsConsumable;
+  DropOnDeath?: DropOnPlayerDeath;
+  ClipsGeometry?: ClipsThroughGeometry;
+  RenderDeployablePreview?: ShowDeployablePreview;
+  Interactions?: InteractionDefinitions;
+  InteractionConfig?: InteractionConfiguration;
+  InteractionVars?: InteractionVariables;
+  ItemAppearanceConditions?: ConditionalAppearance;
+  DisplayEntityStatsHUD?: StatsToDisplayInHUD;
+  PullbackConfig?: FirstPersonPullback;
+  Reticle?: AimingReticle;
+  BlockSelectorTool?: BlockSelectorTool;
+  BuilderTool?: BuilderTool;
+  PortalKey?: PortalKey;
+  Container?: ContainerConfiguration;
+  Tags?: Tags;
+}
+
+export type CommonTypes = "TranslationProperties" | "Categories" | "MaxStack";
+
+export type ItemTypes =
+  | "Model"
+  | "Texture"
+  | "IconProperties"
+  | "DropOnDeath"
+  | "ItemEntity"
+  | "ItemSoundSetId"
+  | "ResourceTypes"
+  | "Tags";
+
+export type ItemBlockTypes = Exclude<ItemTypes, "ResourceTypes">;
+
+export type BlockTypes = "BlockType" | "ItemSoundSetId" | "Tags";
+
+export type Tags = {
+  Type?: string[];
+  Family?: string[];
+};
+
 /**
+ *
  * Unique identifier for this item asset. Must be globally unique, alphanumeric with underscores only. Maps to com.hypixel.hytale.server.core.asset.type.item.config.Item#id (protected String, line 299). This field serves as the primary key used by the game engine for all item lookups and references throughout the system.
  */
 export type ItemIdentifier = string;
@@ -17,7 +90,38 @@ export type ItemIconAsset = string;
 /**
  * Categories this item appears in within the creative menu and item library. Maps to com.hypixel.hytale.server.core.asset.type.item.config.Item#categories (protected String[], line 329). Categories are hierarchical and determine menu organization for player browsing.
  */
-export type ItemCategories = string[];
+export type Tab = AutoComplete<
+  | "Items"
+  | "Items.Tools"
+  | "Items.Weapons"
+  | "Items.Armors"
+  | "Items.Foods"
+  | "Items.Potions"
+  | "Items.Recipes"
+  | "Items.Ingredients"
+  | "Tool.BuilderTool"
+  | "Tool.BuilderToolSecondPage"
+  | "Tool.ScriptedBrushes"
+  | "Tool.Block"
+  | "Tool.BrushFilters"
+  | "Tool.Machinima"
+  | "Blocks.Rocks"
+  | "Blocks.Structural"
+  | "Blocks.Soils"
+  | "Blocks.Ores"
+  | "Blocks.Plants"
+  | "Blocks.Fluids"
+  | "Blocks.Portals"
+  | "Blocks.Deco"
+  | "Furniture.Benches"
+  | "Furniture.Containers"
+  | "Furniture.Furniture"
+  | "Furniture.Doors"
+  | "Furniture.Lighting"
+  | "Furniture.Beds"
+  | "Furniture.Shelves"
+  | "Furniture.Signs"
+>;
 /**
  * Horizontal offset for icon rendering in pixels. Maps to AssetIconProperties#offsetX. Positive values move icon right, negative left.
  */
@@ -33,7 +137,9 @@ export type IconScale = number;
 /**
  * Rotation angle in degrees. Maps to AssetIconProperties#rotation. Positive values rotate clockwise.
  */
-export type IconRotation = number;
+export type IconRotation = number[];
+
+export type IconTranslation = number[];
 /**
  * Item level for progression and equipment systems. Maps to com.hypixel.hytale.server.core.asset.type.item.config.Item#itemLevel (protected int, line 305). Higher levels typically indicate better gear for advanced players.
  */
@@ -62,6 +168,19 @@ export type Item3DModel = string;
  * Scale multiplier for the item model. Maps to com.hypixel.hytale.server.core.asset.type.item.config.Item#scale (protected float, line 326, default 1.0). Value of 1.0 is standard size; higher values enlarge the model, lower values shrink it.
  */
 export type ModelScale = number;
+
+export interface MaskVariantMap {
+  lighter: true;
+  light: true;
+  base: true;
+  dark: true;
+  darker: true;
+}
+
+export type MaskVariantKey = keyof MaskVariantMap;
+
+export type MaskVariant = AutoComplete<MaskVariantKey>;
+
 /**
  * Path to the texture asset for the item model. Maps to com.hypixel.hytale.server.core.asset.type.item.config.Item#texture (protected String, line 327, default 'Items/Unknown.png'). Texture is applied to the 3D model surface for visual appearance.
  */
@@ -189,7 +308,7 @@ export type ToolSpeedMultiplier = number;
 /**
  * List of specific block type IDs that cause durability loss. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemTool.DurabilityLossBlockTypes#blockTypes (protected String[], line 122).
  */
-export type BlockTypes = string[];
+export type DurabilityLossBlockTypes = string[];
 /**
  * List of block set identifiers that cause durability loss. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemTool.DurabilityLossBlockTypes#blockSets (protected String[], line 123). Allows grouping multiple blocks.
  */
@@ -202,7 +321,7 @@ export type DurabilityLoss = number;
  * Per-material durability loss settings. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemTool#durabilityLossBlockTypes (protected DurabilityLossBlockTypes[], line 40). Allows different materials to degrade tool at different rates.
  */
 export type DurabilityLossConfiguration = {
-  BlockTypes?: BlockTypes;
+  BlockTypes?: DurabilityLossBlockTypes;
   BlockSets?: BlockSets;
   DurabilityLossOnHit?: DurabilityLoss;
 }[];
@@ -294,6 +413,12 @@ export type TransparencyLevel = "Solid" | "Transparent" | "Translucent";
  * Single texture for all block faces. Use if all 6 faces share the same texture.
  */
 export type AllFacesTexture = string;
+
+/**
+ * Texture for the top (+Y) and bottom (-Y) face of the block.
+ */
+export type UpDownTexture = string;
+
 /**
  * Texture for the top (+Y) face of the block.
  */
@@ -322,10 +447,13 @@ export type WestFace = string;
  * Weight for random variant selection. Higher weights are selected more frequently. Used when multiple texture sets are defined.
  */
 export type VariantWeight = number;
+
 /**
- * Texture assets for block rendering. Maps to com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType#textures (protected BlockTypeTextures[], line 460). Can specify 'All' for single texture or per-face textures.
+ * Texture asset for block rendering. Maps to com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType#textures (protected BlockTypeTextures[], line 460). Can specify 'All' for single texture or per-face textures.
  */
-export type BlockTextures = {
+export type BlockTexture = {
+  Texture?: AllFacesTexture;
+  UpDown?: UpDownTexture;
   All?: AllFacesTexture;
   Up?: TopFace;
   Down?: BottomFace;
@@ -334,7 +462,12 @@ export type BlockTextures = {
   East?: EastFace;
   West?: WestFace;
   Weight?: VariantWeight;
-}[];
+};
+
+/**
+ * Texture assets for block rendering. Maps to com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType#textures (protected BlockTypeTextures[], line 460). Can specify 'All' for single texture or per-face textures.
+ */
+export type BlockTextures = BlockTexture[];
 /**
  * Path to custom 3D model asset. Maps to com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType#customModel (protected String, line 465). Used when DrawType is Model or CubeWithModel.
  */
@@ -472,57 +605,13 @@ export type ReticleSize = number;
 export type ReticleColor = string;
 
 /**
- * Complete JSON Schema for Hytale Item asset configuration with comprehensive documentation including full Java package references, field mappings, and enumeration details. All properties are documented with line numbers and source code references.
- */
-export interface HytaleItemConfigurationSchemaFullyDocumented {
-  Id: ItemIdentifier;
-  TranslationProperties?: TranslationProperties;
-  Icon?: ItemIconAsset;
-  Categories?: ItemCategories;
-  IconProperties?: IconDisplayProperties;
-  ItemLevel?: ItemLevel;
-  MaxStack?: MaximumStackSize;
-  Quality?: ItemQualityTier;
-  Set?: AssetSetName;
-  PlayerAnimationsId?: PlayerAnimationSet;
-  Rendering?: ItemRenderingConfiguration;
-  ItemEntity?: DroppedItemConfiguration;
-  SoundEventId?: PickupSoundEvent;
-  ItemSoundSetId?: ItemSoundSet;
-  Tool?: ToolConfiguration;
-  Weapon?: WeaponConfiguration;
-  Armor?: ArmorConfiguration;
-  Glider?: GliderConfiguration;
-  Utility?: UtilityConfiguration;
-  BlockType?: BlockConfiguration;
-  ResourceTypes?: ResourceTypes;
-  MaxDurability?: MaximumDurability;
-  DurabilityLossOnHit?: DurabilityLossPerUse;
-  FuelQuality?: FuelQuality;
-  Variant?: IsVariantItem;
-  Consumable?: IsConsumable;
-  DropOnDeath?: DropOnPlayerDeath;
-  ClipsGeometry?: ClipsThroughGeometry;
-  RenderDeployablePreview?: ShowDeployablePreview;
-  Interactions?: InteractionDefinitions;
-  InteractionConfig?: InteractionConfiguration;
-  InteractionVars?: InteractionVariables;
-  ItemAppearanceConditions?: ConditionalAppearance;
-  DisplayEntityStatsHUD?: StatsToDisplayInHUD;
-  PullbackConfig?: FirstPersonPullback;
-  Reticle?: AimingReticle;
-  BlockSelectorTool?: BlockSelectorTool;
-  BuilderTool?: BuilderTool;
-  PortalKey?: PortalKey;
-  Container?: ContainerConfiguration;
-}
-/**
  * Localization configuration for item name and description text. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemTranslationProperties class (lines 14-61). Contains translation keys that reference localization files for displaying item names and descriptions in multiple languages.
  */
 export interface TranslationProperties {
   Name?: ItemNameTranslationKey;
   Description?: ItemDescriptionTranslationKey;
 }
+
 /**
  * Custom visual properties for icon rendering. Maps to com.hypixel.hytale.server.core.asset.type.item.config.AssetIconProperties class. Controls icon offset, scale, and rotation in UI displays.
  */
@@ -531,6 +620,7 @@ export interface IconDisplayProperties {
   OffsetY?: IconYOffset;
   Scale?: IconScale;
   Rotation?: IconRotation;
+  Translation?: IconTranslation;
 }
 /**
  * Visual rendering configuration for the item in inventory, held in hand, and dropped on ground. Maps to various fields in com.hypixel.hytale.server.core.asset.type.item.config.Item for rendering properties.
@@ -550,12 +640,14 @@ export interface ItemRenderingConfiguration {
 /**
  * Light color and intensity emitted by the held or dropped item. Maps to com.hypixel.hytale.server.core.asset.type.item.config.Item#light (protected ColorLight, line 338). Illuminates the environment around the item.
  */
-export interface ItemLightEmission {
-  Red?: RedChannel;
-  Green?: GreenChannel;
-  Blue?: BlueChannel;
-  Brightness?: LightBrightness;
-}
+export type ItemLightEmission =
+  | {
+      Red?: RedChannel;
+      Green?: GreenChannel;
+      Blue?: BlueChannel;
+      Brightness?: LightBrightness;
+    }
+  | string;
 /**
  * Configuration for item behavior when dropped on the ground as an entity. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemEntityConfig class (lines 16-90). Controls physics, pickup radius, lifetime, and particles for dropped items.
  */
@@ -638,7 +730,7 @@ export interface StatModifiers1 {
   }[];
 }
 /**
- * Glider-specific configuration for flight equipment like paraglider. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemGlider class (lines 11-60). Defines gliding physics and movement.
+ * Glider-specific configuration for flight equipment like paraglides. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemGlider class (lines 11-60). Defines gliding physics and movement.
  */
 export interface GliderConfiguration {
   TerminalVelocity?: TerminalVelocity;
@@ -672,6 +764,7 @@ export interface BlockConfiguration {
   DrawType?: RenderingType;
   Opacity?: TransparencyLevel;
   Textures?: BlockTextures;
+  CustomModelTexture?: BlockTextures;
   CustomModel?: Custom3DModel;
   CustomModelScale?: ModelScale1;
   CustomModelAnimation?: ModelAnimation;
@@ -682,18 +775,14 @@ export interface BlockConfiguration {
   Light?: LightEmission;
   Flags?: BlockFlags;
   Gathering?: GatheringConfiguration;
+  RandomRotation: "YawStep90";
 }
-
-export type OreBlockConfig = Pick<BlockConfiguration, "Gathering" | "Textures">;
-
 /**
  * Light color and brightness emitted by the block. Maps to com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType#light (protected ColorLight). Illuminates surrounding blocks.
  */
 export interface LightEmission {
-  Red?: Red;
-  Green?: Green;
-  Blue?: Blue;
-  Brightness?: Brightness;
+  Color: string;
+  Radius: number;
 }
 /**
  * Behavior flags for the block. Maps to com.hypixel.hytale.protocol.BlockFlags. Controls usability and stacking behavior.
@@ -708,13 +797,24 @@ export interface BlockFlags {
 export interface GatheringConfiguration {
   Breaking?: BreakingBehavior;
 }
+
+export type Drop = {
+  Type: "Single";
+  Item: {
+    ItemId: string;
+  };
+};
 /**
  * What happens when block is broken/gathered.
  */
 export interface BreakingBehavior {
   GatherType?: GatherType1;
-  ItemId?: DropItem;
-  Quantity?: DropQuantity;
+  DropList: {
+    Container: {
+      Type: "Multiple";
+      Containers: Drop | Drop[];
+    };
+  };
 }
 /**
  * Custom interaction handlers for the item. Maps to com.hypixel.hytale.server.core.asset.type.item.config.Item#interactions (protected Map<InteractionType, String>, line 342). Defines what happens on primary/secondary use.

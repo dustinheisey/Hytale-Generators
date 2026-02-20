@@ -1,11 +1,6 @@
 import * as fs from "fs";
 import { syncFile } from "../index.js";
 
-export interface JsonConfig<C, D> {
-  path: string | ((config: C) => string);
-  data: (config: C) => D;
-}
-
 /**
  * Writes an object to a JSON file asynchronously (pretty-printed with 2 spaces).
  *
@@ -32,11 +27,10 @@ export function writeJson(file: string, data: object) {
  *
  * Creates parent directories (recursively) and the file (if missing), then writes
  * the JSON contents using `writeJson`.
- * @param jsonConfig - path config
+ * @param path - writes to `dist/${path}.json`
  * @param config - data config
  */
-export function syncJson<C, D extends object>(jsonConfig: JsonConfig<C, D>, config: C) {
-  const outPath = typeof jsonConfig.path === "function" ? jsonConfig.path(config) : jsonConfig.path;
-  syncFile(`dist/${outPath}.json`);
-  writeJson(`dist/${outPath}.json`, jsonConfig.data(config));
+export function syncJson<T extends object>(path: string, data: T) {
+  syncFile(`dist/${path}.json`);
+  writeJson(`dist/${path}.json`, data);
 }
