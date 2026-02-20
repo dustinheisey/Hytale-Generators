@@ -1,5 +1,6 @@
 {
   "name": "hytale-generators",
+  "description": "Utilities for generating Hytale server assets (JSON, language entries, textures, derived colors, and recipe definitions) into a `dist/` directory.",
   "version": "0.2.1",
   "repository": {
     "type": "git",
@@ -20,7 +21,9 @@
     "typescript"
   ],
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "exports": {
     ".": {
@@ -28,8 +31,6 @@
       "default": "./dist/src/index.js"
     }
   },
-  "description": "",
-  "keywords": [],
   "license": "MIT",
   "author": "Dustin Heisey",
   "type": "module",
