@@ -1,10 +1,24 @@
 {
   "name": "hytale-generators",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dustinheisey/Hytale-Generators.git"
   },
+  "keywords": [
+    "hytale",
+    "hytale-mod",
+    "modding",
+    "game-modding",
+    "asset-pack",
+    "asset-generator",
+    "json",
+    "textures",
+    "sharp",
+    "build-tools",
+    "node",
+    "typescript"
+  ],
   "files": [
     "dist"
   ],
