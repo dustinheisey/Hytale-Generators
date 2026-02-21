@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { syncDir } from "../index.js";
+import { global, syncDir } from "../index.js";
 
 type RGB = { r: number; g: number; b: number };
 
@@ -42,10 +42,10 @@ export function parseColor(color: string): RGB {
  * @param config - texture config
  */
 export function syncTexture(config: TextureConfig) {
-  syncDir(config.outputFile);
+  syncDir(`${global().outDir}/Common/${config.outputFile}.png`);
 
   try {
-    sharp(config.inputFile)
+    sharp(`assets/${config.inputFile}.png`)
       .tint(parseColor(config.color))
       .toFile(config.outputFile)
       .catch((err: unknown) => {

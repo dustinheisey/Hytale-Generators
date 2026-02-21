@@ -29,7 +29,7 @@ export function alloy(config: AlloyConfig) {
   const modId = global().modId;
 
   syncJson<AlloyData>(
-    `Server/Item/Items/Alloys/Alloy${config.id}`,
+    `${global().outDir}/Server/Item/Items/Alloys/Alloy${config.id}`,
     toPascal({
       translationProperties: {
         name: `server.items.${modId}.Alloy${config.id}.name`,
@@ -82,8 +82,8 @@ export function alloy(config: AlloyConfig) {
 
   syncTexture({
     color: config.color,
-    inputFile: config?.mask ?? `assets/ingot/ingot-mask-${config?.maskVariant ?? "base"}.png`,
-    outputFile: config?.textureOut ?? `dist/Common/Resources/Alloys/${config.id}.png`
+    inputFile: config?.mask ?? `ingot/ingot-mask-${config?.maskVariant ?? "base"}`,
+    outputFile: config?.textureOut ?? `Resources/Alloys/${config.id}`
   });
 }
 

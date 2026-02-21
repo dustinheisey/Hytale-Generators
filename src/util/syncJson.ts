@@ -31,6 +31,6 @@ export function writeJson(file: string, data: object) {
  * @param config - data config
  */
 export function syncJson<T extends object>(path: string, data: T) {
-  syncFile(`dist/${path}.json`);
-  writeJson(`dist/${path}.json`, data);
+  syncFile(`${path}.json`);
+  writeJson(`${path}.json`, data);
 }

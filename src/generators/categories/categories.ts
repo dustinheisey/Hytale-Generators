@@ -8,7 +8,7 @@ export function categories(cfg: Child[] | CategoriesConfig) {
   const config: CategoriesConfig = Array.isArray(cfg) ? { children: cfg } : cfg;
 
   syncJson<CategoriesData>(
-    `Server/Item/Category/CreativeLibrary/${modId}`,
+    `${global().outDir}/Server/Item/Category/CreativeLibrary/${modId}`,
     toPascal({
       id: modId,
       name: `server.ui.${modId}`,

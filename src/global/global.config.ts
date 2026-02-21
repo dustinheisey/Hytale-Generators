@@ -1,5 +1,6 @@
 export interface GlobalConfig {
   modId: string;
+  outDir: string;
 }
 
 let currentGlobal: GlobalConfig | null = null;
@@ -11,7 +12,7 @@ export function setGlobal(config: GlobalConfig): void;
  * @param global - global config
  */
 export function setGlobal(global: string | GlobalConfig) {
-  currentGlobal = typeof global === "string" ? { modId: global } : global;
+  currentGlobal = typeof global === "string" ? { modId: global, outDir: "dist" } : global;
 }
 
 /**

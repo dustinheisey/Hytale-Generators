@@ -27,7 +27,7 @@ export interface IngotConfig {
 export function ingot(config: IngotConfig) {
   const modId = global().modId;
   syncJson<IngotData>(
-    `Server/Item/Items/Ingots/Ingot${config.id}`,
+    `${global().outDir}/Server/Item/Items/Ingots/Ingot${config.id}`,
     toPascal({
       translationProperties: {
         name: `server.items.${modId}.Ingot${config.id}.name`,
@@ -77,8 +77,8 @@ export function ingot(config: IngotConfig) {
 
   syncTexture({
     color: config.color,
-    inputFile: config.mask ?? `assets/ingot/ingot-mask-${config.maskVariant ?? "base"}.png`,
-    outputFile: config.textureOut ?? `dist/Common/Resources/Ingots/${config.id}.png`
+    inputFile: config.mask ?? `ingot/ingot-mask-${config.maskVariant ?? "base"}`,
+    outputFile: config.textureOut ?? `Resources/Ingots/${config.id}`
   });
 
   furnace(`${config.id}IngotFromOre`, `Ore${config.id}`, `Ingot${config.id}`, config.time ?? 14);

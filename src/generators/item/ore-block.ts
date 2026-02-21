@@ -70,7 +70,7 @@ export function oreBlock(config: OreBlockConfig) {
   const type = toPascal(config.type);
 
   syncJson<OreBlockData>(
-    `Server/Item/Items/OreBlocks/OreBlock${config.id}${type}`,
+    `${global().outDir}/Server/Item/Items/OreBlocks/OreBlock${config.id}${type}`,
     toPascal({
       translationProperties: {
         name: `server.items.${modId}.Ore${config.id}${type}.name`,

@@ -22,7 +22,7 @@ export function dust(config: DustConfig) {
   const modId = global().modId;
 
   syncJson<DustData>(
-    `Server/Item/Items/Dusts/Dust${config.id}`,
+    `${global().outDir}/Server/Item/Items/Dusts/Dust${config.id}`,
     toPascal({
       translationProperties: {
         name: `server.items.${modId}.Dust${config.id}.name`,
@@ -68,8 +68,8 @@ export function dust(config: DustConfig) {
 
   syncTexture({
     color: config.color,
-    inputFile: config.mask ?? `assets/dust/dust-mask-${config.maskVariant ?? "base"}.png`,
-    outputFile: config.textureOut ?? `dist/Common/Resources/Dusts/${config.id}.png`
+    inputFile: config.mask ?? `dust/dust-mask-${config.maskVariant ?? "base"}`,
+    outputFile: config.textureOut ?? `Resources/Dusts/${config.id}`
   });
 }
 

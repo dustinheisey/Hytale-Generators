@@ -27,7 +27,7 @@ export function gem(config: GemConfig) {
   const categories: Tab[] = config.categories ?? (["Blocks.Ores"] as Tab[]);
 
   syncJson<GemData>(
-    `Server/Item/Items/Gems/Gem${config.id}`,
+    `${global().outDir}/Server/Item/Items/Gems/Gem${config.id}`,
     toPascal({
       translationProperties: {
         name: `server.items.${modId}.Gem${config.id}.name`,
@@ -96,8 +96,8 @@ export function gem(config: GemConfig) {
 
   syncTexture({
     color: config.color,
-    inputFile: config.mask ?? `assets/gem/gem-mask-${config.maskVariant ?? "base"}.png`,
-    outputFile: config.textureOut ?? `dist/Common/Resources/Gems/${config.id}.png`
+    inputFile: config.mask ?? `gem/gem-mask-${config.maskVariant ?? "base"}`,
+    outputFile: config.textureOut ?? `Resources/Gems/${config.id}`
   });
 }
 

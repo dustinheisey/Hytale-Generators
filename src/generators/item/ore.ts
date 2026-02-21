@@ -23,7 +23,7 @@ export function ore(config: OreConfig) {
   const modId = global().modId;
 
   syncJson<OreData>(
-    `Server/Item/Items/Ores/Ore${config.id}`,
+    `${global().outDir}/Server/Item/Items/Ores/Ore${config.id}`,
     toPascal({
       translationProperties: {
         name: `server.items.${modId}.Ore${config.id}.name`,
@@ -68,8 +68,8 @@ export function ore(config: OreConfig) {
 
   syncTexture({
     color: config.color,
-    inputFile: config.mask ?? `assets/ore/ore-mask-${config.maskVariant ?? "base"}.png`,
-    outputFile: config.textureOut ?? `dist/Common/Resources/Ores/${config.id}.png`
+    inputFile: config.mask ?? `ore/ore-mask-${config.maskVariant ?? "base"}`,
+    outputFile: config.textureOut ?? `Resources/Ores/${config.id}`
   });
 
   resourceType(`Salvage${config.id}`, "Rock");
