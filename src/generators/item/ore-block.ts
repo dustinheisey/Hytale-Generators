@@ -1,11 +1,9 @@
 import type { Simplify } from "type-fest";
 import type { BlockTexture, Tab } from "../../index.js";
-import { global, syncJson, syncLang, toPascal } from "../../index.js";
+import { global, syncJson, syncLang, toPascal, u } from "../../index.js";
 import type { BlockTypes, CommonTypes, ItemData } from "../item/item.types.js";
 
 export type BlockType = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
-
-export const blockTypes: BlockType[] = ["Basalt", "Sandstone", "Shale", "Slate", "Stone", "Volcanic"];
 
 export type OreBlockData = Required<
   Simplify<
@@ -15,7 +13,11 @@ export type OreBlockData = Required<
   >
 >;
 
-export interface OreBlockOptions {
+export interface OreBlockConfig {
+  id: string;
+  type: Lowercase<BlockType>;
+  icon?: boolean;
+  color: string;
   name?: string;
   baseName?: string;
   description?: string;
@@ -25,37 +27,37 @@ export interface OreBlockOptions {
   drops?: string[];
 }
 
-function computeBlockTexture(block: BlockType): BlockTexture {
+function computeBlockTexture(block: Lowercase<BlockType>): BlockTexture {
   let texture;
   switch (block) {
-    case "Sandstone":
+    case "sandstone":
       texture = {
         weight: 1,
         sides: "/Rock_Sandstone_Side.png",
         upDown: "/Rock_Sandstone_Top.png"
       };
-    case "Shale":
+    case "shale":
       texture = {
         weight: 1,
         all: "/Rock_Shale.png"
       };
-    case "Stone":
+    case "stone":
       texture = {
         weight: 1,
         all: "/Rock_Stone.png"
       };
-    case "Slate":
+    case "slate":
       texture = {
         sides: "/Rock_Slate_Cracked.png",
         upDown: "/Rock_Slate_Cracked.png",
         weight: 1
       };
-    case "Volcanic":
+    case "volcanic":
       texture = {
         weight: 1,
         all: "/Rock_Volcanic.png"
       };
-    case "Basalt":
+    case "basalt":
       texture = {
         weight: 1,
         all: "BlockTextures/Rock_Basalt.png"
@@ -64,24 +66,27 @@ function computeBlockTexture(block: BlockType): BlockTexture {
   return toPascal(texture);
 }
 
-export function oreBlock(id: string, type: BlockType, color: string, options?: OreBlockOptions) {
-  const modId = global().modId;
+export function oreBlock(config: OreBlockConfig) {
+  const { modId, outDir } = global();
+  const { categories, icon, id, model, texture, drops } = config;
+  const type = u(config.type);
 
   syncJson<OreBlockData>(
-    `Server/Item/Items/OreBlocks/OreBlock${id}${type}`,
+    `${outDir}/Server/Item/Items/Ore/${id}/Ore_${id}_${type}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ore${id}${type}.name`,
-        description: `server.items.${modId}.Ore${id}${type}.description`
+        name: `server.items.${modId}.Ore_${id}_${type}.name`,
+        description: `server.items.${modId}.Ore_${id}_${type}.description`
       },
-      categories: options?.categories ?? ["Blocks.Ores"],
+      categories: categories ?? ["Blocks.Ores", `${modId}.Ores`],
+      ...(icon ? { icon: `Icons/ItemsGenerated/Ore_${id}_${type}.png` } : {}),
       blockType: {
         material: "Solid" as const,
         drawType: "CubeWithModel" as const,
-        customModel: `Resources/Ores/${options?.model ?? "Ore_Large"}.blockymodel`,
+        customModel: `Resources/Ores/${model ?? "Ore_Large"}.blockymodel`,
         customModelTexture: [
           {
-            texture: `Resources/Ores/${options?.texture ?? id}.png`,
+            texture: `Resources/Ores/${texture ?? id}.png`,
             weight: 1
           }
         ],
@@ -95,8 +100,8 @@ export function oreBlock(id: string, type: BlockType, color: string, options?: O
               container: {
                 type: "Multiple" as const,
                 containers: [
-                  ...(options?.drops && options?.drops.length > 0
-                    ? options?.drops.map(itemId => ({
+                  ...(drops && drops.length > 0
+                    ? drops.map(itemId => ({
                         type: "Single" as const,
                         item: { itemId }
                       }))
@@ -118,9 +123,9 @@ export function oreBlock(id: string, type: BlockType, color: string, options?: O
           }
         },
         blockParticleSetId: "Ore",
-        textures: [computeBlockTexture(type)],
+        textures: [computeBlockTexture(config.type)],
         blockSoundSetId: "Ore",
-        particleColor: color
+        particleColor: config.color
       },
       playerAnimationsId: "Block" as const,
       tags: {
@@ -134,16 +139,20 @@ export function oreBlock(id: string, type: BlockType, color: string, options?: O
 
   syncLang([
     {
-      key: `items.${global().modId}.Ore${id}${type}.name`,
-      value: options?.name ?? `${options?.baseName ?? id} Ore - ${type}`
+      key: `items.${global().modId}.Ore_${id}_${type}.name`,
+      value: config.name ?? `${config.baseName ?? id} Ore - ${type}`
     },
-    ...(options?.description
+    ...(config.description
       ? [
           {
-            key: `items.${modId}.Ore${id}${type}.description`,
-            value: options.description
+            key: `items.${modId}.Ore_${id}_${type}.description`,
+            value: config.description
           }
         ]
       : [])
   ]);
+}
+
+export function oreBlocks(icon: boolean, configs: OreBlockConfig[]) {
+  configs.forEach(config => oreBlock({ ...config, icon }));
 }

@@ -41,6 +41,7 @@
     "lint:js": "eslint . -c eslint.config.ts --fix",
     "spellcheck": "cspell lint .",
     "test": "tsc && node dist/src/index.test.js",
+    "dev": "tsc --watch",
     "build": "tsc"
   },
   "devDependencies": {

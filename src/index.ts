@@ -18,10 +18,10 @@ export * from "./generators/recipe/processing/processing.js";
 export * from "./generators/resource-type/resource-type.js";
 
 export * from "./generators/item/alloy.js";
+export * from "./generators/item/bar.js";
 export * from "./generators/item/dust.js";
 export * from "./generators/item/gem.js";
-export * from "./generators/item/ingot.js";
 export * from "./generators/item/item.types.js";
+export * from "./generators/item/metal.js";
 export * from "./generators/item/ore-block.js";
 export * from "./generators/item/ore.js";
-export * from "./generators/item/metal.js";

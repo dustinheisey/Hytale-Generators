@@ -1,4 +1,4 @@
-import { parseIngredient, spreadItems, syncJson, toPascal } from "../../../index.js";
+import { global, parseIngredient, spreadItems, syncJson, toPascal } from "../../../index.js";
 import type {
   BenchWrapper,
   CategoryFor,
@@ -30,7 +30,7 @@ export function crafting<B extends CraftingBenchId>(
     timeSeconds: time
   });
 
-  syncJson<CraftingRecipeData>(`Server/Item/Recipes/Crafting/${benchId}/${id}`, data);
+  syncJson<CraftingRecipeData>(`${global().outDir}/Server/Item/Recipes/Crafting/${benchId}/${id}`, data);
 }
 
 function createCraftingRecipe<B extends CraftingBenchId>(benchId: B): BenchWrapper<B> {

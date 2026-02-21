@@ -1,6 +1,5 @@
 import fs from "node:fs";
-import process from "process";
-import { syncFile } from "../index.js";
+import { global, syncFile } from "../index.js";
 
 export interface LangConfig {
   key: string;
@@ -13,7 +12,7 @@ export interface LangConfig {
  */
 export function syncLang(entries: LangConfig[]) {
   // Absolute path to the lang file we want to modify
-  const file = `${process.cwd()}/dist/Server/Languages/en-US/server.lang`;
+  const file = `${global().outDir}/Server/Languages/en-US/server.lang`;
 
   // Ensure the file (and its parent folders) exist before we try to read/write it
   syncFile(file);

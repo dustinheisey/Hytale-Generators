@@ -62,11 +62,20 @@ tannery("tannery", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 
 weapon("weapon", "Weapon_Battleaxe", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
 workbench("workbench", "Workbench_Crafting", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
 
-metal("Tin", "#dee1e1", { ores: { baseName: "Cassiterite" }, oreBlock: { exclude: ["Basalt"] } });
+metal({
+  id: "Tin",
+  color: "#dee1e1",
+  exclude: ["basalt"],
+  ores: { baseName: "Cassiterite" }
+});
 
-alloy("Bronze", "#994844", [
-  { id: "2x Ingredient_Bar_Copper", name: "Copper" },
-  { id: "Ingot_Tin", name: "Tin" }
-]);
+alloy({
+  id: "Bronze",
+  color: "#994844",
+  inputs: [
+    { id: "2x Ingredient_Bar_Copper", name: "Copper" },
+    { id: "Ingot_Tin", name: "Tin" }
+  ]
+});
 
-gem("Amethyst", "#b741cf", { variant: "dark" });
+gem({ id: "Amethyst", color: "#b741cf", maskVariant: "dark" });

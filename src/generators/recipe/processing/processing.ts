@@ -1,4 +1,4 @@
-import { asArray, parseIngredient, spreadItems, syncJson, toPascal } from "../../../index.js";
+import { global, asArray, parseIngredient, spreadItems, syncJson, toPascal } from "../../../index.js";
 import type {
   ProcessingBenchId,
   ProcessingBenchWrapper,
@@ -30,7 +30,7 @@ export function processing<B extends ProcessingBenchId>(
     timeSeconds: time
   });
 
-  syncJson<ProcessingRecipeData>(`Server/Item/Recipes/Processing/${benchId}/${id}`, data);
+  syncJson<ProcessingRecipeData>(`${global().outDir}/Server/Item/Recipes/Processing/${benchId}/${id}`, data);
 }
 
 function createProcessingRecipe<B extends ProcessingBenchId>(benchId: B): ProcessingBenchWrapper<B> {
