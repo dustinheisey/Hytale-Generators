@@ -18,7 +18,6 @@ export function writeJson(file: string, data: object) {
       console.error("Error writing file:", err);
       return;
     }
-    console.log(`${file}.json written successfully`);
   });
 }
 

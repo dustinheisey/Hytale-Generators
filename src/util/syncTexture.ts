@@ -42,12 +42,12 @@ export function parseColor(color: string): RGB {
  * @param config - texture config
  */
 export function syncTexture(config: TextureConfig) {
-  syncDir(`${global().outDir}/Common/${config.outputFile}.png`);
-
+  const outputFile = `${global().outDir}/Common/${config.outputFile}.png`;
+  syncDir(outputFile);
   try {
     sharp(`assets/${config.inputFile}.png`)
       .tint(parseColor(config.color))
-      .toFile(config.outputFile)
+      .toFile(outputFile)
       .catch((err: unknown) => {
         console.log(err);
       });
