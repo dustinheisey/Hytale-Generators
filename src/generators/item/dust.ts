@@ -3,7 +3,9 @@ import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "../item/item
 
 export type DustData = Required<Pick<ItemData, CommonTypes | ItemTypes> & { PlayerAnimationsId: "Item" }>;
 
-export interface DustOptions {
+export interface DustConfig {
+  id: string;
+  color: string;
   name?: string;
   baseName?: string;
   description?: string;
@@ -16,19 +18,19 @@ export interface DustOptions {
   maxStack?: number;
 }
 
-export function dust(id: string, color: string, options?: DustOptions) {
+export function dust(config: DustConfig) {
   const modId = global().modId;
 
   syncJson<DustData>(
-    `Server/Item/Items/Dusts/Dust${id}`,
+    `Server/Item/Items/Dusts/Dust${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Dust${id}.name`,
-        description: `server.items.${modId}.Dust${id}.description`
+        name: `server.items.${modId}.Dust${config.id}.name`,
+        description: `server.items.${modId}.Dust${config.id}.description`
       },
-      categories: options?.categories ?? ["Items"],
-      model: `Resources/${options?.model ?? "Dust"}.blockymodel`,
-      texture: `Resources/Dusts/${options?.texture ?? id}.png`,
+      categories: config.categories ?? ["Items"],
+      model: `Resources/${config.model ?? "Dust"}.blockymodel`,
+      texture: `Resources/Dusts/${config.texture ?? config.id}.png`,
       resourceTypes: [
         {
           id: "Dusts"
@@ -47,7 +49,7 @@ export function dust(id: string, color: string, options?: DustOptions) {
       itemEntity: {
         particleSystemId: undefined
       },
-      maxStack: options?.maxStack ?? 100,
+      maxStack: config.maxStack ?? 100,
       itemSoundSetId: "ISS_Items_Ingots",
       dropOnDeath: true
     })
@@ -55,18 +57,22 @@ export function dust(id: string, color: string, options?: DustOptions) {
 
   syncLang([
     {
-      key: `items.${modId}.Dust${id}.name`,
-      value: options?.name ?? `${options?.baseName ?? id} Dust`
+      key: `items.${modId}.Dust${config.id}.name`,
+      value: config.name ?? `${config.baseName ?? config.id} Dust`
     },
     {
-      key: `items.${modId}.Dust${id}.description`,
-      value: options?.description ?? `Can be processed into an <b>${id} Ingot</b> at a <b>Furnace</b>`
+      key: `items.${modId}.Dust${config.id}.description`,
+      value: config.description ?? `Can be processed into an <b>${config.id} Ingot</b> at a <b>Furnace</b>`
     }
   ]);
 
   syncTexture({
-    color: color,
-    inputFile: options?.mask ?? `assets/dust/dust-mask-${options?.maskVariant ?? "base"}.png`,
-    outputFile: options?.textureOut ?? `dist/Common/Resources/Dusts/${id}.png`
+    color: config.color,
+    inputFile: config.mask ?? `assets/dust/dust-mask-${config.maskVariant ?? "base"}.png`,
+    outputFile: config.textureOut ?? `dist/Common/Resources/Dusts/${config.id}.png`
   });
+}
+
+export function dusts(configs: DustConfig[]) {
+  configs.forEach(config => dust(config));
 }

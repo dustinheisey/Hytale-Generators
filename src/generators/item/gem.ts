@@ -6,8 +6,9 @@ export type GemData = Required<
   OmitDeep<Pick<ItemData, CommonTypes | BlockTypes>, "BlockType.Gathering.Breaking"> & { PlayerAnimationsId: "Block" }
 >;
 
-export interface GemOptions {
-  variant?: "light" | "dark";
+export interface GemConfig {
+  id: string;
+  color: string;
   name?: string;
   description?: string;
   categories?: Tab[];
@@ -20,17 +21,17 @@ export interface GemOptions {
   maxStack?: number;
 }
 
-export function gem(id: string, color: string, options?: GemOptions) {
+export function gem(config: GemConfig) {
   const modId = global().modId;
-  const { light, interact, sparks } = deriveEffectColors(color);
-  const categories: Tab[] = options?.categories ?? (["Blocks.Ores"] as Tab[]);
+  const { light, interact, sparks } = deriveEffectColors(config.color);
+  const categories: Tab[] = config.categories ?? (["Blocks.Ores"] as Tab[]);
 
   syncJson<GemData>(
-    `Server/Item/Items/Gems/Gem${id}`,
+    `Server/Item/Items/Gems/Gem${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Gem${id}.name`,
-        description: `server.items.${modId}.Gem${id}.description`
+        name: `server.items.${modId}.Gem${config.id}.name`,
+        description: `server.items.${modId}.Gem${config.id}.description`
       },
       categories,
       playerAnimationsId: "Block" as const,
@@ -38,10 +39,10 @@ export function gem(id: string, color: string, options?: GemOptions) {
         material: "Solid" as const,
         drawType: "Model" as const,
         opacity: "Transparent" as const,
-        customModel: `Resources/Ores/${options?.model ?? "Gem"}.blockymodel`,
+        customModel: `Resources/Ores/${config.model ?? "Gem"}.blockymodel`,
         customModelTexture: [
           {
-            texture: `Resources/Gems/${options?.texture ?? id}.png`,
+            texture: `Resources/Gems/${config.texture ?? config.id}.png`,
             weight: 1
           }
         ],
@@ -74,28 +75,32 @@ export function gem(id: string, color: string, options?: GemOptions) {
         family: ["Gem"]
       },
       itemSoundSetId: "ISS_Blocks_Stone",
-      maxStack: options?.maxStack ?? 100
+      maxStack: config.maxStack ?? 100
     })
   );
 
   syncLang([
     {
-      key: `items.${modId}.Gem${id}.name`,
-      value: options?.name ?? id
+      key: `items.${modId}.Gem${config.id}.name`,
+      value: config.name ?? config.id
     },
-    ...(options?.description
+    ...(config.description
       ? [
           {
-            key: `items.${modId}.Gem${id}.description`,
-            value: options.description
+            key: `items.${modId}.Gem${config.id}.description`,
+            value: config.description
           }
         ]
       : [])
   ]);
 
   syncTexture({
-    color: color,
-    inputFile: options?.mask ?? `assets/gem/gem-mask-${options?.variant ?? "base"}.png`,
-    outputFile: options?.textureOut ?? `dist/Common/Resources/Gems/${id}.png`
+    color: config.color,
+    inputFile: config.mask ?? `assets/gem/gem-mask-${config.maskVariant ?? "base"}.png`,
+    outputFile: config.textureOut ?? `dist/Common/Resources/Gems/${config.id}.png`
   });
+}
+
+export function gems(configs: GemConfig[]) {
+  configs.forEach(config => gem(config));
 }

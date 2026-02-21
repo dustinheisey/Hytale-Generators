@@ -3,7 +3,9 @@ import type { CommonTypes, ItemBlockTypes, ItemData, MaskVariant } from "../item
 
 export type OreData = Required<Pick<ItemData, CommonTypes | ItemBlockTypes> & { PlayerAnimationsId: "Block" }>;
 
-export interface OreOptions {
+export interface OreConfig {
+  id: string;
+  color: string;
   name?: string;
   baseName?: string;
   description?: string;
@@ -17,20 +19,20 @@ export interface OreOptions {
   maxStack?: number;
 }
 
-export function ore(id: string, color: string, options?: OreOptions) {
+export function ore(config: OreConfig) {
   const modId = global().modId;
 
   syncJson<OreData>(
-    `Server/Item/Items/Ores/Ore${id}`,
+    `Server/Item/Items/Ores/Ore${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ore${id}.name`,
-        description: `server.items.${modId}.Ore${id}.description`
+        name: `server.items.${modId}.Ore${config.id}.name`,
+        description: `server.items.${modId}.Ore${config.id}.description`
       },
-      categories: options?.categories ?? ["Blocks.Ores"],
-      model: `Resources/Ores/${options?.model ?? "Ore_Large"}.blockymodel`,
-      texture: `Resources/Ores/${options?.texture ?? id}.png`,
-      itemLevel: options?.level ?? 10,
+      categories: config.categories ?? ["Blocks.Ores"],
+      model: `Resources/Ores/${config.model ?? "Ore_Large"}.blockymodel`,
+      texture: `Resources/Ores/${config.texture ?? config.id}.png`,
+      itemLevel: config.level ?? 10,
       playerAnimationsId: "Block" as const,
       iconProperties: {
         scale: 0.58823,
@@ -43,32 +45,36 @@ export function ore(id: string, color: string, options?: OreOptions) {
       itemEntity: {
         particleSystemId: undefined
       },
-      maxStack: options?.maxStack ?? 100,
+      maxStack: config.maxStack ?? 100,
       itemSoundSetId: "ISS_Blocks_Stone",
       dropOnDeath: true
     })
   );
 
-  salvage(`Ore${id}FromSalvage`, `$Salvage${id}`, `Ore${id}`, 4);
+  salvage(`Ore${config.id}FromSalvage`, `$Salvage${config.id}`, `Ore${config.id}`, 4);
 
   syncLang([
     {
-      key: `items.${modId}.Ore${id}.name`,
-      value: options?.name ?? `${options?.baseName ?? id} Ore`
+      key: `items.${modId}.Ore${config.id}.name`,
+      value: config.name ?? `${config.baseName ?? config.id} Ore`
     },
     {
-      key: `items.${modId}.Ore${id}.description`,
+      key: `items.${modId}.Ore${config.id}.description`,
       value:
-        options?.description ??
-        `Can be processed into an <b>${id} Ingot</b> at a <b>Furnace</b>, or ground into <b>${id} Dust</b> at a <b>Salvager's Workbench</b>`
+        config.description ??
+        `Can be processed into an <b>${config.id} Ingot</b> at a <b>Furnace</b>, or ground into <b>${config.id} Dust</b> at a <b>Salvager's Workbench</b>`
     }
   ]);
 
   syncTexture({
-    color: color,
-    inputFile: options?.mask ?? `assets/ore/ore-mask-${options?.maskVariant ?? "base"}.png`,
-    outputFile: options?.textureOut ?? `dist/Common/Resources/Ores/${id}.png`
+    color: config.color,
+    inputFile: config.mask ?? `assets/ore/ore-mask-${config.maskVariant ?? "base"}.png`,
+    outputFile: config.textureOut ?? `dist/Common/Resources/Ores/${config.id}.png`
   });
 
-  resourceType(`Salvage${id}`, "Rock");
+  resourceType(`Salvage${config.id}`, "Rock");
+}
+
+export function ores(configs: OreConfig[]) {
+  configs.forEach(config => ore(config));
 }

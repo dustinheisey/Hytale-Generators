@@ -7,7 +7,9 @@ export type IngotData = Required<
   }
 >;
 
-export interface IngotOptions {
+export interface IngotConfig {
+  id: string;
+  color: string;
   name?: string;
   baseName?: string;
   description?: string;
@@ -22,18 +24,18 @@ export interface IngotOptions {
   maxStack?: number;
 }
 
-export function ingot(id: string, color: string, options?: IngotOptions) {
+export function ingot(config: IngotConfig) {
   const modId = global().modId;
   syncJson<IngotData>(
-    `Server/Item/Items/Ingots/Ingot${id}`,
+    `Server/Item/Items/Ingots/Ingot${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ingot${id}.name`,
-        description: `server.items.${modId}.Ingot${id}.description`
+        name: `server.items.${modId}.Ingot${config.id}.name`,
+        description: `server.items.${modId}.Ingot${config.id}.description`
       },
-      categories: options?.categories ?? ["Items"],
-      model: `Resources/Materials/${options?.model ?? "Ingot"}.blockymodel`,
-      texture: `Resources/Ingots/${options?.texture ?? id}.png`,
+      categories: config.categories ?? ["Items"],
+      model: `Resources/Materials/${config.model ?? "Ingot"}.blockymodel`,
+      texture: `Resources/Ingots/${config.texture ?? config.id}.png`,
       resourceTypes: [
         {
           id: "Metal_Bars"
@@ -52,7 +54,7 @@ export function ingot(id: string, color: string, options?: IngotOptions) {
       itemEntity: {
         particleSystemId: undefined
       },
-      maxStack: options?.maxStack ?? 100,
+      maxStack: config.maxStack ?? 100,
       itemSoundSetId: "ISS_Items_Ingots",
       dropOnDeath: true
     })
@@ -60,26 +62,30 @@ export function ingot(id: string, color: string, options?: IngotOptions) {
 
   syncLang([
     {
-      key: `items.${global().modId}.Ingot${id}.name`,
-      value: options?.name ?? `${options?.baseName ?? id} Ingot`
+      key: `items.${global().modId}.Ingot${config.id}.name`,
+      value: config.name ?? `${config.baseName ?? config.id} Ingot`
     },
-    ...(options?.description
+    ...(config.description
       ? [
           {
-            key: `items.${modId}.Ingot${id}.description`,
-            value: options.description
+            key: `items.${modId}.Ingot${config.id}.description`,
+            value: config.description
           }
         ]
       : [])
   ]);
 
   syncTexture({
-    color: color,
-    inputFile: options?.mask ?? `assets/ingot/ingot-mask-${options?.maskVariant ?? "base"}.png`,
-    outputFile: options?.textureOut ?? `dist/Common/Resources/Ingots/${id}.png`
+    color: config.color,
+    inputFile: config.mask ?? `assets/ingot/ingot-mask-${config.maskVariant ?? "base"}.png`,
+    outputFile: config.textureOut ?? `dist/Common/Resources/Ingots/${config.id}.png`
   });
 
-  furnace(`${id}IngotFromOre`, `Ore${id}`, `Ingot${id}`, options?.time ?? 14);
+  furnace(`${config.id}IngotFromOre`, `Ore${config.id}`, `Ingot${config.id}`, config.time ?? 14);
 
-  furnace(`${id}IngotFromDust`, `Dust${id}`, `Ingot${id}`, options?.time ?? 14);
+  furnace(`${config.id}IngotFromDust`, `Dust${config.id}`, `Ingot${config.id}`, config.time ?? 14);
+}
+
+export function ingots(configs: IngotConfig[]) {
+  configs.forEach(config => ingot(config));
 }
