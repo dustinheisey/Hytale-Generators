@@ -1,5 +1,5 @@
 import { furnace, global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
-import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "../item/item.types.js";
+import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "./item.types.js";
 
 export type IngotData = Required<
   Pick<ItemData, CommonTypes | ItemTypes> & {
@@ -10,6 +10,7 @@ export type IngotData = Required<
 export interface IngotConfig {
   id: string;
   color: string;
+  icon?: boolean;
   name?: string;
   baseName?: string;
   description?: string;
@@ -25,17 +26,18 @@ export interface IngotConfig {
 }
 
 export function ingot(config: IngotConfig) {
-  const modId = global().modId;
+  const { modId } = global();
   syncJson<IngotData>(
-    `${global().outDir}/Server/Item/Items/Ingots/Ingot${config.id}`,
+    `${global().outDir}/Server/Item/Items/Bars/Ingredient_Bar_${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ingot${config.id}.name`,
-        description: `server.items.${modId}.Ingot${config.id}.description`
+        name: `server.items.${modId}.Ingredient_Bar_${config.id}.name`,
+        description: `server.items.${modId}.Ingredient_Bar_${config.id}.description`
       },
-      categories: config.categories ?? ["Items"],
+      categories: config.categories ?? ["Items", `${modId}.Ingots`],
       model: `Resources/Materials/${config.model ?? "Ingot"}.blockymodel`,
       texture: `Resources/Ingots/${config.texture ?? config.id}.png`,
+      ...(config.icon ? { icon: `Icons/ItemsGenerated/Ingredient_Bar_${config.id}.png` } : {}),
       resourceTypes: [
         {
           id: "Metal_Bars"
@@ -62,13 +64,13 @@ export function ingot(config: IngotConfig) {
 
   syncLang([
     {
-      key: `items.${global().modId}.Ingot${config.id}.name`,
+      key: `items.${global().modId}.Ingredient_Bar_${config.id}.name`,
       value: config.name ?? `${config.baseName ?? config.id} Ingot`
     },
     ...(config.description
       ? [
           {
-            key: `items.${modId}.Ingot${config.id}.description`,
+            key: `items.${modId}.Ingredient_Bar_${config.id}.description`,
             value: config.description
           }
         ]
@@ -81,11 +83,16 @@ export function ingot(config: IngotConfig) {
     outputFile: config.textureOut ?? `Resources/Ingots/${config.id}`
   });
 
-  furnace(`${config.id}IngotFromOre`, `Ore${config.id}`, `Ingot${config.id}`, config.time ?? 14);
+  furnace(`Ingredient_Bar_${config.id}_From_Ore`, `Ore_${config.id}`, `Ingredient_Bar_${config.id}`, config.time ?? 14);
 
-  furnace(`${config.id}IngotFromDust`, `Dust${config.id}`, `Ingot${config.id}`, config.time ?? 14);
+  furnace(
+    `Ingredient_Bar_${config.id}_From_Dust`,
+    `Ingredient_Dust_${config.id}`,
+    `Ingredient_Bar_${config.id}`,
+    config.time ?? 14
+  );
 }
 
-export function ingots(configs: IngotConfig[]) {
-  configs.forEach(config => ingot(config));
+export function ingots(icon: boolean, configs: IngotConfig[]) {
+  configs.forEach(config => ingot({ ...config, icon }));
 }

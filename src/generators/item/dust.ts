@@ -1,4 +1,4 @@
-import { global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
+import { global, salvage, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
 import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "../item/item.types.js";
 
 export type DustData = Required<Pick<ItemData, CommonTypes | ItemTypes> & { PlayerAnimationsId: "Item" }>;
@@ -6,6 +6,7 @@ export type DustData = Required<Pick<ItemData, CommonTypes | ItemTypes> & { Play
 export interface DustConfig {
   id: string;
   color: string;
+  icon?: boolean;
   name?: string;
   baseName?: string;
   description?: string;
@@ -19,18 +20,19 @@ export interface DustConfig {
 }
 
 export function dust(config: DustConfig) {
-  const modId = global().modId;
+  const { modId } = global();
 
   syncJson<DustData>(
-    `${global().outDir}/Server/Item/Items/Dusts/Dust${config.id}`,
+    `${global().outDir}/Server/Item/Items/Dusts/Ingredient_Dust_${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Dust${config.id}.name`,
-        description: `server.items.${modId}.Dust${config.id}.description`
+        name: `server.items.${modId}.Ingredient_Dust_${config.id}.name`,
+        description: `server.items.${modId}.Ingredient_Dust_${config.id}.description`
       },
-      categories: config.categories ?? ["Items"],
+      categories: config.categories ?? ["Items", `${modId}.Dusts`],
       model: `Resources/${config.model ?? "Dust"}.blockymodel`,
       texture: `Resources/Dusts/${config.texture ?? config.id}.png`,
+      ...(config.icon ? { icon: `Icons/ItemsGenerated/Ingredient_Dust_${config.id}.png` } : {}),
       resourceTypes: [
         {
           id: "Dusts"
@@ -55,13 +57,15 @@ export function dust(config: DustConfig) {
     })
   );
 
+  salvage(`Ingredient_Dust_${config.id}`, `Ore_${config.id}`, `2x Ingredient_Dust_${config.id}`, 4);
+
   syncLang([
     {
-      key: `items.${modId}.Dust${config.id}.name`,
+      key: `items.${modId}.Ingredient_Dust_${config.id}.name`,
       value: config.name ?? `${config.baseName ?? config.id} Dust`
     },
     {
-      key: `items.${modId}.Dust${config.id}.description`,
+      key: `items.${modId}.Ingredient_Dust_${config.id}.description`,
       value: config.description ?? `Can be processed into an <b>${config.id} Ingot</b> at a <b>Furnace</b>`
     }
   ]);
@@ -73,6 +77,6 @@ export function dust(config: DustConfig) {
   });
 }
 
-export function dusts(configs: DustConfig[]) {
-  configs.forEach(config => dust(config));
+export function dusts(icon: boolean, configs: DustConfig[]) {
+  configs.forEach(config => dust({ ...config, icon }));
 }

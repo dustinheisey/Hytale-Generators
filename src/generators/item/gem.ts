@@ -9,6 +9,7 @@ export type GemData = Required<
 export interface GemConfig {
   id: string;
   color: string;
+  icon?: boolean;
   name?: string;
   description?: string;
   categories?: Tab[];
@@ -22,18 +23,18 @@ export interface GemConfig {
 }
 
 export function gem(config: GemConfig) {
-  const modId = global().modId;
+  const { modId } = global();
   const { light, interact, sparks } = deriveEffectColors(config.color);
-  const categories: Tab[] = config.categories ?? (["Blocks.Ores"] as Tab[]);
 
   syncJson<GemData>(
-    `${global().outDir}/Server/Item/Items/Gems/Gem${config.id}`,
+    `${global().outDir}/Server/Item/Items/Gems/Rock_Gem_${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Gem${config.id}.name`,
-        description: `server.items.${modId}.Gem${config.id}.description`
+        name: `server.items.${modId}.Rock_Gem_${config.id}.name`,
+        description: `server.items.${modId}.Rock_Gem_${config.id}.description`
       },
-      categories,
+      ...(config.icon ? { icon: `Icons/ItemsGenerated/Rock_Gem_${config.id}.png` } : {}),
+      categories: config.categories ?? ["Blocks.Ores", `${modId}.Gems`],
       playerAnimationsId: "Block" as const,
       blockType: {
         material: "Solid" as const,
@@ -81,13 +82,13 @@ export function gem(config: GemConfig) {
 
   syncLang([
     {
-      key: `items.${modId}.Gem${config.id}.name`,
+      key: `items.${modId}.Rock_Gem_${config.id}.name`,
       value: config.name ?? config.id
     },
     ...(config.description
       ? [
           {
-            key: `items.${modId}.Gem${config.id}.description`,
+            key: `items.${modId}.Rock_Gem_${config.id}.description`,
             value: config.description
           }
         ]
@@ -101,6 +102,6 @@ export function gem(config: GemConfig) {
   });
 }
 
-export function gems(configs: GemConfig[]) {
-  configs.forEach(config => gem(config));
+export function gems(icon: boolean, configs: GemConfig[]) {
+  configs.forEach(config => gem({ ...config, icon }));
 }

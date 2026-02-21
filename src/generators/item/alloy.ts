@@ -12,6 +12,7 @@ export type AlloyData = Required<
 export interface AlloyConfig {
   id: string;
   color: string;
+  icon?: boolean;
   inputs: AlloyInput[];
   baseName?: string;
   name?: string;
@@ -26,18 +27,19 @@ export interface AlloyConfig {
 }
 
 export function alloy(config: AlloyConfig) {
-  const modId = global().modId;
+  const { modId } = global();
 
   syncJson<AlloyData>(
-    `${global().outDir}/Server/Item/Items/Alloys/Alloy${config.id}`,
+    `${global().outDir}/Server/Item/Items/Alloys/Ingredient_Bar_${config.id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Alloy${config.id}.name`,
-        description: `server.items.${modId}.Alloy${config.id}.description`
+        name: `server.items.${modId}.Ingredient_Bar_${config.id}.name`,
+        description: `server.items.${modId}.Ingredient_Bar_${config.id}.description`
       },
-      categories: config?.categories ?? ["Items"],
+      categories: config?.categories ?? ["Items", `${modId}.Alloys`],
       model: `Resources/Materials/${config?.model ?? "Ingot"}.blockymodel`,
       texture: `Resources/Alloys/${config?.texture ?? config.id}.png`,
+      ...(config.icon ? { icon: `Icons/ItemsGenerated/Ingredient_Bar_${config.id}.png` } : {}),
       resourceTypes: [
         {
           id: "Metal_Bars"
@@ -62,7 +64,7 @@ export function alloy(config: AlloyConfig) {
   );
 
   furnace(
-    `Alloy${config.id}FromIngots`,
+    `Ingredient_Bar_${config.id}`,
     config.inputs.map(input => input.id),
     `2x Alloy${config.id}`,
     20,
@@ -71,11 +73,11 @@ export function alloy(config: AlloyConfig) {
 
   syncLang([
     {
-      key: `items.${modId}.Alloy${config.id}.name`,
+      key: `items.${modId}.Ingredient_Bar_${config.id}.name`,
       value: config?.name ?? `${config?.baseName ?? config.id} Ingot`
     },
     {
-      key: `items.${modId}.Alloy${config.id}.description`,
+      key: `items.${modId}.Ingredient_Bar_${config.id}.description`,
       value: config?.description ?? `Alloy of ${join(config.inputs.map(input => input.name))}`
     }
   ]);
@@ -87,6 +89,6 @@ export function alloy(config: AlloyConfig) {
   });
 }
 
-export function alloys(configs: AlloyConfig[]) {
-  configs.forEach(config => alloy(config));
+export function alloys(icon: boolean, configs: AlloyConfig[]) {
+  configs.forEach(config => alloy({ ...config, icon }));
 }

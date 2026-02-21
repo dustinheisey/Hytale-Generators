@@ -1,6 +1,6 @@
 import type { Simplify } from "type-fest";
 import type { BlockTexture, Tab } from "../../index.js";
-import { global, syncJson, syncLang, toPascal } from "../../index.js";
+import { global, syncJson, syncLang, toPascal, u } from "../../index.js";
 import type { BlockTypes, CommonTypes, ItemData } from "../item/item.types.js";
 
 export type BlockType = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
@@ -16,6 +16,7 @@ export type OreBlockData = Required<
 export interface OreBlockConfig {
   id: string;
   type: Lowercase<BlockType>;
+  icon?: boolean;
   color: string;
   name?: string;
   baseName?: string;
@@ -66,24 +67,26 @@ function computeBlockTexture(block: Lowercase<BlockType>): BlockTexture {
 }
 
 export function oreBlock(config: OreBlockConfig) {
-  const modId = global().modId;
-  const type = toPascal(config.type);
+  const { modId, outDir } = global();
+  const { categories, icon, id, model, texture, drops } = config;
+  const type = u(config.type);
 
   syncJson<OreBlockData>(
-    `${global().outDir}/Server/Item/Items/OreBlocks/OreBlock${config.id}${type}`,
+    `${outDir}/Server/Item/Items/Ore/${id}/Ore_${id}_${type}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ore${config.id}${type}.name`,
-        description: `server.items.${modId}.Ore${config.id}${type}.description`
+        name: `server.items.${modId}.Ore_${id}_${type}.name`,
+        description: `server.items.${modId}.Ore_${id}_${type}.description`
       },
-      categories: config.categories ?? ["Blocks.Ores"],
+      categories: categories ?? ["Blocks.Ores", `${modId}.Ores`],
+      ...(icon ? { icon: `Icons/ItemsGenerated/Ore_${id}_${type}.png` } : {}),
       blockType: {
         material: "Solid" as const,
         drawType: "CubeWithModel" as const,
-        customModel: `Resources/Ores/${config.model ?? "Ore_Large"}.blockymodel`,
+        customModel: `Resources/Ores/${model ?? "Ore_Large"}.blockymodel`,
         customModelTexture: [
           {
-            texture: `Resources/Ores/${config.texture ?? config.id}.png`,
+            texture: `Resources/Ores/${texture ?? id}.png`,
             weight: 1
           }
         ],
@@ -97,15 +100,15 @@ export function oreBlock(config: OreBlockConfig) {
               container: {
                 type: "Multiple" as const,
                 containers: [
-                  ...(config.drops && config.drops.length > 0
-                    ? config.drops.map(itemId => ({
+                  ...(drops && drops.length > 0
+                    ? drops.map(itemId => ({
                         type: "Single" as const,
                         item: { itemId }
                       }))
                     : [
                         {
                           type: "Single" as const,
-                          item: { itemId: `Ore${config.id}${type}` }
+                          item: { itemId: `Ore${id}${type}` }
                         }
                       ]),
                   {
@@ -136,13 +139,13 @@ export function oreBlock(config: OreBlockConfig) {
 
   syncLang([
     {
-      key: `items.${global().modId}.Ore${config.id}${type}.name`,
-      value: config.name ?? `${config.baseName ?? config.id} Ore - ${type}`
+      key: `items.${global().modId}.Ore_${id}_${type}.name`,
+      value: config.name ?? `${config.baseName ?? id} Ore - ${type}`
     },
     ...(config.description
       ? [
           {
-            key: `items.${modId}.Ore${config.id}${type}.description`,
+            key: `items.${modId}.Ore_${id}_${type}.description`,
             value: config.description
           }
         ]
@@ -150,6 +153,6 @@ export function oreBlock(config: OreBlockConfig) {
   ]);
 }
 
-export function oreBlocks(configs: OreBlockConfig[]) {
-  configs.forEach(config => oreBlock(config));
+export function oreBlocks(icon: boolean, configs: OreBlockConfig[]) {
+  configs.forEach(config => oreBlock({ ...config, icon }));
 }

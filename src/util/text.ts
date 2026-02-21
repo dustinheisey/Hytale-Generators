@@ -36,12 +36,12 @@ export function join(strs: string[]) {
   if (!Array.isArray(strs)) throw new TypeError("strings must be an array");
 
   if (strs.length === 0) return "";
-  if (strs.length === 1) return strs[0];
-  if (strs.length === 2) return `${strs[0]} and ${strs[1]}`;
+  if (strs.length === 1) return `<b>${strs[0]}</b>`;
+  if (strs.length === 2) return `<b>${strs[0]}</b> and <b>${strs[1]}</b>`;
 
-  const head = strs.slice(0, -1).join(", ");
+  const head = strs.slice(0, -1).join("</b>, <b>");
   const last = strs[strs.length - 1];
-  return `${head} and ${last}`;
+  return `<b>${head}</b> and <b>${last}</b>`;
 }
 
 type Primitive = string | number | boolean | bigint | symbol | null | undefined;
