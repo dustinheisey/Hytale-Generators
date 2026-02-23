@@ -108,7 +108,7 @@ export function alloy(config: AlloyConfig) {
 
   syncTexture({
     color: color,
-    inputFile: mask ?? `ingot/ingot-mask-${maskVariant ?? "base"}`,
+    inputFile: mask ?? `ingot/ingot-mask-${maskVariant ?? "medium"}`,
     outputFile: textureOut ?? `Resources/Alloys/${id}`
   });
 }

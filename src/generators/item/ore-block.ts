@@ -21,6 +21,7 @@ export interface OreBlockConfig {
   name?: string;
   baseName?: string;
   description?: string;
+  maxStack?: number;
   categories?: Tab[];
   model?: string;
   texture?: string;
@@ -33,33 +34,33 @@ function computeBlockTexture(block: Lowercase<BlockType>): BlockTexture {
     case "sandstone":
       texture = {
         weight: 1,
-        sides: "/Rock_Sandstone_Side.png",
-        upDown: "/Rock_Sandstone_Top.png"
+        sides: "BlockTextures/Rock_Sandstone_Side.png",
+        upDown: "BlockTextures/Rock_Sandstone_Top.png"
       };
       break;
     case "shale":
       texture = {
         weight: 1,
-        all: "/Rock_Shale.png"
+        all: "BlockTextures/Rock_Shale.png"
       };
       break;
     case "stone":
       texture = {
         weight: 1,
-        all: "/Rock_Stone.png"
+        all: "BlockTextures/Rock_Stone.png"
       };
       break;
     case "slate":
       texture = {
-        sides: "/Rock_Slate_Cracked.png",
-        upDown: "/Rock_Slate_Cracked.png",
+        sides: "BlockTextures/Rock_Slate_Cracked.png",
+        upDown: "BlockTextures/Rock_Slate_Cracked.png",
         weight: 1
       };
       break;
     case "volcanic":
       texture = {
         weight: 1,
-        all: "/Rock_Volcanic.png"
+        all: "BlockTextures/Rock_Volcanic.png"
       };
       break;
     case "basalt":
@@ -74,7 +75,7 @@ function computeBlockTexture(block: Lowercase<BlockType>): BlockTexture {
 
 export function oreBlock(config: OreBlockConfig) {
   const { modId, outDir } = global();
-  const { categories, icon, id, model, texture, drops } = config;
+  const { categories, icon, id, model, texture, drops, maxStack } = config;
   const type = u(config.type);
 
   syncJson<OreBlockData>(
@@ -138,7 +139,7 @@ export function oreBlock(config: OreBlockConfig) {
         Type: ["Ore"],
         Family: ["Cobalt"]
       },
-      maxStack: 25,
+      maxStack: maxStack || 100,
       itemSoundSetId: "ISS_Blocks_Stone"
     })
   );
