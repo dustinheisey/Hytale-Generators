@@ -1,7 +1,7 @@
 {
   "name": "hytale-generators",
   "description": "Utilities for generating Hytale server assets (JSON, language entries, textures, derived colors, and recipe definitions) into a `dist/` directory.",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dustinheisey/Hytale-Generators.git"

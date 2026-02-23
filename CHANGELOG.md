@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.5](https://github.com/dustinheisey/Hytale-Generators/compare/v0.2.4...v0.2.5) (2026-02-23)
+
+
+### Bug Fixes
+
+* fix asset paths for ore blocks ([ef2f990](https://github.com/dustinheisey/Hytale-Generators/commit/ef2f9906b1585a06ccac6e79de1f60b02d9c853c))
+* fix mask texture file names for ingots ([f1b585a](https://github.com/dustinheisey/Hytale-Generators/commit/f1b585aa4f5274ad2c5aed564db4c44269c1dce5))
+
 ## [0.2.4](https://github.com/dustinheisey/Hytale-Generators/compare/v0.2.3...v0.2.4) (2026-02-23)
 
 
