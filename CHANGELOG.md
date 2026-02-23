@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/dustinheisey/Hytale-Generators/compare/v0.2.3...v0.2.4) (2026-02-23)
+
+
+### Bug Fixes
+
+* various fixes to get generators working with actual mods
+
 ## [0.2.3](https://github.com/dustinheisey/Hytale-Generators/compare/v0.2.2...v0.2.3) (2026-02-21)
 
 
