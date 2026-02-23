@@ -24,26 +24,28 @@ export interface GemConfig {
 
 export function gem(config: GemConfig) {
   const { modId } = global();
-  const { light, interact, sparks } = deriveEffectColors(config.color);
+  const { id, categories, model, texture, icon, name, description, mask, maskVariant, maxStack, color, textureOut } =
+    config;
+  const { light, interact, sparks } = deriveEffectColors(color);
 
   syncJson<GemData>(
-    `${global().outDir}/Server/Item/Items/Gems/Rock_Gem_${config.id}`,
+    `${global().outDir}/Server/Item/Items/Gems/Rock_Gem_${id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Rock_Gem_${config.id}.name`,
-        description: `server.items.${modId}.Rock_Gem_${config.id}.description`
+        name: `server.items.${modId}.Rock_Gem_${id}.name`,
+        description: `server.items.${modId}.Rock_Gem_${id}.description`
       },
-      ...(config.icon ? { icon: `Icons/ItemsGenerated/Rock_Gem_${config.id}.png` } : {}),
-      categories: config.categories ?? ["Blocks.Ores", `${modId}.Gems`],
+      ...(icon ? { icon: `Icons/ItemsGenerated/Rock_Gem_${id}.png` } : {}),
+      categories: categories ?? ["Blocks.Ores", `${modId}.Gems`],
       playerAnimationsId: "Block" as const,
       blockType: {
         material: "Solid" as const,
         drawType: "Model" as const,
         opacity: "Transparent" as const,
-        customModel: `Resources/Ores/${config.model ?? "Gem"}.blockymodel`,
+        customModel: `Resources/Ores/${model ?? "Gem"}.blockymodel`,
         customModelTexture: [
           {
-            texture: `Resources/Gems/${config.texture ?? config.id}.png`,
+            texture: `Resources/Gems/${texture ?? id}.png`,
             weight: 1
           }
         ],
@@ -76,32 +78,34 @@ export function gem(config: GemConfig) {
         family: ["Gem"]
       },
       itemSoundSetId: "ISS_Blocks_Stone",
-      maxStack: config.maxStack ?? 100
+      maxStack: maxStack ?? 100
     })
   );
 
   syncLang([
     {
-      key: `items.${modId}.Rock_Gem_${config.id}.name`,
-      value: config.name ?? config.id
+      key: `items.${modId}.Rock_Gem_${id}.name`,
+      value: name ?? id
     },
-    ...(config.description
+    ...(description
       ? [
           {
-            key: `items.${modId}.Rock_Gem_${config.id}.description`,
-            value: config.description
+            key: `items.${modId}.Rock_Gem_${id}.description`,
+            value: description
           }
         ]
       : [])
   ]);
 
   syncTexture({
-    color: config.color,
-    inputFile: config.mask ?? `gem/gem-mask-${config.maskVariant ?? "base"}`,
-    outputFile: config.textureOut ?? `Resources/Gems/${config.id}`
+    color: color,
+    inputFile: mask ?? `gem/gem-mask-${maskVariant ?? "base"}`,
+    outputFile: textureOut ?? `Resources/Gems/${id}`
   });
 }
 
 export function gems(icon: boolean, configs: GemConfig[]) {
-  configs.forEach(config => gem({ ...config, icon }));
+  configs.forEach(config => {
+    gem({ ...config, icon });
+  });
 }

@@ -1,4 +1,4 @@
-import { global, asArray, parseIngredient, spreadItems, syncJson, toPascal } from "../../../index.js";
+import { asArray, global, parseIngredient, spreadItems, syncJson, toPascal } from "../../../index.js";
 import type {
   ProcessingBenchId,
   ProcessingBenchWrapper,
@@ -34,7 +34,13 @@ export function processing<B extends ProcessingBenchId>(
 }
 
 function createProcessingRecipe<B extends ProcessingBenchId>(benchId: B): ProcessingBenchWrapper<B> {
-  return ((id: string, input: any, output: any, time: any, tier?: any) => {
+  return ((
+    id: string,
+    input: string | string[],
+    output: string | string[],
+    time: number,
+    tier?: ProcessingTierFor<B>
+  ) => {
     processing(id, benchId, input, output, time, tier);
   }) as ProcessingBenchWrapper<B>;
 }

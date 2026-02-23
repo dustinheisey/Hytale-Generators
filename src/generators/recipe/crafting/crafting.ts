@@ -16,6 +16,7 @@ export function crafting<B extends CraftingBenchId>(
   time: number,
   tier?: CraftingTierFor<B>
 ) {
+  const { outDir } = global();
   const data: CraftingRecipeData = toPascal({
     input: spreadItems(input, parseIngredient),
     primaryOutput: parseIngredient(output),
@@ -30,11 +31,18 @@ export function crafting<B extends CraftingBenchId>(
     timeSeconds: time
   });
 
-  syncJson<CraftingRecipeData>(`${global().outDir}/Server/Item/Recipes/Crafting/${benchId}/${id}`, data);
+  syncJson<CraftingRecipeData>(`${outDir}/Server/Item/Recipes/Crafting/${benchId}/${id}`, data);
 }
 
 function createCraftingRecipe<B extends CraftingBenchId>(benchId: B): BenchWrapper<B> {
-  return ((id: string, category: any, input: any, output: any, time: any, tier?: any) => {
+  return ((
+    id: string,
+    category: CategoryFor<B> | CategoryFor<B>[],
+    input: string | string[],
+    output: string,
+    time: number,
+    tier?: CraftingTierFor<B>
+  ) => {
     crafting(id, benchId, category, input, output, time, tier);
   }) as BenchWrapper<B>;
 }

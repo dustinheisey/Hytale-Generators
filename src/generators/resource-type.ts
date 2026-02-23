@@ -1,9 +1,13 @@
-import { global, syncJson, toPascal } from "../../index.js";
-import type { ResourceTypeConfig, ResourceTypeData } from "./resource-type.types.js";
+import type { Pascal } from "../index.js";
+import { global, syncJson, toPascal } from "../index.js";
 
-export function resourceType(id: string): void;
-export function resourceType(id: string, icon: string): void;
-export function resourceType(config: ResourceTypeConfig): void;
+export interface ResourceTypeConfig {
+  id: string;
+  icon: string;
+}
+
+export type ResourceTypeData = Pascal<ResourceTypeConfig>;
+
 export function resourceType(config: string | ResourceTypeConfig, icon?: string) {
   const id = typeof config === "string" ? config : config.id;
 

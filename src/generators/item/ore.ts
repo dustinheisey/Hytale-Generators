@@ -1,4 +1,4 @@
-import { global, resourceType, salvage, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
+import { global, resourceType, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
 import type { CommonTypes, ItemBlockTypes, ItemData, MaskVariant } from "../item/item.types.js";
 
 export type OreData = Required<Pick<ItemData, CommonTypes | ItemBlockTypes> & { PlayerAnimationsId: "Block" }>;
@@ -21,7 +21,7 @@ export interface OreConfig {
 }
 
 export function ore(config: OreConfig) {
-  const { modId } = global();
+  const { modId, outDir } = global();
   const {
     id,
     categories,
@@ -32,15 +32,15 @@ export function ore(config: OreConfig) {
     color,
     maskVariant,
     maxStack,
+    description,
     baseName,
     name,
-    description,
     mask,
     textureOut
   } = config;
 
   syncJson<OreData>(
-    `${global().outDir}/Server/Item/Items/Ore/${id}/Ore_${id}`,
+    `${outDir}/Server/Item/Items/Ore/${id}/Ore_${id}`,
     toPascal({
       translationProperties: {
         name: `server.items.${modId}.Ore_${id}.name`,
@@ -69,19 +69,27 @@ export function ore(config: OreConfig) {
     })
   );
 
-  salvage(`Ore_${id}`, `$Salvage_${id}`, `Ore_${id}`, 4);
+  // salvage(`Ore_${id}`, `$Salvage_${id}`, `Ore_${id}`, 4);
 
   syncLang([
     {
       key: `items.${modId}.Ore_${id}.name`,
       value: name ?? `${baseName ?? id} Ore`
     },
-    {
-      key: `items.${modId}.Ore_${id}.description`,
-      value:
-        description ??
-        `Can be processed into an <b>${id} Ingot</b> at a <b>Furnace</b>, or ground into <b>${id} Dust</b> at a <b>Salvager's Workbench</b>`
-    }
+    // {
+    //   key: `items.${modId}.Ore_${id}.description`,
+    //   value:
+    //     description ??
+    //     `Can be processed into an <b>${id} Ingot</b> at a <b>Furnace</b>, or ground into <b>${id} Dust</b> at a <b>Salvager's Workbench</b>`
+    // },
+    ...(description
+      ? [
+          {
+            key: `items.${modId}.Ore_${id}.description`,
+            value: description
+          }
+        ]
+      : [])
   ]);
 
   syncTexture({
@@ -94,5 +102,7 @@ export function ore(config: OreConfig) {
 }
 
 export function ores(icon: boolean, configs: OreConfig[]) {
-  configs.forEach(config => ore({ ...config, icon }));
+  configs.forEach(config => {
+    ore({ ...config, icon });
+  });
 }

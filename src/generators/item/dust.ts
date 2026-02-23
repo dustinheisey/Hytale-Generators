@@ -1,4 +1,4 @@
-import { global, salvage, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
+import { global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
 import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "../item/item.types.js";
 
 export type DustData = Required<Pick<ItemData, CommonTypes | ItemTypes> & { PlayerAnimationsId: "Item" }>;
@@ -20,19 +20,34 @@ export interface DustConfig {
 }
 
 export function dust(config: DustConfig) {
-  const { modId } = global();
+  const { modId, outDir } = global();
+  const {
+    id,
+    categories,
+    model,
+    texture,
+    icon,
+    name,
+    baseName,
+    description,
+    mask,
+    maskVariant,
+    maxStack,
+    color,
+    textureOut
+  } = config;
 
   syncJson<DustData>(
-    `${global().outDir}/Server/Item/Items/Dusts/Ingredient_Dust_${config.id}`,
+    `${outDir}/Server/Item/Items/Dusts/Ingredient_Dust_${id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ingredient_Dust_${config.id}.name`,
-        description: `server.items.${modId}.Ingredient_Dust_${config.id}.description`
+        name: `server.items.${modId}.Ingredient_Dust_${id}.name`,
+        description: `server.items.${modId}.Ingredient_Dust_${id}.description`
       },
-      categories: config.categories ?? ["Items", `${modId}.Dusts`],
-      model: `Resources/${config.model ?? "Dust"}.blockymodel`,
-      texture: `Resources/Dusts/${config.texture ?? config.id}.png`,
-      ...(config.icon ? { icon: `Icons/ItemsGenerated/Ingredient_Dust_${config.id}.png` } : {}),
+      categories: categories ?? ["Items", `${modId}.Dusts`],
+      model: `Resources/${model ?? "Dust"}.blockymodel`,
+      texture: `Resources/Dusts/${texture ?? id}.png`,
+      ...(icon ? { icon: `Icons/ItemsGenerated/Ingredient_Dust_${id}.png` } : {}),
       resourceTypes: [
         {
           id: "Dusts"
@@ -51,32 +66,42 @@ export function dust(config: DustConfig) {
       itemEntity: {
         particleSystemId: undefined
       },
-      maxStack: config.maxStack ?? 100,
+      maxStack: maxStack ?? 100,
       itemSoundSetId: "ISS_Items_Ingots",
       dropOnDeath: true
     })
   );
 
-  salvage(`Ingredient_Dust_${config.id}`, `Ore_${config.id}`, `2x Ingredient_Dust_${config.id}`, 4);
+  // salvage(`Ingredient_Dust_${id}`, `Ore_${id}`, `2x Ingredient_Dust_${id}`, 4);
 
   syncLang([
     {
-      key: `items.${modId}.Ingredient_Dust_${config.id}.name`,
-      value: config.name ?? `${config.baseName ?? config.id} Dust`
+      key: `items.${modId}.Ingredient_Dust_${id}.name`,
+      value: name ?? `${baseName ?? id} Dust`
     },
-    {
-      key: `items.${modId}.Ingredient_Dust_${config.id}.description`,
-      value: config.description ?? `Can be processed into an <b>${config.id} Ingot</b> at a <b>Furnace</b>`
-    }
+    ...(description
+      ? [
+          {
+            key: `items.${modId}.Ingredient_Dust_${id}.description`,
+            value: description
+          }
+        ]
+      : [])
+    // {
+    //   key: `items.${modId}.Ingredient_Dust_${id}.description`,
+    //   value: description ?? `Can be processed into an <b>${id} Ingot</b> at a <b>Furnace</b>`
+    // }
   ]);
 
   syncTexture({
-    color: config.color,
-    inputFile: config.mask ?? `dust/dust-mask-${config.maskVariant ?? "base"}`,
-    outputFile: config.textureOut ?? `Resources/Dusts/${config.id}`
+    color: color,
+    inputFile: mask ?? `dust/dust-mask-${maskVariant ?? "base"}`,
+    outputFile: textureOut ?? `Resources/Dusts/${id}`
   });
 }
 
 export function dusts(icon: boolean, configs: DustConfig[]) {
-  configs.forEach(config => dust({ ...config, icon }));
+  configs.forEach(config => {
+    dust({ ...config, icon });
+  });
 }
