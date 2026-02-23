@@ -1,4 +1,5 @@
-import type { Pascal } from "../../index.js";
+import type { Pascal } from "../index.js";
+import { global, syncJson, toPascal } from "../index.js";
 
 export interface ManifestConfig {
   group: string;
@@ -20,3 +21,7 @@ export interface ManifestConfig {
 }
 
 export type ManifestData = Pascal<ManifestConfig>;
+
+export function manifest(config: ManifestConfig) {
+  syncJson<ManifestData>(`${global().outDir}/manifest`, toPascal(config));
+}

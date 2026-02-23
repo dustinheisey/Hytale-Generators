@@ -1,8 +1,23 @@
-import { global, syncJson, syncLang, toPascal } from "../../index.js";
-import type { CategoriesConfig, CategoriesData, Child } from "./categories.types.js";
+import type { Pascal } from "../index.js";
+import { global, syncJson, syncLang, toPascal } from "../index.js";
 
-export function categories(children: Child[]): void;
-export function categories(config: CategoriesConfig): void;
+export type Child =
+  | {
+      id: string;
+      name?: string;
+      icon: string;
+    }
+  | string;
+
+export interface CategoriesConfig {
+  icon?: string;
+  name?: string;
+  order?: number;
+  children: Child[];
+}
+
+export type CategoriesData = Pascal<Required<CategoriesConfig> & { id: string }>;
+
 export function categories(cfg: Child[] | CategoriesConfig) {
   const modId = global().modId;
   const config: CategoriesConfig = Array.isArray(cfg) ? { children: cfg } : cfg;
@@ -37,7 +52,7 @@ export function categories(cfg: Child[] | CategoriesConfig) {
     const isString = typeof child === "string";
     lang.push({
       key: `ui.${modId}.${isString ? child : child.id}`,
-      value: isString ? child : child.name ?? child.id
+      value: isString ? child : (child.name ?? child.id)
     });
   });
 

@@ -36,32 +36,38 @@ function computeBlockTexture(block: Lowercase<BlockType>): BlockTexture {
         sides: "/Rock_Sandstone_Side.png",
         upDown: "/Rock_Sandstone_Top.png"
       };
+      break;
     case "shale":
       texture = {
         weight: 1,
         all: "/Rock_Shale.png"
       };
+      break;
     case "stone":
       texture = {
         weight: 1,
         all: "/Rock_Stone.png"
       };
+      break;
     case "slate":
       texture = {
         sides: "/Rock_Slate_Cracked.png",
         upDown: "/Rock_Slate_Cracked.png",
         weight: 1
       };
+      break;
     case "volcanic":
       texture = {
         weight: 1,
         all: "/Rock_Volcanic.png"
       };
+      break;
     case "basalt":
       texture = {
         weight: 1,
         all: "BlockTextures/Rock_Basalt.png"
       };
+      break;
   }
   return toPascal(texture);
 }
@@ -154,5 +160,7 @@ export function oreBlock(config: OreBlockConfig) {
 }
 
 export function oreBlocks(icon: boolean, configs: OreBlockConfig[]) {
-  configs.forEach(config => oreBlock({ ...config, icon }));
+  configs.forEach(config => {
+    oreBlock({ ...config, icon });
+  });
 }

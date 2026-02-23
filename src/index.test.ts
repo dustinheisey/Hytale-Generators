@@ -6,17 +6,13 @@ import {
   campfire,
   categories,
   cooking,
-  dust,
   farming,
   furnace,
   furniture,
   gem,
-  ingot,
   loom,
   manifest,
   metal,
-  ore,
-  oreBlock,
   resourceType,
   salvage,
   setGlobal,
@@ -67,6 +63,13 @@ metal({
   color: "#dee1e1",
   exclude: ["basalt"],
   ores: { baseName: "Cassiterite" }
+});
+
+metal({
+  id: "Copper",
+  color: "#dee1e1",
+  exclude: ["basalt"],
+  ores: { baseName: "Cassiterite", description: "Hello World" }
 });
 
 alloy({

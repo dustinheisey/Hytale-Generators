@@ -1,4 +1,4 @@
-import { furnace, global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
+import { global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
 import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "./item.types.js";
 
 export type IngotData = Required<
@@ -26,18 +26,34 @@ export interface IngotConfig {
 }
 
 export function ingot(config: IngotConfig) {
-  const { modId } = global();
+  const { modId, outDir } = global();
+  const {
+    id,
+    categories,
+    model,
+    texture,
+    icon,
+    name,
+    baseName,
+    description,
+    mask,
+    maskVariant,
+    maxStack,
+    color,
+    textureOut
+  } = config;
+
   syncJson<IngotData>(
-    `${global().outDir}/Server/Item/Items/Bars/Ingredient_Bar_${config.id}`,
+    `${outDir}/Server/Item/Items/Bars/Ingredient_Bar_${id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ingredient_Bar_${config.id}.name`,
-        description: `server.items.${modId}.Ingredient_Bar_${config.id}.description`
+        name: `server.items.${modId}.Ingredient_Bar_${id}.name`,
+        description: `server.items.${modId}.Ingredient_Bar_${id}.description`
       },
-      categories: config.categories ?? ["Items", `${modId}.Ingots`],
-      model: `Resources/Materials/${config.model ?? "Ingot"}.blockymodel`,
-      texture: `Resources/Ingots/${config.texture ?? config.id}.png`,
-      ...(config.icon ? { icon: `Icons/ItemsGenerated/Ingredient_Bar_${config.id}.png` } : {}),
+      categories: categories ?? ["Items", `${modId}.Ingots`],
+      model: `Resources/Materials/${model ?? "Ingot"}.blockymodel`,
+      texture: `Resources/Ingots/${texture ?? id}.png`,
+      ...(icon ? { icon: `Icons/ItemsGenerated/Ingredient_Bar_${id}.png` } : {}),
       resourceTypes: [
         {
           id: "Metal_Bars"
@@ -56,7 +72,7 @@ export function ingot(config: IngotConfig) {
       itemEntity: {
         particleSystemId: undefined
       },
-      maxStack: config.maxStack ?? 100,
+      maxStack: maxStack ?? 100,
       itemSoundSetId: "ISS_Items_Ingots",
       dropOnDeath: true
     })
@@ -64,35 +80,37 @@ export function ingot(config: IngotConfig) {
 
   syncLang([
     {
-      key: `items.${global().modId}.Ingredient_Bar_${config.id}.name`,
-      value: config.name ?? `${config.baseName ?? config.id} Ingot`
+      key: `items.${modId}.Ingredient_Bar_${id}.name`,
+      value: name ?? `${baseName ?? id} Ingot`
     },
-    ...(config.description
+    ...(description
       ? [
           {
-            key: `items.${modId}.Ingredient_Bar_${config.id}.description`,
-            value: config.description
+            key: `items.${modId}.Ingredient_Bar_${id}.description`,
+            value: description
           }
         ]
       : [])
   ]);
 
   syncTexture({
-    color: config.color,
-    inputFile: config.mask ?? `ingot/ingot-mask-${config.maskVariant ?? "base"}`,
-    outputFile: config.textureOut ?? `Resources/Ingots/${config.id}`
+    color: color,
+    inputFile: mask ?? `ingot/ingot-mask-${maskVariant ?? "base"}`,
+    outputFile: textureOut ?? `Resources/Ingots/${id}`
   });
 
-  furnace(`Ingredient_Bar_${config.id}_From_Ore`, `Ore_${config.id}`, `Ingredient_Bar_${config.id}`, config.time ?? 14);
+  // furnace(`Ingredient_Bar_${id}_From_Ore`, `Ore_${id}`, `Ingredient_Bar_${id}`, time ?? 14);
 
-  furnace(
-    `Ingredient_Bar_${config.id}_From_Dust`,
-    `Ingredient_Dust_${config.id}`,
-    `Ingredient_Bar_${config.id}`,
-    config.time ?? 14
-  );
+  // furnace(
+  //   `Ingredient_Bar_${id}_From_Dust`,
+  //   `Ingredient_Dust_${id}`,
+  //   `Ingredient_Bar_${id}`,
+  //   time ?? 14
+  // );
 }
 
 export function ingots(icon: boolean, configs: IngotConfig[]) {
-  configs.forEach(config => ingot({ ...config, icon }));
+  configs.forEach(config => {
+    ingot({ ...config, icon });
+  });
 }

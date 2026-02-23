@@ -68,6 +68,7 @@ export type BlockTypes = "BlockType" | "ItemSoundSetId" | "Tags";
 export type Tags = {
   Type?: string[];
   Family?: string[];
+  Material?: string[];
 };
 
 /**
@@ -775,7 +776,9 @@ export interface BlockConfiguration {
   Light?: LightEmission;
   Flags?: BlockFlags;
   Gathering?: GatheringConfiguration;
-  RandomRotation: "YawStep90";
+  RandomRotation?: "YawStep90";
+  Effect?: string[];
+  Interactions?: unknown;
 }
 /**
  * Light color and brightness emitted by the block. Maps to com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType#light (protected ColorLight). Illuminates surrounding blocks.

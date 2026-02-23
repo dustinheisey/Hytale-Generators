@@ -11,11 +11,11 @@ export * from "./util/text.js";
 export * from "./global/global.config.js";
 export * from "./global/global.types.js";
 
-export * from "./generators/categories/categories.js";
-export * from "./generators/manifest/manifest.js";
+export * from "./generators/categories.js";
+export * from "./generators/manifest.js";
 export * from "./generators/recipe/crafting/crafting.js";
 export * from "./generators/recipe/processing/processing.js";
-export * from "./generators/resource-type/resource-type.js";
+export * from "./generators/resource-type.js";
 
 export * from "./generators/item/alloy.js";
 export * from "./generators/item/bar.js";

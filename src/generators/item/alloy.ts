@@ -1,4 +1,4 @@
-import { furnace, global, join, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
+import { global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
 import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "../item/item.types.js";
 
 export type AlloyInput = { id: string; name: string };
@@ -29,17 +29,33 @@ export interface AlloyConfig {
 export function alloy(config: AlloyConfig) {
   const { modId } = global();
 
+  const {
+    id,
+    categories,
+    model,
+    texture,
+    icon,
+    maxStack,
+    name,
+    baseName,
+    description,
+    color,
+    mask,
+    textureOut,
+    maskVariant
+  } = config;
+
   syncJson<AlloyData>(
-    `${global().outDir}/Server/Item/Items/Alloys/Ingredient_Bar_${config.id}`,
+    `${global().outDir}/Server/Item/Items/Alloys/Ingredient_Bar_${id}`,
     toPascal({
       translationProperties: {
-        name: `server.items.${modId}.Ingredient_Bar_${config.id}.name`,
-        description: `server.items.${modId}.Ingredient_Bar_${config.id}.description`
+        name: `server.items.${modId}.Ingredient_Bar_${id}.name`,
+        description: `server.items.${modId}.Ingredient_Bar_${id}.description`
       },
-      categories: config?.categories ?? ["Items", `${modId}.Alloys`],
-      model: `Resources/Materials/${config?.model ?? "Ingot"}.blockymodel`,
-      texture: `Resources/Alloys/${config?.texture ?? config.id}.png`,
-      ...(config.icon ? { icon: `Icons/ItemsGenerated/Ingredient_Bar_${config.id}.png` } : {}),
+      categories: categories ?? ["Items", `${modId}.Alloys`],
+      model: `Resources/Materials/${model ?? "Ingot"}.blockymodel`,
+      texture: `Resources/Alloys/${texture ?? id}.png`,
+      ...(icon ? { icon: `Icons/ItemsGenerated/Ingredient_Bar_${id}.png` } : {}),
       resourceTypes: [
         {
           id: "Metal_Bars"
@@ -57,38 +73,48 @@ export function alloy(config: AlloyConfig) {
       itemEntity: {
         particleSystemId: undefined
       },
-      maxStack: config?.maxStack ?? 100,
+      maxStack: maxStack ?? 100,
       itemSoundSetId: "ISS_Items_Ingots",
       dropOnDeath: true
     })
   );
 
-  furnace(
-    `Ingredient_Bar_${config.id}`,
-    config.inputs.map(input => input.id),
-    `2x Alloy${config.id}`,
-    20,
-    2
-  );
+  // furnace(
+  //   `Ingredient_Bar_${id}`,
+  //   inputs.map(input => input.id),
+  //   `2x Alloy${id}`,
+  //   20,
+  //   2
+  // );
 
   syncLang([
     {
-      key: `items.${modId}.Ingredient_Bar_${config.id}.name`,
-      value: config?.name ?? `${config?.baseName ?? config.id} Ingot`
+      key: `items.${modId}.Ingredient_Bar_${id}.name`,
+      value: name ?? `${baseName ?? id} Ingot`
     },
-    {
-      key: `items.${modId}.Ingredient_Bar_${config.id}.description`,
-      value: config?.description ?? `Alloy of ${join(config.inputs.map(input => input.name))}`
-    }
+    ...(description
+      ? [
+          {
+            key: `items.${modId}.Ingredient_Bar_${id}.description`,
+            value: description
+          }
+        ]
+      : [])
+    // {
+    //   key: `items.${modId}.Ingredient_Bar_${id}.description`,
+    //   value: description ?? `Alloy of ${join(inputs.map(input => input.name))}`
+    // }
   ]);
 
   syncTexture({
-    color: config.color,
-    inputFile: config?.mask ?? `ingot/ingot-mask-${config?.maskVariant ?? "base"}`,
-    outputFile: config?.textureOut ?? `Resources/Alloys/${config.id}`
+    color: color,
+    inputFile: mask ?? `ingot/ingot-mask-${maskVariant ?? "base"}`,
+    outputFile: textureOut ?? `Resources/Alloys/${id}`
   });
 }
 
 export function alloys(icon: boolean, configs: AlloyConfig[]) {
-  configs.forEach(config => alloy({ ...config, icon }));
+  configs.forEach(config => {
+    alloy({ ...config, icon });
+  });
 }
