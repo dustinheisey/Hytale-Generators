@@ -1,5 +1,5 @@
 import { global, resourceType, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
-import type { CommonTypes, ItemBlockTypes, ItemData, MaskVariant } from "../item/item.types.js";
+import type { CommonTypes, ItemBlockTypes, ItemData, MaskVariant } from "../item/item/item.types.js";
 
 export type OreData = Required<Pick<ItemData, CommonTypes | ItemBlockTypes> & { PlayerAnimationsId: "Block" }>;
 

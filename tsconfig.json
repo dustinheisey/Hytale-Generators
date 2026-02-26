@@ -13,13 +13,14 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": false,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
 
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
 
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": false
   },
   "include": ["*.config.ts", "src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

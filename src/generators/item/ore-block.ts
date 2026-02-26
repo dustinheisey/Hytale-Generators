@@ -1,7 +1,7 @@
 import type { Simplify } from "type-fest";
 import type { BlockTexture, Tab } from "../../index.js";
 import { global, syncJson, syncLang, toPascal, u } from "../../index.js";
-import type { BlockTypes, CommonTypes, ItemData } from "../item/item.types.js";
+import type { BlockTypes, CommonTypes, ItemData } from "../item/item/item.types.js";
 
 export type BlockType = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
 

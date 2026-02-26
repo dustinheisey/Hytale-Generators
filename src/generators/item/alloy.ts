@@ -1,5 +1,5 @@
 import { global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
-import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "../item/item.types.js";
+import type { CommonTypes, ItemData, ItemTypes, MaskVariant } from "./item/item.types.js";
 
 export type AlloyInput = { id: string; name: string };
 

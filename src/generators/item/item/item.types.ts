@@ -1,4 +1,4 @@
-import type { AutoComplete } from "../../global/global.types.js";
+import type { AutoComplete } from "../../../index.js";
 
 /** Derived from `hytale-item-schema.json` (https://gist.github.com/Huijiro/fe069677c25d58edb5beaab917f760a4)
  * Complete JSON Schema for Hytale Item asset configuration with comprehensive documentation including full Java package references, field mappings, and enumeration details. All properties are documented with line numbers and source code references.
@@ -731,7 +731,7 @@ export interface StatModifiers1 {
   }[];
 }
 /**
- * Glider-specific configuration for flight equipment like paraglides. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemGlider class (lines 11-60). Defines gliding physics and movement.
+ * Glider-specific configuration for flight equipment like paragliders. Maps to com.hypixel.hytale.server.core.asset.type.item.config.ItemGlider class (lines 11-60). Defines gliding physics and movement.
  */
 export interface GliderConfiguration {
   TerminalVelocity?: TerminalVelocity;

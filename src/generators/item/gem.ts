@@ -1,6 +1,6 @@
 import type { OmitDeep } from "type-fest";
 import { deriveEffectColors, global, syncJson, syncLang, syncTexture, toPascal, type Tab } from "../../index.js";
-import type { BlockTypes, CommonTypes, ItemData, MaskVariant } from "../item/item.types.js";
+import type { BlockTypes, CommonTypes, ItemData, MaskVariant } from "../item/item/item.types.js";
 
 export type GemData = Required<
   OmitDeep<Pick<ItemData, CommonTypes | BlockTypes>, "BlockType.Gathering.Breaking"> & { PlayerAnimationsId: "Block" }

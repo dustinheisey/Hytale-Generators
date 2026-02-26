@@ -5,8 +5,7 @@ export interface GlobalConfig {
 
 let currentGlobal: GlobalConfig | null = null;
 
-export function setGlobal(config: string): void;
-export function setGlobal(config: GlobalConfig): void;
+export function setGlobal(config: string | GlobalConfig): void;
 /**
  * Consumer calls this once at startup / before generating assets.
  * @param global - global config

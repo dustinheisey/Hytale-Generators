@@ -34,7 +34,7 @@ export function crafting<B extends CraftingBenchId>(
   syncJson<CraftingRecipeData>(`${outDir}/Server/Item/Recipes/Crafting/${benchId}/${id}`, data);
 }
 
-function createCraftingRecipe<B extends CraftingBenchId>(benchId: B): BenchWrapper<B> {
+export function createCraftingRecipe<B extends CraftingBenchId>(benchId: B): BenchWrapper<B> {
   return ((
     id: string,
     category: CategoryFor<B> | CategoryFor<B>[],

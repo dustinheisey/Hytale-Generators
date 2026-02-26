@@ -5,6 +5,9 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   {
+    ignores: ["dist"]
+  },
+  {
     files: ["**/*.ts"],
     extends: [eslint.configs.recommended, tseslint.configs.strictTypeChecked],
     languageOptions: {

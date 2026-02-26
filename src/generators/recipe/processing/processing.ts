@@ -33,7 +33,7 @@ export function processing<B extends ProcessingBenchId>(
   syncJson<ProcessingRecipeData>(`${global().outDir}/Server/Item/Recipes/Processing/${benchId}/${id}`, data);
 }
 
-function createProcessingRecipe<B extends ProcessingBenchId>(benchId: B): ProcessingBenchWrapper<B> {
+export function createProcessingRecipe<B extends ProcessingBenchId>(benchId: B): ProcessingBenchWrapper<B> {
   return ((
     id: string,
     input: string | string[],

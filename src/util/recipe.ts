@@ -11,7 +11,7 @@ export function parseIngredient(input: string): Ingredient {
   const match = input.match(/^\s*(\d+)\s*[xX]\s+(.+?)\s*$/);
 
   const quantity = match ? Number(match[1]) : 1;
-  let id = match ? match[2].trim() : input.trim();
+  const id = match ? match[2].trim() : input.trim();
 
   if (id.startsWith("#")) {
     return {
