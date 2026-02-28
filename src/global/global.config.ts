@@ -25,3 +25,7 @@ export const global = (): GlobalConfig => {
   }
   return currentGlobal;
 };
+
+export const isString = (arg: unknown) => typeof arg === "string";
+
+export const isNumber = (arg: unknown) => typeof arg === "number";
