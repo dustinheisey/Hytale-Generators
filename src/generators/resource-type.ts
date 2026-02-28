@@ -1,21 +1,13 @@
-import type { Pascal } from "../index.js";
-import { global, syncJson, toPascal } from "../index.js";
+import { builder, json, type Builder } from "../index.js";
 
-export interface ResourceTypeConfig {
+type ResourceTypeCfg = {
   id: string;
-  icon: string;
-}
+  icon?: string;
+};
 
-export type ResourceTypeData = Pascal<ResourceTypeConfig>;
-
-export function resourceType(config: string | ResourceTypeConfig, icon?: string) {
-  const id = typeof config === "string" ? config : config.id;
-
-  syncJson<ResourceTypeData>(
-    `${global().outDir}/Server/Item/ResourceTypes/${id}`,
-    toPascal({
-      id: id,
-      icon: `Icons/ResourceTypes/${typeof icon === "string" ? icon : typeof config === "string" ? id : config.icon}.png`
-    })
-  );
-}
+export const resourceType: Builder<ResourceTypeCfg> = builder((cfg: ResourceTypeCfg) => {
+  json(`Server/Item/ResourceTypes/${cfg.id}`, {
+    id: cfg.id,
+    icon: `Icons/ResourceTypes/${cfg.icon?.trim() || cfg.id}.png`
+  });
+});
