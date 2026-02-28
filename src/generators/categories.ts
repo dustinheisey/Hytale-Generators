@@ -1,5 +1,4 @@
-import type { Pascal } from "../index.js";
-import { global, syncJson, syncLang, toPascal } from "../index.js";
+import { builderNoId, global, isString, json, lang, type BuilderNoId } from "../index.js";
 
 export type Child =
   | {
@@ -9,52 +8,40 @@ export type Child =
     }
   | string;
 
-export interface CategoriesConfig {
+type CategoriesCfg = {
   icon?: string;
   name?: string;
   order?: number;
   children: Child[];
-}
+};
 
-export type CategoriesData = Pascal<Required<CategoriesConfig> & { id: string }>;
-
-export function categories(cfg: Child[] | CategoriesConfig) {
+export const categories: BuilderNoId<CategoriesCfg> = builderNoId(cfg => {
   const modId = global().modId;
-  const config: CategoriesConfig = Array.isArray(cfg) ? { children: cfg } : cfg;
 
-  syncJson<CategoriesData>(
-    `${global().outDir}/Server/Item/Category/CreativeLibrary/${modId}`,
-    toPascal({
-      id: modId,
-      name: `server.ui.${modId}`,
-      icon: `Icons/ItemCategories/${config.icon ?? modId}.png`,
-      order: config.order ?? 0,
-      children: config.children.map((child: Child) => {
-        const isString = typeof child === "string";
-        const childId = isString ? child : child.id;
-        return {
-          id: childId,
-          name: `server.ui.${modId}.${childId}`,
-          icon: `Icons/ItemCategories/${isString ? childId : child.icon}.png`
-        };
-      })
+  json(`Server/Item/Category/CreativeLibrary/${modId}`, {
+    id: modId,
+    name: `server.ui.${modId}`,
+    icon: `Icons/ItemCategories/${cfg.icon ?? modId}.png`,
+    order: cfg.order ?? 0,
+    children: cfg.children.map((child: Child) => {
+      const isString = typeof child === "string";
+      const childId = isString ? child : child.id;
+      return {
+        id: childId,
+        name: `server.ui.${modId}.${childId}`,
+        icon: `Icons/ItemCategories/${isString ? childId : child.icon}.png`
+      };
     })
-  );
-
-  const lang = [];
-
-  lang.push({
-    key: `ui.${modId}`,
-    value: config.name ?? modId
   });
 
-  config.children.forEach(child => {
-    const isString = typeof child === "string";
-    lang.push({
-      key: `ui.${modId}.${isString ? child : child.id}`,
-      value: isString ? child : (child.name ?? child.id)
-    });
-  });
-
-  syncLang(lang);
-}
+  lang([
+    {
+      key: `ui.${modId}`,
+      value: cfg.name ?? modId
+    },
+    ...cfg.children.map(child => ({
+      key: `ui.${modId}.${isString(child) ? child : child.id}`,
+      value: isString(child) ? child : (child.name ?? child.id)
+    }))
+  ]);
+});
