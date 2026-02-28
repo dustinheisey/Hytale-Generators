@@ -41,7 +41,7 @@ export function parseColor(color: string): RGB {
  *
  * @param config - texture config
  */
-export function syncTexture(config: TextureConfig) {
+export function texture(config: TextureConfig) {
   const outputFile = `${global().outDir}/Common/${config.outputFile}.png`;
   syncDir(outputFile);
   try {

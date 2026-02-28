@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { syncFile } from "../index.js";
+import { global, syncFile, toPascal } from "../index.js";
 
 /**
  * Writes an object to a JSON file asynchronously (pretty-printed with 2 spaces).
@@ -29,7 +29,9 @@ export function writeJson(file: string, data: object) {
  * @param path - writes to `dist/${path}.json`
  * @param config - data config
  */
-export function syncJson<T extends object>(path: string, data: T) {
-  syncFile(`${path}.json`);
-  writeJson(`${path}.json`, data);
+export function json(path: string, data: object) {
+  const { outDir } = global();
+  const prefix = outDir ? `${outDir}/` : "";
+  syncFile(`${prefix}${path}.json`);
+  writeJson(`${prefix}${path}.json`, toPascal(data));
 }

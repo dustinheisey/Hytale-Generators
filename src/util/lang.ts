@@ -10,7 +10,7 @@ export interface LangConfig {
  *
  * @param entries - list of key value pairs to add to server.lang
  */
-export function syncLang(entries: LangConfig[]) {
+export function lang(entries: LangConfig[]) {
   // Absolute path to the lang file we want to modify
   const file = `${global().outDir}/Server/Languages/en-US/server.lang`;
 
