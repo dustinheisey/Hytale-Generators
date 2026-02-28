@@ -1,7 +1,6 @@
-import type { Pascal } from "../index.js";
-import { global, syncJson, toPascal } from "../index.js";
+import { builderNoId, json, type BuilderNoId } from "../index.js";
 
-export interface ManifestConfig {
+type ManifestCfg = {
   group: string;
   name: string;
   version: string;
@@ -12,16 +11,14 @@ export interface ManifestConfig {
     url?: string;
   }[];
   website: string;
-  serverVersion?: string;
+  serverVersion: string;
   dependencies?: object;
   optionalDependencies?: object;
   disabledByDefault?: boolean;
   loadBefore?: object;
   subPlugins?: [];
-}
+};
 
-export type ManifestData = Pascal<ManifestConfig>;
-
-export function manifest(config: ManifestConfig) {
-  syncJson<ManifestData>(`${global().outDir}/manifest`, toPascal(config));
-}
+export const manifest: BuilderNoId<ManifestCfg> = builderNoId(cfg => {
+  json(`manifest`, cfg);
+});
