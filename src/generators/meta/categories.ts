@@ -1,4 +1,4 @@
-import { builderNoId, global, isString, json, lang, type BuilderNoId } from "hytale-generators";
+import { builderNoId, global, isString, json, lang, type BuilderNoId } from "../../index.js";
 
 export type Child =
   | {

@@ -1,11 +1,11 @@
-import type { BlockCfg, Builder, HasDrops } from "hytale-generators";
-import { builder, fragments, global, json, lang } from "hytale-generators";
+import type { BlockCfg, Builder, HasDrops } from "../../../index.js";
+import { builder, fragments, global, json, lang } from "../../../index.js";
 
 export type BuildingBlockCfg = BlockCfg & HasDrops;
 
 export const buildingBlock: Builder<BuildingBlockCfg> = builder((cfg: BuildingBlockCfg) => {
   const { modId } = global();
-  const { withTranslationProperties, withIcon } = fragments.item;
+  const { withTranslationProperties, withIcon } = fragments;
   const {
     id,
     categories,

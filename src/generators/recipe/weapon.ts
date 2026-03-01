@@ -1,5 +1,5 @@
-import type { Builder, HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTier, HasTime } from "hytale-generators";
-import { builder, json, parseIngredients, spreadItems } from "hytale-generators";
+import type { Builder, HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTier, HasTime } from "../../index.js";
+import { builder, json, parseIngredients, spreadItems } from "../../index.js";
 
 export type WeaponCfg = HasId &
   HasAnyInput &

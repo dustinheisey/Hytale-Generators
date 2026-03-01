@@ -1,9 +1,9 @@
-import type { Builder, HasId, HasSingleInput, HasSingleOutput } from "hytale-generators";
-import { builder as generatorBuilder, json, parseIngredients } from "hytale-generators";
+import type { Builder, HasId, HasSingleInput, HasSingleOutput } from "../../index.js";
+import { builder as generatorBuilder, json, parseIngredients } from "../../index.js";
 
 export type BuilderRecipeCfg = HasId & HasSingleInput & HasSingleOutput;
 
-export const builder: Builder<BuilderRecipeCfg> = generatorBuilder((cfg: BuilderRecipeCfg) => {
+export const builders: Builder<BuilderRecipeCfg> = generatorBuilder((cfg: BuilderRecipeCfg) => {
   const { id, input, output } = cfg;
 
   json(`/Server/Item/Recipes/Builder/Builder_${id}`, {

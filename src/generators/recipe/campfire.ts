@@ -1,5 +1,5 @@
-import type { Builder, HasSingleInput, HasSingleOutput, HasId, HasTime } from "hytale-generators";
-import { builder, json, parseIngredients } from "hytale-generators";
+import type { Builder, HasId, HasSingleInput, HasSingleOutput, HasTime } from "../../index.js";
+import { builder, json, parseIngredients } from "../../index.js";
 
 export type CampfireCfg = HasId & HasSingleInput & HasSingleOutput & HasTime;
 
@@ -12,7 +12,7 @@ export const campfire: Builder<CampfireCfg> = builder((cfg: CampfireCfg) => {
     benchRequirement: [
       {
         type: "Processing" as const,
-        id: "Campfire" as const,
+        id: "Campfire" as const
       }
     ],
     timeSeconds: time

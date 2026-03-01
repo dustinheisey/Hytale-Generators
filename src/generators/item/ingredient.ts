@@ -1,5 +1,5 @@
-import type { GroupType } from "hytale-generators";
-import { global, group, ItemCfg, json, lang, texture } from "hytale-generators";
+import type { GroupType } from "../../index.js";
+import { global, group, ItemCfg, json, lang, texture } from "../../index.js";
 
 type IngredientCfg = ItemCfg;
 

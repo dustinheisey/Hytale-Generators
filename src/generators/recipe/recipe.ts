@@ -1,4 +1,4 @@
-import type { Ingredient } from "hytale-generators";
+import type { Ingredient } from "../../index.js";
 
 /**
  * Map a string or string[] into an array of outputs.

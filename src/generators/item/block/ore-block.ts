@@ -1,5 +1,5 @@
-import type { BlockCfg, BlockTexture, Builder, HasDrops, HasStrata } from "hytale-generators";
-import { builder, global, json, lang, spreadItems } from "hytale-generators";
+import type { BlockCfg, BlockTexture, Builder, HasDrops, HasStrata } from "../../../index.js";
+import { builder, global, json, lang, spreadItems } from "../../../index.js";
 
 type Strata = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
 

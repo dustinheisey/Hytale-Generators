@@ -1,29 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
     "target": "ES2022",
-
+    "rootDir": ".",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-
     "lib": ["ES2022"],
     "types": ["node"],
-
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-
     "verbatimModuleSyntax": false,
-    "paths": {
-      "hytale-generators": ["./src/index.js"]
-    }
-  },
-  "include": ["*.config.ts", "src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  }
 }

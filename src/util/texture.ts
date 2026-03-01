@@ -1,4 +1,4 @@
-import { global, syncDir } from "hytale-generators";
+import { global, syncDir } from "../index.js";
 import sharp from "sharp";
 
 type RGB = { r: number; g: number; b: number };

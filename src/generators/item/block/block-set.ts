@@ -1,5 +1,5 @@
-import type { Builder, HasId } from "hytale-generators";
-import { builder, json } from "hytale-generators";
+import type { Builder, HasId } from "../../../index.js";
+import { builder, json } from "../../../index.js";
 
 export interface HasBlockSet {
   includeAll?: boolean;

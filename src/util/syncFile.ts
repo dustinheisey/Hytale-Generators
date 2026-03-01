@@ -1,5 +1,5 @@
+import { syncDir } from "../index.js";
 import * as fs from "fs";
-import { syncDir } from "hytale-generators";
 
 /**
  * Ensures a file exists on disk.

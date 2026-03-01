@@ -1,5 +1,5 @@
-import type { Builder, HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTime } from "hytale-generators";
-import { builder, json, parseIngredients, spreadItems } from "hytale-generators";
+import type { Builder, HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTime } from "../../index.js";
+import { builder, json, parseIngredients, spreadItems } from "../../index.js";
 
 export type ArcaneCfg = HasId &
   HasAnyInput &

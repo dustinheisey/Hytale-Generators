@@ -1,4 +1,4 @@
-import { BlockCfg, builder, fragments, global, json, lang, type Builder } from "hytale-generators";
+import { BlockCfg, builder, fragments, global, json, lang, type Builder } from "../../../index.js";
 
 export interface HasBench {
   outputSlotsCount: number;
@@ -9,7 +9,7 @@ export type BenchCfg = BlockCfg & HasBench;
 
 export const bench: Builder<BenchCfg> = builder((cfg: BenchCfg) => {
   const { modId } = global();
-  const { withTranslationProperties, withIcon } = fragments.item;
+  const { withTranslationProperties, withIcon } = fragments;
   const {
     id,
     name,

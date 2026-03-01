@@ -1,5 +1,5 @@
-import type { Builder, ItemBlockCfg } from "hytale-generators";
-import { builder, global, json, lang, resourceType, texture } from "hytale-generators";
+import type { Builder, ItemBlockCfg } from "../../index.js";
+import { builder, global, json, lang, resourceType, texture } from "../../index.js";
 
 export type OreCfg = ItemBlockCfg;
 

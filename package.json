@@ -27,12 +27,9 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
-      "default": "./dist/src/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
-  },
-  "_moduleAliases": {
-    "hytale-generators": "./dist/src/index.js"
   },
   "license": "MIT",
   "author": "Dustin Heisey",
@@ -43,13 +40,12 @@
     "typecheck": "tsc --noEmit",
     "lint:js": "eslint . -c eslint.config.ts --fix",
     "spellcheck": "cspell lint .",
-    "clear": "rimraf dist",
-    "dev": "tsc --watch",
-    "dev:clear": "npm run clear && tsc --watch",
-    "test": "tsc && node --import module-alias/register dist/src/index.test.js",
-    "test:clear": "npm run clear && tsc && node --import module-alias/register dist/src/index.test.js",
-    "build": "tsc",
-    "build:clear": "npm run clear && tsc"
+    "clear": "rimraf dist test",
+    "build": "tsc -p tsconfig.build.json",
+    "build:clear": "npm run clear && npm run build",
+    "tooling": "tsc -p tsconfig.tools.json",
+    "test": "tsc -p tsconfig.test.json && node test/index.test.js",
+    "test:clear": "npm run clear && npm run test"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

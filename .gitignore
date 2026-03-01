@@ -1,4 +1,5 @@
 /dist
+/test
 .DS_Store
 .vscode
 itemsGenerated

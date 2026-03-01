@@ -1,5 +1,5 @@
-import type { Builder, HasId, HasSingleInput, HasSingleOutput, HasTier, HasTime } from "hytale-generators";
-import { builder, json, parseIngredients } from "hytale-generators";
+import type { Builder, HasId, HasSingleInput, HasSingleOutput, HasTier, HasTime } from "../../index.js";
+import { builder, json, parseIngredients } from "../../index.js";
 
 export type TanneryCfg = HasId & HasSingleInput & HasSingleOutput & HasTime & HasTier<2>;
 

@@ -1,5 +1,5 @@
-import type { Builder, HasAnyOutput, HasId, HasSingleInput, HasTime } from "hytale-generators";
-import { builder, json, parseIngredients } from "hytale-generators";
+import type { Builder, HasAnyOutput, HasId, HasSingleInput, HasTime } from "../../index.js";
+import { builder, json, parseIngredients } from "../../index.js";
 
 export type SalvageRecipeCfg = HasId & HasSingleInput & HasAnyOutput & HasTime;
 

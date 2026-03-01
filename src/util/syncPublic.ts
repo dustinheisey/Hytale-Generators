@@ -1,5 +1,5 @@
+import { global } from "../index.js";
 import fs from "fs";
-import { global } from "hytale-generators";
 import path from "path";
 import process from "process";
 

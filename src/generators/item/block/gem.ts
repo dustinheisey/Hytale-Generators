@@ -1,5 +1,5 @@
-import type { BlockCfg, Builder } from "hytale-generators";
-import { builder, deriveEffectColors, global, json, lang, texture } from "hytale-generators";
+import type { BlockCfg, Builder } from "../../../index.js";
+import { builder, deriveEffectColors, global, json, lang, texture } from "../../../index.js";
 
 export type GemCfg = BlockCfg;
 

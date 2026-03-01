@@ -1,9 +1,8 @@
-import type { HasIcon, HasId } from "hytale-generators";
-import { global } from "hytale-generators";
-
-const { modId } = global();
+import type { HasIcon, HasId } from "../../index.js";
+import { global } from "../../index.js";
 
 export function withTranslationProperties(cfg: HasId): object {
+  const { modId } = global();
   const { id } = cfg;
   return {
     translationProperties: {

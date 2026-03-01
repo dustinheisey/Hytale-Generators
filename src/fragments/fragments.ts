@@ -1,5 +1,5 @@
-import { itemFragments } from "hytale-generators";
+import { itemFragments } from "./item/item.js";
 
 export const fragments = {
-  item: itemFragments
+  ...itemFragments
 };

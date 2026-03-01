@@ -1,5 +1,5 @@
-import type { Builder, HasId } from "hytale-generators";
-import { builderWithDefaults } from "hytale-generators";
+import type { Builder, HasId } from "../../index.js";
+import { builderWithDefaults } from "../../index.js";
 
 /** One entry in a builder group. */
 export type GroupType<C extends HasId, Id extends string = string> = Readonly<{

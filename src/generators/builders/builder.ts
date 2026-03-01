@@ -1,12 +1,12 @@
-import type { HasId } from "hytale-generators";
-import type { Tagged } from "type-fest";
-
+import type { HasId } from "../../index.js";
 /**
- * Opaque wrapper used only to stop IntelliSense from expanding huge recursive types in hovers.
- * Doesn't change runtime behavior.
+ * Hover<T>
+ * Local wrapper to discourage IntelliSense from eagerly expanding huge recursive types.
+ * Unlike type-fest's Tagged, this won't leak external private types into .d.ts output.
+ *
+ * This is structurally identical to T at compile-time.
  */
-type Hover<T> = Tagged<T, "Stage">;
-
+type Hover<T> = T & { readonly __stageHover?: "Stage" };
 /**
  * OptionalKeys<T>
  * Produces a union of keys that are optional in T.

@@ -1,4 +1,4 @@
-import type { AutoComplete, HasId } from "hytale-generators";
+import type { AutoComplete, HasId } from "../../index.js";
 
 export type BlockTexture = {
   texture?: string;

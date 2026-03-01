@@ -1,4 +1,4 @@
-import { global, syncFile } from "hytale-generators";
+import { global, syncFile } from "../index.js";
 import fs from "node:fs";
 
 export interface LangConfig {

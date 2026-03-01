@@ -1,5 +1,5 @@
-import type { Builder, HasAnyInput, HasAnyOutput, HasId, HasTier, HasTime } from "hytale-generators";
-import { builder, json, parseIngredients } from "hytale-generators";
+import type { Builder, HasAnyInput, HasAnyOutput, HasId, HasTier, HasTime } from "../../index.js";
+import { builder, json, parseIngredients } from "../../index.js";
 
 export type FurnaceRecipeCfg = HasId & HasAnyInput & HasAnyOutput & HasTime & HasTier<2>;
 

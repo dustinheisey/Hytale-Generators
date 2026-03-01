@@ -1,5 +1,5 @@
-import type { Builder } from "hytale-generators";
-import { builder, isNumber, json } from "hytale-generators";
+import type { Builder } from "../../../index.js";
+import { builder, isNumber, json } from "../../../index.js";
 
 export type Vector3d = number | { x: number; y: number; z: number };
 
