@@ -3,8 +3,16 @@ import type { Ingredient } from "hytale-generators";
 /**
  * Map a string or string[] into an array of outputs.
  */
-export function spreadItems<T>(input: string | string[], func: (input: string) => T): T[] {
-  return typeof input === "string" ? [func(input)] : input.map(func);
+export function spreadItems(input: string | string[]): string[];
+export function spreadItems<T>(input: string | string[], func: (input: string) => T): T[];
+export function spreadItems<T>(input: string | string[], func?: (input: string) => T): (T | string)[] {
+  const arr = typeof input === "string" ? [input] : input;
+  if (!func) return arr;
+  return arr.map(func);
+}
+
+export function parseIngredients(input: string | string[]): Ingredient[] {
+  return spreadItems(input, parseIngredient);
 }
 
 export function parseIngredient(input: string): Ingredient {
