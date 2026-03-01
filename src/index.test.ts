@@ -1,84 +1,75 @@
-import {
-  alchemy,
-  alloy,
-  arcane,
-  armor,
-  campfire,
-  categories,
-  cooking,
-  farming,
-  furnace,
-  furniture,
-  gem,
-  loom,
-  manifest,
-  metal,
-  resourceType,
-  salvage,
-  setGlobal,
-  tannery,
-  weapon,
-  workbench
-} from "./index.js";
+import { categories, ingredients, manifest, resourceType, setGlobal } from "hytale-generators";
 
-setGlobal("UnifiedMaterials");
+setGlobal("HytaleGenerators");
 
-manifest({
-  group: "Inconvenient",
-  name: "ExamplePack",
-  version: "0.1.0",
-  description: "This is an example pack",
-  authors: [
-    {
-      name: "Example Name",
-      url: "https://www.example.com"
-    }
-  ],
-  website: "https://www.example.com"
-});
+manifest()
+  .group("Inconvenient")
+  .name("HytaleGenerators")
+  .version("0.3.0")
+  .description("This is an example pack")
+  .authors([{ name: "Example Name", url: "https://www.example.com" }])
+  .website("https://www.example.com")
+  .serverVersion("3432434")
+  .build();
 
-categories({
-  children: ["Gases", "Fluids", "Ores", "Gems", "Dusts", "Ingots", { id: "Alloys", icon: "Ingots" }]
-});
+categories()
+  .children(["Gases", "Fluids", "Ores", "Gems", "Dusts", "Ingots", { id: "Alloys", icon: "Ingots" }])
+  .build();
 
-resourceType("Dusts", "Rock");
-resourceType("Alloys", "Rock");
+resourceType("Dusts").icon("Rock").build();
+resourceType("Alloys").icon("Rock").build();
 
-alchemy("alchemy", "Alchemy_Potions", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-arcane("arcane", "Arcane_Misc", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-armor("armor", "Armor_Chest", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-campfire("campfire", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-cooking("cooking", "Baked", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-farming("farming", "Decorative", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-furnace("furnace", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-furniture("furniture", "Furniture_Beds", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-loom("loom", "All", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-salvage("salvage", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-tannery("tannery", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-weapon("weapon", "Weapon_Battleaxe", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-workbench("workbench", "Workbench_Crafting", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// alchemy("alchemy", "Alchemy_Potions", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// arcane("arcane", "Arcane_Misc", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// armor("armor", "Armor_Chest", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// campfire("campfire", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// cooking("cooking", "Baked", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// farming("farming", "Decorative", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// furnace("furnace", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// furniture("furniture", "Furniture_Beds", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// loom("loom", "All", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// salvage("salvage", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// tannery("tannery", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// weapon("weapon", "Weapon_Battleaxe", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+// workbench("workbench", "Workbench_Crafting", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
 
-metal({
-  id: "Tin",
-  color: "#dee1e1",
-  exclude: ["basalt"],
-  ores: { baseName: "Cassiterite" }
-});
+const { rods, bars, wires } = ingredients([
+  { id: "Rods", defaults: {} },
+  { id: "Bars", defaults: { baseName: "TestingName" } },
+  { id: "Wires", defaults: { mask: "Bar/Bar" } }
+]);
 
-metal({
-  id: "Copper",
-  color: "#dee1e1",
-  exclude: ["basalt"],
-  ores: { baseName: "Cassiterite", description: "Hello World" }
-});
+const { alloy, bar, dust } = ingredients();
 
-alloy({
-  id: "Bronze",
-  color: "#994844",
-  inputs: [
-    { id: "2x Ingredient_Bar_Copper", name: "Copper" },
-    { id: "Ingot_Tin", name: "Tin" }
-  ]
-});
+rods("Tin").color("#dee1e1").build();
+bars("Tin").color("#dee1e1").build();
+wires("Bronze").color("#c07e0c").build();
 
-gem({ id: "Amethyst", color: "#b741cf", maskVariant: "dark" });
+bar("Tin").color("#dee1e1").build();
+dust("Tin").color("#dee1e1").build();
+alloy("Bronze").color("#c07e0c").build();
+
+// metal({
+//   id: "Tin",
+//   color: "#dee1e1",
+//   exclude: ["basalt"],
+//   ores: { baseName: "Cassiterite" }
+// });
+
+// metal({
+//   id: "Copper",
+//   color: "#dee1e1",
+//   exclude: ["basalt"],
+//   ores: { baseName: "Cassiterite", description: "Hello World" }
+// });
+
+// alloy({
+//   id: "Bronze",
+//   color: "#994844",
+//   inputs: [
+//     { id: "2x Ingredient_Bar_Copper", name: "Copper" },
+//     { id: "Ingot_Tin", name: "Tin" }
+//   ]
+// });
+
+// gem({ id: "Amethyst", color: "#b741cf", maskVariant: "dark" });

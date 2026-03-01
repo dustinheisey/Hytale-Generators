@@ -1,27 +1,15 @@
-import {
-  builder,
-  fragments,
-  global,
-  HasBlock,
-  HasId,
-  HasItem,
-  HasLang,
-  HasTexture,
-  json,
-  lang,
-  type Builder
-} from "hytale-generators";
+import { BlockCfg, builder, fragments, global, json, lang, type Builder } from "hytale-generators";
 
 export interface HasBench {
   outputSlotsCount: number;
-  inputFilterValidIngredients: boolean;
+  filterValidIngredients: boolean;
 }
 
-export type BenchCfg = HasId & HasLang & HasTexture & HasItem & HasBlock & HasBench;
+export type BenchCfg = BlockCfg & HasBench;
 
 export const bench: Builder<BenchCfg> = builder((cfg: BenchCfg) => {
   const { modId } = global();
-  const { withTranslationProperties, withIcon } = fragments;
+  const { withTranslationProperties, withIcon } = fragments.item;
   const {
     id,
     name,
@@ -33,7 +21,7 @@ export const bench: Builder<BenchCfg> = builder((cfg: BenchCfg) => {
     blockSoundSetId,
     particleSetId,
     outputSlotsCount,
-    inputFilterValidIngredients,
+    filterValidIngredients,
     maxStack
   } = cfg;
   json(`Server/Item/Items/Benches/${id}`, {
@@ -56,7 +44,7 @@ export const bench: Builder<BenchCfg> = builder((cfg: BenchCfg) => {
         type: "Processing",
         input: [
           {
-            filterValidIngredients: inputFilterValidIngredients !== undefined ? inputFilterValidIngredients : true
+            filterValidIngredients
           }
         ],
         localOpenSoundEventId: "SFX_Workbench_Open",

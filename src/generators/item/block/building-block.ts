@@ -1,11 +1,11 @@
-import type { Builder, HasBlock, HasDrops, HasId, HasItem, HasLang, HasTexture } from "hytale-generators";
+import type { BlockCfg, Builder, HasDrops } from "hytale-generators";
 import { builder, fragments, global, json, lang } from "hytale-generators";
 
-export type BuildingBlockCfg = HasId & HasLang & HasTexture & HasItem & HasBlock & HasDrops;
+export type BuildingBlockCfg = BlockCfg & HasDrops;
 
 export const buildingBlock: Builder<BuildingBlockCfg> = builder((cfg: BuildingBlockCfg) => {
   const { modId } = global();
-  const { withTranslationProperties, withIcon } = fragments;
+  const { withTranslationProperties, withIcon } = fragments.item;
   const {
     id,
     categories,
@@ -55,7 +55,7 @@ export const buildingBlock: Builder<BuildingBlockCfg> = builder((cfg: BuildingBl
             ]
           }
         : {}),
-      particleColor: color ?? "#3d3e3e",
+      particleColor: color,
       blockSoundSetId: "Stone",
       ...(transitionTexture && transitionToGroups
         ? {

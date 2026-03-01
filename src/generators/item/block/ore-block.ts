@@ -1,5 +1,5 @@
 import type { BlockCfg, BlockTexture, Builder, HasDrops, HasStrata } from "hytale-generators";
-import { builder, fragments, global, json, langFragment, spreadItems } from "hytale-generators";
+import { builder, global, json, lang, spreadItems } from "hytale-generators";
 
 type Strata = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
 
@@ -51,6 +51,7 @@ function computeBlockTexture(block: Strata): BlockTexture {
 }
 
 export const OreBlock: Builder<OreBlockCfg> = builder((cfg: OreBlockCfg) => {
+  const { modId } = global();
   json(`Server/Item/Items/Ore/${cfg.id}/Ore_${cfg.id}_${cfg.strata}`, {
     translationProperties: {
       name: `server.items.${global().modId}.Ore_${cfg.id}_${cfg.strata}.name`,
@@ -114,10 +115,18 @@ export const OreBlock: Builder<OreBlockCfg> = builder((cfg: OreBlockCfg) => {
     itemSoundSetId: "ISS_Blocks_Stone"
   });
 
-  langFragment({
-    prefix: "Ore_",
-    suffix: `_${cfg.strata}`,
-    name: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore - ${cfg.strata}`,
-    cfg
-  });
+  lang([
+    {
+      key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.name`,
+      value: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore - ${cfg.strata}`
+    },
+    ...(cfg.description
+      ? [
+          {
+            key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.description`,
+            value: cfg.description ?? cfg.description
+          }
+        ]
+      : [])
+  ]);
 });

@@ -17,7 +17,7 @@ export default defineConfig(
       }
     },
     rules: {
-      "@typescript-eslint/no-misused-spread": undefined
+      "@typescript-eslint/no-misused-spread": "off"
     }
   },
   prettier
