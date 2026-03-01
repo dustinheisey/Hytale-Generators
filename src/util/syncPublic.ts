@@ -1,7 +1,7 @@
 import fs from "fs";
+import { global } from "hytale-generators";
 import path from "path";
 import process from "process";
-import { global } from "../index.js";
 
 /** Copy public folder contents to dist */
 export const syncPublic = (): void => {

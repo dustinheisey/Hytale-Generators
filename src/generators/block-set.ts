@@ -1,7 +1,7 @@
-import { builder, json, type Builder } from "../index.js";
+import type { Builder, HasId } from "hytale-generators";
+import { builder, json } from "hytale-generators";
 
-export interface BlockSetCfg {
-  id: string;
+export interface HasBlockSet {
   includeAll?: boolean;
   includeBlockTypes?: string[] | null;
   excludeBlockTypes?: string[] | null;
@@ -12,6 +12,7 @@ export interface BlockSetCfg {
   includeCategories?: string[][] | null;
   excludeCategories?: string[][] | null;
 }
+export type BlockSetCfg = HasId & HasBlockSet;
 
 export const blockSet: Builder<BlockSetCfg> = builder((cfg: BlockSetCfg) => {
   const { id, ...blockSetConfig } = cfg;

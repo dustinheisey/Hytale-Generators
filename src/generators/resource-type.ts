@@ -1,4 +1,4 @@
-import { builder, json, type Builder } from "../index.js";
+import { builder, json, type Builder } from "hytale-generators";
 
 type ResourceTypeCfg = {
   id: string;

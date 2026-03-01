@@ -1,5 +1,5 @@
+import type { HasId } from "hytale-generators";
 import type { Tagged } from "type-fest";
-import type { BaseCfg } from "../index.js";
 
 /**
  * Opaque wrapper used only to stop IntelliSense from expanding huge recursive types in hovers.
@@ -158,10 +158,10 @@ function proxy<T extends object>(onBuild: (cfg: T) => void, initial: Partial<T> 
  * - id is seeded immediately into the internal state
  * - build() runs buildFn with the final config object
  */
-type IdSeed<T extends BaseCfg> = Pick<T, "id">;
-export type Builder<T extends BaseCfg> = (id: T["id"]) => Stage<T, IdSeed<T>, "id">;
+type IdSeed<T extends HasId> = Pick<T, "id">;
+export type Builder<T extends HasId> = (id: T["id"]) => Stage<T, IdSeed<T>, "id">;
 
-export function builder<T extends BaseCfg>(buildFn: (v: T) => void): Builder<T> {
+export function builder<T extends HasId>(buildFn: (v: T) => void): Builder<T> {
   return (id: T["id"]) => {
     const b = proxy<T>(buildFn, { id } as Partial<T>);
     return b as ReturnType<Builder<T>>;
@@ -181,7 +181,7 @@ export function builderNoId<T extends object>(buildFn: (v: T) => void): BuilderN
   return () => proxy<T>(buildFn);
 }
 
-export function builderWithDefaults<T extends BaseCfg>(buildFn: (v: T) => void, defaults: Partial<T>): Builder<T> {
+export function builderWithDefaults<T extends HasId>(buildFn: (v: T) => void, defaults: Partial<T>): Builder<T> {
   return (id: T["id"]) => {
     // important: defaults first, then id so id always wins if present
     const b = proxy<T>(buildFn, { ...defaults, id } as Partial<T>);

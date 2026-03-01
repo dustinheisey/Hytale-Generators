@@ -1,4 +1,4 @@
-import { builderNoId, json, type BuilderNoId } from "../index.js";
+import { builderNoId, json, type BuilderNoId } from "hytale-generators";
 
 type ManifestCfg = {
   group: string;

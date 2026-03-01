@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { global, syncFile, toPascal } from "../index.js";
+import { global, syncFile, toPascal } from "hytale-generators";
 
 /**
  * Writes an object to a JSON file asynchronously (pretty-printed with 2 spaces).

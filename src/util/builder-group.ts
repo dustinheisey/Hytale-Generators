@@ -1,19 +1,19 @@
-import type { BaseCfg, Builder } from "../index.js";
-import { builderWithDefaults } from "../index.js";
+import type { Builder, HasId } from "hytale-generators";
+import { builderWithDefaults } from "hytale-generators";
 
 /** One entry in a builder group. */
-export type GroupType<C extends BaseCfg, Id extends string = string> = Readonly<{
+export type GroupType<C extends HasId, Id extends string = string> = Readonly<{
   id: Id;
   defaults: Partial<C>;
 }>;
 
 /** Base defaults applied to every spec (excluding `id`, since builders seed it). */
-export type Defaults<C extends BaseCfg> = Partial<Omit<C, "id">>;
+export type Defaults<C extends HasId> = Partial<Omit<C, "id">>;
 
 type SpecIds<Specs extends readonly { id: string }[]> = Specs[number]["id"];
 
 /** The returned object shape: lowercase keys → id-seeded staged builders. */
-export type BuilderGroup<C extends BaseCfg, Specs extends readonly { id: string }[]> = {
+export type BuilderGroup<C extends HasId, Specs extends readonly { id: string }[]> = {
   [K in Lowercase<SpecIds<Specs>>]: Builder<C>;
 };
 
@@ -33,7 +33,7 @@ function fromEntriesTyped<K extends PropertyKey, V>(entries: readonly (readonly 
  *   ingredients()              // uses default specs
  *   ingredients(customSpecs)   // uses custom specs
  */
-export function group<C extends BaseCfg>() {
+export function group<C extends HasId>() {
   return function defineGroup<const DefaultSpecs extends readonly GroupType<C>[]>(
     defaultSpecs: DefaultSpecs,
     build: (cfg: C, spec: DefaultSpecs[number]) => void,
