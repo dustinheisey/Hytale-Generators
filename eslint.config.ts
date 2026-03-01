@@ -15,6 +15,9 @@ export default defineConfig(
         projectService: true,
         tsconfigRootDir: import.meta.dirname
       }
+    },
+    rules: {
+      "@typescript-eslint/no-misused-spread": undefined
     }
   },
   prettier
