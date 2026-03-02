@@ -17,7 +17,6 @@ export * from "./fragments/meta/meta.types.js";
 
 export * from "./generators/builders/builder-group.js";
 export * from "./generators/builders/builder.js";
-export * from "./generators/builders/registry.js";
 
 export * from "./generators/item/block/bench.js";
 export * from "./generators/item/block/block-set.js";

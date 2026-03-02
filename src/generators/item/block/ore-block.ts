@@ -50,7 +50,7 @@ function computeBlockTexture(block: Strata): BlockTexture {
   return texture;
 }
 
-export const OreBlock: Builder<OreBlockCfg> = builder((cfg: OreBlockCfg) => {
+export const oreBlock: Builder<OreBlockCfg> = builder((cfg: OreBlockCfg) => {
   const { modId } = global();
   json(`Server/Item/Items/Ore/${cfg.id}/Ore_${cfg.id}_${cfg.strata}`, {
     translationProperties: {

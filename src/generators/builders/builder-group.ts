@@ -1,5 +1,5 @@
 import type { Builder, HasId } from "../../index.js";
-import { builderWithDefaults } from "../../index.js";
+import { builder } from "../../index.js";
 
 /** One entry in a builder group. */
 export type GroupType<C extends HasId, Id extends string = string> = Readonly<{
@@ -12,7 +12,7 @@ export type Defaults<C extends HasId> = Partial<Omit<C, "id">>;
 
 type SpecIds<Specs extends readonly { id: string }[]> = Specs[number]["id"];
 
-/** The returned object shape: lowercase keys → id-seeded staged builders. */
+/** The returned object shape: lowercase keys → id-seeded staged builders (with .many baked in). */
 export type BuilderGroup<C extends HasId, Specs extends readonly { id: string }[]> = {
   [K in Lowercase<SpecIds<Specs>>]: Builder<C>;
 };
@@ -56,13 +56,19 @@ export function group<C extends HasId>() {
       return fromEntriesTyped(
         useSpecs.map(spec => {
           const key = spec.id.toLowerCase() as Lowercase<typeof spec.id>;
+
+          // Merge base defaults + spec defaults.
+          // Note: builder enforces id seeding (id always wins), and runtime hides id setter.
           const seeded = { ...defaults, ...spec.defaults } as Partial<C>;
 
           return [
             key,
-            builderWithDefaults<C>(cfg => {
-              useBuild(cfg, spec);
-            }, seeded)
+            builder<C>(
+              cfg => {
+                useBuild(cfg, spec);
+              },
+              { defaults: seeded }
+            )
           ] as const;
         })
       ) as BuilderGroup<C, Specs>;

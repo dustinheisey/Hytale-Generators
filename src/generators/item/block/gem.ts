@@ -3,7 +3,7 @@ import { builder, deriveEffectColors, global, json, lang, texture } from "../../
 
 export type GemCfg = BlockCfg;
 
-export const Gem: Builder<GemCfg> = builder((cfg: GemCfg) => {
+export const gem: Builder<GemCfg> = builder((cfg: GemCfg) => {
   const { modId } = global();
   const { light, interact, sparks } = deriveEffectColors(cfg.color);
   json(`Server/Item/Items/Gems/Rock_Gem_${cfg.id}`, {

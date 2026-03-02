@@ -43,8 +43,7 @@
     "clear": "rimraf dist test",
     "build": "tsc -p tsconfig.build.json",
     "build:clear": "npm run clear && npm run build",
-    "tooling": "tsc -p tsconfig.tools.json",
-    "test": "tsc -p tsconfig.test.json && node test/index.test.js",
+    "test": "tsc -p tsconfig.build.json && node dist/index.test.js",
     "test:clear": "npm run clear && npm run test"
   },
   "devDependencies": {
