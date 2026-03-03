@@ -1,4 +1,4 @@
-import type { Builder, HasId } from "../../../index.js";
+import type { HasId } from "../../../index.js";
 import { builder, json } from "../../../index.js";
 
 export interface HasBlockSet {
@@ -14,7 +14,10 @@ export interface HasBlockSet {
 }
 export type BlockSetCfg = HasId & HasBlockSet;
 
-export const blockSet: Builder<BlockSetCfg> = builder((cfg: BlockSetCfg) => {
-  const { id, ...blockSetConfig } = cfg;
-  json(`/Server/Item/Block/Sets/${id}`, blockSetConfig);
+export const blockSet = builder({
+  init: (id: string) => ({ id }),
+  build: (cfg: BlockSetCfg) => {
+    const { id, ...blockSetConfig } = cfg;
+    json(`/Server/Item/Block/Sets/${id}`, blockSetConfig);
+  }
 });

@@ -9,7 +9,7 @@ import * as path from "path";
  * and creates it recursively if missing.
  * @param file - Full or relative path to the file whose parent directory should exist.
  * @example
- * syncDir("locales/en/messages.properties"); // creates "locales/en" if needed
+ * dir("locales/en/messages.properties"); // creates "locales/en" if needed
  */
 export function syncDir(file: string) {
   const dir = path.dirname(file);

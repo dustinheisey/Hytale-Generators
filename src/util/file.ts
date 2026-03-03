@@ -1,5 +1,5 @@
-import { syncDir } from "../index.js";
 import * as fs from "fs";
+import { syncDir } from "../index.js";
 
 /**
  * Ensures a file exists on disk.
@@ -7,22 +7,14 @@ import * as fs from "fs";
  * If the file does not exist, it is created with empty contents. If it already
  * exists, this does nothing.
  *
- * Note: This function does not create parent directories. Pair it with `syncDir`
+ * Note: This function does not create parent directories. Pair it with `dir`
  * when the directory may not exist.
  * @param file - Full or relative path to the file to create if missing.
  * @example
  * syncDir("locales/en/messages.properties");
  * createFile("locales/en/messages.properties");
  */
-export function createFile(file: string) {
-  if (!fs.existsSync(file)) fs.writeFileSync(file, "");
-}
-
-/**
- *
- * @param file - Full or relative path to the file to create if missing.
- */
 export function syncFile(file: string) {
   syncDir(file);
-  createFile(file);
+  if (!fs.existsSync(file)) fs.writeFileSync(file, "");
 }

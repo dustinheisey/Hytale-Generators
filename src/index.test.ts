@@ -14,9 +14,9 @@ import {
   furniture,
   gem,
   hitbox,
-  ingredients,
   loom,
   manifest,
+  materials,
   ore,
   oreBlock,
   resourceType,
@@ -144,10 +144,9 @@ gem("gem").color("#000000").build();
 oreBlock("Tin").color("#000000").strata("Basalt").build();
 hitbox("hitbox").max(1).min(0).build();
 
-const {dust, alloy, bar} = ingredients();
+const { dust, alloy, bar } = materials();
 dust("dust").color("#000000").build();
 alloy("alloy").color("#000000").build();
 bar("bar").color("#000000").build();
 
 ore("ore").color("#000000").build();
-

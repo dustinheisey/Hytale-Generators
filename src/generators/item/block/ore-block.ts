@@ -1,4 +1,4 @@
-import type { BlockCfg, BlockTexture, Builder, HasDrops, HasStrata } from "../../../index.js";
+import type { BlockCfg, BlockTexture, HasDrops, HasStrata } from "../../../index.js";
 import { builder, global, json, lang, spreadItems } from "../../../index.js";
 
 type Strata = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
@@ -50,83 +50,86 @@ function computeBlockTexture(block: Strata): BlockTexture {
   return texture;
 }
 
-export const oreBlock: Builder<OreBlockCfg> = builder((cfg: OreBlockCfg) => {
-  const { modId } = global();
-  json(`Server/Item/Items/Ore/${cfg.id}/Ore_${cfg.id}_${cfg.strata}`, {
-    translationProperties: {
-      name: `server.items.${global().modId}.Ore_${cfg.id}_${cfg.strata}.name`,
-      description: `server.items.${global().modId}.Ore_${cfg.id}_${cfg.strata}.description`
-    },
-    categories: cfg.categories ?? ["Blocks.Ores", `${global().modId}.Ores`],
-    ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ore_${cfg.id}_${cfg.strata}.png` } : {}),
-    blockType: {
-      material: "Solid" as const,
-      drawType: "CubeWithModel" as const,
-      customModel: `Resources/Ores/${cfg.model ?? "Ore_Large"}.blockymodel`,
-      customModelTexture: [
-        {
-          texture: `Resources/Ores/${cfg.texture ?? cfg.id}.png`,
-          weight: 1
-        }
-      ],
-      group: "Stone",
-      flags: {},
-      randomRotation: "YawStep90" as const,
-      gathering: {
-        breaking: {
-          gatherType: "OreIron",
-          dropList: {
-            container: {
-              type: "Multiple" as const,
-              containers: [
-                ...(cfg.drops
-                  ? spreadItems(cfg.drops, drop => ({
-                      type: "Single" as const,
-                      item: { drop }
-                    }))
-                  : [
-                      {
+export const oreBlock = builder({
+  init: (id: string) => ({ id }),
+  build: (cfg: OreBlockCfg) => {
+    const { modId } = global();
+    json(`Server/Item/Items/Ore/${cfg.id}/Ore_${cfg.id}_${cfg.strata}`, {
+      translationProperties: {
+        name: `server.items.${global().modId}.Ore_${cfg.id}_${cfg.strata}.name`,
+        description: `server.items.${global().modId}.Ore_${cfg.id}_${cfg.strata}.description`
+      },
+      categories: cfg.categories ?? ["Blocks.Ores", `${global().modId}.Ores`],
+      ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ore_${cfg.id}_${cfg.strata}.png` } : {}),
+      blockType: {
+        material: "Solid" as const,
+        drawType: "CubeWithModel" as const,
+        customModel: `Resources/Ores/${cfg.model ?? "Ore_Large"}.blockymodel`,
+        customModelTexture: [
+          {
+            texture: `Resources/Ores/${cfg.texture ?? cfg.id}.png`,
+            weight: 1
+          }
+        ],
+        group: "Stone",
+        flags: {},
+        randomRotation: "YawStep90" as const,
+        gathering: {
+          breaking: {
+            gatherType: "OreIron",
+            dropList: {
+              container: {
+                type: "Multiple" as const,
+                containers: [
+                  ...(cfg.drops
+                    ? spreadItems(cfg.drops, drop => ({
                         type: "Single" as const,
-                        item: { itemId: `Ore${cfg.id}${cfg.strata}` }
-                      }
-                    ]),
-                {
-                  type: "Single" as const,
-                  item: {
-                    itemId: `Rock_${cfg.strata}_Cobble`
+                        item: { drop }
+                      }))
+                    : [
+                        {
+                          type: "Single" as const,
+                          item: { itemId: `Ore${cfg.id}${cfg.strata}` }
+                        }
+                      ]),
+                  {
+                    type: "Single" as const,
+                    item: {
+                      itemId: `Rock_${cfg.strata}_Cobble`
+                    }
                   }
-                }
-              ] as const
+                ] as const
+              }
             }
           }
-        }
+        },
+        blockParticleSetId: "Ore",
+        textures: [computeBlockTexture(cfg.strata)],
+        blockSoundSetId: "Ore",
+        particleColor: cfg.color
       },
-      blockParticleSetId: "Ore",
-      textures: [computeBlockTexture(cfg.strata)],
-      blockSoundSetId: "Ore",
-      particleColor: cfg.color
-    },
-    playerAnimationsId: "Block" as const,
-    tags: {
-      Type: ["Ore"],
-      Family: ["Cobalt"]
-    },
-    maxStack: cfg.maxStack || 100,
-    itemSoundSetId: "ISS_Blocks_Stone"
-  });
+      playerAnimationsId: "Block" as const,
+      tags: {
+        Type: ["Ore"],
+        Family: ["Cobalt"]
+      },
+      maxStack: cfg.maxStack || 100,
+      itemSoundSetId: "ISS_Blocks_Stone"
+    });
 
-  lang([
-    {
-      key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.name`,
-      value: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore - ${cfg.strata}`
-    },
-    ...(cfg.description
-      ? [
-          {
-            key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.description`,
-            value: cfg.description ?? cfg.description
-          }
-        ]
-      : [])
-  ]);
+    lang([
+      {
+        key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.name`,
+        value: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore - ${cfg.strata}`
+      },
+      ...(cfg.description
+        ? [
+            {
+              key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.description`,
+              value: cfg.description ?? cfg.description
+            }
+          ]
+        : [])
+    ]);
+  }
 });

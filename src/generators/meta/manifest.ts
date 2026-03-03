@@ -1,4 +1,4 @@
-import { builderNoId, json, type BuilderNoId } from "../../index.js";
+import { builder, json } from "../../index.js";
 
 type ManifestCfg = {
   group: string;
@@ -19,6 +19,8 @@ type ManifestCfg = {
   subPlugins?: [];
 };
 
-export const manifest: BuilderNoId<ManifestCfg> = builderNoId(cfg => {
-  json(`manifest`, cfg);
+export const manifest = builder({
+  build: (cfg: ManifestCfg) => {
+    json(`manifest`, cfg);
+  }
 });

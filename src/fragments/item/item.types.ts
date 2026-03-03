@@ -20,39 +20,41 @@ export interface HasLang {
   description?: string;
 }
 
+type Tab = AutoComplete<
+  | "Items"
+  | "Items.Tools"
+  | "Items.Weapons"
+  | "Items.Armors"
+  | "Items.Foods"
+  | "Items.Potions"
+  | "Items.Recipes"
+  | "Items.Ingredients"
+  | "Tool.BuilderTool"
+  | "Tool.BuilderToolSecondPage"
+  | "Tool.ScriptedBrushes"
+  | "Tool.Block"
+  | "Tool.BrushFilters"
+  | "Tool.Machinima"
+  | "Blocks.Rocks"
+  | "Blocks.Structural"
+  | "Blocks.Soils"
+  | "Blocks.Ores"
+  | "Blocks.Plants"
+  | "Blocks.Fluids"
+  | "Blocks.Portals"
+  | "Blocks.Deco"
+  | "Furniture.Benches"
+  | "Furniture.Containers"
+  | "Furniture.Furniture"
+  | "Furniture.Doors"
+  | "Furniture.Lighting"
+  | "Furniture.Beds"
+  | "Furniture.Shelves"
+  | "Furniture.Signs"
+>;
+
 export interface HasItem {
-  categories?: AutoComplete<
-    | "Items"
-    | "Items.Tools"
-    | "Items.Weapons"
-    | "Items.Armors"
-    | "Items.Foods"
-    | "Items.Potions"
-    | "Items.Recipes"
-    | "Items.Ingredients"
-    | "Tool.BuilderTool"
-    | "Tool.BuilderToolSecondPage"
-    | "Tool.ScriptedBrushes"
-    | "Tool.Block"
-    | "Tool.BrushFilters"
-    | "Tool.Machinima"
-    | "Blocks.Rocks"
-    | "Blocks.Structural"
-    | "Blocks.Soils"
-    | "Blocks.Ores"
-    | "Blocks.Plants"
-    | "Blocks.Fluids"
-    | "Blocks.Portals"
-    | "Blocks.Deco"
-    | "Furniture.Benches"
-    | "Furniture.Containers"
-    | "Furniture.Furniture"
-    | "Furniture.Doors"
-    | "Furniture.Lighting"
-    | "Furniture.Beds"
-    | "Furniture.Shelves"
-    | "Furniture.Signs"
-  >;
+  categories?: Tab | Tab[];
   level?: number;
   maxStack?: number;
   quality?: "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary";
@@ -90,6 +92,8 @@ export interface HasBlock {
 export interface HasDrops {
   gatherType?: string;
   drops?: string | string[];
+  dropQuantity?: number;
+  dropQuality?: number;
 }
 
 export interface HasStrata {

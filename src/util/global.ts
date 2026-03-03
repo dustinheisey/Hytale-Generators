@@ -1,6 +1,7 @@
 export interface GlobalCfg {
   modId: string;
   outDir: string;
+  [key: string]: unknown;
 }
 
 let currentGlobal: GlobalCfg | null = null;
