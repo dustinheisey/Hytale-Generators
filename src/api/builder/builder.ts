@@ -1,4 +1,4 @@
-import { isString } from "../../index.js";
+import { flatten, isRecord, isString, type Flatten } from "../../index.js";
 import { createStageProxy, type Stage } from "./stage-proxy.js";
 
 export type BuilderCfg<Config extends object> = {
@@ -31,10 +31,12 @@ export type ManyBuilder<Config extends object> = {
   build(): void;
 };
 
+type ManyInput<Config extends object> = Config extends { id: string } ? Flatten<Config | string> : Flatten<Config>;
+
 export type Builder<Config extends object, Args extends readonly unknown[], Init extends Partial<Config>> = ((
   ...args: Args
 ) => Stage<Config, SetFromInit<Init>, DefaultHiddenKeys<Config>>) & {
-  many(configs: Config extends { id: string } ? Array<Config | string> : Config[]): ManyBuilder<Config>;
+  many(configs: ManyInput<Config>): ManyBuilder<Config>;
 };
 
 export function builder<
@@ -104,12 +106,21 @@ export function builder<
   single.many = (cfgs: Array<Config | string>) => {
     type State = Record<string, unknown>;
 
-    const items = cfgs.map(c => {
-      const explicit: State = isString(c) ? { id: c } : (c as unknown as State);
+    if (!(Array.isArray(cfgs) || isRecord(cfgs))) {
+      throw new TypeError("many() expects an array or nested object of arrays");
+    }
+
+    // Normalize nested input -> flat array of values
+    const normalized = flatten(cfgs);
+
+    const items = normalized.map(c => {
+      // If it's a string, treat it as {id: string}. This only *works* when Config has id.
+      // Overloads prevent calling many() with strings when Config lacks id.
+      const explicit: State = isString(c) ? { id: c } : (c as State);
 
       return {
-        state: { ...defaults, ...explicit } as State, // explicit overrides defaults ✅
-        locked: new Set(Object.keys(explicit)) // explicit keys cannot be overridden ✅
+        state: { ...defaults, ...explicit } as State,
+        locked: new Set(Object.keys(explicit))
       };
     });
 
