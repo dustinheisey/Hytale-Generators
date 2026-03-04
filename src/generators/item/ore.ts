@@ -9,10 +9,10 @@ export const ore = builder({
     const { modId } = global();
     json(`Server/Item/Items/Ore/${cfg.id}/Ore_${cfg.id}`, {
       translationProperties: {
-        name: `server.items.${global().modId}.Ore_${cfg.id}.name`,
-        description: `server.items.${global().modId}.Ore_${cfg.id}.description`
+        name: `server.items.${modId}.Ore_${cfg.id}.name`,
+        description: `server.items.${modId}.Ore_${cfg.id}.description`
       },
-      categories: cfg.categories ?? ["Blocks.Ores", `${global().modId}.Ores`],
+      categories: cfg.categories ?? ["Blocks.Ores", `${modId}.Ores`],
       model: `Resources/Ores/${cfg.model ?? "Ore_Large"}.blockymodel`,
       texture: `Resources/Ores/${cfg.texture ?? cfg.id}.png`,
       ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ore_${cfg.id}.png` } : {}),

@@ -8,7 +8,7 @@ export type Child =
     }
   | string;
 
-type CategoriesCfg = {
+export type CategoriesCfg = {
   icon?: string;
   name?: string;
   order?: number;

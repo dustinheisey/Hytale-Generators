@@ -1,6 +1,6 @@
 import { builder, json } from "../../index.js";
 
-type ResourceTypeCfg = {
+export type ResourceTypeCfg = {
   id: string;
   icon?: string;
 };

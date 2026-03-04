@@ -10,11 +10,11 @@ export const gem = builder({
     const { light, interact, sparks } = deriveEffectColors(cfg.color);
     json(`Server/Item/Items/Gems/Rock_Gem_${cfg.id}`, {
       translationProperties: {
-        name: `server.items.${global().modId}.Rock_Gem_${cfg.id}.name`,
-        description: `server.items.${global().modId}.Rock_Gem_${cfg.id}.description`
+        name: `server.items.${modId}.Rock_Gem_${cfg.id}.name`,
+        description: `server.items.${modId}.Rock_Gem_${cfg.id}.description`
       },
       ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Rock_Gem_${cfg.id}.png` } : {}),
-      categories: cfg.categories ?? ["Blocks.Ores", `${global().modId}.Gems`],
+      categories: cfg.categories ?? ["Blocks.Ores", `${modId}.Gems`],
       playerAnimationsId: "Block" as const,
       blockType: {
         material: "Solid" as const,

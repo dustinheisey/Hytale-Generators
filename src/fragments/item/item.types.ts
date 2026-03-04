@@ -64,7 +64,17 @@ export interface HasItem {
 
 export interface HasIcon {
   icon?: boolean;
+  iconProperties?: {
+    Scale: number;
+    Rotation: [number, number, number];
+    Translation: [number, number];
+  };
 }
+
+export type HasFilter<T extends string> = {
+  include?: T[];
+  exclude?: T[];
+};
 
 export type HasTexture<T extends string> = HasIcon & {
   color: string;

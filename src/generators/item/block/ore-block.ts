@@ -56,10 +56,10 @@ export const oreBlock = builder({
     const { modId } = global();
     json(`Server/Item/Items/Ore/${cfg.id}/Ore_${cfg.id}_${cfg.strata}`, {
       translationProperties: {
-        name: `server.items.${global().modId}.Ore_${cfg.id}_${cfg.strata}.name`,
-        description: `server.items.${global().modId}.Ore_${cfg.id}_${cfg.strata}.description`
+        name: `server.items.${modId}.Ore_${cfg.id}_${cfg.strata}.name`,
+        description: `server.items.${modId}.Ore_${cfg.id}_${cfg.strata}.description`
       },
-      categories: cfg.categories ?? ["Blocks.Ores", `${global().modId}.Ores`],
+      categories: cfg.categories ?? ["Blocks.Ores", `${modId}.Ores`],
       ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ore_${cfg.id}_${cfg.strata}.png` } : {}),
       blockType: {
         material: "Solid" as const,
