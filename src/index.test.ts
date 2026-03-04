@@ -1,8 +1,11 @@
 import {
   alchemy,
-  alloy,
   arcane,
   armor,
+  bench,
+  blockSet,
+  builders,
+  buildingBlock,
   campfire,
   categories,
   cooking,
@@ -10,9 +13,12 @@ import {
   furnace,
   furniture,
   gem,
+  hitbox,
   loom,
   manifest,
-  metal,
+  materials,
+  ore,
+  oreBlock,
   resourceType,
   salvage,
   setGlobal,
@@ -21,64 +27,126 @@ import {
   workbench
 } from "./index.js";
 
-setGlobal("UnifiedMaterials");
+setGlobal({ modId: "HytaleGenerators", outDir: "test" });
 
-manifest({
-  group: "Inconvenient",
-  name: "ExamplePack",
-  version: "0.1.0",
-  description: "This is an example pack",
-  authors: [
-    {
-      name: "Example Name",
-      url: "https://www.example.com"
-    }
-  ],
-  website: "https://www.example.com"
-});
+manifest()
+  .name("Example")
+  .authors([{ name: "sdfsf" }])
+  .description("sdfsdf")
+  .group("sdfsf")
+  .serverVersion("dfsf")
+  .version("sdfsf")
+  .website("sdfsf")
+  .build();
 
-categories({
-  children: ["Gases", "Fluids", "Ores", "Gems", "Dusts", "Ingots", { id: "Alloys", icon: "Ingots" }]
-});
+categories()
+  .children(["hello", { id: "hello2", icon: "rocks" }])
+  .build();
 
-resourceType("Dusts", "Rock");
-resourceType("Alloys", "Rock");
+resourceType
+  .many([
+    { id: "hello", icon: "Rock" },
+    { id: "hello2", icon: "Rock" },
+    { id: "hello3", icon: "Rock" },
+    { id: "hello4", icon: "Rock" },
+    { id: "hello5", icon: "Rock" },
+    { id: "hello6", icon: "Rock" },
+    { id: "hello7", icon: "Rock" }
+  ])
+  .build();
 
-alchemy("alchemy", "Alchemy_Potions", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-arcane("arcane", "Arcane_Misc", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-armor("armor", "Armor_Chest", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-campfire("campfire", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-cooking("cooking", "Baked", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-farming("farming", "Decorative", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-furnace("furnace", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-furniture("furniture", "Furniture_Beds", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-loom("loom", "All", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-salvage("salvage", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-tannery("tannery", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-weapon("weapon", "Weapon_Battleaxe", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
-workbench("workbench", "Workbench_Crafting", "2x Ingredient_Bar_Adamantite", "2x Ingredient_Bar_Thorium", 10);
+alchemy("alchemy")
+  .categories("Alchemy_Bombs")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .tier(2)
+  .build();
 
-metal({
-  id: "Tin",
-  color: "#dee1e1",
-  exclude: ["basalt"],
-  ores: { baseName: "Cassiterite" }
-});
+arcane("arcane")
+  .categories("Arcane_Misc")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .build();
 
-metal({
-  id: "Copper",
-  color: "#dee1e1",
-  exclude: ["basalt"],
-  ores: { baseName: "Cassiterite", description: "Hello World" }
-});
+armor("armor")
+  .categories("Armor_Chest")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .tier(2)
+  .build();
 
-alloy({
-  id: "Bronze",
-  color: "#994844",
-  inputs: [
-    { id: "2x Ingredient_Bar_Copper", name: "Copper" },
-    { id: "Ingot_Tin", name: "Tin" }
-  ]
-});
+cooking("cooking")
+  .categories("Baked")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .build();
 
-gem({ id: "Amethyst", color: "#b741cf", maskVariant: "dark" });
+farming("farming")
+  .categories("Decorative")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .tier(2)
+  .build();
+
+furniture("furniture")
+  .categories("Furniture_Beds")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .build();
+
+loom("loom")
+  .categories("All")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .build();
+
+weapon("weapon")
+  .categories("Weapon_Battleaxe")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .tier(2)
+  .build();
+
+workbench("workbench")
+  .categories("Workbench_Crafting")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .tier(2)
+  .build();
+
+alchemy("alchemy")
+  .categories("Alchemy_Bombs")
+  .input("2x Ingredient_Bar_Adamantite")
+  .output("3x Ingredient_Bar_Thorium")
+  .time(14)
+  .tier(2)
+  .build();
+
+builders("builders").input("Ingredient_Bar_Adamantite").output("Ingredient_Bar_Thorium").build();
+campfire("campfire").input("Ingredient_Bar_Adamantite").output("Ingredient_Bar_Thorium").time(14).build();
+salvage("salvage").input("Ingredient_Bar_Adamantite").output("Ingredient_Bar_Thorium").time(14).build();
+tannery("tannery").input("Ingredient_Bar_Adamantite").output("Ingredient_Bar_Thorium").time(14).build();
+furnace("furnace").input("Ingredient_Bar_Adamantite").output("Ingredient_Bar_Thorium").time(14).build();
+
+bench("bench").color("#000000").filterValidIngredients(true).outputSlotsCount(6).build();
+blockSet("blockset").includeBlockGroups(["Waste"]).build();
+buildingBlock("buildingBlock").color("#000000").build();
+gem("gem").color("#000000").build();
+oreBlock("Tin").color("#000000").strata("Basalt").build();
+hitbox("hitbox").max(1).min(0).build();
+
+const { dust, alloy, bar } = materials();
+dust("dust").color("#000000").build();
+alloy("alloy").color("#000000").build();
+bar("bar").color("#000000").build();
+
+ore("ore").color("#000000").build();

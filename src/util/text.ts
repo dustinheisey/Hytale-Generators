@@ -56,7 +56,7 @@ export type Pascal<T> = T extends Primitive
 
 export function toPascal<T>(input: T): Pascal<T>;
 export function toPascal(input: unknown): unknown {
-  if (Array.isArray(input)) return input.map(toPascal);
+  if (Array.isArray(input)) return (input as unknown[]).map(x => toPascal(x));
 
   if (typeof input === "object" && input !== null) {
     const out: Record<string, unknown> = {};

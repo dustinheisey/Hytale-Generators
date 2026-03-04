@@ -5,6 +5,9 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   {
+    ignores: ["dist"]
+  },
+  {
     files: ["**/*.ts"],
     extends: [eslint.configs.recommended, tseslint.configs.strictTypeChecked],
     languageOptions: {
@@ -12,6 +15,10 @@ export default defineConfig(
         projectService: true,
         tsconfigRootDir: import.meta.dirname
       }
+    },
+    rules: {
+      "@typescript-eslint/no-misused-spread": "off",
+      "@typescript-eslint/no-empty-object-type": "off"
     }
   },
   prettier

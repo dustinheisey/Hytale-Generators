@@ -1,0 +1,30 @@
+import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTier, HasTime } from "../../index.js";
+import { builder, json, parseIngredients, spreadItems } from "../../index.js";
+
+export type FarmingCfg = HasId &
+  HasAnyInput &
+  HasSingleOutput &
+  HasTime &
+  HasTier<9> &
+  HasCategories<"Farming" | "Seeds" | "Saplings" | "Essence" | "Planters" | "Decorative">;
+
+export const farming = builder({
+  init: (id: string) => ({ id }),
+  build: (cfg: FarmingCfg) => {
+    const { id, input, output, time, tier, categories } = cfg;
+    json(`/Server/Item/Recipes/Farming/Farming_${id}`, {
+      input: parseIngredients(input),
+      primaryOutput: parseIngredients(output)[0],
+      output: parseIngredients(output),
+      benchRequirement: [
+        {
+          type: "Crafting" as const,
+          id: "Farming_Bench" as const,
+          ...(tier ? { requiredTierLevel: tier } : {}),
+          categories: spreadItems(categories)
+        }
+      ],
+      timeSeconds: time
+    });
+  }
+});
