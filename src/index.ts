@@ -25,6 +25,7 @@ export * from "./generators/item/block/building-block.js";
 export * from "./generators/item/block/gem.js";
 export * from "./generators/item/block/hitbox.js";
 export * from "./generators/item/block/ore-block.js";
+export * from "./generators/item/block/palette.js";
 
 export * from "./generators/item/materials.js";
 export * from "./generators/item/ore.js";
