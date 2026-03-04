@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.3.0](https://github.com/dustinheisey/Hytale-Generators/compare/v0.2.5...v0.3.0) (2026-03-04)
+
+
+### Features
+
+* add builder utility ([e6129fa](https://github.com/dustinheisey/Hytale-Generators/commit/e6129fa581d10ce220c2eed051194b56953a6888))
+* add flatten support to builder to support multiple config patterns ([452d55a](https://github.com/dustinheisey/Hytale-Generators/commit/452d55a57f9b0392e788e9d3843f9ae33f635322))
+* add group builder utility ([e935d8f](https://github.com/dustinheisey/Hytale-Generators/commit/e935d8fb504ccaaed401858bde127b138e640dd2))
+* add isString and isNumber utility functions ([407ab92](https://github.com/dustinheisey/Hytale-Generators/commit/407ab92eb24c34e7db5f6f8fe48be68c8ea605e8))
+* add many() functionality to builders ([2bdfe51](https://github.com/dustinheisey/Hytale-Generators/commit/2bdfe51c45199391d9f7e47591cb50521018d96f))
+* add palette generator ([f880839](https://github.com/dustinheisey/Hytale-Generators/commit/f880839537fb60080d4fbc0b989ee34df5db597b))
+* big changes to the builder api ([7258856](https://github.com/dustinheisey/Hytale-Generators/commit/72588565d77a76255231bf918f1bd5bec2e7ae90))
+* convert all block generators to builder pattern ([99fc378](https://github.com/dustinheisey/Hytale-Generators/commit/99fc3782f3d295b0c2492dda3a4e75cc32d70bb7))
+* convert categories generator to builder pattern ([e914126](https://github.com/dustinheisey/Hytale-Generators/commit/e914126433aee65bb4f626be27f5d6405d469f9b))
+* convert manifest generator to builder pattern ([a20fe39](https://github.com/dustinheisey/Hytale-Generators/commit/a20fe39bff2b97837c729a4b82919f5b977f8acc))
+* convert recipe generators to builder pattern ([2ddff69](https://github.com/dustinheisey/Hytale-Generators/commit/2ddff69a3eb7c3cd006fd5d6a37d68a4e5470bec))
+* convert resourceType generator to builder pattern ([790daf7](https://github.com/dustinheisey/Hytale-Generators/commit/790daf734696d516cec04e9b9eaa8efe0484bae8))
+* create blockSet generator ([bd97bb8](https://github.com/dustinheisey/Hytale-Generators/commit/bd97bb8b817a6e0816a462737f0a4b177113ee85))
+* create hitbox generator ([1509dda](https://github.com/dustinheisey/Hytale-Generators/commit/1509ddabb802a017a47096588f558c66ff928449))
+* move items around and convert to builder pattern ([766e304](https://github.com/dustinheisey/Hytale-Generators/commit/766e3041782d795203640e38708638cb9f3e5938))
+
+
+### Bug Fixes
+
+* fix eslint issues ([ec6996c](https://github.com/dustinheisey/Hytale-Generators/commit/ec6996ce686c3d8c025b091c98e514e189ed931d))
+* fixes to make real mod with with updated hytale-generators ([44550a8](https://github.com/dustinheisey/Hytale-Generators/commit/44550a83c013f25e7bfef9b52837205e4c3b73a0))
+* split up tsconfigs and get building again ([b40c0ee](https://github.com/dustinheisey/Hytale-Generators/commit/b40c0eef86b9dfaf6dc01fac724d66a41851ff8e))
+
 ## [0.2.5](https://github.com/dustinheisey/Hytale-Generators/compare/v0.2.4...v0.2.5) (2026-02-23)
 
 
