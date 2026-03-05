@@ -1,29 +1,32 @@
 import type { SetOptional } from "type-fest";
-import { global, HasIcon, ItemCfg, json, lang, makeGroup, texture } from "../../index.js";
+import { global, HasIcon, ItemCfg, json, lang, makeGroup, texture, u } from "../../index.js";
 
 export type MaterialCfg = SetOptional<ItemCfg, "color"> & HasIcon;
 
 export const materials = makeGroup<MaterialCfg>()({
   types: [
     { id: "Dust", defaults: {} },
-    { id: "Bar", defaults: { baseName: "Ingot", baseModel: "Ingot" } },
-    { id: "Alloy", defaults: { mask: "Bar/Bar" } }
+    { id: "Bar", defaults: { baseName: "Ingot", baseModel: "Ingot", resourceType: "Metal_Bars" } },
+    {
+      id: "Alloy",
+      defaults: { id: "Bar", mask: "Bar/Bar", baseName: "Ingot", baseModel: "Ingot", resourceType: "Metal_Bars" }
+    }
   ],
   build: (cfg: MaterialCfg, spec) => {
     const { modId } = global();
 
-    json(`Server/Item/Items/${spec.id}s/Ingredient_${spec.id}_${cfg.id}`, {
+    json(`Server/Item/Items/${spec.id}s/Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}`, {
       translationProperties: {
-        name: `server.items.${modId}.Ingredient_${spec.id}_${cfg.id}.name`,
-        description: `server.items.${modId}.Ingredient_${spec.id}_${cfg.id}.description`
+        name: `server.items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.name`,
+        description: `server.items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.description`
       },
       categories: cfg.categories ?? ["Items", `${modId}.${spec.id}s`],
       model: `${cfg.model ?? `Items/${cfg.baseModel ?? spec.id}`}.blockymodel`,
       texture: `${cfg.texture ?? `Items/${spec.id}s/${cfg.baseTexture ?? cfg.id}`}.png`,
-      ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ingredient_${spec.id}_${cfg.id}.png` } : {}),
+      ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ingredient_${cfg.baseIconPath ?? spec.id}_${cfg.id}.png` } : {}),
       resourceTypes: [
         {
-          id: spec.defaults.resourceType ?? `${spec.id}s`
+          id: spec.defaults.resourceType ?? cfg.resourceType ?? `${spec.id}s`
         }
       ],
       playerAnimationsId: "Item" as const,
@@ -45,16 +48,17 @@ export const materials = makeGroup<MaterialCfg>()({
       itemSoundSetId: cfg.sound ?? "ISS_Items_Ingots",
       dropOnDeath: true
     });
-
     lang([
       {
-        key: `items.${modId}.Ingredient_${spec.id}_${cfg.id}.name`,
-        value: cfg.name ?? `${cfg.id} ${cfg.baseName ?? spec.id}`
+        key: `items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.name`,
+        value:
+          cfg.name?.replaceAll("_", " ") ??
+          `${cfg.id.replaceAll("_", " ")} ${cfg.baseName?.replaceAll("_", " ") ?? spec.id.replaceAll("_", " ")}`
       },
       ...(cfg.description
         ? [
             {
-              key: `items.${modId}.Ingredient_${spec.id}_${cfg.id}.description`,
+              key: `items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.description`,
               value: cfg.description ?? cfg.description
             }
           ]
@@ -64,7 +68,7 @@ export const materials = makeGroup<MaterialCfg>()({
     if (cfg.color)
       texture({
         color: cfg.color,
-        inputFile: cfg.mask ?? `${spec.id}/${spec.id}${cfg.baseMask ? `_${cfg.baseMask}` : ""}`,
+        inputFile: cfg.mask ?? `${spec.id}s/${spec.id}${cfg.baseMask ? `_${u(cfg.baseMask)}` : ""}`,
         outputFile: cfg.textureOut ?? `Items/${spec.id}s/${cfg.id}`
       });
   }
