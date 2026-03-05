@@ -1,4 +1,4 @@
-import type { Flatten, OrString } from "../index.js";
+import type { FilterOf, Flatten, HasFilter, OrString } from "../index.js";
 
 export function isString(x: unknown): x is string {
   return typeof x === "string";
@@ -23,7 +23,37 @@ export function flatten<T>(value: Flatten<T>): T[] {
   return out;
 }
 
-export function include<T extends string>(type: T, cfg: { id: string; include?: T[]; exclude?: T[] }) {
+export function matchesFilter<Cfg extends HasFilter<string>>(cfg: Cfg, filter: FilterOf<Cfg>): boolean {
+  if (cfg.include) {
+    const includes = Array.isArray(cfg.include) ? cfg.include : [cfg.include];
+    return includes.some(f => filter.includes(f));
+  }
+
+  if (cfg.exclude) {
+    const excludes = Array.isArray(cfg.exclude) ? cfg.exclude : [cfg.exclude];
+    return !excludes.some(f => filter.includes(f));
+  }
+
+  return true;
+}
+
+export function include<Cfg extends HasFilter<string>>(cfg: Cfg, filter: FilterOf<Cfg>) {
   const { include, exclude } = cfg;
-  return include ? include.includes(type) : exclude ? !exclude.includes(type) : true;
+  return include ? include.includes(filter) : exclude ? !exclude.includes(filter) : true;
+}
+
+export function filter<Cfg extends HasFilter<string>>(cfgs: Cfg[], filter: FilterOf<Cfg>): Cfg[] {
+  return cfgs.filter(cfg => {
+    if (cfg.include) {
+      const includes = Array.isArray(cfg.include) ? cfg.include : [cfg.include];
+      return includes.some(f => filter.includes(f));
+    }
+
+    if (cfg.exclude) {
+      const excludes = Array.isArray(cfg.exclude) ? cfg.exclude : [cfg.exclude];
+      return !excludes.some(f => filter.includes(f));
+    }
+
+    return true;
+  });
 }
