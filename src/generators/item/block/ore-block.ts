@@ -87,7 +87,7 @@ export const oreBlock = builder({
                     : [
                         {
                           type: "Single" as const,
-                          item: { itemId: `Ore${cfg.id}${cfg.strata}` }
+                          item: { itemId: `Ore_${cfg.id}` }
                         }
                       ]),
                   {
