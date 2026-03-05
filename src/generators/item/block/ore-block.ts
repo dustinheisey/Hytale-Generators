@@ -1,7 +1,5 @@
-import type { BlockCfg, BlockTexture, HasDrops, HasStrata } from "../../../index.js";
+import type { BlockCfg, BlockTexture, HasDrops, HasStrata, Strata } from "../../../index.js";
 import { builder, global, json, lang, spreadItems } from "../../../index.js";
-
-type Strata = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
 
 export type OreBlockCfg = BlockCfg & HasDrops & HasStrata;
 

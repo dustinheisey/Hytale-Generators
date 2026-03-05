@@ -64,6 +64,7 @@ export interface HasItem {
 
 export interface HasIcon {
   icon?: boolean;
+  baseIconPath?: string;
   iconProperties?: {
     Scale: number;
     Rotation: [number, number, number];
@@ -71,22 +72,28 @@ export interface HasIcon {
   };
 }
 
-export type HasFilter<T extends string> = {
-  include?: T[];
-  exclude?: T[];
+export type HasFilter<Filter> = {
+  include?: Filter | Filter[];
+  exclude?: Filter | Filter[];
 };
 
-export type HasTexture<T extends string> = HasIcon & {
+export type FilterOf<C> = C extends HasFilter<infer F> ? F : never;
+
+export interface HasColor {
   color: string;
-  model?: string;
-  baseModel?: string;
-  mask?: string;
-  baseMask?: AutoComplete<T>;
-  texture?: string;
-  textureOverride?: BlockTexture[];
-  baseTexture?: string;
-  textureOut?: string;
-};
+}
+
+export type HasTexture<T extends string = ""> = HasIcon &
+  HasColor & {
+    model?: string;
+    baseModel?: string;
+    mask?: string;
+    baseMask?: AutoComplete<T>;
+    texture?: string;
+    textureOverride?: BlockTexture[];
+    baseTexture?: string;
+    textureOut?: string;
+  };
 
 export interface HasBlock {
   // playerAnimationsId: "block"; TODO: should be handled in fragments
@@ -106,8 +113,10 @@ export interface HasDrops {
   dropQuality?: number;
 }
 
+export type Strata = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
+
 export interface HasStrata {
-  strata: "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
+  strata: Strata;
 }
 
 export type ItemCfg<T extends string = ""> = HasId & HasLang & HasItem & HasTexture<T>;
