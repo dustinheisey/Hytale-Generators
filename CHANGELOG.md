@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.3.1](https://github.com/dustinheisey/Hytale-Generators/compare/v0.3.0...v0.3.1) (2026-03-07)
+## [0.3.2](https://github.com/dustinheisey/Hytale-Generators/compare/v0.3.1...v0.3.2) (2026-03-07)
 
 
 ### Bug Fixes
@@ -8,6 +8,13 @@
 * align the built bench json path better with hytale's folder structure ([037adfe](https://github.com/dustinheisey/Hytale-Generators/commit/037adfe386fa47f21b475f25a236aa6ae49d9be1))
 * rename alchemybench recipe id ([0543db2](https://github.com/dustinheisey/Hytale-Generators/commit/0543db234ec8de0688a7fb06dba3b17e6bc13f43))
 * rename palette building -&gt; builders key ([8e4f7e9](https://github.com/dustinheisey/Hytale-Generators/commit/8e4f7e96889beff22257814adf479ac4e0257fec))
+
+## [0.3.1](https://github.com/dustinheisey/Hytale-Generators/compare/v0.3.0...v0.3.1) (2026-03-07)
+
+
+### Bug Fixes
+
+* fixes to align better with real world mod projects
 
 ## [0.3.0](https://github.com/dustinheisey/Hytale-Generators/compare/v0.2.5...v0.3.0) (2026-03-04)
 
