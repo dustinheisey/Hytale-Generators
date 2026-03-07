@@ -75,6 +75,49 @@
     "culori": "^4.0.2",
     "sharp": "^0.34.5"
   },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "singleQuote": false,
+    "trailingComma": "none",
+    "semi": true,
+    "htmlWhitespaceSensitivity": "css",
+    "embeddedLanguageFormatting": "auto",
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "bracketSameLine": false,
+    "endOfLine": "lf",
+    "insertPragma": false,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "useTabs": false
+  },
+  "cspell": {
+    "version": "0.2",
+    "dictionaryDefinitions": [
+      {
+        "name": "dictionary",
+        "path": "./dictionary.txt",
+        "addWords": true
+      }
+    ],
+    "dictionaries": [
+      "dictionary"
+    ],
+    "ignorePaths": [
+      "package.json",
+      "package-lock.json",
+      ".vscode/**",
+      "dist/**"
+    ],
+    "useGitignore": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "lint-staged": {
     "*.{ts,js,json,md}": [
       "npm run format"
