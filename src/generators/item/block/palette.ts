@@ -1,7 +1,7 @@
 import type { BuilderRecipeCfg, BuildingBlockCfg, NoId } from "../../../index.js";
 import { colors, include } from "../../../index.js";
 
-type BuildingBlock = BuildingBlockCfg & { building?: NoId<BuilderRecipeCfg> };
+type BuildingBlock = BuildingBlockCfg & { builders?: NoId<BuilderRecipeCfg> };
 type PaletteKey = "block" | "bricks" | "assortedBlock" | "assortedBricks" | "colorBlocks" | "colorBricks";
 
 export const makeBuilding = (input: string, output: string): BuilderRecipeCfg => ({
@@ -36,7 +36,7 @@ export function palette(cfg: {
       ? [
           {
             ...makeBase(icon, id, `Block_${id}`, `${id} Block`),
-            building: makeBuilding(`Ingredient_Bar_${id}`, `Block_${id}`),
+            builders: makeBuilding(`Ingredient_Bar_${id}`, `Block_${id}`)
           }
         ]
       : []),
@@ -44,7 +44,7 @@ export function palette(cfg: {
       ? [
           {
             ...makeBase(icon, id, `Bricks_${id}`, `${id} Bricks`),
-            building: makeBuilding(`$${id}s`, `Bricks_${id}`)
+            builders: makeBuilding(`$${id}s`, `Bricks_${id}`)
           }
         ]
       : []),
@@ -52,7 +52,7 @@ export function palette(cfg: {
       ? [
           {
             ...makeBase(icon, id, `Block_${id}_Assorted`, `Assorted ${id} Block`),
-            building: makeBuilding(`$${id}s`, `Block_${id}_Assorted`)
+            builders: makeBuilding(`$${id}s`, `Block_${id}_Assorted`)
           }
         ]
       : []),
@@ -60,20 +60,20 @@ export function palette(cfg: {
       ? [
           {
             ...makeBase(icon, id, `Bricks_${id}_Assorted`, `Assorted ${id} Bricks`),
-            building: makeBuilding(`$${id}s`, `Bricks_${id}_Assorted`)
+            builders: makeBuilding(`$${id}s`, `Bricks_${id}_Assorted`)
           }
         ]
       : []),
     ...(include("colorBlocks", cfg)
       ? colors.map(color => ({
           ...makeBase(icon, id, `Block_${id}_${color}`, `${color} ${id} Block`),
-          building: makeBuilding(`$${id}s`, `Block_${id}_${color}`)
+          builders: makeBuilding(`$${id}s`, `Block_${id}_${color}`)
         }))
       : []),
     ...(include("colorBricks", cfg)
       ? colors.map(color => ({
           ...makeBase(icon, id, `Bricks_${id}_${color}`, `${color} ${id} Bricks`),
-          building: makeBuilding(`$${id}s`, `Bricks_${id}_${color}`)
+          builders: makeBuilding(`$${id}s`, `Bricks_${id}_${color}`)
         }))
       : [])
   ];

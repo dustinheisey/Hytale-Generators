@@ -19,7 +19,7 @@ export const alchemy = builder({
       benchRequirement: [
         {
           type: "Crafting" as const,
-          id: "Alchemy_Bench" as const,
+          id: "Alchemybench" as const,
           ...(tier ? { requiredTierLevel: tier } : {}),
           categories: spreadItems(categories)
         }
