@@ -1,3 +1,5 @@
+import type { Strata } from "../index.js";
+
 export const colors = [
   "Black",
   "Blue",
@@ -16,3 +18,5 @@ export const colors = [
   "White",
   "Yellow"
 ];
+
+export const strata: Strata[] = ["Stone", "Basalt", "Sandstone", "Slate", "Shale", "Volcanic"];

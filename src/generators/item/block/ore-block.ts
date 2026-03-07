@@ -1,7 +1,5 @@
-import type { BlockCfg, BlockTexture, HasDrops, HasStrata } from "../../../index.js";
+import type { BlockCfg, BlockTexture, HasDrops, HasStrata, Strata } from "../../../index.js";
 import { builder, global, json, lang, spreadItems } from "../../../index.js";
-
-type Strata = "Stone" | "Basalt" | "Sandstone" | "Slate" | "Shale" | "Volcanic";
 
 export type OreBlockCfg = BlockCfg & HasDrops & HasStrata;
 
@@ -89,7 +87,7 @@ export const oreBlock = builder({
                     : [
                         {
                           type: "Single" as const,
-                          item: { itemId: `Ore${cfg.id}${cfg.strata}` }
+                          item: { itemId: `Ore_${cfg.id}` }
                         }
                       ]),
                   {

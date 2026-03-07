@@ -70,15 +70,3 @@ export function makeGroup<
     };
   };
 }
-
-// const { bar } = group({
-//   build: (cfg: { id: string; name: string }) => {
-//     console.log(cfg);
-//   },
-//   types: [{ id: "Bar", defaults: { name: "Help" } }, "Dust"],
-//   groupDefaults: { name: "sdfsdfsf" }
-// });
-
-// bar.many(["sfs", { id: "sdf", name: "hello" }]);
-
-// bar("hello").name("sdf").build;

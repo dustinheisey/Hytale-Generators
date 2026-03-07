@@ -32,7 +32,7 @@ export function palette(cfg: {
   const { id, icon } = cfg;
 
   return [
-    ...(include("block", cfg)
+    ...(include(cfg, "block")
       ? [
           {
             ...makeBase(icon, id, `Block_${id}`, `${id} Block`),
@@ -40,7 +40,7 @@ export function palette(cfg: {
           }
         ]
       : []),
-    ...(include("bricks", cfg)
+    ...(include(cfg, "bricks")
       ? [
           {
             ...makeBase(icon, id, `Bricks_${id}`, `${id} Bricks`),
@@ -48,7 +48,7 @@ export function palette(cfg: {
           }
         ]
       : []),
-    ...(include("assortedBlock", cfg)
+    ...(include(cfg, "assortedBlock")
       ? [
           {
             ...makeBase(icon, id, `Block_${id}_Assorted`, `Assorted ${id} Block`),
@@ -56,7 +56,7 @@ export function palette(cfg: {
           }
         ]
       : []),
-    ...(include("assortedBricks", cfg)
+    ...(include(cfg, "assortedBricks")
       ? [
           {
             ...makeBase(icon, id, `Bricks_${id}_Assorted`, `Assorted ${id} Bricks`),
@@ -64,13 +64,13 @@ export function palette(cfg: {
           }
         ]
       : []),
-    ...(include("colorBlocks", cfg)
+    ...(include(cfg, "colorBlocks")
       ? colors.map(color => ({
           ...makeBase(icon, id, `Block_${id}_${color}`, `${color} ${id} Block`),
           builders: makeBuilding(`$${id}s`, `Block_${id}_${color}`)
         }))
       : []),
-    ...(include("colorBricks", cfg)
+    ...(include(cfg, "colorBricks")
       ? colors.map(color => ({
           ...makeBase(icon, id, `Bricks_${id}_${color}`, `${color} ${id} Bricks`),
           builders: makeBuilding(`$${id}s`, `Bricks_${id}_${color}`)

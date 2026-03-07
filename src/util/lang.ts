@@ -1,5 +1,5 @@
-import { global, syncFile } from "../index.js";
 import fs from "node:fs";
+import { global, syncFile } from "../index.js";
 
 export interface LangConfig {
   key: string;
@@ -62,7 +62,7 @@ export function lang(entries: LangConfig[]) {
   }
 
   // Join back into a single string.
-  const finalText = outLines.filter((_, i) => !(i === outLines.length - 1 && outLines[i] === "")).join("\n") + "\n";
+  const finalText = outLines.filter((_, i) => !(i === outLines.length - 1 && outLines[i] === "")).join("\n");
 
   // Write the updated file back to disk
   fs.writeFileSync(file, finalText, "utf8");

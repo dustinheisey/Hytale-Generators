@@ -1,5 +1,5 @@
 import type { ItemBlockCfg } from "../../index.js";
-import { builder, global, json, lang, resourceType, texture } from "../../index.js";
+import { builder, global, json, lang, resourceType, texture, u } from "../../index.js";
 
 export type OreCfg = ItemBlockCfg;
 
@@ -51,7 +51,7 @@ export const ore = builder({
 
     texture({
       color: cfg.color,
-      inputFile: cfg.mask ?? `Ore/Ore${cfg.baseMask ? `_${cfg.baseMask}` : ""}`,
+      inputFile: cfg.mask ?? `Ores/Ore${cfg.baseMask ? `_${u(cfg.baseMask)}` : ""}`,
       outputFile: cfg.textureOut ?? `Resources/Ores/${cfg.id}`
     });
 
