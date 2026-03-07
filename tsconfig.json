@@ -1,17 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "rootDir": ".",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["ES2022"],
-    "types": ["node"],
-    "customConditions": ["development"],
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "verbatimModuleSyntax": false
-  }
+  "files": [],
+  "references": [{ "path": "./tsconfig.build.json" }, { "path": "./tsconfig.config.json" }]
 }

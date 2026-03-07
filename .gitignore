@@ -6,3 +6,4 @@ itemsGenerated
 node_modules
 *.code-workspace
 assets
+.tsbuildinfo

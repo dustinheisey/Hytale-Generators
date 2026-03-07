@@ -40,9 +40,8 @@
   "type": "module",
   "scripts": {
     "format": "prettier . --write",
-    "typecheck": "tsc -b",
-    "lint": "eslint . -c eslint.config.ts && cspell lint .",
-    "lint:fix": "eslint . -c eslint.config.ts --fix",
+    "lint": "tsc -b && eslint . -c eslint.config.ts && cspell lint .",
+    "lint:fix": "tsc -b && eslint . -c eslint.config.ts --fix",
     "clean": "rimraf dist test",
     "build": "tsc -p tsconfig.build.json",
     "prebuild": "npm run clean",
