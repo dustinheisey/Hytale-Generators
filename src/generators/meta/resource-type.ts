@@ -1,4 +1,4 @@
-import { builder, json } from "../../index.js";
+import { builder, json } from "#hg/index";
 
 export type ResourceTypeCfg = {
   id: string;

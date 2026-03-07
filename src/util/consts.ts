@@ -1,4 +1,4 @@
-import type { Strata } from "../index.js";
+import type { Strata } from "#hg/index";
 
 export const colors = [
   "Black",

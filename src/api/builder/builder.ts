@@ -1,4 +1,4 @@
-import { flatten, isRecord, isString, type Flatten } from "../../index.js";
+import { flatten, isRecord, isString, type Flatten } from "#hg/index";
 import { createStageProxy, type Stage } from "./stage-proxy.js";
 
 export type BuilderCfg<Config extends object> = {

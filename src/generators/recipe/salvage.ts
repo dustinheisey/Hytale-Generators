@@ -1,5 +1,5 @@
-import type { HasAnyOutput, HasId, HasSingleInput, HasTime } from "../../index.js";
-import { builder, json, parseIngredients } from "../../index.js";
+import type { HasAnyOutput, HasId, HasSingleInput, HasTime } from "#hg/index";
+import { builder, json, parseIngredients } from "#hg/index";
 
 export type SalvageRecipeCfg = HasId & HasSingleInput & HasAnyOutput & HasTime;
 

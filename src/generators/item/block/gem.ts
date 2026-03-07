@@ -1,5 +1,5 @@
-import type { BlockCfg } from "../../../index.js";
-import { builder, deriveEffectColors, global, json, lang, texture } from "../../../index.js";
+import type { BlockCfg } from "#hg/index";
+import { builder, deriveEffectColors, global, json, lang, texture } from "#hg/index";
 
 export type GemCfg = BlockCfg;
 

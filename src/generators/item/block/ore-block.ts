@@ -1,5 +1,5 @@
-import type { BlockCfg, BlockTexture, HasDrops, HasStrata, Strata } from "../../../index.js";
-import { builder, global, json, lang, spreadItems } from "../../../index.js";
+import type { BlockCfg, BlockTexture, HasDrops, HasStrata, Strata } from "#hg/index";
+import { builder, global, json, lang, spreadItems } from "#hg/index";
 
 export type OreBlockCfg = BlockCfg & HasDrops & HasStrata;
 

@@ -1,4 +1,4 @@
-import type { FilterOf, Flatten, HasFilter, OrString } from "../index.js";
+import type { FilterOf, Flatten, HasFilter, OrString } from "#hg/index";
 
 export function isString(x: unknown): x is string {
   return typeof x === "string";

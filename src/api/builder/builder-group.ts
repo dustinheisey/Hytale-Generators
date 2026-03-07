@@ -1,5 +1,5 @@
-import type { Builder, BuilderCfg, HasId } from "../../index.js";
-import { builder, isString } from "../../index.js";
+import type { Builder, BuilderCfg, HasId } from "#hg/index";
+import { builder, isString } from "#hg/index";
 
 type InitOf<C extends HasId> = Partial<C> & Pick<C, "id">;
 

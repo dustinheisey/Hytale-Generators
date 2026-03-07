@@ -1,5 +1,5 @@
-import type { BuilderRecipeCfg, BuildingBlockCfg, NoId } from "../../../index.js";
-import { colors, include } from "../../../index.js";
+import type { BuilderRecipeCfg, BuildingBlockCfg, NoId } from "#hg/index";
+import { colors, include } from "#hg/index";
 
 type BuildingBlock = BuildingBlockCfg & { builders?: NoId<BuilderRecipeCfg> };
 type PaletteKey = "block" | "bricks" | "assortedBlock" | "assortedBricks" | "colorBlocks" | "colorBricks";

@@ -1,4 +1,4 @@
-import type { Ingredient } from "../../index.js";
+import type { Ingredient } from "#hg/index";
 
 /**
  * Map a string or string[] into an array of outputs.

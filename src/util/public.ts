@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import process from "process";
-import { global } from "../index.js";
+import { global } from "#hg/index";
 
 export const syncPublic = (): void => {
   const root = process.cwd();

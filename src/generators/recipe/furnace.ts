@@ -1,5 +1,5 @@
-import type { HasAnyInput, HasAnyOutput, HasId, HasTier, HasTime } from "../../index.js";
-import { builder, json, parseIngredients } from "../../index.js";
+import type { HasAnyInput, HasAnyOutput, HasId, HasTier, HasTime } from "#hg/index";
+import { builder, json, parseIngredients } from "#hg/index";
 
 export type FurnaceRecipeCfg = HasId & HasAnyInput & HasAnyOutput & HasTime & HasTier<2>;
 

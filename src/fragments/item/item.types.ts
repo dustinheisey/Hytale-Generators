@@ -1,4 +1,4 @@
-import type { AutoComplete, HasId } from "../../index.js";
+import type { AutoComplete, HasId } from "#hg/index";
 
 export type BlockTexture = {
   texture?: string;

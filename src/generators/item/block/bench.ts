@@ -1,4 +1,4 @@
-import { BlockCfg, builder, fragments, global, json, lang } from "../../../index.js";
+import { BlockCfg, builder, fragments, global, json, lang } from "#hg/index";
 
 export interface HasBench {
   outputSlotsCount: number;
