@@ -11,7 +11,6 @@ export default {
   arrowParens: "avoid",
   bracketSpacing: true,
   bracketSameLine: false,
-  organizeImportsSkipDestructiveCodeActions: true,
   endOfLine: "lf",
   insertPragma: false,
   proseWrap: "preserve",
