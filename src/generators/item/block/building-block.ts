@@ -1,5 +1,5 @@
-import type { BlockCfg, HasDrops } from "../../../index.js";
-import { builder, fragments, global, json, lang } from "../../../index.js";
+import type { BlockCfg, HasDrops } from "#hg/index";
+import { builder, fragments, global, json, lang } from "#hg/index";
 
 export type BuildingBlockCfg = BlockCfg & HasDrops;
 

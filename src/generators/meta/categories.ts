@@ -1,4 +1,4 @@
-import { builder, global, isString, json, lang } from "../../index.js";
+import { builder, global, isString, json, lang } from "#hg/index";
 
 export type Child =
   | {

@@ -1,5 +1,5 @@
-import type { HasId } from "../../../index.js";
-import { builder, json } from "../../../index.js";
+import type { HasId } from "#hg/index";
+import { builder, json } from "#hg/index";
 
 export interface HasBlockSet {
   includeAll?: boolean;

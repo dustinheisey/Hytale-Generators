@@ -25,18 +25,18 @@ import {
   tannery,
   weapon,
   workbench
-} from "./index.js";
+} from "#hg/index";
 
 setGlobal({ modId: "HytaleGenerators", outDir: "test" });
 
 manifest()
   .name("Example")
-  .authors([{ name: "sdfsf" }])
-  .description("sdfsdf")
-  .group("sdfsf")
-  .serverVersion("dfsf")
-  .version("sdfsf")
-  .website("sdfsf")
+  .authors([{ name: "test" }])
+  .description("test")
+  .group("test")
+  .serverVersion("test")
+  .version("test")
+  .website("test")
   .build();
 
 categories()

@@ -1,5 +1,5 @@
-import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTime } from "../../index.js";
-import { builder, json, parseIngredients, spreadItems } from "../../index.js";
+import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTime } from "#hg/index";
+import { builder, json, parseIngredients, spreadItems } from "#hg/index";
 
 export type FurnitureCfg = HasId &
   HasAnyInput &

@@ -1,4 +1,4 @@
-import { builder, isNumber, json } from "../../../index.js";
+import { builder, isNumber, json } from "#hg/index";
 
 export type Vector3d = number | { x: number; y: number; z: number };
 

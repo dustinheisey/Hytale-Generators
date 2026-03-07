@@ -1,5 +1,5 @@
-import type { HasIcon, HasId } from "../../index.js";
-import { global } from "../../index.js";
+import type { HasIcon, HasId } from "#hg/index";
+import { global } from "#hg/index";
 
 export function withTranslationProperties(cfg: HasId): object {
   const { modId } = global();

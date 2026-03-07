@@ -1,5 +1,5 @@
-import type { HasId, HasSingleInput, HasSingleOutput, HasTier, HasTime } from "../../index.js";
-import { builder, json, parseIngredients } from "../../index.js";
+import type { HasId, HasSingleInput, HasSingleOutput, HasTier, HasTime } from "#hg/index";
+import { builder, json, parseIngredients } from "#hg/index";
 
 export type TanneryCfg = HasId & HasSingleInput & HasSingleOutput & HasTime & HasTier<2>;
 

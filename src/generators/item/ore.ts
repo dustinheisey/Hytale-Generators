@@ -1,5 +1,5 @@
-import type { ItemBlockCfg } from "../../index.js";
-import { builder, global, json, lang, resourceType, texture, u } from "../../index.js";
+import type { ItemBlockCfg } from "#hg/index";
+import { builder, global, json, lang, resourceType, texture, u } from "#hg/index";
 
 export type OreCfg = ItemBlockCfg;
 

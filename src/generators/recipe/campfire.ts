@@ -1,5 +1,5 @@
-import type { HasId, HasSingleInput, HasSingleOutput, HasTime } from "../../index.js";
-import { builder, json, parseIngredients } from "../../index.js";
+import type { HasId, HasSingleInput, HasSingleOutput, HasTime } from "#hg/index";
+import { builder, json, parseIngredients } from "#hg/index";
 
 export type CampfireCfg = HasId & HasSingleInput & HasSingleOutput & HasTime;
 

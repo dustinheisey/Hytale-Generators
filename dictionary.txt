@@ -29,3 +29,4 @@ Hitbox
 hitbox
 Hitboxes
 NESW
+cfgs

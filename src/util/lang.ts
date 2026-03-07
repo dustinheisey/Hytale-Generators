@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { global, syncFile } from "../index.js";
+import { global, syncFile } from "#hg/index";
 
 export interface LangConfig {
   key: string;

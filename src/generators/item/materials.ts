@@ -1,5 +1,5 @@
 import type { SetOptional } from "type-fest";
-import { global, HasIcon, ItemCfg, json, lang, makeGroup, texture, u } from "../../index.js";
+import { global, HasIcon, ItemCfg, json, lang, makeGroup, texture, u } from "#hg/index";
 
 export type MaterialCfg = SetOptional<ItemCfg, "color"> & HasIcon;
 
@@ -9,7 +9,7 @@ export const materials = makeGroup<MaterialCfg>()({
     { id: "Bar", defaults: { baseName: "Ingot", baseModel: "Ingot", resourceType: "Metal_Bars" } },
     {
       id: "Alloy",
-      defaults: { id: "Bar", mask: "Bar/Bar", baseName: "Ingot", baseModel: "Ingot", resourceType: "Metal_Bars" }
+      defaults: { id: "Bar", mask: "Bars/Bar", baseName: "Ingot", baseModel: "Ingot", resourceType: "Metal_Bars" }
     }
   ],
   build: (cfg: MaterialCfg, spec) => {
@@ -52,8 +52,9 @@ export const materials = makeGroup<MaterialCfg>()({
       {
         key: `items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.name`,
         value:
-          cfg.name?.replaceAll("_", " ") ??
-          `${cfg.id.replaceAll("_", " ")} ${cfg.baseName?.replaceAll("_", " ") ?? spec.id.replaceAll("_", " ")}`
+          cfg.name?.replace(/_/g, " ") ??
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          `${cfg.id?.replace(/_/g, " ")} ${cfg.baseName?.replace(/_/g, " ") ?? spec.id.replace(/_/g, " ")}`
       },
       ...(cfg.description
         ? [

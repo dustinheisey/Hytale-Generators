@@ -1,4 +1,4 @@
-import type { HasId } from "../../index.js";
+import type { HasId } from "#hg/index";
 
 /**
  * Defines the config shapes accepted by `builder.many(...)`.

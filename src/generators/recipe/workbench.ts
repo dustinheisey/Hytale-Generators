@@ -1,5 +1,5 @@
-import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTier, HasTime } from "../../index.js";
-import { builder, json, parseIngredients, spreadItems } from "../../index.js";
+import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTier, HasTime } from "#hg/index";
+import { builder, json, parseIngredients, spreadItems } from "#hg/index";
 
 type Categories = "Workbench_Survival" | "Workbench_Tools" | "Workbench_Crafting" | "Workbench_Tinkering";
 export type WorkbenchCfg = HasId & HasAnyInput & HasSingleOutput & HasTime & HasTier<3> & HasCategories<Categories>;

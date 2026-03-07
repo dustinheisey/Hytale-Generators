@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { global, syncDir } from "../index.js";
+import { global, syncDir } from "#hg/index";
 
 type RGB = { r: number; g: number; b: number };
 
