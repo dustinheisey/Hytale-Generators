@@ -6,16 +6,16 @@ export type OreCfg = ItemBlockCfg;
 export const ore = builder({
   init: (id: string) => ({ id }),
   build: (cfg: OreCfg) => {
-    const { modId } = global();
-    json(`Server/Item/Items/Ore/${cfg.id}/Ore_${cfg.id}`, {
+    const { modId, items } = global();
+    json(`${items.json}/Ore/${cfg.id}/Ore_${cfg.id}`, {
       translationProperties: {
-        name: `server.items.${modId}.Ore_${cfg.id}.name`,
-        description: `server.items.${modId}.Ore_${cfg.id}.description`
+        name: `${items.lang}.${modId}.Ore_${cfg.id}.name`,
+        description: `${items.lang}.${modId}.Ore_${cfg.id}.description`
       },
       categories: cfg.categories ?? ["Blocks.Ores", `${modId}.Ores`],
       model: `Resources/Ores/${cfg.model ?? "Ore_Large"}.blockymodel`,
       texture: `Resources/Ores/${cfg.texture ?? cfg.id}.png`,
-      ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ore_${cfg.id}.png` } : {}),
+      ...(cfg.icon ? { icon: `${items.icon}/Ore_${cfg.id}.png` } : {}),
       itemLevel: cfg.level ?? 10,
       playerAnimationsId: "Block" as const,
       iconProperties: {
@@ -36,13 +36,13 @@ export const ore = builder({
 
     lang([
       {
-        key: `items.${modId}.Ore_${cfg.id}.name`,
+        key: `${items.langRoot}.${modId}.Ore_${cfg.id}.name`,
         value: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore`
       },
       ...(cfg.description
         ? [
             {
-              key: `items.${modId}.Ore_${cfg.id}.description`,
+              key: `${items.langRoot}.${modId}.Ore_${cfg.id}.description`,
               value: cfg.description ?? cfg.description
             }
           ]

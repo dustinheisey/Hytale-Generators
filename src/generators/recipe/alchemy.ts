@@ -1,5 +1,5 @@
 import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTier, HasTime } from "#hg/index";
-import { builder, json, parseIngredients, spreadItems } from "#hg/index";
+import { builder, global, json, parseIngredients, spreadItems } from "#hg/index";
 
 export type AlchemyCfg = HasId &
   HasAnyInput &
@@ -12,7 +12,9 @@ export const alchemy = builder({
   init: (id: string) => ({ id }),
   build: (cfg: AlchemyCfg) => {
     const { id, input, output, time, tier, categories } = cfg;
-    json(`/Server/Item/Recipes/Alchemy/Alchemy_${id}`, {
+    const { recipes } = global();
+
+    json(`${recipes.json}/Alchemy/Alchemy_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

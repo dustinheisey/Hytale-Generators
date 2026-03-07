@@ -1,5 +1,5 @@
 import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTier, HasTime } from "#hg/index";
-import { builder, json, parseIngredients, spreadItems } from "#hg/index";
+import { builder, global, json, parseIngredients, spreadItems } from "#hg/index";
 
 export type ArmorCfg = HasId &
   HasAnyInput &
@@ -12,7 +12,9 @@ export const armor = builder({
   init: (id: string) => ({ id }),
   build: (cfg: ArmorCfg) => {
     const { id, input, output, time, tier, categories } = cfg;
-    json(`/Server/Item/Recipes/Armor/Armor_${id}`, {
+    const { recipes } = global();
+
+    json(`${recipes.json}/Armor/Armor_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

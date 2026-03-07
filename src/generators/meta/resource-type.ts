@@ -1,4 +1,4 @@
-import { builder, json } from "#hg/index";
+import { builder, json, global } from "#hg/index";
 
 export type ResourceTypeCfg = {
   id: string;
@@ -8,9 +8,10 @@ export type ResourceTypeCfg = {
 export const resourceType = builder({
   init: (id: string) => ({ id }),
   build: (cfg: ResourceTypeCfg) => {
-    json(`Server/Item/ResourceTypes/${cfg.id}`, {
+    const { resourceTypes } = global();
+    json(`${resourceTypes.json}/${cfg.id}`, {
       id: cfg.id,
-      icon: `Icons/ResourceTypes/${cfg.icon?.trim() || cfg.id}.png`
+      icon: `${resourceTypes.icon}/${cfg.icon ?? cfg.id}.png`
     });
   }
 });

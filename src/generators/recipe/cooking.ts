@@ -1,5 +1,5 @@
 import type { HasAnyInput, HasCategories, HasId, HasSingleOutput, HasTime } from "#hg/index";
-import { builder, json, parseIngredients, spreadItems } from "#hg/index";
+import { builder, global, json, parseIngredients, spreadItems } from "#hg/index";
 
 export type CookingCfg = HasId &
   HasAnyInput &
@@ -11,7 +11,9 @@ export const cooking = builder({
   init: (id: string) => ({ id }),
   build: (cfg: CookingCfg) => {
     const { id, input, output, time, categories } = cfg;
-    json(`/Server/Item/Recipes/Cooking/Cooking_${id}`, {
+    const { recipes } = global();
+
+    json(`${recipes.json}/Cooking/Cooking_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

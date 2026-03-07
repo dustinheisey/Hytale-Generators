@@ -1,25 +1,55 @@
+interface HasLang {
+  json: string;
+  icon: string;
+  lang: string;
+  langRoot: string;
+}
+
 export interface GlobalCfg {
   modId: string;
   outDir: string;
+  categories: HasLang;
+  resourceTypes: { json: string; icon: string };
+  items: HasLang & ({ assets: string } | { model: string; texture: string });
+  recipes: { json: string };
   [key: string]: unknown;
 }
 
-let currentGlobal: GlobalCfg | null = null;
+let globalCfg: GlobalCfg | null = null;
 
-export function setGlobal(config: string | GlobalCfg): void;
-export function setGlobal(global: string | GlobalCfg): void {
-  currentGlobal = typeof global === "string" ? { modId: global, outDir: "dist" } : global;
-}
+const globalDefaults = {
+  outDir: "dist",
+  categories: {
+    json: "Server/Item/Category/CreativeLibrary",
+    icon: "Icons/ItemCategories",
+    lang: "server.ui",
+    langRoot: "ui"
+  },
+  resourceTypes: {
+    json: "Server/Item/ResourceTypes",
+    icon: "Icons/ResourceTypes"
+  },
+  items: {
+    json: "Server/Item/Items",
+    lang: "server.items",
+    langRoot: "items",
+    assets: "Items/",
+    icon: "Icons/ItemsGenerated"
+  },
+  recipes: {
+    json: "/Server/Item/Recipes"
+  }
+} as const satisfies Partial<GlobalCfg>;
 
-export function patchGlobal(patch: Partial<GlobalCfg>): void {
-  currentGlobal = { ...(currentGlobal as GlobalCfg), ...patch };
+export function setGlobal(global: { modId: string } & Partial<GlobalCfg>): void {
+  globalCfg = { ...globalDefaults, ...global } satisfies GlobalCfg;
 }
 
 export function global(): GlobalCfg {
-  if (!currentGlobal) {
+  if (!globalCfg) {
     throw new Error(
       `Global config not set. Call setGlobal({ modId: "...", outDir: "..." }) before running generators.`
     );
   }
-  return currentGlobal;
+  return globalCfg;
 }

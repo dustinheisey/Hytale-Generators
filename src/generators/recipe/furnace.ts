@@ -1,5 +1,5 @@
 import type { HasAnyInput, HasAnyOutput, HasId, HasTier, HasTime } from "#hg/index";
-import { builder, json, parseIngredients } from "#hg/index";
+import { builder, json, parseIngredients, global } from "#hg/index";
 
 export type FurnaceRecipeCfg = HasId & HasAnyInput & HasAnyOutput & HasTime & HasTier<2>;
 
@@ -7,7 +7,9 @@ export const furnace = builder({
   init: (id: string) => ({ id }),
   build: (cfg: FurnaceRecipeCfg) => {
     const { id, input, output, tier, time } = cfg;
-    json(`/Server/Item/Recipes/Furnace/Furnace_${id}`, {
+    const { recipes } = global();
+
+    json(`${recipes.json}/Furnace/Furnace_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

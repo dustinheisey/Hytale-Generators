@@ -1,4 +1,4 @@
-import { IntClosedRange } from "type-fest";
+import type { IntClosedRange } from "type-fest";
 
 export type Ingredient =
   | { ItemId: string; Quantity: number }
