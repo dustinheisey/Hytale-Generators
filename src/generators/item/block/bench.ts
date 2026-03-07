@@ -26,7 +26,7 @@ export const bench = builder({
       filterValidIngredients,
       maxStack
     } = cfg;
-    json(`Server/Item/Items/Benches/${id}`, {
+    json(`Server/Item/Items/Bench/${id}`, {
       ...withTranslationProperties(cfg),
       ...withIcon(cfg),
       categories: ["Furniture.Benches", "Waste.Tools"],
