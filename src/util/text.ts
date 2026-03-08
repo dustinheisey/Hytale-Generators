@@ -1,3 +1,4 @@
+import { assertNonEmpty } from "#hg/index";
 /**
  *
  * @param str - string to capitalize
@@ -23,8 +24,11 @@ export function u(str: string): string {
     .replace(/(^|\s)([a-z])/g, (_: string, separator: string, char: string) => separator + char.toUpperCase());
 }
 
-export function asArray<T>(v: T | T[]) {
-  return Array.isArray(v) ? v : [v];
+export function expectDefined<T>(value: T | undefined, message = "Unexpected undefined"): T {
+  if (value === undefined) {
+    throw new Error(message);
+  }
+  return value;
 }
 
 /**
@@ -32,15 +36,26 @@ export function asArray<T>(v: T | T[]) {
  * @param strs - individual string array
  * @returns - single string joining each item in array with , or and
  */
-export function join(strs: string[]) {
+export function join(strs: string[]): string {
   if (!Array.isArray(strs)) throw new TypeError("strings must be an array");
 
   if (strs.length === 0) return "";
-  if (strs.length === 1) return `<b>${strs[0]}</b>`;
-  if (strs.length === 2) return `<b>${strs[0]}</b> and <b>${strs[1]}</b>`;
+
+  if (strs.length === 1) {
+    assertNonEmpty(strs);
+    return `<b>${strs[0]}</b>`;
+  }
+
+  if (strs.length === 2) {
+    const first = expectDefined(strs[0]);
+    const second = expectDefined(strs[1]);
+    return `<b>${first}</b> and <b>${second}</b>`;
+  }
+
+  assertNonEmpty(strs);
 
   const head = strs.slice(0, -1).join("</b>, <b>");
-  const last = strs[strs.length - 1];
+  const last = expectDefined(strs.at(-1), "Expected last string");
   return `<b>${head}</b> and <b>${last}</b>`;
 }
 
@@ -56,13 +71,18 @@ export type Pascal<T> = T extends Primitive
 
 export function toPascal<T>(input: T): Pascal<T>;
 export function toPascal(input: unknown): unknown {
-  if (Array.isArray(input)) return (input as unknown[]).map(x => toPascal(x));
+  if (Array.isArray(input)) {
+    return (input as unknown[]).map(x => toPascal(x));
+  }
 
   if (typeof input === "object" && input !== null) {
     const out: Record<string, unknown> = {};
+
     for (const [k, v] of Object.entries(input as Record<string, unknown>)) {
-      out[k ? k[0].toUpperCase() + k.slice(1) : k] = toPascal(v);
+      const first = expectDefined(k[0], "Expected non-empty key");
+      out[first.toUpperCase() + k.slice(1)] = toPascal(v);
     }
+
     return out;
   }
 

@@ -1,5 +1,4 @@
-import type { ItemBlockCfg } from "#hg/index";
-import { builder, global, json, lang, resourceType, texture, u } from "#hg/index";
+import { builder, global, json, lang, resourceType, texture, u, type ItemBlockCfg } from "#hg/index";
 
 export type OreCfg = ItemBlockCfg;
 
@@ -49,11 +48,11 @@ export const ore = builder({
         : [])
     ]);
 
-    texture({
-      color: cfg.color,
-      inputFile: cfg.mask ?? `Ores/Ore${cfg.baseMask ? `_${u(cfg.baseMask)}` : ""}`,
-      outputFile: cfg.textureOut ?? `Resources/Ores/${cfg.id}`
-    });
+    texture(
+      cfg.color,
+      cfg.mask ?? `Ores/Ore${cfg.baseMask ? `_${u(cfg.baseMask)}` : ""}`,
+      cfg.textureOut ?? `Resources/Ores/${cfg.id}`
+    );
 
     resourceType(`Salvage_${cfg.id}`).icon("Rock").build();
   }

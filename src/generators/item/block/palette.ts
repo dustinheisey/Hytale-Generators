@@ -5,7 +5,7 @@ type BuildingBlock = BuildingBlockCfg & { builders?: NoId<BuilderRecipeCfg> };
 type PaletteKey = "block" | "bricks" | "assortedBlock" | "assortedBricks" | "colorBlocks" | "colorBricks";
 
 export const makeBuilding = (input: string, output: string): BuilderRecipeCfg => ({
-  id: `${output}_From_${input[0].replace("$", "")}`,
+  id: `${output}_From_${input.replace(/^\$/, "")}`,
   input,
   output
 });

@@ -82,7 +82,7 @@ export function builder<
 
   const callBuild = (c: Config) => {
     // If spec exists, call 2-arg build, else call 1-arg build
-    if ("spec" in cfg) (cfg.build as (x: Config, s: Spec) => void)(c, cfg.spec as Spec);
+    if ("spec" in cfg) (cfg.build as (x: Config, s: Spec) => void)(c, cfg.spec);
     else (cfg.build as (x: Config) => void)(c);
   };
 

@@ -1,3 +1,4 @@
+// TODO simplify json into fragments array
 import * as fs from "fs";
 import { global, syncFile, toPascal } from "#hg/index";
 

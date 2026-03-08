@@ -74,10 +74,10 @@ export const gem = builder({
         : [])
     ]);
 
-    texture({
-      color: cfg.color,
-      inputFile: cfg.mask ?? `Gems/Gem${cfg.baseMask ? `_${cfg.baseMask}` : ""}`,
-      outputFile: cfg.textureOut ?? `Resources/Gems/${cfg.id}`
-    });
+    texture(
+      cfg.color,
+      cfg.mask ?? `Gems/Gem${cfg.baseMask ? `_${cfg.baseMask}` : ""}`,
+      cfg.textureOut ?? `Resources/Gems/${cfg.id}`
+    );
   }
 });

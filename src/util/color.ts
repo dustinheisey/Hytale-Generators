@@ -1,7 +1,5 @@
 import { clampChroma, converter, formatHex } from "culori";
 
-export type HexColor = `#${string}`;
-
 export type EffectColors = {
   light: HexColor;
   interact: HexColor;
@@ -16,14 +14,10 @@ type ColorConfig = {
   hShift: number;
 };
 
-/**
- *
- * @param hex - hex code string
- */
-function assertHex(hex: string): asserts hex is HexColor {
-  if (!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hex)) {
-    throw new Error(`Invalid hex: ${hex}`);
-  }
+export type HexColor = string & { readonly __hex: unique symbol };
+
+export function assertHex(color: string): asserts color is HexColor {
+  if (!/^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(color)) throw new Error(`Invalid hex color: ${color}`);
 }
 
 /**

@@ -1,7 +1,8 @@
+import type { HasIcon, HasId, ItemCfg } from "#hg/index";
+import { global, json, lang, makeGroup, texture, u } from "#hg/index";
 import type { SetOptional } from "type-fest";
-import { global, HasIcon, ItemCfg, json, lang, makeGroup, texture, u } from "#hg/index";
 
-export type MaterialCfg = SetOptional<ItemCfg, "color"> & HasIcon;
+export type MaterialCfg = SetOptional<ItemCfg, "color"> & HasId & HasIcon;
 
 export const materials = makeGroup<MaterialCfg>()({
   types: [
@@ -11,7 +12,7 @@ export const materials = makeGroup<MaterialCfg>()({
       id: "Alloy",
       defaults: { id: "Bar", mask: "Bars/Bar", baseName: "Ingot", baseModel: "Ingot", resourceType: "Metal_Bars" }
     }
-  ],
+  ] as const,
   build: (cfg: MaterialCfg, spec) => {
     const { modId } = global();
 
@@ -48,6 +49,7 @@ export const materials = makeGroup<MaterialCfg>()({
       itemSoundSetId: cfg.sound ?? "ISS_Items_Ingots",
       dropOnDeath: true
     });
+
     lang([
       {
         key: `items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.name`,
@@ -67,10 +69,10 @@ export const materials = makeGroup<MaterialCfg>()({
     ]);
 
     if (cfg.color)
-      texture({
-        color: cfg.color,
-        inputFile: cfg.mask ?? `${spec.id}s/${spec.id}${cfg.baseMask ? `_${u(cfg.baseMask)}` : ""}`,
-        outputFile: cfg.textureOut ?? `Items/${spec.id}s/${cfg.id}`
-      });
+      texture(
+        cfg.color,
+        cfg.mask ?? `${spec.id}s/${spec.id}${cfg.baseMask ? `_${u(cfg.baseMask)}` : ""}`,
+        cfg.textureOut ?? `Items/${spec.id}s/${cfg.id}`
+      );
   }
 });

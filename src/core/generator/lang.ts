@@ -1,3 +1,4 @@
+// TODO: simplify lang
 import fs from "node:fs";
 import { global, syncFile } from "#hg/index";
 

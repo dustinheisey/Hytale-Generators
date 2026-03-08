@@ -5,7 +5,21 @@ type InitOf<C extends HasId> = Partial<C> & Pick<C, "id">;
 
 export type Type<Config extends HasId> = Config["id"] | { id: Config["id"]; defaults: Partial<Config> };
 
-export type GroupSpec<Config extends HasId> = { id: Config["id"]; defaults: Partial<Config> };
+export type GroupSpec<Config extends HasId> = {
+  id: Config["id"];
+  defaults: Partial<Config>;
+};
+
+type TypeId<T> = T extends string ? T : T extends { id: infer I } ? I : never;
+
+type BuildersFromTypes<
+  Config extends HasId,
+  Args extends unknown[],
+  Init extends InitOf<Config>,
+  Types extends readonly Type<Config>[]
+> = {
+  [T in Types[number] as Lowercase<TypeId<T> & string>]: Builder<Config, Args, Init>;
+};
 
 function toSpec<Config extends HasId>(t: Type<Config>): GroupSpec<Config> {
   return isString(t) ? ({ id: t, defaults: {} } as GroupSpec<Config>) : { id: t.id, defaults: t.defaults };
@@ -21,9 +35,10 @@ function mergeTypesById<Config extends HasId>(
     const s = toSpec(t);
     map.set(s.id.toLowerCase(), t);
   }
+
   for (const t of overrides) {
     const s = toSpec(t);
-    map.set(s.id.toLowerCase(), t); // override/insert
+    map.set(s.id.toLowerCase(), t);
   }
 
   return [...map.values()];
@@ -34,17 +49,22 @@ export function makeGroup<
   Args extends unknown[] = [Config["id"]],
   Init extends InitOf<Config> = InitOf<Config>
 >() {
-  return function defineGroup(cfg: {
+  return function defineGroup<const BaseTypes extends readonly Type<Config>[]>(cfg: {
     build: (cfg: Config, spec: GroupSpec<Config>) => void;
-    types: readonly Type<Config>[];
+    types: BaseTypes;
     init?: (...args: Args) => Init;
     opts?: BuilderCfg<Config>;
     groupDefaults?: Partial<Config>;
   }) {
     const { build, types: baseTypes, init, opts, groupDefaults } = cfg;
 
-    // Users call this returned function to extend/override types
-    return function material(overrideTypes: readonly Type<Config>[] = []): Record<string, Builder<Config, Args, Init>> {
+    function material(): BuildersFromTypes<Config, Args, Init, BaseTypes>;
+    function material<const OverrideTypes extends readonly Type<Config>[]>(
+      overrideTypes: OverrideTypes
+    ): BuildersFromTypes<Config, Args, Init, BaseTypes> & BuildersFromTypes<Config, Args, Init, OverrideTypes>;
+    function material<const OverrideTypes extends readonly Type<Config>[]>(
+      overrideTypes: OverrideTypes = [] as unknown as OverrideTypes
+    ) {
       const finalTypes = overrideTypes.length ? mergeTypesById(baseTypes, overrideTypes) : [...baseTypes];
 
       const out: Record<string, Builder<Config, Args, Init>> = {};
@@ -58,15 +78,23 @@ export function makeGroup<
           ...spec.defaults
         };
 
-        out[key] = builder<Config, Args, Init, GroupSpec<Config>>({
+        const common = {
           build,
           spec,
-          init,
           opts: { ...(opts ?? {}), defaults }
-        });
+        };
+
+        out[key] = init
+          ? builder<Config, Args, Init, GroupSpec<Config>>({
+              ...common,
+              init
+            })
+          : builder<Config, Args, Init, GroupSpec<Config>>(common);
       }
 
       return out;
-    };
+    }
+
+    return material;
   };
 }

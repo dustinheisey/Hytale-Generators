@@ -23,3 +23,11 @@ export type OneOf<
 export type Flatten<T> = T[] | Record<string, T[]> | { [key: string]: Flatten<T> };
 
 export type NoId<T> = Omit<T, "id">;
+
+export type NonEmptyArray<T> = [T, ...T[]];
+
+export function assertNonEmpty<T>(arr: T[]): asserts arr is NonEmptyArray<T> {
+  if (arr.length === 0) {
+    throw new Error("Expected non-empty array");
+  }
+}

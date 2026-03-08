@@ -42,7 +42,7 @@
     "format": "prettier . --write",
     "lint": "tsc -b && eslint . -c eslint.config.ts && cspell lint .",
     "lint:fix": "tsc -b && eslint . -c eslint.config.ts --fix",
-    "clean": "rimraf dist test",
+    "clean": "rimraf dist test .tsbuildinfo",
     "build": "tsc -p tsconfig.build.json",
     "prebuild": "npm run clean",
     "test": "tsc -p tsconfig.build.json && node dist/index.test.js",

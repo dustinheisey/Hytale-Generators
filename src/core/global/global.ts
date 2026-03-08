@@ -12,6 +12,7 @@ export interface GlobalCfg {
   resourceTypes: { json: string; icon: string };
   items: HasLang & ({ assets: string } | { model: string; texture: string });
   recipes: { json: string };
+  assets: string;
   [key: string]: unknown;
 }
 
@@ -19,6 +20,7 @@ let globalCfg: GlobalCfg | null = null;
 
 const globalDefaults = {
   outDir: "dist",
+  assets: "./src/assets",
   categories: {
     json: "Server/Item/Category/CreativeLibrary",
     icon: "Icons/ItemCategories",
