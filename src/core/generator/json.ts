@@ -1,38 +1,20 @@
-// TODO simplify json into fragments array
+import { global, syncFile, toPascal, type HasId } from "#hg/index";
 import * as fs from "fs";
-import { global, syncFile, toPascal } from "#hg/index";
 
-/**
- * Writes an object to a JSON file asynchronously (pretty-printed with 2 spaces).
- *
- * The write happens via `fs.writeFile` and logs success or errors to the console.
- * Note: This function writes to the exact `file` path you provide; it does not
- * automatically append “.json” even though the log message includes `${file}.json`.
- * @param file - Destination file path
- * @param data - Plain object to serialize as JSON.
- * @example
- * writeJson("dist/config.json", { env: "prod", debug: false });
- */
-export function writeJson(file: string, data: object) {
-  fs.writeFile(file, JSON.stringify(data, null, 2), err => {
-    if (err) {
-      console.error("Error writing file:", err);
-      return;
-    }
+export function json(path: string, data: object) {
+  const file = `${global().outDir}/${path}.json`;
+  syncFile(file);
+  fs.writeFile(file, JSON.stringify(toPascal(data), null, 2), err => {
+    if (err) console.error("Error writing file:", err);
   });
 }
 
-/**
- * Ensures a JSON file can be written, then writes it.
- *
- * Creates parent directories (recursively) and the file (if missing), then writes
- * the JSON contents using `writeJson`.
- * @param path - writes to `dist/${path}.json`
- * @param config - data config
- */
-export function json(path: string, data: object) {
-  const { outDir } = global();
-  const prefix = outDir ? `${outDir}/` : "";
-  syncFile(`${prefix}${path}.json`);
-  writeJson(`${prefix}${path}.json`, toPascal(data));
+export function simpleJson<Cfg extends HasId>(path: string, cfg: Cfg, fragments: ((cfg: Cfg) => object)[]) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const data = Object.assign({}, ...fragments.map(f => f(cfg)));
+  const file = `${global().outDir}/${path}.json`;
+  syncFile(file);
+  fs.writeFile(file, JSON.stringify(toPascal(data), null, 2), err => {
+    if (err) console.error("Error writing file:", err);
+  });
 }

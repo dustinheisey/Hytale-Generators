@@ -10,10 +10,7 @@ export * from "./core/global/consts.js";
 export * from "./core/global/global.js";
 
 export * from "./fragments/fragments.js";
-export * from "./fragments/item/item.js";
-export * from "./fragments/item/item.types.js";
-export * from "./fragments/meta/meta.js";
-export * from "./fragments/meta/meta.types.js";
+export * from "./fragments/fragments.types.js";
 
 export * from "./util/color.js";
 export * from "./util/dir.js";

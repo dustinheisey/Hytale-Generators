@@ -1,4 +1,4 @@
-import type { AutoComplete, HasId } from "#hg/index";
+import type { AutoComplete } from "#hg/index";
 
 export type BlockTexture = {
   texture?: string;
@@ -13,6 +13,10 @@ export type BlockTexture = {
   sides?: string;
   weight?: number;
 };
+
+export interface HasId {
+  id: string;
+}
 
 export interface HasLang {
   name?: string;
