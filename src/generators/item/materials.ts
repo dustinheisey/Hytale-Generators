@@ -24,7 +24,7 @@ export const materials = makeGroup<MaterialCfg>()({
       categories: cfg.categories ?? ["Items", `${modId}.${spec.id}s`],
       model: `${cfg.model ?? `Items/${cfg.baseModel ?? spec.id}`}.blockymodel`,
       texture: `${cfg.texture ?? `Items/${spec.id}s/${cfg.baseTexture ?? cfg.id}`}.png`,
-      ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ingredient_${cfg.baseIconPath ?? spec.id}_${cfg.id}.png` } : {}),
+      ...(cfg.icon ? { icon: `Icons/ItemsGenerated/Ingredient_${cfg.baseIcon ?? spec.id}_${cfg.id}.png` } : {}),
       resourceTypes: [
         {
           id: spec.defaults.resourceType ?? cfg.resourceType ?? `${spec.id}s`

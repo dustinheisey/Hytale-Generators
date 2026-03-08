@@ -11,6 +11,7 @@ export * from "./core/global/global.js";
 
 export * from "./fragments/fragments.js";
 export * from "./fragments/fragments.types.js";
+export * from "./fragments/core.js";
 
 export * from "./util/color.js";
 export * from "./util/dir.js";

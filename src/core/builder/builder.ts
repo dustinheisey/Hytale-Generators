@@ -20,29 +20,31 @@ type OptionalKeys<T extends object> = {
 
 type RequiredKeys<T extends object> = Exclude<keyof T, OptionalKeys<T>>;
 
-/** Only keys guaranteed present from init() */
 type SetFromInit<Init extends object> = Pick<Init, RequiredKeys<Init>>;
 
 /* ------------------------------------------------ */
 /* ------------------- Builder -------------------- */
 /* ------------------------------------------------ */
+
 export type ManyBuilder<Config extends object> = {
   defaults(values: Partial<Config>): ManyBuilder<Config>;
   build(): void;
 };
 
-type ManyInput<Config extends object> = Config extends { id: string } ? Flatten<Config | string> : Flatten<Config>;
+type ManyInput<Config extends object, Init extends Record<string, unknown>> = Config extends { id: string }
+  ? Flatten<(Omit<Config, keyof Init> & Partial<Pick<Config, keyof Init & keyof Config>>) | string>
+  : Flatten<Omit<Config, keyof Init> & Partial<Pick<Config, keyof Init & keyof Config>>>;
 
-export type Builder<Config extends object, Args extends readonly unknown[], Init extends Partial<Config>> = ((
+export type Builder<Config extends object, Args extends readonly unknown[], Init extends Record<string, unknown>> = ((
   ...args: Args
 ) => Stage<Config, SetFromInit<Init>, DefaultHiddenKeys<Config>>) & {
-  many(configs: ManyInput<Config>): ManyBuilder<Config>;
+  many(configs: ManyInput<Config, Init>): ManyBuilder<Config>;
 };
 
 export function builder<
   Config extends object,
   Args extends readonly unknown[] = [],
-  Init extends Partial<Config> = {}
+  Init extends Record<string, unknown> = {}
 >(cfg: {
   build: (cfg: Config) => void;
   init?: (...args: Args) => Init;
@@ -52,7 +54,7 @@ export function builder<
 export function builder<
   Config extends object,
   Args extends readonly unknown[] = [],
-  Init extends Partial<Config> = {},
+  Init extends Record<string, unknown> = {},
   Spec = void
 >(cfg: {
   build: (cfg: Config, spec: Spec) => void;
@@ -64,7 +66,7 @@ export function builder<
 export function builder<
   Config extends object,
   Args extends readonly unknown[] = [],
-  Init extends Partial<Config> = {},
+  Init extends Record<string, unknown> = {},
   Spec = void
 >(cfg: {
   build: ((cfg: Config) => void) | ((cfg: Config, spec: Spec) => void);
@@ -81,7 +83,6 @@ export function builder<
     });
 
   const callBuild = (c: Config) => {
-    // If spec exists, call 2-arg build, else call 1-arg build
     if ("spec" in cfg) (cfg.build as (x: Config, s: Spec) => void)(c, cfg.spec);
     else (cfg.build as (x: Config) => void)(c);
   };
@@ -89,10 +90,10 @@ export function builder<
   const single = (...args: Args) => {
     const initProps = (init?.(...args) ?? {}) as Init;
     const state: Record<string, unknown> = { ...defaults, ...initProps };
-    const hiddenKeys: readonly string[] = ["id", ...(opts?.hiddenKeys ?? [])];
+    const hiddenSet = new Set<string>(["id", ...(opts?.hiddenKeys ?? [])]);
 
     return createStageProxy<Config, SetFromInit<Init>, DefaultHiddenKeys<Config>>({
-      hiddenKeys,
+      hiddenKeys: [...hiddenSet],
       extra: opts?.extra ?? {},
       onSet: (prop, value) => {
         set(state, prop, value);
@@ -103,23 +104,22 @@ export function builder<
     });
   };
 
-  single.many = (cfgs: Array<Config | string>) => {
+  single.many = (cfgs: ManyInput<Config, Init>) => {
     type State = Record<string, unknown>;
 
     if (!(Array.isArray(cfgs) || isRecord(cfgs))) {
       throw new TypeError("many() expects an array or nested object of arrays");
     }
 
-    // Normalize nested input -> flat array of values
-    const normalized = flatten(cfgs);
+    // Call init with no args to get static defaults (e.g. type, group)
+    const initDefaults = (init?.(...([] as unknown as Args)) ?? {}) as Partial<Config>;
+
+    const normalized = flatten(cfgs as Flatten<Config | string>);
 
     const items = normalized.map(c => {
-      // If it's a string, treat it as {id: string}. This only *works* when Config has id.
-      // Overloads prevent calling many() with strings when Config lacks id.
       const explicit: State = isString(c) ? { id: c } : (c as State);
-
       return {
-        state: { ...defaults, ...explicit } as State,
+        state: { ...defaults, ...initDefaults, ...explicit } as State,
         locked: new Set(Object.keys(explicit))
       };
     });
@@ -127,8 +127,8 @@ export function builder<
     const applyDefaults = (vals: Partial<Config>) => {
       for (const it of items) {
         for (const [k, v] of Object.entries(vals as Record<string, unknown>)) {
-          if (k === "id") continue; // always ignore id
-          if (it.locked.has(k)) continue; // don't clobber explicit per-item values
+          if (k === "id") continue;
+          if (it.locked.has(k)) continue;
           set(it.state, k, v);
         }
       }

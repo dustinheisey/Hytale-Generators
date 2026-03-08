@@ -1,4 +1,4 @@
-// import type { HasId, HasType } from "#hg/index";
+import type { HasId, HasType } from "#hg/index";
 
 export type PathCfg = {
   json: string;
@@ -66,7 +66,7 @@ export function global(): GlobalCfg {
   return globalCfg;
 }
 
-// export function resolvePath(cfg: HasType & HasGroup & HasId, g: GlobalCfg): string {
-//   const base = g.paths[cfg.type].json;
-//   return cfg.group ? `${base}/${cfg.group}/${cfg.id}` : `${base}/${cfg.id}`;
-// }
+export function resolvePath(cfg: HasType & HasGroup & HasId, g: GlobalCfg): string {
+  const base = g.paths[cfg.type].json;
+  return cfg.group ? `${base}/${cfg.group}/${cfg.id}` : `${base}/${cfg.id}`;
+}

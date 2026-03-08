@@ -1,4 +1,4 @@
-import type { AutoComplete } from "#hg/index";
+import type { AutoComplete, HasIcon, HasId, HasLang } from "#hg/index";
 
 export type BlockTexture = {
   texture?: string;
@@ -13,16 +13,6 @@ export type BlockTexture = {
   sides?: string;
   weight?: number;
 };
-
-export interface HasId {
-  id: string;
-}
-
-export interface HasLang {
-  name?: string;
-  baseName?: string;
-  description?: string;
-}
 
 type Tab = AutoComplete<
   | "Items"
@@ -64,17 +54,6 @@ export interface HasItem {
   quality?: "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary";
   sound?: string;
   resourceType?: string;
-}
-
-export interface HasIcon {
-  icon?: string;
-  baseIconPath?: string;
-  iconGenerated?: boolean;
-  iconProperties?: {
-    Scale: number;
-    Rotation: [number, number, number];
-    Translation: [number, number];
-  };
 }
 
 export type HasFilter<Filter> = {

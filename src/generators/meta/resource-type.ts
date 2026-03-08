@@ -1,13 +1,9 @@
-import { builder, global, simpleJson, withId, withResourceIcon } from "#hg/index";
-
-export type ResourceTypeCfg = {
-  id: string;
-  icon?: string;
-};
+import type { HasId, HasSimpleIcon, HasType } from "#hg/index";
+import { builder, json } from "#hg/index";
 
 export const resourceType = builder({
-  init: (id: string) => ({ id }),
-  build: (cfg: ResourceTypeCfg) => {
-    simpleJson(`${global().paths.resourceType.json}/${cfg.id}`, cfg, [withId, withResourceIcon]);
+  init: (id: string) => ({ id, iconGenerated: true, type: "resourceType" as const }),
+  build: (cfg: HasId & HasSimpleIcon & HasType) => {
+    json(cfg, f => [f.withId, f.withResourceTypeIcon]);
   }
 });
