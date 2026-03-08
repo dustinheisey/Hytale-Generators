@@ -23,7 +23,7 @@ export interface HasResourceIcon {
 }
 
 export function withResourceIcon(cfg: HasId & HasResourceIcon) {
-  return cfg.icon ? { icon: `${global().resourceTypes.icon}/${cfg.icon ?? cfg.id}.png` } : {};
+  return cfg.icon ? { icon: `${global().paths.resourceType.icon}/${cfg.icon ?? cfg.id}.png` } : {};
 }
 
 export function withIcon(cfg: HasId & HasIcon) {

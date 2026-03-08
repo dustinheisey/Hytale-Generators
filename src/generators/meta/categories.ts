@@ -17,29 +17,32 @@ export type CategoriesCfg = {
 
 export const categories = builder({
   build: (cfg: CategoriesCfg) => {
-    const { modId, categories } = global();
+    const {
+      modId,
+      paths: { category }
+    } = global();
 
-    json(`${categories.json}/${modId}`, {
+    json(`${category.json}/${modId}`, {
       id: modId,
-      name: `${categories.lang}.${modId}`,
-      icon: `${categories.icon}/${cfg.icon ?? modId}.png`,
+      name: `${category.lang}.${modId}`,
+      icon: `${category.icon}/${cfg.icon ?? modId}.png`,
       ...(cfg.order ? { order: cfg.order } : {}),
       children: cfg.children.map((child: Child) => {
         const isString = typeof child === "string";
         const childId = isString ? child : child.id;
         return {
           id: childId,
-          name: `${categories.lang}.${modId}.${childId}`,
-          icon: `${categories.icon}/${isString ? childId : child.icon}.png`
+          name: `${category.lang}.${modId}.${childId}`,
+          icon: `${category.icon}/${isString ? childId : child.icon}.png`
         };
       })
     });
 
     lang({
-      [`${categories.langRoot}.${modId}`]: cfg.name ?? modId,
+      [`${category.langRoot}.${modId}`]: cfg.name ?? modId,
       ...Object.fromEntries(
         cfg.children.map(child => [
-          `${categories.langRoot}.${modId}.${isString(child) ? child : child.id}`,
+          `${category.langRoot}.${modId}.${isString(child) ? child : child.id}`,
           isString(child) ? child : (child.name ?? child.id)
         ])
       )

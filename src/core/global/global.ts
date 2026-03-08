@@ -1,45 +1,55 @@
-interface HasLang {
+// import type { HasId, HasType } from "#hg/index";
+
+export type PathCfg = {
   json: string;
-  icon: string;
   lang: string;
   langRoot: string;
-}
-
-export interface GlobalCfg {
-  modId: string;
-  outDir: string;
-  categories: HasLang;
-  resourceTypes: { json: string; icon: string };
-  items: HasLang & ({ assets: string } | { model: string; texture: string });
-  recipes: { json: string };
   assets: string;
-  [key: string]: unknown;
-}
+  icon: string;
+};
+
+export type GlobalCfg = {
+  modId: string;
+  assetsDir: string;
+  outDir: string;
+  paths: {
+    item: PathCfg;
+    category: Pick<PathCfg, "json" | "lang" | "langRoot" | "icon">;
+    resourceType: Pick<PathCfg, "json" | "icon">;
+    recipe: Pick<PathCfg, "json">;
+  };
+};
+
+export type CfgType = keyof GlobalCfg["paths"];
+
+export type HasGroup = { group?: string };
 
 let globalCfg: GlobalCfg | null = null;
 
 const globalDefaults = {
   outDir: "dist",
-  assets: "./src/assets",
-  categories: {
-    json: "Server/Item/Category/CreativeLibrary",
-    icon: "Icons/ItemCategories",
-    lang: "server.ui",
-    langRoot: "ui"
-  },
-  resourceTypes: {
-    json: "Server/Item/ResourceTypes",
-    icon: "Icons/ResourceTypes"
-  },
-  items: {
-    json: "Server/Item/Items",
-    lang: "server.items",
-    langRoot: "items",
-    assets: "Items/",
-    icon: "Icons/ItemsGenerated"
-  },
-  recipes: {
-    json: "/Server/Item/Recipes"
+  assetsDir: "./src/assets",
+  paths: {
+    category: {
+      json: "Server/Item/Category/CreativeLibrary",
+      icon: "Icons/ItemCategories",
+      lang: "server.ui",
+      langRoot: "ui"
+    },
+    resourceType: {
+      json: "Server/Item/ResourceTypes",
+      icon: "Icons/ResourceTypes"
+    },
+    item: {
+      json: "Server/Item/Items",
+      lang: "server.items",
+      langRoot: "items",
+      assets: "Items/",
+      icon: "Icons/ItemsGenerated"
+    },
+    recipe: {
+      json: "/Server/Item/Recipes"
+    }
   }
 } as const satisfies Partial<GlobalCfg>;
 
@@ -55,3 +65,8 @@ export function global(): GlobalCfg {
   }
   return globalCfg;
 }
+
+// export function resolvePath(cfg: HasType & HasGroup & HasId, g: GlobalCfg): string {
+//   const base = g.paths[cfg.type].json;
+//   return cfg.group ? `${base}/${cfg.group}/${cfg.id}` : `${base}/${cfg.id}`;
+// }

@@ -11,9 +11,7 @@ export const cooking = builder({
   init: (id: string) => ({ id }),
   build: (cfg: CookingCfg) => {
     const { id, input, output, time, categories } = cfg;
-    const { recipes } = global();
-
-    json(`${recipes.json}/Cooking/Cooking_${id}`, {
+    json(`${global().paths.recipe.json}/Cooking/Cooking_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

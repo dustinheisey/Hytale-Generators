@@ -11,9 +11,7 @@ export const arcane = builder({
   init: (id: string) => ({ id }),
   build: (cfg: ArcaneCfg) => {
     const { id, input, output, time, categories } = cfg;
-    const { recipes } = global();
-
-    json(`${recipes.json}/Arcane/Arcane_${id}`, {
+    json(`${global().paths.recipe.json}/Arcane/Arcane_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

@@ -8,9 +8,7 @@ export const workbench = builder({
   init: (id: string) => ({ id }),
   build: (cfg: WorkbenchCfg) => {
     const { id, input, output, time, tier, categories } = cfg;
-    const { recipes } = global();
-
-    json(`${recipes.json}/Workbench/Workbench_${id}`, {
+    json(`${global().paths.recipe.json}/Workbench/Workbench_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

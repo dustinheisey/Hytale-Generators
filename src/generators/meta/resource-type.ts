@@ -8,6 +8,6 @@ export type ResourceTypeCfg = {
 export const resourceType = builder({
   init: (id: string) => ({ id }),
   build: (cfg: ResourceTypeCfg) => {
-    simpleJson(`${global().resourceTypes.json}/${cfg.id}`, cfg, [withId, withResourceIcon]);
+    simpleJson(`${global().paths.resourceType.json}/${cfg.id}`, cfg, [withId, withResourceIcon]);
   }
 });

@@ -12,9 +12,7 @@ export const armor = builder({
   init: (id: string) => ({ id }),
   build: (cfg: ArmorCfg) => {
     const { id, input, output, time, tier, categories } = cfg;
-    const { recipes } = global();
-
-    json(`${recipes.json}/Armor/Armor_${id}`, {
+    json(`${global().paths.recipe.json}/Armor/Armor_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

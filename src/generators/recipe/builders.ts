@@ -7,9 +7,7 @@ export const builders = builder({
   init: (id: string) => ({ id }),
   build: (cfg: BuilderRecipeCfg) => {
     const { id, input, output } = cfg;
-    const { recipes } = global();
-
-    json(`${recipes.json}/Builder/Builder_${id}`, {
+    json(`${global().paths.recipe.json}/Builder/Builder_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       benchRequirement: [

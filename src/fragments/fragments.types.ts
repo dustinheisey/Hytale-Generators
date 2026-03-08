@@ -67,8 +67,9 @@ export interface HasItem {
 }
 
 export interface HasIcon {
-  icon?: boolean;
+  icon?: string;
   baseIconPath?: string;
+  iconGenerated?: boolean;
   iconProperties?: {
     Scale: number;
     Rotation: [number, number, number];

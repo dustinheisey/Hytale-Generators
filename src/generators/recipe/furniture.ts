@@ -20,9 +20,7 @@ export const furniture = builder({
   init: (id: string) => ({ id }),
   build: (cfg: FurnitureCfg) => {
     const { id, input, output, time, categories } = cfg;
-    const { recipes } = global();
-
-    json(`${recipes.json}/Furniture/Furniture_${id}`, {
+    json(`${global().paths.recipe.json}/Furniture/Furniture_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

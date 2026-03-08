@@ -12,9 +12,8 @@ export const alchemy = builder({
   init: (id: string) => ({ id }),
   build: (cfg: AlchemyCfg) => {
     const { id, input, output, time, tier, categories } = cfg;
-    const { recipes } = global();
 
-    json(`${recipes.json}/Alchemy/Alchemy_${id}`, {
+    json(`${global().paths.recipe.json}/Alchemy/Alchemy_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),

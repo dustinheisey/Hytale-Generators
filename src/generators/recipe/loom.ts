@@ -7,9 +7,7 @@ export const loom = builder({
   init: (id: string) => ({ id }),
   build: (cfg: LoomCfg) => {
     const { id, input, output, time, categories } = cfg;
-    const { recipes } = global();
-
-    json(`${recipes.json}/Loom/Loom_${id}`, {
+    json(`${global().paths.recipe.json}/Loom/Loom_${id}`, {
       input: parseIngredients(input),
       primaryOutput: parseIngredients(output)[0],
       output: parseIngredients(output),
