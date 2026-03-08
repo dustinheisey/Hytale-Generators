@@ -115,19 +115,9 @@ export const oreBlock = builder({
       itemSoundSetId: "ISS_Blocks_Stone"
     });
 
-    lang([
-      {
-        key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.name`,
-        value: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore - ${cfg.strata}`
-      },
-      ...(cfg.description
-        ? [
-            {
-              key: `items.${modId}.Ore_${cfg.id}_${cfg.strata}.description`,
-              value: cfg.description ?? cfg.description
-            }
-          ]
-        : [])
-    ]);
+    lang({
+      [`items.${modId}.Ore_${cfg.id}_${cfg.strata}.name`]: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore - ${cfg.strata}`,
+      [`items.${modId}.Ore_${cfg.id}_${cfg.strata}.description`]: cfg.description
+    });
   }
 });

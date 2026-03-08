@@ -35,15 +35,14 @@ export const categories = builder({
       })
     });
 
-    lang([
-      {
-        key: `${categories.langRoot}.${modId}`,
-        value: cfg.name ?? modId
-      },
-      ...cfg.children.map(child => ({
-        key: `${categories.langRoot}.${modId}.${isString(child) ? child : child.id}`,
-        value: isString(child) ? child : (child.name ?? child.id)
-      }))
-    ]);
+    lang({
+      [`${categories.langRoot}.${modId}`]: cfg.name ?? modId,
+      ...Object.fromEntries(
+        cfg.children.map(child => [
+          `${categories.langRoot}.${modId}.${isString(child) ? child : child.id}`,
+          isString(child) ? child : (child.name ?? child.id)
+        ])
+      )
+    });
   }
 });

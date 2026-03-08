@@ -33,20 +33,10 @@ export const ore = builder({
       dropOnDeath: true
     });
 
-    lang([
-      {
-        key: `${items.langRoot}.${modId}.Ore_${cfg.id}.name`,
-        value: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore`
-      },
-      ...(cfg.description
-        ? [
-            {
-              key: `${items.langRoot}.${modId}.Ore_${cfg.id}.description`,
-              value: cfg.description ?? cfg.description
-            }
-          ]
-        : [])
-    ]);
+    lang({
+      [`${items.langRoot}.${modId}.Ore_${cfg.id}.name`]: cfg.name ?? `${cfg.baseName ?? cfg.id} Ore`,
+      [`${items.langRoot}.${modId}.Ore_${cfg.id}.description`]: cfg.description
+    });
 
     texture(
       cfg.color,

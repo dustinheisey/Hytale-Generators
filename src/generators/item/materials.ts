@@ -50,23 +50,13 @@ export const materials = makeGroup<MaterialCfg>()({
       dropOnDeath: true
     });
 
-    lang([
-      {
-        key: `items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.name`,
-        value:
-          cfg.name?.replace(/_/g, " ") ??
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          `${cfg.id?.replace(/_/g, " ")} ${cfg.baseName?.replace(/_/g, " ") ?? spec.id.replace(/_/g, " ")}`
-      },
-      ...(cfg.description
-        ? [
-            {
-              key: `items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.description`,
-              value: cfg.description ?? cfg.description
-            }
-          ]
-        : [])
-    ]);
+    lang({
+      [`items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.name`]:
+        cfg.name?.replace(/_/g, " ") ??
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        `${cfg.id?.replace(/_/g, " ")} ${cfg.baseName?.replace(/_/g, " ") ?? spec.id.replace(/_/g, " ")}`,
+      [`items.${modId}.Ingredient_${spec.defaults.id ?? spec.id}_${cfg.id}.description`]: cfg.description
+    });
 
     if (cfg.color)
       texture(

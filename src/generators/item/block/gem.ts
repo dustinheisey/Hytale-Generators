@@ -59,20 +59,10 @@ export const gem = builder({
       maxStack: cfg.maxStack ?? 100
     });
 
-    lang([
-      {
-        key: `items.${modId}.Rock_Gem_${cfg.id}.name`,
-        value: cfg.name ?? cfg.name ?? cfg.id
-      },
-      ...(cfg.description
-        ? [
-            {
-              key: `items.${modId}.Rock_Gem_${cfg.id}.description`,
-              value: cfg.description ?? cfg.description
-            }
-          ]
-        : [])
-    ]);
+    lang({
+      [`items.${modId}.Rock_Gem_${cfg.id}.name`]: cfg.name ?? cfg.name ?? cfg.id,
+      [`items.${modId}.Rock_Gem_${cfg.id}.description`]: cfg.description
+    });
 
     texture(
       cfg.color,

@@ -87,19 +87,9 @@ export const buildingBlock = builder({
       itemSoundSetId: "ISS_Blocks_Stone"
     });
 
-    lang([
-      {
-        key: `items.${modId}.${id}.name`,
-        value: name ?? baseName ?? id.replace(/_/g, " ")
-      },
-      ...(description
-        ? [
-            {
-              key: `items.${modId}.${id}.description`,
-              value: description
-            }
-          ]
-        : [])
-    ]);
+    lang({
+      [`items.${modId}.${id}.name`]: name ?? baseName ?? id.replace(/_/g, " "),
+      [`items.${modId}.${id}.description`]: description
+    });
   }
 });
