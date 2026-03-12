@@ -9,7 +9,7 @@ import {
   type HasTime,
   type Ingredient,
   type HasRecipeCategories
-} from "#hg";
+} from "@hg";
 
 export function parseIngredients(input: string | string[]): Ingredient[] {
   const arr = typeof input === "string" ? [input] : input;

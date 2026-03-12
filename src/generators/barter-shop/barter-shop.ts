@@ -1,4 +1,4 @@
-import { builder, json } from "#hg";
+import { builder, json } from "@hg";
 import { withDisplayNameKey, withRestock, withTrades } from "./barter-shop.fragments.js";
 import { type BarterShopCfg } from "./barter-shop.types.js";
 

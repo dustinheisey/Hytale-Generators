@@ -18,7 +18,7 @@ import {
   withAnyOutput,
   withProcessingBench,
   withStructuralBench
-} from "#hg";
+} from "@hg";
 
 type ProcessingRecipe = HasId & HasTime;
 type CraftingRecipe = HasId & HasAnyInput & HasSingleOutput & HasTime;

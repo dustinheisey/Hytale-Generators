@@ -8,3 +8,5 @@ node_modules
 assets
 .tsbuildinfo
 tmp
+/preview
+preview.ts

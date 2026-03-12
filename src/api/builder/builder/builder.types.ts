@@ -1,4 +1,4 @@
-import { type Flatten, type HasId, type Stage } from "#hg";
+import { type Flatten, type HasId, type Stage } from "@hg";
 
 export type IsIdBased<Config> = Config extends HasId ? true : false;
 

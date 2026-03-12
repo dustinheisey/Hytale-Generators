@@ -1,4 +1,4 @@
-import { builder, isString, type BuilderCfg, type BuildersFromTypes, type GroupSpec, type HasId, type Type } from "#hg";
+import { builder, isString, type BuilderCfg, type BuildersFromTypes, type GroupSpec, type HasId, type Type } from "@hg";
 
 function toSpec<Config extends HasId>(t: Type<Config>): GroupSpec<Config> {
   return isString(t) ? ({ id: t, defaults: {} } as GroupSpec<Config>) : { id: t.id, defaults: t.defaults };

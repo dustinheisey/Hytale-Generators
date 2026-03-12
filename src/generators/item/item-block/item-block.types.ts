@@ -1,4 +1,4 @@
-import { type HasGroup, type HasIcon, type HasId, type HasLang, type HasTexture, type Tab } from "#hg";
+import { type HasGroup, type HasIcon, type HasId, type HasLang, type HasTexture, type Tab } from "@hg";
 
 export type HasCategories = { categories?: Tab[] };
 export type HasModel = { model?: string };

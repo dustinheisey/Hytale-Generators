@@ -1,5 +1,5 @@
-// import type { HasIcon, HasId, ItemCfg } from "#hg/index";
-// import { global, json, lang, makeGroup, texture, u } from "#hg/index";
+// import type { HasIcon, HasId, ItemCfg } from "@hg";
+// import { global, json, lang, makeGroup, texture, u } from "@hg";
 // import type { SetOptional } from "type-fest";
 
 // export type MaterialCfg = SetOptional<ItemCfg, "color"> & HasId & HasIcon;

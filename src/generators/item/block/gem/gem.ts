@@ -19,7 +19,7 @@ import {
   type HasStack,
   type HasTags,
   type HasTexture
-} from "#hg";
+} from "@hg";
 
 type HasParticleColor = { color: string };
 

@@ -1,5 +1,5 @@
-// import type { BlockCfg, HasDrops } from "#hg/index";
-// import { builder, fragments, json, lang, meta } from "#hg/index";
+// import type { BlockCfg, HasDrops } from "@hg";
+// import { builder, fragments, json, lang, meta } from "@hg";
 
 // export interface BuildingBlockCfg extends BlockCfg, HasDrops {}
 

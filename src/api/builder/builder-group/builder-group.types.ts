@@ -1,4 +1,4 @@
-import { type Builder, type HasId } from "#hg";
+import { type Builder, type HasId } from "@hg";
 
 export type Type<Config extends HasId> = Config["id"] | { id: Config["id"]; defaults: Partial<Config> };
 

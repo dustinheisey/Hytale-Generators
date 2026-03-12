@@ -11,8 +11,8 @@ import {
   type HasLang,
   type HasStack,
   type HasTags
-} from "#hg/index";
-import { builder, json, lang } from "#hg/index";
+} from "@hg";
+import { builder, json, lang } from "@hg";
 import { withBlockType } from "./bench.fragments.js";
 
 export interface HasBench {
@@ -24,7 +24,8 @@ export type BenchCfg = HasId & HasLang & HasBench & HasStack & HasTags & HasCate
 
 export const bench = builder((cfg: BenchCfg, { modId, paths: { item } }) => {
   const { id, name, baseName, description } = cfg;
-  json(`${item.json}/Bench/${id}`, [
+  lang(`items.${modId}.${id}`, name ?? baseName ?? id.replace(/_/g, " "), description);
+  return json(`${item.json}/Bench/${id}`, [
     withTranslationProperties(cfg),
     withCategories(cfg, ["Furniture.Benches", "Waste.Tools"]),
     withBlockType(cfg),
@@ -38,6 +39,4 @@ export const bench = builder((cfg: BenchCfg, { modId, paths: { item } }) => {
     withStack(cfg),
     withItemSoundSetId("ISS_Blocks_Stone")
   ]);
-
-  lang(`items.${modId}.${id}`, name ?? baseName ?? id.replace(/_/g, " "), description);
 });

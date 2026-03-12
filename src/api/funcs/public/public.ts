@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import process from "process";
-import { globals } from "#hg";
+import { globals } from "@hg";
 
 export const syncPublic = (): void => {
   const root = process.cwd();

@@ -1,4 +1,4 @@
-import { type Stage } from "#hg";
+import { type Stage } from "@hg";
 
 export type ProxyOptions = {
   /** Called when build() is invoked */

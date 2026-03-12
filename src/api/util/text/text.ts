@@ -1,4 +1,4 @@
-import { assertNonEmpty, type Prettify } from "#hg";
+import { assertNonEmpty, type Prettify } from "@hg";
 /**
  *
  * @param str - string to capitalize

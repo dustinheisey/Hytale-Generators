@@ -8,7 +8,7 @@ import {
   withItemBlock,
   type HasItemBlock,
   type HasResourceType
-} from "#hg";
+} from "@hg";
 
 export const ore = builder((cfg: HasItemBlock & HasResourceType, { modId, paths: { item } }) => {
   const { id, name, baseName, description, baseMask, mask, textureOut, color } = cfg;
@@ -17,7 +17,7 @@ export const ore = builder((cfg: HasItemBlock & HasResourceType, { modId, paths:
   const displayName = name ?? `${baseName ?? id} Ore`;
 
   resourceType(`Salvage_${id}`).icon("Rock").build();
-  
+
   lang(`${item.langRoot}.${modId}.${oreId}`, displayName, description);
   texture(color, mask ?? `Ores/Ore${baseMask ? `_${u(baseMask)}` : ""}`, textureOut ?? `Resources/Ores/${id}`);
 

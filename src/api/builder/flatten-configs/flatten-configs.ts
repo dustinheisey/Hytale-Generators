@@ -1,4 +1,4 @@
-import { isObj, isString, type AnyObj } from "#hg";
+import { isObj, isString, type AnyObj } from "@hg";
 
 /** Helper to omit keys from built object in array */
 function omitKey(obj: AnyObj, key: string): AnyObj {

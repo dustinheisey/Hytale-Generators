@@ -1,4 +1,4 @@
-// import type * as C from "#hg/generators/common.types";
+// import type * as C from "@hg";
 
 // export const withItem = {
 //   withTranslationProperties: (cfg: C.HasId & C.HasLang) => {

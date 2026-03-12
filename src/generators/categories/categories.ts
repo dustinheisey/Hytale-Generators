@@ -8,7 +8,7 @@ import {
   withOrder,
   withSimpleIcon,
   type CategoriesCfg
-} from "#hg";
+} from "@hg";
 
 export const categories = builder((cfg: CategoriesCfg, { modId, paths: { categories } }) => {
   const langKey = `${categories.langRoot}.${modId}`;

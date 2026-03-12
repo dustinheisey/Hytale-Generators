@@ -1,4 +1,4 @@
-import type { HasId } from "#hg";
+import type { HasId } from "@hg";
 /**
  * Defines the config shapes accepted by `builder.many(...)`.
  *

@@ -1,4 +1,4 @@
-import type { Flatten } from "#hg";
+import type { Flatten } from "@hg";
 
 export function flatten<T>(value: Flatten<T>): T[] {
   if (Array.isArray(value)) return value;
