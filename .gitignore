@@ -10,3 +10,4 @@ assets
 tmp
 /preview
 preview.ts
+src/schemas
