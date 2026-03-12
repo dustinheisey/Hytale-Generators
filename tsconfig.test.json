@@ -3,11 +3,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "declaration": true,
-    "sourceMap": true,
-    "composite": true,
+    "noEmit": true,
     "tsBuildInfoFile": ".tsbuildinfo/build.tsbuildinfo"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["test/**/*.ts", "test/**/*.json", "src/**/*.test.ts"]
 }

@@ -75,7 +75,7 @@ scripts/
 
 ## Global Configuration
 
-All projects must call `setGlobal()` before running generators.
+All projects must call `setGlobals()` before running generators.
 
 At minimum, `modId` must be defined.
 
@@ -92,10 +92,10 @@ Access inside generators:
 ```ts
 import { global } from "hytale-generators";
 
-const id = global().modId;
+const id = globals().modId;
 ```
 
-If `setGlobal()` was not called, `global()` throws an error.
+If `setGlobals()` was not called, `globals()` throws an error.
 
 ### `GlobalConfig` Definition
 
@@ -135,7 +135,7 @@ setGlobal({
   customProperty: "value"
 });
 
-const value = global().customProperty;
+const value = globals().customProperty;
 ```
 
 ### Notes
@@ -220,7 +220,7 @@ import { global, syncLang } from "hytale-generators";
 
 syncLang([
   {
-    key: `items.${global().modId}.Example_Item.name`,
+    key: `items.${globals().modId}.Example_Item.name`,
     value: "Example"
   }
 ]);
@@ -337,7 +337,7 @@ Generators can:
 - Write JSON (`syncJson`)
 - Update language (`syncLang`)
 - Generate textures (`syncTexture`)
-- Use global config (`global()`)
+- Use global config (`globals()`)
 
 Example:
 
@@ -362,7 +362,7 @@ export interface OreOptions {
 }
 
 export function ore(id: string, color: string, options?: OreOptions) {
-  const modId = global().modId;
+  const modId = globals().modId;
 
   syncJson<OreData>(
     `Server/Item/Items/Ores/Ore${id}`,
@@ -493,7 +493,7 @@ dist/Server/Languages/en-US/server.lang
 
 Notes:
 
-- Namespacing is based on `global().modId`
+- Namespacing is based on `globals().modId`
 - Each child generates a `Name` key of the form `server.ui.<modId>.<childId>`
 
 ---

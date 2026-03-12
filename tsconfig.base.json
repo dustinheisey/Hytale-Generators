@@ -19,6 +19,6 @@
 
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
   }
 }

@@ -18,7 +18,14 @@ export default defineConfig(
     },
     rules: {
       "@typescript-eslint/no-misused-spread": "off",
-      "@typescript-eslint/no-empty-object-type": "off"
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_"
+        }
+      ]
     }
   },
   prettier
