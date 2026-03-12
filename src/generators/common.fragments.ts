@@ -1,4 +1,4 @@
-import { globals, type HasGroup, type HasId, type HasName, type HasSimpleIcon } from "@hg";
+import { globals, type HasGroup, type HasId, type HasName, type HasSimpleIcon } from "@";
 
 export const withTranslationProperties = ({ group, id }: HasId & HasGroup) => {
   const { modId } = globals();

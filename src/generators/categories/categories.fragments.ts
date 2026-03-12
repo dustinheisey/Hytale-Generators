@@ -1,4 +1,4 @@
-import { globals as g, type HasChildren, type HasOrder } from "@hg";
+import { globals as g, type HasChildren, type HasOrder } from "@";
 
 export const withOrder = ({ order }: HasOrder) => (order ? { order } : {});
 export const withChildren = ({ children }: HasChildren) => {

@@ -1,3 +1,3 @@
-import type { HasBlockSet } from "./block-set.types.js";
+import type { HasBlockSet } from "@";
 
 export const withBlockSet = (cfg: HasBlockSet) => ({ cfg });

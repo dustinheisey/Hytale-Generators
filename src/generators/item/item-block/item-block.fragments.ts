@@ -15,7 +15,7 @@ import {
   ifDefined,
   merge,
   parseTags
-} from "@hg";
+} from "@";
 
 export const withLevel = ({ level }: HasLevel) => ifDefined([level], { itemLevel: level });
 

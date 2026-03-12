@@ -1,5 +1,5 @@
-import { parseIngredients, type HasId } from "@hg";
-import { type HasRestock, type HasFixedTrades, type HasTradePools } from "./barter-shop.types.js";
+import { parseIngredients, type HasId } from "@";
+import { type HasRestock, type HasFixedTrades, type HasTradePools } from "./barter-shop.types";
 
 export const withDisplayNameKey = ({ id }: HasId) => ({ DisplayNameKey: `server.barter.${id}.title` });
 

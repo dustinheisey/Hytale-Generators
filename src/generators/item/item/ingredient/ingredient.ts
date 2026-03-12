@@ -1,5 +1,5 @@
-// import type { HasIcon, HasId, ItemCfg } from "@hg";
-// import { global, json, lang, makeGroup, texture, u } from "@hg";
+// import type { HasIcon, HasId, ItemCfg } from "@";
+// import { global, json, lang, makeGroup, texture, u } from "@";
 // import type { SetOptional } from "type-fest";
 
 // export type MaterialCfg = SetOptional<ItemCfg, "color"> & HasId & HasIcon;

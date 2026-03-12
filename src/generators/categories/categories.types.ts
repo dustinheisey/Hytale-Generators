@@ -1,4 +1,4 @@
-import { type HasId, type HasName, type HasSimpleIcon, type Prettify } from "@hg";
+import { type HasId, type HasName, type HasSimpleIcon, type Prettify } from "@";
 
 export interface HasOrder {
   order?: number;

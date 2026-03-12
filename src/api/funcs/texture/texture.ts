@@ -1,4 +1,4 @@
-import { assertHex, globals, syncDir, type HexColor } from "@hg";
+import { assertHex, globals, syncDir, type HexColor } from "@";
 import sharp from "sharp";
 
 type RGB = { r: number; g: number; b: number };

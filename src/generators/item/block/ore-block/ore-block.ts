@@ -10,7 +10,7 @@
 //   lang,
 // withTags,
 // type OreBlockCfg
-// } from "@hg";
+// } from "@";
 
 // export const oreBlock = builder((cfg: OreBlockCfg, { modId }) => {
 //   const { id, strata, name, description } = cfg;

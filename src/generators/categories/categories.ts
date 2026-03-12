@@ -1,14 +1,4 @@
-import {
-  builder,
-  isString,
-  json,
-  lang,
-  withChildren,
-  withId,
-  withOrder,
-  withSimpleIcon,
-  type CategoriesCfg
-} from "@hg";
+import { builder, isString, json, lang, withChildren, withId, withOrder, withSimpleIcon, type CategoriesCfg } from "@";
 
 export const categories = builder((cfg: CategoriesCfg, { modId, paths: { categories } }) => {
   const langKey = `${categories.langRoot}.${modId}`;

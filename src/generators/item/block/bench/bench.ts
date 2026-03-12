@@ -10,10 +10,12 @@ import {
   type HasId,
   type HasLang,
   type HasStack,
-  type HasTags
-} from "@hg";
-import { builder, json, lang } from "@hg";
-import { withBlockType } from "./bench.fragments.js";
+  type HasTags,
+  builder,
+  json,
+  lang
+} from "@";
+import { withBlockType } from "./bench.fragments";
 
 export interface HasBench {
   outputSlotsCount: number;

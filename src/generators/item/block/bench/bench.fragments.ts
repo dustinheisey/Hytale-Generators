@@ -1,7 +1,6 @@
-import { type HasId, type HasGroup, type HasModel, type HasTexture, ifDefined } from "@hg";
-import type { HasBench } from "./bench.js";
+import { type HasId, type HasGroup, type HasModel, type HasTexture, ifDefined } from "@";
 
-export const withBlockType = (cfg: HasId & HasGroup & HasModel & HasTexture & HasBench) => {
+export const withBlockType = (cfg: HasId & HasGroup & HasModel & HasTexture) => {
   const { model, group, id, texture } = cfg;
   const ifGroup = group ? `${group}/` : "";
   return {

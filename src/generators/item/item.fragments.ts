@@ -1,4 +1,4 @@
-// import type * as C from "@hg";
+// import type * as C from "@";
 
 // export const withItem = {
 //   withTranslationProperties: (cfg: C.HasId & C.HasLang) => {

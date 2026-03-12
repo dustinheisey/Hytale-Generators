@@ -8,7 +8,7 @@ import {
   withItemBlock,
   type HasItemBlock,
   type HasResourceType
-} from "@hg";
+} from "@";
 
 export const ore = builder((cfg: HasItemBlock & HasResourceType, { modId, paths: { item } }) => {
   const { id, name, baseName, description, baseMask, mask, textureOut, color } = cfg;

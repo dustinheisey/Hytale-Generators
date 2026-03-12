@@ -1,4 +1,4 @@
-import { globals, syncFile } from "@hg";
+import { globals, syncFile } from "@";
 import fs from "node:fs";
 
 export interface LangConfig {

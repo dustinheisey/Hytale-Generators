@@ -1,3 +1,3 @@
-import type { HasId } from "@hg";
+import type { HasId } from "@";
 
 export const withIngredient = (cfg: HasId) => ({});

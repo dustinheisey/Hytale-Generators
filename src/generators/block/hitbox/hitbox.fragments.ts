@@ -1,5 +1,4 @@
-import { isNumber } from "@hg";
-import type { HasHitbox } from "./hitbox.types.js";
+import { isNumber, type HasHitbox } from "@";
 
 export const withHitbox = ({ min, max }: HasHitbox) => ({
   boxes: [

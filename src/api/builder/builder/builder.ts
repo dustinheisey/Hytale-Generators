@@ -12,7 +12,7 @@ import {
   type GlobalsCfg,
   type ManyBuilder,
   type ManyInput
-} from "@hg";
+} from "@";
 
 export type BuilderCfg<Config extends object, ExtraArgs extends unknown[]> = {
   build: (cfg: Config, globals: GlobalsCfg) => Record<string, unknown>;

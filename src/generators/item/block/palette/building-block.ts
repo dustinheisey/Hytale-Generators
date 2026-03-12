@@ -1,5 +1,5 @@
-// import type { BlockCfg, HasDrops } from "@hg";
-// import { builder, fragments, json, lang, meta } from "@hg";
+// import type { BlockCfg, HasDrops } from "@";
+// import { builder, fragments, json, lang, meta } from "@";
 
 // export interface BuildingBlockCfg extends BlockCfg, HasDrops {}
 

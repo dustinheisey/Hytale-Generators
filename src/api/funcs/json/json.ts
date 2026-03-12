@@ -1,4 +1,4 @@
-import { globals, syncFile, toPascal } from "@hg";
+import { globals, syncFile, toPascal } from "@";
 import * as fs from "fs";
 
 export function write(path: string, data: object): Record<string, unknown> {

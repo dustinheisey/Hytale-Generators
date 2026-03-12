@@ -1,4 +1,4 @@
-import { type AutoComplete, type HasSimpleIcon } from "@hg";
+import { type AutoComplete, type HasSimpleIcon } from "@";
 
 export type IconProperties = {
   scale: number;
@@ -70,8 +70,8 @@ export type HasTexture = { texture?: string; color?: string; mask?: string; base
 //     textureOut?: string;
 //   };
 
-// import type { AutoComplete } from "@hg";
-// import type * as Item from "../item.types.js";
+// import type { AutoComplete } from "@";
+// import type * as Item from "../item.types";
 
 // export type BlockTexture = {
 //   texture?: string;

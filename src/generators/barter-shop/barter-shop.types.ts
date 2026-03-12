@@ -1,4 +1,4 @@
-import { type HasId } from "@hg";
+import { type HasId } from "@";
 
 export type FixedTrade = {
   input: string | string[];
