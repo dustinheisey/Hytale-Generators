@@ -14,9 +14,8 @@ import {
   type ManyInput
 } from "#hg";
 
-type BuilderCfg<Config extends object, ExtraArgs extends unknown[], Spec> = {
-  build: (cfg: Config, globals: GlobalsCfg, spec?: Spec) => Record<string, unknown>;
-  spec?: Spec;
+export type BuilderCfg<Config extends object, ExtraArgs extends unknown[]> = {
+  build: (cfg: Config, globals: GlobalsCfg) => Record<string, unknown>;
   init?: (...args: ExtraArgs) => Omit<Partial<Config>, "id" | "type">;
   defaults?: Partial<Config>;
   hiddenKeys?: readonly (keyof Config & string)[];
@@ -30,38 +29,25 @@ export function builder<Config extends object, ExtraArgs extends unknown[] = [],
 ): Builder<Config, ExtraArgs, InitKeys>;
 
 // Full config overload
-export function builder<
-  Config extends object,
-  ExtraArgs extends unknown[] = [],
-  InitKeys extends string = never,
-  Spec = void
->(cfg: BuilderCfg<Config, ExtraArgs, Spec>): Builder<Config, ExtraArgs, InitKeys>;
+export function builder<Config extends object, ExtraArgs extends unknown[] = [], InitKeys extends string = never>(
+  cfg: BuilderCfg<Config, ExtraArgs>
+): Builder<Config, ExtraArgs, InitKeys>;
 
 // Implementation
-export function builder<
-  Config extends object,
-  ExtraArgs extends unknown[] = [],
-  InitKeys extends string = never,
-  Spec = void
->(
-  cfgOrBuild: BuilderCfg<Config, ExtraArgs, Spec> | ((cfg: Config, globals: GlobalsCfg) => Record<string, unknown>),
+export function builder<Config extends object, ExtraArgs extends unknown[] = [], InitKeys extends string = never>(
+  cfgOrBuild: BuilderCfg<Config, ExtraArgs> | ((cfg: Config, globals: GlobalsCfg) => Record<string, unknown>),
   defaults?: Partial<Config>
 ): Builder<Config, ExtraArgs, InitKeys> {
-  const cfg: BuilderCfg<Config, ExtraArgs, Spec> =
+  const cfg: BuilderCfg<Config, ExtraArgs> =
     typeof cfgOrBuild === "function"
       ? { build: cfgOrBuild, ...(defaults !== undefined ? { defaults } : {}) }
       : cfgOrBuild;
 
   const { init, defaults: cfgDefaults = {}, hiddenKeys = [], setters = {} } = cfg;
-  const isIdBased = (cfg as unknown as { id?: unknown }).id !== false;
-
-  const callBuild = (c: Config): Record<string, unknown> => {
-    return cfg.build(c, globals(), cfg.spec as Spec);
-  };
 
   const single = (...args: unknown[]) => {
-    const id = isIdBased ? (args[0] as string) : undefined;
-    const extraArgs = (isIdBased ? args.slice(1) : args) as ExtraArgs;
+    const id = args[0] as string | undefined;
+    const extraArgs = args.slice(1) as ExtraArgs;
 
     const initResult = init?.(...extraArgs) ?? {};
     const initKeys = Object.keys(initResult) as InitKeys[];
@@ -78,9 +64,7 @@ export function builder<
       onSet: (prop, value) => {
         state[prop] = value;
       },
-      onBuild: () => {
-        return callBuild(state as Config);
-      }
+      onBuild: () => cfg.build(state as Config, globals())
     });
   };
 
@@ -94,10 +78,7 @@ export function builder<
     const items = normalized.map(c => {
       const explicit: AnyObj = isString(c) ? { id: c } : (c as AnyObj);
       return {
-        state: {
-          ...cfgDefaults,
-          ...explicit
-        } as AnyObj,
+        state: { ...cfgDefaults, ...explicit } as AnyObj,
         locked: new Set(Object.keys(explicit))
       };
     });
@@ -118,7 +99,7 @@ export function builder<
         return api;
       },
       build() {
-        for (const it of items) callBuild(it.state as Config);
+        for (const it of items) cfg.build(it.state as Config, globals());
       }
     };
 
