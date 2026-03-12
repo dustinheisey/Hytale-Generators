@@ -1,54 +1,54 @@
-export * from "./core/builder/builder-group.js";
-export * from "./core/builder/builder.js";
+// ? Api
+export * from "./api/globals/globals.consts.js";
+export * from "./api/globals/globals.js";
 
-export * from "./core/generator/json.js";
-export * from "./core/generator/lang.js";
-export * from "./core/generator/public.js";
-export * from "./core/generator/texture.js";
+export * from "./api/builder/builder/builder.js";
+export * from "./api/builder/builder/builder.types.js";
+export * from "./api/builder/builder-group/builder-group.js";
+export * from "./api/builder/builder-group/builder-group.types.js";
+export * from "./api/builder/flatten-configs/flatten-configs.js";
+export * from "./api/builder/flatten-configs/flatten-configs.types.js";
+export * from "./api/builder/stage-proxy/stage-proxy.js";
+export * from "./api/builder/stage-proxy/stage-proxy.types.js";
 
-export * from "./core/global/consts.js";
-export * from "./core/global/global.js";
+export * from "./api/funcs/json/json.js";
+export * from "./api/funcs/lang/lang.js";
+export * from "./api/funcs/public/public.js";
+export * from "./api/funcs/texture/texture.js";
 
-export * from "./fragments/fragments.js";
-export * from "./fragments/fragments.types.js";
-export * from "./fragments/core.js";
+export * from "./api/util/color/color.js";
+export * from "./api/util/dir/dir.js";
+export * from "./api/util/file/file.js";
+export * from "./api/util/guards/guards.js";
+export * from "./api/util/text/text.js";
+export * from "./api/util/helpers.js";
+export * from "./api/util/types.js";
 
-export * from "./util/color.js";
-export * from "./util/dir.js";
-export * from "./util/file.js";
-export * from "./util/guards.js";
-export * from "./util/helpers.js";
-export * from "./util/text.js";
-export * from "./util/types.js";
-
-export * from "./generators/item/block/bench.js";
-export * from "./generators/item/block/block-set.js";
-export * from "./generators/item/block/building-block.js";
-export * from "./generators/item/block/gem.js";
-export * from "./generators/item/block/hitbox.js";
-export * from "./generators/item/block/ore-block.js";
-export * from "./generators/item/block/palette.js";
-
-export * from "./generators/item/materials.js";
-export * from "./generators/item/ore.js";
-
-export * from "./generators/meta/categories.js";
-export * from "./generators/meta/manifest.js";
-export * from "./generators/meta/resource-type.js";
-
-export * from "./generators/recipe/alchemy.js";
-export * from "./generators/recipe/arcane.js";
-export * from "./generators/recipe/armor.js";
-export * from "./generators/recipe/builders.js";
-export * from "./generators/recipe/campfire.js";
-export * from "./generators/recipe/cooking.js";
-export * from "./generators/recipe/farming.js";
-export * from "./generators/recipe/furnace.js";
-export * from "./generators/recipe/furniture.js";
-export * from "./generators/recipe/loom.js";
-export * from "./generators/recipe/recipe.js";
+// ? Fragments
+export * from "./generators/common.types.js";
+export * from "./generators/categories/categories.types.js";
+export * from "./generators/resource-type/resource-type.types.js";
 export * from "./generators/recipe/recipe.types.js";
-export * from "./generators/recipe/salvage.js";
-export * from "./generators/recipe/tannery.js";
-export * from "./generators/recipe/weapon.js";
-export * from "./generators/recipe/workbench.js";
+export * from "./generators/item/item.types.js";
+export * from "./generators/item/block/bench/bench.types.js";
+export * from "./generators/block/block-set/block-set.types.js";
+export * from "./generators/item/block/gem/gem.types.js";
+export * from "./generators/block/hitbox/hitbox.types.js";
+export * from "./generators/item/block/ore-block/ore-block.types.js";
+export * from "./generators/item/block/palette/palette.types.js";
+export * from "./generators/item/item/ingredient/ingredient.types.js";
+export * from "./generators/item/item-block/item-block.types.js";
+
+export * from "./generators/common.fragments.js";
+export * from "./generators/categories/categories.fragments.js";
+export * from "./generators/recipe/recipe.fragments.js";
+export * from "./generators/block/block-set/block-set.fragments.js";
+export * from "./generators/block/hitbox/hitbox.fragments.js";
+export * from "./generators/item/item-block/item-block.fragments.js";
+
+// ? Generators
+export * from "./generators/manifest/manifest.js";
+export * from "./generators/categories/categories.js";
+export * from "./generators/resource-type/resource-type.js";
+export * from "./generators/recipe/recipe.js";
+export * from "./generators/block/block-set/block-set.js";
