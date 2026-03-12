@@ -13,6 +13,7 @@ ajv.addKeyword("hytale");
 ajv.addKeyword("markdownDescription");
 ajv.addKeyword("hytaleParent");
 ajv.addKeyword("hytaleCommonAsset");
+ajv.addKeyword("hytaleSchemaTypeField");
 
 for (const file of readdirSync(schemasDir).filter(f => f.endsWith(".json"))) {
   const schema = JSON.parse(readFileSync(join(schemasDir, file), "utf-8")) as Record<string, unknown>;

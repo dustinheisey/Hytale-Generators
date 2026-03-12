@@ -26,34 +26,43 @@ export * from "./api/util/types";
 
 // ? Fragments
 export * from "./generators/common.types";
-export * from "./generators/categories/categories.types";
-export * from "./generators/resource-type/resource-type.types";
-export * from "./generators/recipe/recipe.types";
 export * from "./generators/item/item.types";
 // export * from "./generators/item/block/bench/bench.types";
-export * from "./generators/block/block-set/block-set.types";
 // export * from "./generators/item/block/gem/gem.types";
-export * from "./generators/block/hitbox/hitbox.types";
 // export * from "./generators/item/block/ore-block/ore-block.types";
 // export * from "./generators/item/block/palette/palette.types";
 // export * from "./generators/item/item/ingredient/ingredient.types";
 export * from "./generators/item/item-block/item-block.types";
 
 export * from "./generators/common.fragments";
-export * from "./generators/categories/categories.fragments";
-export * from "./generators/recipe/recipe.fragments";
-export * from "./generators/block/block-set/block-set.fragments";
-export * from "./generators/block/hitbox/hitbox.fragments";
-export * from "./generators/item/item-block/item-block.fragments";
 
 // ? Generators
 export * from "./generators/manifest/manifest";
+export * from "./generators/manifest/manifest.types";
+
 export * from "./generators/categories/categories";
-export * from "./generators/resource-type/resource-type";
+export * from "./generators/categories/categories.fragments";
+export * from "./generators/categories/categories.types";
+
 export * from "./generators/recipe/recipe";
+export * from "./generators/recipe/recipe.fragments";
+export * from "./generators/recipe/recipe.types";
+
 export * from "./generators/block/block-set/block-set";
+export * from "./generators/block/block-set/block-set.fragments";
+export * from "./generators/block/block-set/block-set.types";
+
 export * from "./generators/block/hitbox/hitbox";
+export * from "./generators/block/hitbox/hitbox.fragments";
+export * from "./generators/block/hitbox/hitbox.types";
+
+export * from "./generators/resource-type/resource-type";
+export * from "./generators/resource-type/resource-type.types";
 
 export * from "./generators/word-list/word-list";
 export * from "./generators/word-list/word-list.fragments";
 export * from "./generators/word-list/word-list.types";
+
+export * from "./generators/barter-shop/barter-shop";
+export * from "./generators/barter-shop/barter-shop.fragments";
+export * from "./generators/barter-shop/barter-shop.types";

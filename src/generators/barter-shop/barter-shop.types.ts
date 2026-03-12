@@ -8,7 +8,7 @@ export type FixedTrade = {
 
 export type TradePool = {
   slots: number;
-  trades: (FixedTrade & { weight: number })[];
+  trades: (Omit<FixedTrade, "stock"> & { weight: number; stock: number[] })[];
 };
 
 export type RestockDays = number;

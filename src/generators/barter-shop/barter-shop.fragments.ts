@@ -1,4 +1,4 @@
-import { parseIngredients, type HasId } from "@";
+import { parseIngredient, parseIngredients, type HasId } from "@";
 import { type HasRestock, type HasFixedTrades, type HasTradePools } from "./barter-shop.types";
 
 export const withDisplayNameKey = ({ id }: HasId) => ({ DisplayNameKey: `server.barter.${id}.title` });
@@ -16,8 +16,8 @@ export const withTrades = ({ fixedTrades, tradePools }: HasFixedTrades & HasTrad
       ? fixedTrades.map(({ input, output, stock }) => ({
           type: "Fixed",
           trade: {
-            output: parseIngredients(output),
-            input: parseIngredients(input),
+            output: parseIngredient(output),
+            input: parseIngredients(Array.isArray(input) ? input : [input]),
             stock
           }
         }))
@@ -28,8 +28,8 @@ export const withTrades = ({ fixedTrades, tradePools }: HasFixedTrades & HasTrad
           slotCount: slots,
           trades: trades.map(({ weight, input, output, stock }) => ({
             weight,
-            output: parseIngredients(output),
-            input: parseIngredients(input),
+            output: parseIngredient(output),
+            input: parseIngredients(Array.isArray(input) ? input : [input]),
             stock
           }))
         }))
