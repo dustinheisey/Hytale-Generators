@@ -1,28 +1,35 @@
 import { globals, syncFile } from "@";
-import fs from "node:fs";
+import * as fs from "node:fs";
 
-export interface LangConfig {
-  key: string;
-  value: string;
+export type LangFile = "server" | "wordlists";
+
+export interface LangOptions {
+  /** The lang file to write to. Defaults to `"server"`. */
+  langFile?: LangFile;
 }
 
-export function lang(entries: Record<string, string | undefined>): void;
-export function lang(langKey: string, name?: string, description?: string): void;
+export function lang(entries: Record<string, string | undefined>, options?: LangOptions): void;
+export function lang(langKey: string, name?: string, description?: string, options?: LangOptions): void;
 export function lang(
   entriesOrKey: Record<string, string | undefined> | string,
-  name?: string,
-  description?: string
+  nameOrOptions?: string | LangOptions,
+  description?: string,
+  options?: LangOptions
 ): void {
-  const entries: Record<string, string | undefined> =
-    typeof entriesOrKey === "string"
-      ? {
-          [`${entriesOrKey}.name`]: name,
-          [`${entriesOrKey}.description`]: description
-        }
-      : entriesOrKey;
+  const isKeyForm = typeof entriesOrKey === "string";
+  const resolvedOptions: LangOptions = isKeyForm ? (options ?? {}) : ((nameOrOptions as LangOptions | undefined) ?? {});
+  const langFile = resolvedOptions.langFile ?? "server";
+  const isWordlist = langFile === "wordlists";
+
+  const entries: Record<string, string | undefined> = isKeyForm
+    ? {
+        [isWordlist ? entriesOrKey : `${entriesOrKey}.name`]: nameOrOptions as string | undefined,
+        ...(isWordlist ? {} : { [`${entriesOrKey}.description`]: description })
+      }
+    : entriesOrKey;
 
   const { outDir } = globals();
-  const file = `${outDir}/Server/Languages/en-US/server.lang`;
+  const file = `${outDir}/Server/Languages/en-US/${langFile}.lang`;
   syncFile(file);
 
   const updates = new Map(Object.entries(entries).filter((e): e is [string, string] => e[1] !== undefined));

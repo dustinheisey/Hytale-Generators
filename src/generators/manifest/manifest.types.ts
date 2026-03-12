@@ -1,3 +1,20 @@
+export interface AuthorInfo {
+  /** Display name of the author. Required. */
+  name: string;
+
+  /** Contact email address of the author. */
+  email?: string;
+
+  /** URL of the author's website or profile. */
+  url?: string;
+}
+
+/**
+ * A map of plugin identifiers to their required semver ranges.
+ * Keys must be in the format `group:name`, e.g. `"org.example:myplugin": "1.0.0"`.
+ */
+export type DependencyInfo = Record<string, string>;
+
 export interface ManifestCfg {
   /** Group name, e.g. the author's circle or company. Required. */
   group: string;
@@ -53,20 +70,3 @@ export interface ManifestCfg {
    */
   includesAssetPack?: boolean;
 }
-
-export interface AuthorInfo {
-  /** Display name of the author. Required. */
-  name: string;
-
-  /** Contact email address of the author. */
-  email?: string;
-
-  /** URL of the author's website or profile. */
-  url?: string;
-}
-
-/**
- * A map of plugin identifiers to their required semver ranges.
- * Keys must be in the format `group:name`, e.g. `"org.example:myplugin": "1.0.0"`.
- */
-export type DependencyInfo = Record<string, string>;

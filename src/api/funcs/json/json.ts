@@ -1,5 +1,5 @@
 import { globals, syncFile, toPascal } from "@";
-import * as fs from "fs";
+import * as fs from "node:fs";
 
 export function write(path: string, data: object): Record<string, unknown> {
   const file = `${globals().outDir}/${path}.json`;

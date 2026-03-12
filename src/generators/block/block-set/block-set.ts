@@ -1,5 +1,5 @@
-import { builder, json, type HasId, type HasBlockSet, withBlockSet } from "@";
+import { builder, json, withBlockSet, withCommon, type BlockSetCfg } from "@";
 
-export const blockSet = builder(({ id, ...blockSet }: HasId & HasBlockSet, g) =>
-  json(`${g.paths.block.json}/Sets/${id}`, [withBlockSet(blockSet)])
+export const blockSet = builder(({ id, ...cfg }: BlockSetCfg, g) =>
+  json(`${g.paths.block.json}/Sets/${id}`, [withCommon(cfg), withBlockSet(cfg)])
 );

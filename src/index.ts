@@ -52,3 +52,8 @@ export * from "./generators/categories/categories";
 export * from "./generators/resource-type/resource-type";
 export * from "./generators/recipe/recipe";
 export * from "./generators/block/block-set/block-set";
+export * from "./generators/block/hitbox/hitbox";
+
+export * from "./generators/word-list/word-list";
+export * from "./generators/word-list/word-list.fragments";
+export * from "./generators/word-list/word-list.types";

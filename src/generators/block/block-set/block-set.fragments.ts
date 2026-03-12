@@ -1,3 +1,23 @@
-import type { HasBlockSet } from "@";
+import { type HasBlockSet } from "@";
 
-export const withBlockSet = (cfg: HasBlockSet) => ({ cfg });
+export const withBlockSet = ({
+  includeAll,
+  includeBlockTypes,
+  excludeBlockTypes,
+  includeBlockGroups,
+  excludeBlockGroups,
+  includeHitboxTypes,
+  excludeHitboxTypes,
+  includeCategories,
+  excludeCategories
+}: HasBlockSet) => ({
+  includeAll,
+  includeBlockTypes,
+  excludeBlockTypes,
+  includeBlockGroups,
+  excludeBlockGroups,
+  includeHitboxTypes,
+  excludeHitboxTypes,
+  includeCategories,
+  excludeCategories
+});

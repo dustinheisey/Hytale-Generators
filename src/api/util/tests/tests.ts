@@ -1,15 +1,34 @@
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "path";
 import { expect } from "vitest";
 
-const ajv = new Ajv();
+const schemasDir = new URL("../../../schemas", import.meta.url).pathname;
+
+const ajv = new Ajv({ $data: true });
 (addFormats as (ajv: Ajv) => void)(ajv);
 
+ajv.addKeyword("hytale");
+ajv.addKeyword("markdownDescription");
+ajv.addKeyword("hytaleParent");
+ajv.addKeyword("hytaleCommonAsset");
+
+for (const file of readdirSync(schemasDir).filter(f => f.endsWith(".json"))) {
+  const schema = JSON.parse(readFileSync(join(schemasDir, file), "utf-8")) as Record<string, unknown>;
+  ajv.addSchema(schema);
+}
+
 export function matchesSchema(schema: Record<string, unknown>, data: unknown): boolean {
-  const validate = ajv.compile(schema);
+  const id = schema["$id"] as string | undefined;
+  const validate = (id ? ajv.getSchema(id) : undefined) ?? ajv.compile(schema);
+
   const valid = validate(data);
   if (!valid) {
-    expect.fail(`Schema validation failed:\n${JSON.stringify(validate.errors, null, 2)}`);
+    const errors = validate.errors
+      ?.map(e => `  ${e.instancePath || "root"}: ${e.message ?? "unknown error"}`)
+      .join("\n");
+    expect.fail(`Schema validation failed:\n${errors ?? "unknown error"}`);
   }
   return valid;
 }

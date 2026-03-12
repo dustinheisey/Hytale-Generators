@@ -10,7 +10,7 @@ describe("manifest", () => {
         schema,
         manifest()
           .main("org.example.ExamplePlugin")
-          .name("Example")
+          .name("ExampleName")
           .authors([{ name: "test" }])
           .group("test")
           .serverVersion("1.0.0")
