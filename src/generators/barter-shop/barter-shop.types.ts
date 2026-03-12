@@ -1,4 +1,4 @@
-import { type HasId } from "@";
+import { type HasCommon, type HasId } from "@";
 
 export type FixedTrade = {
   input: string | string[];
@@ -22,4 +22,4 @@ export type HasTradePools = {
   tradePools?: TradePool[];
 };
 
-export type BarterShopCfg = HasId & HasRestock & HasFixedTrades & HasTradePools;
+export type BarterShopCfg = HasCommon & HasId & HasRestock & HasFixedTrades & HasTradePools;
