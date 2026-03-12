@@ -1,6 +1,5 @@
-import { builder, json } from "#hg/index";
-
-type ManifestCfg = {
+export type ManifestCfg = {
+  main: string;
   group: string;
   name: string;
   version: string;
@@ -18,9 +17,3 @@ type ManifestCfg = {
   loadBefore?: object;
   subPlugins?: [];
 };
-
-export const manifest = builder({
-  build: (cfg: ManifestCfg) => {
-    json(`manifest`, cfg);
-  }
-});
