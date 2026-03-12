@@ -33,7 +33,11 @@ export interface HasTime {
   time: number;
 }
 
-export type HasCategories<T extends string> = {
+export interface HasRequiredBench<T extends string> {
+  bench: T;
+}
+
+export type HasRecipeCategories<T extends string> = {
   categories: T | T[];
 };
 
