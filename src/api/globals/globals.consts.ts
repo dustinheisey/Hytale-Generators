@@ -1,5 +1,3 @@
-import type { Strata } from "#hg/index";
-
 export const colors = [
   "Black",
   "Blue",
@@ -19,4 +17,4 @@ export const colors = [
   "Yellow"
 ];
 
-export const strata: Strata[] = ["Stone", "Basalt", "Sandstone", "Slate", "Shale", "Volcanic"];
+export const strata = ["Stone", "Basalt", "Sandstone", "Slate", "Shale", "Volcanic"];

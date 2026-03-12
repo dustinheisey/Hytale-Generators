@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { syncDir } from "#hg/index";
+import { syncDir } from "#hg";
 
 /**
  * Ensures a file exists on disk.

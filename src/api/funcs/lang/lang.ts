@@ -1,4 +1,4 @@
-import { global, syncFile } from "#hg/index";
+import { globals, syncFile } from "#hg";
 import fs from "node:fs";
 
 export interface LangConfig {
@@ -6,8 +6,22 @@ export interface LangConfig {
   value: string;
 }
 
-export function lang(entries: Record<string, string | undefined>) {
-  const { outDir } = global();
+export function lang(entries: Record<string, string | undefined>): void;
+export function lang(langKey: string, name?: string, description?: string): void;
+export function lang(
+  entriesOrKey: Record<string, string | undefined> | string,
+  name?: string,
+  description?: string
+): void {
+  const entries: Record<string, string | undefined> =
+    typeof entriesOrKey === "string"
+      ? {
+          [`${entriesOrKey}.name`]: name,
+          [`${entriesOrKey}.description`]: description
+        }
+      : entriesOrKey;
+
+  const { outDir } = globals();
   const file = `${outDir}/Server/Languages/en-US/server.lang`;
   syncFile(file);
 

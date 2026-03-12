@@ -1,4 +1,4 @@
-import { assertNonEmpty } from "#hg/index";
+import { assertNonEmpty, type Prettify } from "#hg";
 /**
  *
  * @param str - string to capitalize
@@ -87,4 +87,53 @@ export function toPascal(input: unknown): unknown {
   }
 
   return input;
+}
+
+export type Tags = Record<string, string[]>;
+type UnionToIntersection<U> = (U extends unknown ? (x: U) => void : never) extends (x: infer I) => void ? I : never;
+
+export function parseTags(input?: string | string[]): Tags {
+  if (input === undefined) return {};
+  const arr = typeof input === "string" ? [input] : input;
+  const result: Tags = {};
+
+  for (const segment of arr) {
+    const pairs = segment.trim().split(/\s+/);
+
+    for (const pair of pairs) {
+      const colonIdx = pair.indexOf(":");
+      if (colonIdx === -1) continue;
+
+      const key = pair.slice(0, colonIdx).trim();
+      const rawValues = pair.slice(colonIdx + 1).trim();
+      if (!key || !rawValues) continue;
+
+      const values = rawValues
+        .split(",")
+        .map(v => v.trim())
+        .filter(Boolean);
+      if (values.length === 0) continue;
+
+      const existing = result[key];
+      if (existing !== undefined) {
+        existing.push(...values);
+      } else {
+        result[key] = values;
+      }
+    }
+  }
+
+  return result;
+}
+
+export function ifDefined<R extends Record<string, unknown>>(
+  values: unknown[] | undefined,
+  result: R,
+  fallback: R = {} as R
+): R {
+  return values !== undefined && values.every(v => v !== undefined && v !== null) ? result : fallback;
+}
+
+export function merge<T extends Record<string, unknown>[]>(...fragments: T): Prettify<UnionToIntersection<T[number]>> {
+  return Object.assign({}, ...fragments) as UnionToIntersection<T[number]>;
 }

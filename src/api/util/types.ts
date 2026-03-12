@@ -26,6 +26,10 @@ export type NoId<T> = Omit<T, "id">;
 
 export type NonEmptyArray<T> = [T, ...T[]];
 
+export type AnyObj = Record<string, unknown>;
+
+export type Prettify<T> = { [K in keyof T]: T[K] } & {};
+
 export function assertNonEmpty<T>(arr: T[]): asserts arr is NonEmptyArray<T> {
   if (arr.length === 0) {
     throw new Error("Expected non-empty array");

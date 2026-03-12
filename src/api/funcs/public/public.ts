@@ -1,13 +1,12 @@
-// TODO: simplify public
 import fs from "fs";
 import path from "path";
 import process from "process";
-import { global } from "#hg/index";
+import { globals } from "#hg";
 
 export const syncPublic = (): void => {
   const root = process.cwd();
   const src = path.join(root, "public");
-  const dest = path.join(root, global().outDir);
+  const dest = path.join(root, globals().outDir);
 
   if (!fs.existsSync(src)) return;
 
