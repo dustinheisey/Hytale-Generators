@@ -1,4 +1,4 @@
-import { builder, isString, json, lang, withChildren, withId, withOrder, withSimpleIcon, type CategoriesCfg } from "@";
+import { builder, isString, json, lang, withChildren, withOrder, withSimpleIcon, type CategoriesCfg } from "@";
 
 export const categories = builder((cfg: CategoriesCfg, { modId, paths: { categories } }) => {
   const langKey = `${categories.langRoot}.${modId}`;
@@ -9,9 +9,8 @@ export const categories = builder((cfg: CategoriesCfg, { modId, paths: { categor
   });
 
   return json(`${categories.json}/${modId}`, [
-    withId(cfg),
     withOrder(cfg),
-    withSimpleIcon(cfg, "ItemCategories"),
+    withSimpleIcon({ ...cfg, icon: cfg.icon ?? modId, id: modId }, "ItemCategories"),
     withChildren(cfg)
   ]);
 });

@@ -10,10 +10,13 @@ export const withChildren = ({ children }: HasChildren) => {
     children: children.map(child => {
       const isString = typeof child === "string";
       const childId = isString ? child : child.id;
+
       return {
         id: childId,
         name: `${categories.lang}.${modId}.${childId}`,
-        icon: `${categories.icon}/${isString ? childId : child.icon}.png`
+        ...(!isString && child.iconGenerated === false
+          ? {}
+          : { icon: `${categories.icon}/${isString ? childId : child.icon}.png` })
       };
     })
   };

@@ -14,9 +14,8 @@ export const withName = ({ name }: HasName) => ({ name });
 
 export const withId = ({ id }: HasId) => ({ id });
 
-export const withSimpleIcon = ({ icon, id }: HasId & HasSimpleIcon, type: string) => ({
-  icon: `Icons/${type}/${icon ?? id}`
-});
+export const withSimpleIcon = ({ icon, id, iconGenerated }: HasId & HasSimpleIcon, type: string) =>
+  iconGenerated !== false ? { icon: `Icons/${type}/${icon ?? id}` } : {};
 
 interface HasParent {
   parent?: string;
