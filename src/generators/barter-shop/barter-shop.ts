@@ -1,4 +1,4 @@
-import { builder, json,withCommon } from "@";
+import { builder, json, withCommon } from "@";
 import { withDisplayNameKey, withRestock, withTrades } from "./barter-shop.fragments";
 import { type BarterShopCfg } from "./barter-shop.types";
 
