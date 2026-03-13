@@ -16,6 +16,7 @@ ajv.addKeyword("hytaleCommonAsset");
 ajv.addKeyword("hytaleSchemaTypeField");
 ajv.addKeyword("enumDescriptions");
 ajv.addKeyword("markdownEnumDescriptions");
+ajv.addKeyword("hytaleAssetRef");
 
 for (const file of readdirSync(schemasDir).filter(f => f.endsWith(".json"))) {
   const schema = JSON.parse(readFileSync(join(schemasDir, file), "utf-8")) as Record<string, unknown>;
@@ -29,8 +30,13 @@ export function matchesSchema(schema: Record<string, unknown>, data: unknown): b
   const valid = validate(data);
   if (!valid) {
     const errors = validate.errors
-      ?.map(e => `  ${e.instancePath || "root"}: ${e.message ?? "unknown error"}`)
+      ?.map(e => {
+        const params = e.params as Record<string, unknown>;
+        const extra = "additionalProperty" in params ? ` ("${String(params.additionalProperty)}")` : "";
+        return `  ${e.instancePath || "root"}: ${e.message ?? "unknown error"}${extra}`;
+      })
       .join("\n");
+
     expect.fail(`Schema validation failed:\n${errors ?? "unknown error"}`);
   }
   return valid;

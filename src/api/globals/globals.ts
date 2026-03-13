@@ -18,6 +18,7 @@ export type GlobalsCfg = {
     recipe: Pick<PathCfg, "json">;
     barterShop: Pick<PathCfg, "json">;
     wordList: Pick<PathCfg, "json">;
+    quality: Pick<PathCfg, "json" | "lang" | "langRoot">;
   };
 };
 
@@ -55,6 +56,11 @@ const globalsDefaults = {
     },
     wordList: {
       json: "/Server/WordLists"
+    },
+    quality: {
+      json: "/Server/Item/Qualities",
+      lang: "server.general.qualities",
+      langRoot: "general.qualities"
     }
   } as const
 } satisfies Partial<GlobalsCfg>;
