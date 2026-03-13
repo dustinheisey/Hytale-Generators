@@ -5,7 +5,6 @@ import {
   type HasMultipleOutputs,
   type HasSingleInput,
   type HasSingleOutput,
-  type HasTier,
   type HasTime,
   type Ingredient,
   type HasRecipeCategories
@@ -26,10 +25,14 @@ export function parseIngredients(input: string[]): Ingredient[] {
 }
 
 /** `{ input: parseIngredient(cfg.input) }` */
-export const withSingleInput = (cfg: HasSingleInput) => ({ input: parseIngredient(cfg.input) });
+export const withSingleInput = (cfg: HasSingleInput) => ({
+  input: parseIngredients(Array.isArray(cfg.input) ? cfg.input : [cfg.input])
+});
 
 /** `{ input: parseIngredients(cfg.input) }` */
-export const withMultipleInputs = (cfg: HasMultipleInputs) => ({ input: parseIngredients(cfg.input) });
+export const withMultipleInputs = (cfg: HasMultipleInputs) => ({
+  input: parseIngredients(Array.isArray(cfg.input) ? cfg.input : [cfg.input])
+});
 
 /** `{ input: parseIngredients(cfg.input) }` — normalizes single or multiple inputs to array */
 export const withAnyInput = (cfg: HasAnyInput) => ({
@@ -57,9 +60,9 @@ export const withAnyOutput = (cfg: HasAnyOutput) => {
 /** `{ timeSeconds: cfg.time }` */
 export const withTime = (cfg: HasTime) => ({ timeSeconds: cfg.time });
 
-export const withCraftingBench =
-  <K extends number>(bench: string) =>
-  (cfg: HasRecipeCategories<string> & HasTier<K>) => ({
+export const withCraftingBench = <K extends number>(bench: string, cfg: HasRecipeCategories<string> & { tier?: K }) => {
+  if (!cfg.categories.length) throw new Error(`withCraftingBench: categories is required`);
+  return {
     benchRequirement: [
       {
         type: "Crafting" as const,
@@ -68,28 +71,25 @@ export const withCraftingBench =
         categories: cfg.categories
       }
     ]
-  });
+  };
+};
 
-export const withProcessingBench =
-  <K extends number>(bench: string) =>
-  (cfg: HasTier<K>) => ({
-    benchRequirement: [
-      {
-        type: "Processing" as const,
-        id: bench,
-        ...(cfg.tier ? { requiredTierLevel: cfg.tier } : {})
-      }
-    ]
-  });
+export const withProcessingBench = (bench: string, cfg: { tier?: number } | object) => ({
+  benchRequirement: [
+    {
+      type: "Processing" as const,
+      id: bench,
+      ...("tier" in cfg && cfg.tier ? { requiredTierLevel: cfg.tier } : {})
+    }
+  ]
+});
 
-export const withStructuralBench =
-  <K extends number>(bench: string) =>
-  (cfg: HasTier<K>) => ({
-    benchRequirement: [
-      {
-        type: "StructuralCrafting" as const,
-        id: bench,
-        ...(cfg.tier ? { requiredTierLevel: cfg.tier } : {})
-      }
-    ]
-  });
+export const withStructuralBench = (bench: string, cfg: { tier?: number } | object) => ({
+  benchRequirement: [
+    {
+      type: "StructuralCrafting" as const,
+      id: bench,
+      ...("tier" in cfg && cfg.tier ? { requiredTierLevel: cfg.tier } : {})
+    }
+  ]
+});

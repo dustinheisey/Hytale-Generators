@@ -2,7 +2,7 @@ import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "path";
-import { expect } from "vitest";
+import { expect, it, describe } from "vitest";
 
 const schemasDir = new URL("../../../schemas", import.meta.url).pathname;
 
@@ -40,4 +40,18 @@ export function matchesSchema(schema: Record<string, unknown>, data: unknown): b
     expect.fail(`Schema validation failed:\n${errors ?? "unknown error"}`);
   }
   return valid;
+}
+
+export function describeSchema(
+  name: string,
+  schema: Record<string, unknown>,
+  fn: (test: (name: string, data: unknown) => void) => void
+) {
+  describe(name, () => {
+    fn((name, data) => {
+      it(`${name} produces output that satisfies the schema`, () => {
+        expect(matchesSchema(schema, data)).toBe(true);
+      });
+    });
+  });
 }

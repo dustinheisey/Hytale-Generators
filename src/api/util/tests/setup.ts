@@ -8,7 +8,6 @@ vi.mock("node:fs", async importOriginal => {
     writeFile: vi.fn(),
     writeFileSync: vi.fn(),
     readFileSync: vi.fn((path: unknown, ...args: unknown[]) => {
-      console.log("loaded", path, ...args);
       if (typeof path === "string" && path.endsWith(".lang")) return "";
       return (actual.readFileSync as (...a: unknown[]) => unknown)(path, ...args);
     }),
