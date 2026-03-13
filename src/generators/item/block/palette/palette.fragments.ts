@@ -1,3 +1,3 @@
-import type { HasId } from "@";
+// import type { HasId } from "@";
 
-export const withPalette = (cfg: HasId) => ({});
+// export const withPalette = (cfg: HasId) => ({});

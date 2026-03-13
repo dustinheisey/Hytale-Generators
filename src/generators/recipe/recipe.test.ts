@@ -16,7 +16,7 @@ describe("craftingRecipes", () => {
     "alchemy",
     craftingRecipes
       .alchemy("test")
-      .input(["2x Herb_Moonpetal"])
+      .input(["2x Test"])
       .output("Potion_Health_Small")
       .time(10)
       .categories(["Alchemy_Potions"])

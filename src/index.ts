@@ -66,3 +66,6 @@ export * from "./generators/word-list/word-list.types";
 export * from "./generators/barter-shop/barter-shop";
 export * from "./generators/barter-shop/barter-shop.fragments";
 export * from "./generators/barter-shop/barter-shop.types";
+
+// export * from "./generators/tmp-item/item.types";
+// export * from "./generators/tmp-item/item.fragments";

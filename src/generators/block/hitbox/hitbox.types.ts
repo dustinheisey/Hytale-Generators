@@ -9,7 +9,7 @@ import { type Prettify, type HasCommon, type HasId } from "@";
 export type Vector3d = number | { x: number; y: number; z: number };
 
 /**
- * Defines an axis-aligned bounding box (AABB) using two corner points.
+ * Defines an axis-aligned bounding box using two corner points.
  */
 export interface HasHitbox {
   /** The minimum corner of the bounding box (bottom-back-left). */
