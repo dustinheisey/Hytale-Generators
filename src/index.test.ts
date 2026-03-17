@@ -15,7 +15,6 @@ import {
   gem,
   hitbox,
   loom,
-  manifest,
   materials,
   ore,
   oreBlock,
@@ -28,16 +27,6 @@ import {
 } from "./index.js";
 
 setGlobal({ modId: "HytaleGenerators", outDir: "test" });
-
-manifest()
-  .name("Example")
-  .authors([{ name: "sdfsf" }])
-  .description("sdfsdf")
-  .group("sdfsf")
-  .serverVersion("dfsf")
-  .version("sdfsf")
-  .website("sdfsf")
-  .build();
 
 categories()
   .children(["hello", { id: "hello2", icon: "rocks" }])

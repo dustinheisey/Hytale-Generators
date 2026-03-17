@@ -6,3 +6,7 @@ itemsGenerated
 node_modules
 *.code-workspace
 assets
+preview
+todo.md
+src/schemas
+preview.ts
