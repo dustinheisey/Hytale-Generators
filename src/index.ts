@@ -32,7 +32,7 @@ export * from "./generators/item/item.types";
 // export * from "./generators/item/block/ore-block/ore-block.types";
 // export * from "./generators/item/block/palette/palette.types";
 // export * from "./generators/item/item/ingredient/ingredient.types";
-export * from "./generators/item/item-block/item-block.types";
+// export * from "./generators/item/item-block/item-block.types";
 
 export * from "./generators/common.fragments";
 
@@ -71,5 +71,6 @@ export * from "./generators/quality/quality";
 export * from "./generators/quality/quality.fragments";
 export * from "./generators/quality/quality.types";
 
-// export * from "./generators/tmp-item/item.types";
-// export * from "./generators/tmp-item/item.fragments";
+export * from "./generators/thing/thing";
+export * from "./generators/thing/thing.fragments";
+export * from "./generators/thing/thing.types";

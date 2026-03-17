@@ -1,15 +1,15 @@
-import { type AutoComplete, type HasSimpleIcon } from "@";
+import { type AutoComplete } from "@";
 
-export type IconProperties = {
-  scale: number;
-  rotation: [number, number, number];
-  translation: [number, number];
-};
+// export type IconProperties = {
+//   scale: number;
+//   rotation: [number, number, number];
+//   translation: [number, number];
+// };
 
-export interface HasIcon extends HasSimpleIcon {
-  baseIcon?: string;
-  iconProperties?: IconProperties;
-}
+// export interface HasIcon extends HasSimpleIcon {
+//   baseIcon?: string;
+//   iconProperties?: IconProperties;
+// }
 
 export type Tab = AutoComplete<
   | "Items"
@@ -53,11 +53,11 @@ export type Tab = AutoComplete<
 //   resourceType?: string;
 // }
 
-export interface HasColor {
-  color: string;
-}
+// export interface HasColor {
+//   color: string;
+// }
 
-export type HasTexture = { texture?: string; color?: string; mask?: string; baseMask?: string; textureOut?: string };
+// export type HasTexture = { texture?: string; color?: string; mask?: string; baseMask?: string; textureOut?: string };
 
 // export type HasTexture<T extends string = ""> = HasIcon &
 //   HasColor & {

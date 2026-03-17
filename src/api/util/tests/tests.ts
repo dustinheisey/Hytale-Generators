@@ -17,6 +17,8 @@ ajv.addKeyword("hytaleSchemaTypeField");
 ajv.addKeyword("enumDescriptions");
 ajv.addKeyword("markdownEnumDescriptions");
 ajv.addKeyword("hytaleAssetRef");
+ajv.addKeyword("doNotSuggest");
+ajv.addKeyword("hytaleCustomAssetRef");
 
 for (const file of readdirSync(schemasDir).filter(f => f.endsWith(".json"))) {
   const schema = JSON.parse(readFileSync(join(schemasDir, file), "utf-8")) as Record<string, unknown>;

@@ -1,4 +1,4 @@
-import { type HasName, type HasSimpleIcon, type Prettify } from "@";
+import { type HasName, type HasIcon, type Prettify } from "@";
 
 export interface HasOrder {
   order?: number;
@@ -17,4 +17,4 @@ export interface HasChildren {
   children: Child[];
 }
 
-export type CategoriesCfg = Prettify<HasName & HasOrder & HasSimpleIcon & HasChildren>;
+export type CategoriesCfg = Prettify<HasName & HasOrder & HasIcon & HasChildren>;

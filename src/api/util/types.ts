@@ -35,3 +35,5 @@ export function assertNonEmpty<T>(arr: T[]): asserts arr is NonEmptyArray<T> {
     throw new Error("Expected non-empty array");
   }
 }
+
+export type HasRequired<T, K extends keyof T> = T & Required<Pick<T, K>>;

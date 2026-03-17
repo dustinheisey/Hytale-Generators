@@ -1,4 +1,4 @@
-import { globals, ifDefined, merge, parseTags, type HasGroup, type HasId, type HasName, type HasSimpleIcon } from "@";
+import { globals, ifDefined, merge, parseTags, type HasGroup, type HasId, type HasName, type HasIcon } from "@";
 
 export const withTranslationProperties = ({ group, id }: HasId & HasGroup) => {
   const { modId } = globals();
@@ -14,7 +14,7 @@ export const withName = ({ name }: HasName) => ({ name });
 
 export const withId = ({ id }: HasId) => ({ id });
 
-export const withSimpleIcon = ({ icon, id, iconGenerated }: HasId & HasSimpleIcon, type: string) =>
+export const withSimpleIcon = ({ icon, id, iconGenerated }: HasId & HasIcon, type: string) =>
   iconGenerated !== false ? { icon: `Icons/${type}/${icon ?? id}` } : {};
 
 interface HasParent {

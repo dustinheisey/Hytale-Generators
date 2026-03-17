@@ -19,7 +19,7 @@ export interface HasLang extends HasName {
   description?: string;
 }
 
-export interface HasSimpleIcon {
+export interface HasIcon {
   icon?: string;
   iconGenerated?: boolean;
 }

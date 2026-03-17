@@ -1,7 +1,6 @@
 import type { Prettify } from "@/api/util/types";
 import type { HasCommon } from "../common.fragments";
-import type { ItemEntityConfig } from "../tmp-item/item.types";
-import type { HasId } from "@";
+import type { HasId, HasItemEntity } from "@";
 
 export type HasQuality = Prettify<{
   /** Define the value of the quality to order them, 0 being the lowest quality. */
@@ -33,7 +32,7 @@ export type HasQuality = Prettify<{
   /** To specify if we display a special slot texture if the item is a consumable or usable. */
   special?: boolean;
   /** Provides an ItemEntityConfig used for all items with their item quality set to this asset unless overridden by an ItemEntityConfig defined on the item itself. */
-  itemEntityConfig?: ItemEntityConfig;
+  itemEntityConfig?: HasItemEntity["itemEntity"];
   particleParent?: "common" | "epic" | "legendary" | "rare" | "uncommon";
   /** Whether this item is hidden from typical public search, like the creative library */
   hidden?: boolean;
