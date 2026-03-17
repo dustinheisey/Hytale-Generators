@@ -26,5 +26,5 @@ export const alchemy = builder({
       ],
       timeSeconds: time
     });
-  },
+  }
 });

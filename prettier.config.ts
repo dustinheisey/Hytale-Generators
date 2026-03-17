@@ -12,7 +12,6 @@ export default {
   bracketSpacing: true,
   bracketSameLine: false,
   organizeImportsSkipDestructiveCodeActions: true,
-  plugins: ["prettier-plugin-organize-imports"],
   endOfLine: "lf",
   insertPragma: false,
   proseWrap: "preserve",
