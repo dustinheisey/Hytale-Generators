@@ -15,7 +15,7 @@ export const workbench = builder({
       benchRequirement: [
         {
           type: "Crafting" as const,
-          id: "Workbench_Bench" as const,
+          id: "Workbench" as const,
           ...(tier ? { requiredTierLevel: tier } : {}),
           categories: spreadItems(categories)
         }
