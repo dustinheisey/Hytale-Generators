@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/dustinheisey/Hytale-Generators/compare/v0.3.2...v0.3.3) (2026-03-17)
+
+
+### Bug Fixes
+
+* fix commit errors ([7516eb4](https://github.com/dustinheisey/Hytale-Generators/commit/7516eb4453f892f2636ed0373786b4c3ef123eb2))
+
 ## [0.3.2](https://github.com/dustinheisey/Hytale-Generators/compare/v0.3.1...v0.3.2) (2026-03-07)
 
 ### Bug Fixes
