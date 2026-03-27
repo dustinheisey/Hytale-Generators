@@ -1,4 +1,4 @@
-export type Fragment<Cfg> = (cfg: Cfg) => object;
+// Types that are used in multiple unrelated generators
 
 export type HasId = { id: string };
 export type HasGroup = { group?: string };
@@ -15,7 +15,9 @@ export interface HasName {
   baseName?: string;
 }
 
-export interface HasLang extends HasName {
+export interface HasLang {
+  name?: string;
+  baseName?: string;
   description?: string;
 }
 
@@ -23,3 +25,13 @@ export interface HasIcon {
   icon?: string;
   iconGenerated?: boolean;
 }
+
+export interface HasParent {
+  parent?: string;
+}
+
+export interface HasTags {
+  tags?: string | string[];
+}
+
+export type HasCommon = HasParent & HasTags;

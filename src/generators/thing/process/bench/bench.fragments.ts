@@ -1,6 +1,6 @@
-// import { type HasId, type HasGroup, type HasModel, type HasTexture, ifDefined } from "@";
+// import { type HasId,  type HasModel, type HasTexture, ifDefined } from "@";
 
-// export const withBlockType = (cfg: HasId & HasGroup & HasModel & HasTexture) => {
+// export const withBlockType = (cfg: HasId  & HasModel & HasTexture) => {
 //   const { model, group, id, texture } = cfg;
 //   const ifGroup = group ? `${group}/` : "";
 //   return {

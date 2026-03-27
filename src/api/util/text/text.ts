@@ -126,6 +126,9 @@ export function parseTags(input?: string | string[]): Tags {
   return result;
 }
 
+export const defined = <T extends object>(obj: T): Partial<T> =>
+  Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as Partial<T>;
+
 export function ifDefined<R extends Record<string, unknown>>(
   values: unknown[] | undefined,
   result: R,

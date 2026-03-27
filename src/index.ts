@@ -25,18 +25,13 @@ export * from "./api/util/helpers";
 export * from "./api/util/types";
 
 // ? Fragments
-export * from "./generators/common.types";
-export * from "./generators/item/item.types";
-// export * from "./generators/item/block/bench/bench.types";
-// export * from "./generators/item/block/gem/gem.types";
-// export * from "./generators/item/block/ore-block/ore-block.types";
-// export * from "./generators/item/block/palette/palette.types";
-// export * from "./generators/item/item/ingredient/ingredient.types";
-// export * from "./generators/item/item-block/item-block.types";
 
-export * from "./generators/common.fragments";
+// export * from "./generators/item/item.types";
 
 // ? Generators
+export * from "./generators/generators.fragments";
+export * from "./generators/generators.types";
+
 export * from "./generators/manifest/manifest";
 export * from "./generators/manifest/manifest.types";
 
@@ -74,3 +69,47 @@ export * from "./generators/quality/quality.types";
 export * from "./generators/thing/thing";
 export * from "./generators/thing/thing.fragments";
 export * from "./generators/thing/thing.types";
+
+export * from "./generators/thing/block/block.types";
+
+export * from "./generators/thing/block/bench/bench";
+export * from "./generators/thing/block/bench/bench.types";
+
+// export * from "./generators/thing/block/decorative/decorative";
+// export * from "./generators/thing/block/decorative/decorative.types";
+
+export * from "./generators/thing/block/gem/gem";
+export * from "./generators/thing/block/gem/gem.types";
+
+export * from "./generators/thing/block/ore-block/ore-block";
+export * from "./generators/thing/block/ore-block/ore-block.types";
+
+// export * from "./generators/thing/item/armor/armor";
+// export * from "./generators/thing/item/armor/armor.types";
+
+// export * from "./generators/thing/item/fuel/fuel";
+// export * from "./generators/thing/item/fuel/fuel.types";
+
+// export * from "./generators/thing/item/glider/glider";
+// export * from "./generators/thing/item/glider/glider.types";
+
+// export * from "./generators/thing/item/ingredient/ingredient";
+export * from "./generators/thing/item/ingredient/ingredient.types";
+
+// export * from "./generators/thing/item/ore/ore";
+// export * from "./generators/thing/item/ore/ore.types";
+
+// export * from "./generators/thing/item/portal-key/portal-key";
+// export * from "./generators/thing/item/portal-key/portal-key.types";
+
+// export * from "./generators/thing/item/potion/potion";
+// export * from "./generators/thing/item/potion/potion.types";
+
+// export * from "./generators/thing/item/tool/tool";
+// export * from "./generators/thing/item/tool/tool.types";
+
+// export * from "./generators/thing/item/utility/utility";
+// export * from "./generators/thing/item/utility/utility.types";
+
+// export * from "./generators/thing/item/weapon/weapon";
+// export * from "./generators/thing/item/weapon/weapon.types";

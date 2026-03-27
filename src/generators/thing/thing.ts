@@ -1,15 +1,49 @@
-import { builder, isString, json, lang, texture, u, withCommonThing } from "@";
-import type { ThingCfg } from "./thing.types";
+import { isString, json, lang, texture, withThing, type GlobalsCfg, type ThingCfg } from "@";
 
-export const thing = builder((cfg: ThingCfg, { modId, paths: { item } }) => {
-  const { baseName, group, description, baseMask, out, color } = cfg;
-  const id = group ? `${group}_${cfg.id}` : cfg.id;
-  const name = cfg.name ?? `${baseName ?? id}${group ? ` ${group}` : ""}`;
-  const mask = cfg.mask ?? (group ? `${group}s/${group}${baseMask ? `_${u(baseMask)}` : ""}` : "");
-  const textureOut = isString(out?.texture) ? out.texture : `${out?.texture.root ?? ""}/${id}`;
-  const jsonOut = isString(out?.json) ? `${item.json}/${out.json}` : `${item.json}${out?.json.root ?? ""}/${id}`;
+const resolveId = (group: string | undefined, id: string) => (group ? `${group}_${id}` : id);
 
-  lang(`${item.langRoot}.${modId}.${id}`, name, description);
-  if (mask) texture(color, mask, textureOut);
-  return json(jsonOut, [withCommonThing(cfg)]);
-});
+const resolvePath = (base: string, out: string | { root: string } | undefined, id: string) =>
+  isString(out) ? `${base}/${out}` : `${base}${out?.root ?? ""}/${id}`;
+
+const resolveName = (id: string, name?: string, baseName?: string, group?: string) =>
+  name ?? `${id}${baseName ?? (group ? ` ${group}` : "")}`;
+
+const resolveMask = (group: string | undefined, mask?: string, baseMask?: string) =>
+  group ? (mask ?? `${group}s/${group}${baseMask ? `_${baseMask}` : ""}`) : undefined;
+
+export const thing = (cfg: ThingCfg, g: GlobalsCfg, fragments?: Record<string, unknown>[]): Record<string, unknown> => {
+  const {
+    modId,
+    paths: { item }
+  } = g;
+  const id = resolveId(cfg.group, cfg.id);
+  const name = resolveName(cfg.id, cfg.name, cfg.baseName, cfg.group);
+  const mask = resolveMask(cfg.group, cfg.mask, cfg.baseMask);
+  const jsonOut = resolvePath(item.json, cfg.out?.json, id);
+  const textureOut = resolvePath("", cfg.out?.texture, id);
+
+  lang(`${item.langRoot}.${modId}.${id}`, name, cfg.description);
+  if (mask) texture(cfg.color, mask, textureOut);
+  return json(jsonOut, [withThing(cfg), ...(fragments ?? [])]);
+};
+
+// import type { FilterOf, HasFilter } from "@";
+
+// export function matchesFilter<Cfg extends HasFilter<string>>(cfg: Cfg, filter: FilterOf<Cfg>): boolean {
+//   if (cfg.include) {
+//     const includes = Array.isArray(cfg.include) ? cfg.include : [cfg.include];
+//     return includes.some(f => filter.includes(f));
+//   }
+
+//   if (cfg.exclude) {
+//     const excludes = Array.isArray(cfg.exclude) ? cfg.exclude : [cfg.exclude];
+//     return !excludes.some(f => filter.includes(f));
+//   }
+
+//   return true;
+// }
+
+// export function filter<Cfg extends HasFilter<string>>(cfgs: Cfg[], f: FilterOf<Cfg>): Cfg[] {
+//   return cfgs.filter(cfg => matchesFilter(cfg, f));
+// }
+

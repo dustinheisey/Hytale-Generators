@@ -1,6 +1,5 @@
 import type { Prettify } from "@/api/util/types";
-import type { HasCommon } from "../common.fragments";
-import type { HasId, HasItemEntity } from "@";
+import { type HasId, type HasItemEntity, type HasCommon } from "@";
 
 export type HasQuality = Prettify<{
   /** Define the value of the quality to order them, 0 being the lowest quality. */

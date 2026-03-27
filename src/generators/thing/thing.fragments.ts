@@ -1,4 +1,4 @@
-import { globals, merge, type CommonThingCfg, type HasLang } from "@";
+import { merge, type ThingCfg, defined, withTranslation, type HasRendering } from "@";
 import {
   type HasAssetIcon,
   type HasCategories,
@@ -7,8 +7,7 @@ import {
   type HasItemQuality,
   type HasItemEntity,
   type HasDropOnDeath,
-  type HasPickupSound,
-  type HasItemSoundSet,
+  type HasSound,
   type HasSet,
   type HasModel,
   type HasScale,
@@ -49,10 +48,6 @@ import {
 type HasId = { id: string };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
-
-export const defined = <T extends object>(obj: T): Partial<T> =>
-  Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as Partial<T>;
-
 const parseModifier = (
   str: string
 ): { target: "Min" | "Max"; calculationType: "Additive" | "Multiplicative"; amount: number } | undefined => {
@@ -74,16 +69,16 @@ const buildModifierMap = (map: Record<string, StaticModifier[]>) =>
 
 // ─── Icon ─────────────────────────────────────────────────────────────────────
 
-export const withIcon = ({ id, icon, iconGenerated, iconProperties }: HasId & HasAssetIcon) =>
-  iconGenerated !== false
+export const withAssetIcon = ({ id, icon }: HasId & HasAssetIcon) =>
+  icon?.generated !== false
     ? defined({
-        icon: `Icons/ItemsGenerated/${icon ?? id}.png`,
+        icon: `Icons/ItemsGenerated/${icon?.path ?? id}.png`,
         iconProperties:
-          iconProperties &&
+          icon?.properties &&
           defined({
-            scale: iconProperties.scale,
-            translation: iconProperties.translation,
-            rotation: iconProperties.rotation
+            scale: icon.properties.scale,
+            translation: icon.properties.translation,
+            rotation: icon.properties.rotation
           })
       })
     : {};
@@ -91,18 +86,6 @@ export const withIcon = ({ id, icon, iconGenerated, iconProperties }: HasId & Ha
 // ─── Categories ───────────────────────────────────────────────────────────────
 
 export const withCategories = ({ categories }: HasCategories) => defined({ categories });
-
-// ─── Translation ──────────────────────────────────────────────────────────────
-
-export const withTranslation = ({ id, description }: HasId & HasLang) => {
-  const lang = `${globals().paths.item.langRoot}.${id}`;
-  return {
-    translationProperties: defined({
-      name: `${lang}.name`,
-      description: description !== undefined ? `${lang}.description` : undefined
-    })
-  };
-};
 
 // ─── Item Level ───────────────────────────────────────────────────────────────
 
@@ -142,13 +125,9 @@ export const withItemEntity = ({ itemEntity }: HasItemEntity) =>
 
 export const withDropOnDeath = ({ dropOnDeath }: HasDropOnDeath) => defined({ dropOnDeath });
 
-// ─── Pickup Sound ─────────────────────────────────────────────────────────────
+// ─── Sounds ─────────────────────────────────────────────────────────────
 
-export const withPickupSound = ({ pickupSound }: HasPickupSound) => defined({ soundEventId: pickupSound });
-
-// ─── Item Sound Set ───────────────────────────────────────────────────────────
-
-export const withItemSoundSet = ({ soundSet }: HasItemSoundSet) => defined({ itemSoundSetId: soundSet });
+export const withSounds = ({ sound }: HasSound) => defined({ soundEventId: sound?.pickup, itemSoundSetId: sound?.set });
 
 // ─── Set ──────────────────────────────────────────────────────────────────────
 
@@ -166,6 +145,8 @@ export const withAnimation = ({ animation }: HasAnimation) => defined({ animatio
 
 export const withUsePlayerAnimations = ({ usePlayerAnimations }: HasUsePlayerAnimations) =>
   defined({ usePlayerAnimations });
+
+// export const withPlayerAnimationsId = (type: "Block" | "Item") => ({ playerAnimationsId: type });
 
 export const withPlayerAnimationsId = ({ playerAnimationsId }: HasPlayerAnimationsId) =>
   defined({ playerAnimationsId });
@@ -212,25 +193,8 @@ export const withState = ({ state }: HasState) => (state != null ? { state } : {
 
 // ─── Rendering (combined) ─────────────────────────────────────────────────────
 
-export const withRendering = (
-  cfg: HasId &
-    HasModel &
-    HasScale &
-    HasTexture &
-    HasAnimation &
-    HasUsePlayerAnimations &
-    HasPlayerAnimationsId &
-    HasDroppedItemAnimation &
-    HasParticles &
-    HasFirstPersonParticles &
-    HasTrails &
-    HasLight &
-    HasItemAppearanceConditions &
-    HasGeometryBehavior &
-    HasHud &
-    HasState
-) =>
-  merge(
+export const withRendering = (cfg: HasId & HasRendering) => {
+  return merge(
     withModel(cfg),
     withScale(cfg),
     withTexture(cfg),
@@ -247,6 +211,7 @@ export const withRendering = (
     withPlayerAnimationsId(cfg),
     withGeometryBehavior(cfg)
   );
+};
 
 // ─── Resource Types ───────────────────────────────────────────────────────────
 
@@ -263,11 +228,11 @@ export const withVariant = ({ variant }: HasVariant) => defined({ variant: varia
 
 // ─── Interactions ─────────────────────────────────────────────────────────────
 
-export const withInteractions = ({ interactions, interactionVars, disabled }: HasInteractions) =>
+export const withInteractions = ({ interactions }: HasInteractions) =>
   defined({
-    interactions,
-    interactionVars,
-    interactionConfig: disabled !== undefined ? { disabled } : undefined
+    interactions: interactions?.interactions,
+    interactionVars: interactions?.interactionVars,
+    interactionConfig: { disabled: interactions?.disabled }
   });
 
 // ─── Durability ───────────────────────────────────────────────────────────────
@@ -472,12 +437,12 @@ export const withBlockType = ({ blockType }: HasBlockType) =>
 export const withRenderDeployablePreview = ({ renderPreview }: HasRenderDeployablePreview) =>
   defined({ renderDeployablePreview: renderPreview });
 
-export const withCommonThing = (cfg: CommonThingCfg) =>
+export const withThing = (cfg: ThingCfg) =>
   merge(
     withTranslation(cfg),
     withCategories(cfg),
     withSet(cfg),
-    withIcon(cfg),
+    withAssetIcon(cfg),
     withRendering(cfg),
     withMaxStack(cfg),
     withItemLevel(cfg),
@@ -485,8 +450,6 @@ export const withCommonThing = (cfg: CommonThingCfg) =>
     withItemEntity(cfg),
     withResourceTypes(cfg),
     withDropOnDeath(cfg),
-    withVariant(cfg),
-    withPickupSound(cfg),
-    withItemSoundSet(cfg),
+    withSounds(cfg),
     withInteractions(cfg)
   );

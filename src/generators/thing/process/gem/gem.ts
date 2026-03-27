@@ -13,7 +13,6 @@
 //   withTags,
 //   withTranslationProperties,
 //   type HasCategories,
-//   type HasGroup,
 //   type HasId,
 //   type HasLang,
 //   type HasStack,
@@ -25,7 +24,7 @@
 
 // export const gem = builder(
 //   (
-//     cfg: HasId & HasParticleColor & HasGroup & HasTags & HasLang & HasStack & HasCategories & HasTexture,
+//     cfg: HasId & HasParticleColor  & HasTags & HasLang & HasStack & HasCategories & HasTexture,
 //     { modId, paths: { item } }
 //   ) => {
 //     const { color, id, name, description, textureOut, mask, baseMask } = cfg;
