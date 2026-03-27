@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.3](https://github.com/dustinheisey/Hytale-Generators/compare/v0.3.2...v0.3.3) (2026-03-27)
+
+
+### Bug Fixes
+
+* fix commit errors ([7516eb4](https://github.com/dustinheisey/Hytale-Generators/commit/7516eb4453f892f2636ed0373786b4c3ef123eb2))
+* fix wrong workbench bench id ([b830dc0](https://github.com/dustinheisey/Hytale-Generators/commit/b830dc048ca4476f2fb4c50f6def6cf591a7c34d))
+
 ## [0.3.2](https://github.com/dustinheisey/Hytale-Generators/compare/v0.3.1...v0.3.2) (2026-03-07)
 
 ### Bug Fixes
